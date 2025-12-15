@@ -1,0 +1,819 @@
+{
+  "pageTitles": {
+    "home": "Home",
+    "houseworkSettings": "Housework settings",
+    "houseworkAssign": "Housework board",
+    "myTasks": "My tasks",
+    "shopping": "Shopping list",
+    "shoppingCreate": "New shopping item",
+    "shoppingEdit": "Edit shopping item",
+    "settings": "Settings",
+    "accountSettings": "Account settings",
+    "houseworkCreate": "New housework",
+    "houseworkEdit": "Edit housework",
+    "app": "アプリ情報",
+    "terms": "利用規約",
+    "privacy": "プライバシーポリシー"
+  },
+  "login": {
+    "hero": {
+      "title": "Share housework and shopping with your household.",
+      "titleFirst": "Share housework and shopping,",
+      "title2nd": "gently with everyone at home.",
+      "description": {
+        "beforeHighlight": "Housework Hub is an app to",
+        "highlight": "make housework and shopping visible for everyone at home",
+        "afterHighlight": ". It’s your personal gateway to task assignments and the “My Tasks” page."
+      },
+      "notes": {
+        "sameAccount": "・You can sign in with the same account as the browser version.",
+        "sharedData": "・Your data is shared across both PC and smartphone."
+      }
+    },
+    "title": "Sign in",
+    "subtitle": "Sign in with your registered email and password.",
+    "google": "Sign in with Google (Coming soon)",
+    "divider": "or",
+    "email": "Email",
+    "password": "Password",
+    "placeholderEmail": "you{'@'}example.com",
+    "placeholderPassword": "••••••••",
+    "errorInvalid": "Invalid email or password.",
+    "submit": {
+      "default": "Sign in",
+      "loading": "Signing in…"
+    },
+    "noAccount": "Don't have an account?",
+    "goSignup": "Sign up",
+    "goSignupSuffix": ""
+  },
+  "signup": {
+    "title": "Create Account",
+    "subtitle": {
+      "line1": "First time here?",
+      "line2": "Let's create your account."
+    },
+    "description": {
+      "aboutSharing": "Share shopping lists and housework assignments with your household members.",
+      "multiHousehold": "You can manage multiple households with one account.",
+      "noteChangeable": "※ Language and profile image can be changed after creating the account.",
+      "devNote": "As this is under development, the email address is only for login. You can use a non-existing email for registration."
+    },
+    "fields": {
+      "email": "Email",
+      "displayName": "Display name",
+      "password": "Password",
+      "passwordConfirm": "Confirm password",
+      "passwordHint": "8 characters or more",
+      "locale": "Preferred language"
+    },
+    "placeholder": {
+      "email": "you{'@'}example.com",
+      "displayName": "e.g. Dad / Mom / Mike"
+    },
+    "errors": {
+      "emailUsed": "This email address is already registered.",
+      "failed": "Failed to create account. Please try again later."
+    },
+    "submit": {
+      "default": "Create account",
+      "loading": "Creating..."
+    },
+    "haveAccountPrefix": "Already have an account?",
+    "goLoginBottom": "Already have an account? ",
+    "goLogin": "Go to login",
+    "bottom": {
+      "haveAccount": "Already have an account?",
+      "goLogin": "Go to login",
+      "suffix": ""
+    },
+    "header": {
+      "haveAccountLink": "Already have an account?"
+    }
+  },
+  "invite": {
+    "page": {
+      "hero": {
+        "badge": "HOUSEHOLD INVITATION",
+        "heading": "You’ve been invited to a household.",
+        "description": "If you accept this invitation, you will join the household and be able to share chores and shopping lists.",
+        "notice": "If you received this invitation by mistake, please choose “Decline” on the right."
+      },
+      "loading": "Loading invitation information…",
+      "error": {
+        "invalid": "This invitation is invalid or may have expired.",
+        "acceptFailed": "Failed to join the household. Please try again later.",
+        "declineFailed": "Failed to decline the invitation.",
+        "reloadButton": "Reload"
+      },
+      "info": {
+        "householdTitle": "Invited household",
+        "inviterLabel": "Inviter:",
+        "invitedEmailLabel": "Invited email address:"
+      },
+      "warning": {
+        "emailMismatch": "The currently logged-in account ({currentEmail}) is different from the invited email address ({invitedEmail}).\nPlease make sure you are joining with the correct account."
+      },
+      "loginNeeded": {
+        "message": "To join, you need to log in or create an account.",
+        "loginAndJoin": "Log in and join",
+        "signupAndJoin": "Create a new account"
+      },
+      "loggedIn": {
+        "confirmMessage": "Do you want to join the household “{householdName}” with this account?"
+      },
+      "actions": {
+        "accept": "Join",
+        "decline": "Decline"
+      }
+    }
+  },
+  "layout": {
+    "sidebar": {
+      "householdTitle": "Household",
+      "currentHouseholdLabel": "Current household",
+      "noHouseholdSelected": "No household selected",
+      "otherHouseholdsLabel": "Other households",
+      "editingWarning": "You cannot switch households while editing.",
+      "mobileHouseholdPrefix": "Household: ",
+      "confirmChangeHousehold": "Your current changes may be discarded. Do you want to switch the household?"
+    }
+  },
+  "appHeader": {
+    "iconAlt": "User icon"
+  },
+  "home": {
+    "intro": "You can quickly check the overall status of housework and shopping here. For detailed operations, please use each page (My Tasks / Assignment / Shopping list).",
+
+    "common": {
+      "taskCount": "{count} tasks",
+      "itemCount": "{count} items"
+    },
+
+    "myTasks": {
+      "summary": "A summary of housework tasks assigned to you.",
+      "todayLabel": "Today’s tasks",
+      "weekLabel": "Next 7 days",
+      "overdueLabel": "Overdue",
+      "note": "※ You can update statuses on the “My Tasks” page.",
+      "openButton": "Open My Tasks"
+    },
+
+    "unassigned": {
+      "title": "Unassigned housework",
+      "summary": "Housework tasks that have no assignee yet. Try assigning them early.",
+      "totalLabel": "Unassigned",
+      "totalPeriod": "All time",
+      "soonLabel": "Today – in 3 days",
+      "soonDescription": "Tasks to assign soon",
+      "note": "※ You can change assignees on the “Assignment” page.",
+      "openButton": "Open assignment"
+    },
+
+    "shopping": {
+      "title": "Shopping list",
+      "summary": "Number of unpurchased items in this household. Shows counts per store and recently added items.",
+      "super": "Supermarket",
+      "drug": "Drugstore",
+      "online": "Online",
+      "recentLabel": "Items added in the last 2 days",
+      "openButton": "Open shopping list"
+    },
+
+    "household": {
+      "title": "Household overview",
+      "summary": "Number of housework tasks from 6 days in the past to 6 days in the future. Colors show who has how many tasks (including unassigned).",
+      "empty": "There are no tasks to display yet. Once you create templates and assign housework, the household overview will appear here."
+    }
+  },
+  "assign": {
+    "intro": "Adjust assignees for housework tasks in this household. Use this page to assign unassigned tasks and balance the workload.",
+
+    "summary": {
+      "heading": "Pending tasks by member",
+      "unassignedBadge": "Un",
+      "unassignedLabel": "Unassigned",
+      "tasksLabel": "Pending tasks: {total} (Unassigned: {unassigned})"
+    },
+
+    "filter": {
+      "label": "Filter",
+      "all": "All",
+      "unassignedOnly": "Unassigned only",
+      "mineAndUnassigned": "Mine + unassigned"
+    },
+
+    "list": {
+      "empty": "There are no housework tasks matching the current filters.",
+      "unassignedBadge": "Un",
+      "executionDate": "Date: {date}",
+      "assignToMe": "⭐ Assign to me",
+      "selectUnassigned": "Unassigned"
+    },
+
+    "messages": {
+      "fetchError": "Failed to load housework tasks.",
+      "assigneeUpdateSuccess": "Assignee has been updated.",
+      "assigneeUpdateError": "Failed to update the assignee."
+    },
+
+    "avatarAlt": "Member icon"
+  },
+  "myTasks": {
+    "intro": "This is a list of housework tasks assigned to you. You can mark them as done or skipped here.",
+
+    "past": {
+      "title": "Past tasks",
+      "description": "Tasks that were scheduled before today and are still pending.",
+      "bulkComplete": "Mark all as done",
+      "empty": "There are no pending tasks in the past.",
+      "groupCount": "({count} tasks)"
+    },
+
+    "future": {
+      "title": "Upcoming tasks",
+      "description": "Tasks scheduled from today onward. You can mark them as done or skipped as needed.",
+      "filterAll": "All",
+      "filterToday": "Today",
+      "filterWeek": "1 week",
+      "pendingCount": "Pending: {count} tasks",
+      "empty": "There are no upcoming pending tasks.",
+      "groupCount": "({count} tasks)"
+    },
+
+    "actions": {
+      "skip": "Skip",
+      "complete": "Mark as done"
+    },
+
+    "messages": {
+      "fetchError": "Failed to load housework tasks.",
+      "doneSuccess": "Task has been marked as done.",
+      "doneError": "Failed to update as done.",
+      "skipPrompt": "Enter a reason for skipping (optional).",
+      "skipSuccess": "Task has been skipped.",
+      "skipError": "Failed to update as skipped.",
+      "bulkConfirm": "Mark all {count} pending tasks before today as done. Are you sure?",
+      "bulkSuccess": "All past tasks have been marked as done.",
+      "bulkError": "Failed to update tasks in bulk."
+    },
+
+    "date": {
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "weekday": {
+        "0": "Sun",
+        "1": "Mon",
+        "2": "Tue",
+        "3": "Wed",
+        "4": "Thu",
+        "5": "Fri",
+        "6": "Sat"
+      },
+      "label": "{month}/{day} ({weekday})"
+    }
+  },
+  "shopping": {
+    "list": {
+      "titleSr": "Shopping list",
+      "intro": "Manage shopping items for this household.",
+      "addButton": "+ Add item",
+      "filters": {
+        "all": "All"
+      },
+      "notPurchased": {
+        "title": "To buy (not purchased)",
+        "count": "{count} item(s)",
+        "countWithFilter": "{filtered} item(s) / total {total}",
+        "emptyAll": "There are no items to buy yet.",
+        "emptyFiltered": "There are no items matching the current filter."
+      },
+      "basket": {
+        "title": "Basket",
+        "count": "{count} item(s)",
+        "empty": "There are no items in the basket.",
+        "completeButton": "Mark as purchased"
+      },
+      "completed": {
+        "title": "Purchased",
+        "count": "{count} item(s)",
+        "daysLabel": "Last {days} days",
+        "empty": "There are no purchased items in the last {days} days."
+      },
+      "actions": {
+        "toBasket": "🧺 Move to basket",
+        "return": "Move back"
+      },
+      "messages": {
+        "fetchError": "Failed to load the shopping list.",
+        "favoriteUpdateError": "Failed to update favorite status.",
+        "statusUpdateError": "Failed to update the status.",
+        "completeSuccess": "Marked items as purchased.",
+        "completeError": "Failed to mark items as purchased."
+      }
+    },
+    "create": {
+      "titleSr": "Add item",
+      "intro": "Add a new item to the shopping list for this household.",
+      "historyButton": "Choose from past purchases",
+      "fields": {
+        "name": "Item name",
+        "memo": "Memo (optional)",
+        "storeType": "Where to buy",
+        "favorite": "Mark as favorite"
+      },
+      "image": {
+        "label": "Image (optional)",
+        "description": "You can attach one image. It will be uploaded after the item is added.",
+        "rightHint": "Up to 5MB / 1 file"
+      },
+      "buttons": {
+        "submit": "Add item",
+        "cancel": "Cancel"
+      },
+      "messages": {
+        "householdNotSelected": "No household is selected.",
+        "invalidInput": "Please check your input.",
+        "storeTypeRequired": "Please select where to buy.",
+        "createSuccess": "Item has been added.",
+        "createError": "Failed to add the item."
+      }
+    },
+    "detail": {
+      "titleSr": "Item details",
+      "intro": "View and edit details of a shopping item for this household.",
+      "back": "Back",
+      "fields": {
+        "name": "Item name",
+        "memo": "Memo",
+        "storeType": "Where to buy",
+        "storeTypeUnset": "Not set",
+        "favoriteLabel": "Favorite",
+        "status": "Status"
+      },
+      "saveButton": "Save changes",
+      "imageSection": {
+        "title": "Images",
+        "none": "No images have been added yet.",
+        "addTitle": "Add image",
+        "description": "Images are added one by one. Files up to around 2MB are recommended.",
+        "deleteButton": "Delete"
+      },
+      "statusHelp": {
+        "notPurchased": "The item has not been bought yet. Move it to the basket when you plan to buy it.",
+        "inBasket": "The item is in the shopping basket. Mark it as purchased when you buy it.",
+        "purchased": "The item has been purchased. You can move it back to \"Not purchased\" if needed."
+      },
+      "messages": {
+        "fetchError": "Failed to load item details.",
+        "updateSuccess": "Item information has been updated.",
+        "updateError": "Failed to update item information.",
+        "statusUpdateError": "Failed to update the status.",
+        "favoriteUpdateError": "Failed to update favorite status.",
+        "imageAddSuccess": "Image has been added.",
+        "imageAddError": "Failed to add image.",
+        "imageDeleteConfirm": "Do you want to delete this image?",
+        "imageDeleteSuccess": "Image has been deleted.",
+        "imageDeleteError": "Failed to delete image."
+      }
+    },
+    "historyModal": {
+      "title": "Select from past purchases",
+      "description": "You can reuse items you bought recently.",
+      "reload": "Reload",
+      "loading": "Loading…",
+      "emptyAll": "There are no past purchase histories yet.",
+      "emptyFiltered": "No histories match the current filters.",
+      "filters": {
+        "keywordPlaceholder": "Search by item name",
+        "storeType": {
+          "all": "All",
+          "supermarket": "Supermarket",
+          "online": "Online",
+          "drugstore": "Drugstore"
+        },
+        "period": {
+          "all": "All period",
+          "d30": "Last 30 days",
+          "d90": "Last 90 days",
+          "d365": "Last year"
+        }
+      },
+      "item": {
+        "thumbnail": {
+          "hasImage": "IMG",
+          "noImage": "NO IMG"
+        },
+        "storeTypeUnset": "Not set",
+        "lastPurchasedPrefix": "Last:",
+        "purchaseCountSuffix": " times",
+        "selectButton": "Add"
+      }
+    }
+  },
+  "housework": {
+    "list": {
+      "title": "Housework settings",
+      "description": "Manage housework templates for this household. When you set recurrence and default assignees, they will be reflected in Assignment and My Tasks.",
+      "addButtonLabel": "+ Add housework",
+      "totalPrefix": "Registered housework templates:",
+      "totalUnit": "items",
+      "filter": {
+        "categoryLabel": "Category",
+        "categoryAll": "All"
+      },
+      "columns": {
+        "name": "Housework name",
+        "category": "Category",
+        "recurrenceType": "Recurrence",
+        "defaultAssignee": "Default assignee",
+        "activePeriod": "Active period"
+      },
+      "empty": "No housework templates match the current filter.",
+      "sp": {
+        "defaultAssigneeLabel": "Default assignee:",
+        "defaultAssigneeUnset": "Not set",
+        "empty": "No housework templates match the current filter."
+      }
+    },
+    "create": {
+      "title": "Add housework",
+      "description": "Register a new housework template for this household. When you set recurrence and default assignees, they will be reflected in Assignment and My Tasks.",
+      "toast": {
+        "saveSuccess": "Housework has been saved.",
+        "saveFailed": "Failed to save housework."
+      }
+    },
+    "edit": {
+      "title": "Edit housework",
+      "description": "Edit a housework template for this household. Updating recurrence or assignees will also update future Assignment and My Tasks schedules.",
+      "toast": {
+        "saveSuccess": "Housework has been saved.",
+        "saveFailed": "Failed to save housework."
+      }
+    },
+    "form": {
+      "sections": {
+        "basic": {
+          "title": "Basic info",
+          "description": "Set the name, category, and description of this housework. This name will be shown in Assignment and My Tasks."
+        },
+        "recurrence": {
+          "title": "Recurrence settings",
+          "description": "Configure how often this housework should be done: weekly, monthly, or by nth weekday."
+        },
+        "assigneeAndPeriod": {
+          "title": "Assignee & active period",
+          "description": "Set the default assignee and the active period of this housework template."
+        }
+      },
+      "fields": {
+        "name": "Housework name",
+        "description": "Description",
+        "category": "Category",
+        "recurrenceType": "Recurrence",
+        "weeklyDays": "Days of week",
+        "dayOfMonth": "Day of month",
+        "lastDayOfMonth": "Last day of month",
+        "nthWeek": "Nth week",
+        "weekday": "Weekday",
+        "defaultAssigneeUserId": "Default assignee",
+        "defaultAssigneePlaceholder": "Leave unassigned (no default assignee)",
+        "startDate": "Start date",
+        "endDate": "End date"
+      },
+      "errors": {
+        "name": {
+          "required": "Name is required.",
+          "maxBytes": "Name must be within 10 bytes."
+        },
+        "description": {
+          "maxBytes": "Description must be within 500 bytes."
+        },
+        "category": {
+          "required": "Please select a category."
+        },
+        "recurrenceType": {
+          "required": "Please select a recurrence type."
+        },
+        "weeklyDays": {
+          "required": "Please select at least one day."
+        },
+        "dayOfMonth": {
+          "required": "Please select a day."
+        },
+        "nthWeek": {
+          "required": "Please select a week."
+        },
+        "weekday": {
+          "required": "Please select a weekday."
+        },
+        "startDate": {
+          "required": "Start date is required."
+        },
+        "endDate": {
+          "required": "End date is required.",
+          "afterStart": "End date must be after the start date."
+        }
+      }
+    }
+  },
+  "household": {
+    "createDialog": {
+      "title": "Create a new household",
+      "description": "Add a household to manage chores and shopping lists.",
+      "nameLabel": "Household name",
+      "nameRequired": "Please enter a household name.",
+      "namePlaceholder": "e.g. Parents’ home / Our home / The Tanaka family",
+      "note": "You will be automatically added as a member of this household.",
+      "cancel": "Cancel",
+      "submit": "Create household",
+      "close": "Close"
+    },
+    "switcher": {
+      "label": "Household",
+      "current": "Current household",
+      "noneSelected": "No household is selected",
+      "mobile": {
+        "title": "Select Household",
+        "close": "Close",
+        "description": "Tasks and shopping lists for the selected household will be shown.",
+        "householdLabel": "Household",
+        "current": "Current household"
+      }
+    }
+  },
+  "settings": {
+    "pageTitle": "Settings",
+    "description": "Manage your account and household settings.",
+    "sections": {
+      "account": {
+        "title": "Account Settings",
+        "subtitle": "Display name, language settings, etc."
+      },
+      "household": {
+        "title": "Household Settings",
+        "subtitle": "Household name, per-household nicknames, member invitations, etc."
+      },
+      "housework": {
+        "title": "Housework Settings",
+        "subtitle": "Manage housework templates"
+      },
+      "about": {
+        "title": "About This App",
+        "subtitle": "Version, terms of use, and more"
+      }
+    },
+    "account": {
+      "description": "You can configure your global display name and the language used in this app.",
+      "info": {
+        "title": "Account information",
+        "emailLabel": "Email",
+        "displayNameLabel": "Display name",
+        "note": "You can change your display name from the form below."
+      },
+      "displayName": {
+        "title": "Display name",
+        "description": "This display name is used across Housework Hub. Nicknames for each household (e.g. Mom / Dad) can be changed from “Household Settings”.",
+        "fieldLabel": "Display name"
+      },
+      "icon": {
+        "title": "Profile image",
+        "description": "This image is used as your account icon. Upload starts as soon as you select a file.",
+        "selectLabel": "Choose image",
+        "note": "Images up to around 2MB are recommended."
+      },
+      "language": {
+        "title": "Language",
+        "description": "Select the language used for the UI. This setting is saved to your account.",
+        "fieldLabel": "Language"
+      },
+      "toasts": {
+        "iconUpdated": "Profile image has been updated.",
+        "iconUpdateFailed": "Failed to update profile image.",
+        "saveSuccess": "Account settings have been saved.",
+        "saveFailed": "Failed to save account settings."
+      }
+    },
+    "household": {
+      "description": "Manage the households you belong to and your nickname within each household.",
+      "list": {
+        "title": "Households you belong to",
+        "addButtonPc": "+ Add household",
+        "empty": "You don't belong to any households yet.",
+        "currentBadge": "Current household",
+        "selectButton": "Select this household",
+        "addButtonSp": "+ Create a new household",
+        "householdId": "Household Id",
+        "note": "Details below are applied to the currently selected household."
+      },
+      "info": {
+        "title": "Household information",
+        "noCurrent": "No household is currently selected.",
+        "nameLabel": "Household name",
+        "nameHelp": "This name is used on the household switcher and task lists.",
+        "saveButton": "Save household name"
+      },
+      "mySettings": {
+        "title": "Your settings in this household",
+        "description": "Set how you are shown within this household. e.g. Mom / Dad / Big sister / Mike",
+        "nicknameLabel": "Your nickname in this household",
+        "nicknameHelp": "This nickname is saved as the name displayed in this household and is shown in assignee names and headers.",
+        "saveButton": "Save nickname"
+      },
+      "members": {
+        "title": "Members",
+        "empty": "Loading members, or there are no members yet.",
+        "table": {
+          "displayName": "Display name",
+          "nickname": "Nickname",
+          "status": "Status",
+          "role": "Role",
+          "actions": "Actions",
+          "roleOwner": "OWNER",
+          "roleMember": "Member",
+          "you": "You",
+          "nicknameNone": "(None)"
+        },
+        "mobile": {
+          "nicknameLabel": "Nickname:",
+          "statusLabel": "Status:"
+        },
+        "actions": {
+          "leave": "Leave this household",
+          "remove": "Remove from household"
+        }
+      },
+      "invite": {
+        "title": "Invite members",
+        "description": "Enter the email address of the person you want to invite and create an invitation link. Share the generated link via email or messaging apps.",
+        "emailPlaceholder": "you{'@'}example.com",
+        "createButton": "Create invite link",
+        "sentTitle": "Sent invitations",
+        "none": "No invitations have been created for this household yet.",
+        "joinedMemberLabel": "Joined member:",
+        "expiresLabel": "Expires at: {date}",
+        "copyButton": "Copy link",
+        "revokeButton": "Revoke"
+      },
+      "toasts": {
+        "createSuccess": "A new household has been created.",
+        "createFailed": "Failed to create household.",
+
+        "switchSuccess": "Switched household.",
+        "switchFailed": "Failed to switch household.",
+
+        "saveNameSuccess": "Household name has been saved.",
+        "saveNameFailed": "Failed to save household name.",
+
+        "saveNicknameSuccess": "Nickname has been saved.",
+        "saveNicknameFailed": "Failed to save nickname.",
+
+        "leaveSuccess": "You have left this household.",
+        "leaveFailed": "Failed to leave the household.",
+
+        "removeMemberSuccess": "Member has been removed from the household.",
+        "removeMemberFailed": "Failed to remove member.",
+
+        "copyInviteSuccess": "Invitation link has been copied.",
+        "copyInviteFailed": "Failed to copy to clipboard.",
+
+        "inviteCreateSuccess": "Invitation link has been created.",
+        "inviteCreateFailed": "Failed to create invitation link.",
+
+        "revokeInviteSuccess": "Invitation has been revoked.",
+        "revokeInviteFailed": "Failed to revoke invitation."
+      },
+      "confirms": {
+        "leaveHousehold": "Do you want to leave this household?\nYou will also be removed from task assignments.",
+        "removeMember": "Do you want to remove “{name}” from this household?",
+        "revokeInvite": "Do you want to revoke this invitation?"
+      }
+    }
+  },
+  "appInfo": {
+    "title": "About this app",
+    "description": "Here you can check the version of Housework Hub and read the terms of use and privacy information.",
+    "version": {
+      "sectionTitle": "Version",
+      "label": "v0.1.0 (in development)",
+      "note": "Future release notes and important announcements will be shown here."
+    },
+    "legal": {
+      "sectionTitle": "Terms & Privacy Policy",
+      "description": "This section explains the conditions for using Housework Hub and how we handle your personal data.",
+      "termsLinkLabel": "Terms of Use",
+      "privacyLinkLabel": "Privacy Policy"
+    },
+    "privacyOverview": {
+      "sectionTitle": "Data & Privacy Overview",
+      "items": {
+        "householdVisibility": "Chores and shopping lists are visible only to members of the same household.",
+        "analyticsUsage": "We may use anonymized analytics to improve the service.",
+        "noSelling": "We do not sell or share your personal data with third parties, except where required by law."
+      },
+      "note": "For details, please read the Privacy Policy."
+    },
+    "developer": {
+      "sectionTitle": "Developer / Operator",
+      "appNameLabel": "App name: Housework Hub",
+      "operatorLabel": "Developer / Operator: (to be updated)",
+      "contactLabel": "Contact:",
+      "contactEmail": "example{'@'}example.com"
+    },
+    "oss": {
+      "sectionTitle": "Open Source Licenses",
+      "body": "This app uses open source software such as Vue.js, Vite and Tailwind CSS. A full list of licenses will be published later."
+    }
+  },
+  "terms": {
+    "title": "Terms of Use",
+    "intro": "These Terms of Use set forth the conditions for using Housework Hub (the \"Service\"). By using the Service, you agree to these Terms.",
+    "article1": {
+      "title": "Article 1 (Application)",
+      "body": "These Terms define the rights and obligations between the Service and users regarding the provision and use of the Service."
+    },
+    "article2": {
+      "title": "Article 2 (Accounts)",
+      "items": {
+        "accurateInfo": "Users must register accurate information when creating an account.",
+        "accountResponsibility": "Users are responsible for managing their own account information.",
+        "illegalUseNotice": "If unauthorized use by a third party is discovered, users must promptly notify the operator."
+      }
+    },
+    "article3": {
+      "title": "Article 3 (Prohibited Conduct)",
+      "items": {
+        "lawAndOrder": "Acts that violate laws or public order and morals",
+        "impersonation": "Impersonating other users",
+        "serviceDisruption": "Interfering with the operation of the Service",
+        "reverseEngineering": "Reverse engineering or otherwise analyzing the system"
+      }
+    },
+    "article4": {
+      "title": "Article 4 (Changes and Suspension of the Service)",
+      "body": "The operator may change, suspend, or terminate the Service without prior notice."
+    },
+    "article5": {
+      "title": "Article 5 (Disclaimer)",
+      "body": "Except in cases of willful misconduct or gross negligence, the operator shall not be liable for any damages arising from the use of the Service."
+    },
+    "article6": {
+      "title": "Article 6 (Changes to the Terms)",
+      "body": "The operator may modify these Terms as necessary. The revised Terms will take effect when they are posted or otherwise announced within the Service."
+    },
+    "note": "Please consider having these Terms reviewed by a legal professional before public release."
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "intro": "Housework Hub (the \"Service\") sets forth the following Privacy Policy to appropriately handle users' personal information.",
+    "section1": {
+      "title": "1. Information We Collect",
+      "items": {
+        "accountInfo": "Account information such as email address and display name",
+        "usageData": "Household information, chore templates, shopping lists and other usage data",
+        "logInfo": "Log information such as access time, IP address and browser information"
+      }
+    },
+    "section2": {
+      "title": "2. Purposes of Use",
+      "items": {
+        "serviceProvision": "To provide, maintain and improve the Service",
+        "troubleshooting": "To investigate and resolve bugs and failures",
+        "analytics": "To analyze usage trends in an aggregated, non-identifiable form"
+      }
+    },
+    "section3": {
+      "title": "3. Provision to Third Parties",
+      "body": "We do not provide personal information to third parties without user consent, except where required by law."
+    },
+    "section4": {
+      "title": "4. Security Measures",
+      "body": "We implement security measures such as access control to prevent unauthorized access, leakage, alteration or loss of information."
+    },
+    "section5": {
+      "title": "5. Retention Period",
+      "body": "We retain data as long as the account is active and necessary to provide the Service. When an account is deleted or deletion is requested, we will delete data within a reasonable period."
+    },
+    "section6": {
+      "title": "6. Contact",
+      "body": "If you have any questions about this policy or our handling of personal information, please contact us via the address listed on the About page."
+    },
+    "note": "Before publishing this policy, we recommend adjusting it to applicable laws and store policies and having it reviewed by a legal professional."
+  },
+  "common": {
+    "cancel": "Cancel",
+    "save": "Save",
+    "loading": "Loading...",
+    "selectPlaceholder": "Please select",
+    "logout": "Log out",
+    "itemCount": "{count} item(s)",
+    "notSet": "(Not set)",
+    "fileInput": {
+      "buttonDefault": "Select image",
+      "rightHintDefault": "JPEG / PNG, etc.",
+      "noFileSelected": "No file selected",
+      "fileSizeError": "File size exceeds the limit."
+    }
+  }
+}

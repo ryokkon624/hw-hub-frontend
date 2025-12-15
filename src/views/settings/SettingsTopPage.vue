@@ -1,0 +1,98 @@
+<template>
+  <div class="space-y-4">
+    <h2 class="sr-only">設定</h2>
+    <p class="text-sm text-hwhub-muted">{{ t('settings.description') }}</p>
+
+    <div class="mt-4 space-y-3">
+      <!-- アカウント設定 -->
+      <RouterLink
+        to="/settings/account"
+        class="block rounded-xl border bg-white p-4 shadow-sm hover:bg-hwhub-surface-subtle transition"
+      >
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-xl">👤</span>
+            <div>
+              <div class="font-medium text-sm text-hwhub-heading">
+                {{ t('settings.sections.account.title') }}
+              </div>
+              <div class="text-xs text-hwhub-muted">
+                {{ t('settings.sections.account.subtitle') }}
+              </div>
+            </div>
+          </div>
+          <span class="text-hwhub-muted">›</span>
+        </div>
+      </RouterLink>
+
+      <!-- 世帯設定 -->
+      <RouterLink
+        to="/settings/household"
+        class="block rounded-xl border bg-white p-4 shadow-sm hover:bg-hwhub-surface-subtle transition"
+      >
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-xl">🏠</span>
+            <div>
+              <div class="font-medium text-sm text-hwhub-heading">
+                {{ t('settings.sections.household.title') }}
+              </div>
+              <div class="text-xs text-hwhub-muted">
+                {{ t('settings.sections.household.subtitle') }}
+              </div>
+            </div>
+          </div>
+          <span class="text-hwhub-muted">›</span>
+        </div>
+      </RouterLink>
+
+      <!-- 家事設定 -->
+      <RouterLink
+        to="/settings/housework"
+        class="block rounded-xl border bg-white p-4 shadow-sm hover:bg-hwhub-surface-subtle transition"
+      >
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-xl">🧹</span>
+            <div>
+              <div class="font-medium text-sm text-hwhub-heading">
+                {{ t('settings.sections.housework.title') }}
+              </div>
+              <div class="text-xs text-hwhub-muted">
+                {{ t('settings.sections.housework.subtitle') }}
+              </div>
+            </div>
+          </div>
+          <span class="text-hwhub-muted">›</span>
+        </div>
+      </RouterLink>
+
+      <!-- アプリ情報 -->
+      <RouterLink
+        to="/settings/app"
+        class="block rounded-xl border bg-white p-4 shadow-sm hover:bg-hwhub-surface-subtle transition"
+      >
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-xl">ℹ️</span>
+            <div>
+              <div class="font-medium text-sm text-hwhub-heading">
+                {{ t('settings.sections.about.title') }}
+              </div>
+              <div class="text-xs text-hwhub-muted">
+                {{ t('settings.sections.about.subtitle') }}
+              </div>
+            </div>
+          </div>
+          <span class="text-hwhub-muted">›</span>
+        </div>
+      </RouterLink>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { RouterLink } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+</script>

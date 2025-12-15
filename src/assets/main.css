@@ -1,0 +1,119 @@
+@import 'tailwindcss';
+
+html,
+body {
+  font-family:
+    'Biz UD Gothic', Meiryo, 'メイリオ', 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3',
+    Roboto, sans-serif;
+}
+
+/* tailwind.config.jsでの定義が効かなかったため苦肉の策 */
+@layer utilities {
+  /* Primary */
+  .bg-hwhub-primary {
+    @apply bg-emerald-600;
+  }
+  .hover\:bg-hwhub-primary:hover {
+    @apply bg-emerald-700;
+  }
+  .bg-hwhub-primary-50 {
+    @apply bg-emerald-50;
+  }
+  .text-hwhub-primary {
+    @apply text-emerald-700;
+  }
+  .border-hwhub-primary {
+    @apply border-emerald-300;
+  }
+  .ring-hwhub-primary {
+    @apply ring-emerald-400;
+  }
+
+  /* Accent */
+  .bg-hwhub-accent-soft {
+    @apply bg-amber-50;
+  }
+  .border-hwhub-accent {
+    @apply border-amber-200;
+  }
+  .bg-hwhub-accent-badge {
+    @apply bg-amber-100;
+  }
+  .text-hwhub-accent-badge {
+    @apply text-amber-700;
+  }
+
+  /* Surface */
+  .bg-hwhub-surface {
+    @apply bg-slate-50;
+  }
+  .bg-hwhub-surface-subtle {
+    @apply bg-slate-100;
+  }
+  .bg-hwhub-surface-login {
+    @apply bg-slate-200;
+  }
+
+  /* Text */
+  .text-hwhub-heading {
+    @apply text-slate-900;
+  }
+  .text-hwhub-body {
+    @apply text-slate-800;
+  }
+  .text-hwhub-muted {
+    @apply text-slate-500;
+  }
+  .text-hwhub-accent-badge {
+    @apply text-amber-700;
+  }
+  /* アプリ名ロゴ用（ちょい強めの文字色） */
+  .text-hwhub-brand {
+    @apply text-slate-900;
+  }
+  /* サイドバー nav の非アクティブ色 */
+  .text-hwhub-nav-inactive {
+    @apply text-slate-600;
+  }
+  .text-hwhub-nav-inactive-mobile {
+    @apply text-slate-400;
+  }
+
+  /* Danger */
+  .bg-hwhub-danger-soft {
+    @apply bg-rose-50;
+  }
+  .text-hwhub-danger {
+    @apply text-rose-600;
+  }
+  .border-hwhub-danger {
+    @apply border-rose-200;
+  }
+
+  .bg-hwhub-info-soft {
+    @apply bg-slate-100;
+  }
+  .text-hwhub-info {
+    @apply text-slate-800;
+  }
+
+  /* 買い物リスト系 */
+  .bg-hwhub-store-super {
+    @apply bg-emerald-500;
+  }
+  .bg-hwhub-store-online {
+    @apply bg-sky-500;
+  }
+  .bg-hwhub-store-drug {
+    @apply bg-rose-500;
+  }
+  .border-hwhub-store-super {
+    @apply border-l-[6px] border-l-emerald-500;
+  }
+  .border-hwhub-store-online {
+    @apply border-l-[6px] border-l-sky-500;
+  }
+  .border-hwhub-store-drug {
+    @apply border-l-[6px] border-l-rose-500;
+  }
+}

@@ -1,0 +1,820 @@
+{
+  "pageTitles": {
+    "home": "ホーム",
+    "houseworkSettings": "家事設定",
+    "houseworkAssign": "家事割り当て",
+    "myTasks": "My Tasks",
+    "shopping": "買い物リスト",
+    "shoppingCreate": "買い物アイテム登録",
+    "shoppingEdit": "買い物アイテムの編集",
+    "settings": "設定",
+    "accountSettings": "アカウント設定",
+    "householdSettings": "おうち設定",
+    "houseworkCreate": "家事の登録",
+    "houseworkEdit": "家事の編集",
+    "app": "アプリ情報",
+    "terms": "利用規約",
+    "privacy": "プライバシーポリシー"
+  },
+  "login": {
+    "hero": {
+      "titleFirst": "家事と買い物を、",
+      "title2nd": "みんなでゆるくシェア。",
+      "description": {
+        "beforeHighlight": "Housework Hub は、家事タスクと買い物リストを",
+        "highlight": "おうちのみんなで見える化",
+        "afterHighlight": "するためのアプリです。担当者の割り当てや「My Tasks」ページにもつながる、あなた専用の入口です。"
+      },
+      "notes": {
+        "sameAccount": "・ブラウザ版と同じアカウントでログインできます。",
+        "sharedData": "・PC / スマホどちらからでも同じデータを共有します。"
+      }
+    },
+    "title": "ログイン",
+    "subtitle": "登録済みのメールアドレスとパスワードでログインします。",
+    "google": "Google でログイン（準備中）",
+    "divider": "または",
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "placeholderEmail": "you{'@'}example.com",
+    "placeholderPassword": "••••••••",
+    "errorInvalid": "メールアドレスまたはパスワードが正しくありません。",
+    "submit": {
+      "default": "ログイン",
+      "loading": "ログイン中…"
+    },
+    "noAccount": "アカウントをお持ちでない方は",
+    "goSignup": "新規登録",
+    "goSignupSuffix": "へ"
+  },
+  "signup": {
+    "title": "アカウント作成",
+    "subtitle": {
+      "line1": "はじめてのご利用ですね。",
+      "line2": "まずはアカウントを作成しましょう。"
+    },
+    "description": {
+      "aboutSharing": "買い物リストや家事の割り当てを、おうちのみんなで共有できます。",
+      "multiHousehold": "1つのアカウントで複数のおうちを管理することもできます。",
+      "noteChangeable": "※ アカウント作成後、言語やプロフィール画像は変更できます。",
+      "devNote": "開発中であるため、メールアドレスはあくまでログイン用です。存在しないメールアドレスでもアカウント作成可能です。"
+    },
+    "fields": {
+      "email": "メールアドレス",
+      "displayName": "表示名",
+      "password": "パスワード",
+      "passwordConfirm": "パスワード（確認）",
+      "passwordHint": "8文字以上",
+      "locale": "利用する言語"
+    },
+    "placeholder": {
+      "email": "you{'@'}example.com",
+      "displayName": "例）パパ／ママ／たろう など"
+    },
+    "errors": {
+      "emailUsed": "このメールアドレスは既に登録されています。",
+      "failed": "アカウントの作成に失敗しました。時間をおいて再度お試しください。"
+    },
+    "submit": {
+      "default": "アカウントを作成する",
+      "loading": "作成中..."
+    },
+    "haveAccountPrefix": "すでにアカウントをお持ちの方はこちら",
+    "goLoginBottom": "すでにアカウントをお持ちの方は",
+    "goLogin": "ログイン画面へ",
+    "bottom": {
+      "haveAccount": "すでにアカウントをお持ちの方は",
+      "goLogin": "ログイン画面へ",
+      "suffix": "。"
+    },
+    "header": {
+      "haveAccountLink": "すでにアカウントをお持ちの方はこちら"
+    }
+  },
+  "invite": {
+    "page": {
+      "hero": {
+        "badge": "HOUSEHOLD INVITATION",
+        "heading": "おうちへの招待が届いています。",
+        "description": "この招待を承諾すると、該当のおうちに参加し、家事や買い物リストを共有できるようになります。",
+        "notice": "誤って届いた招待の場合は、右側の「参加しない」を選択してください。"
+      },
+      "loading": "招待情報を読み込み中です…",
+      "error": {
+        "invalid": "この招待は無効か、有効期限が切れている可能性があります。",
+        "acceptFailed": "おうちへの参加に失敗しました。時間をおいて再度お試しください。",
+        "declineFailed": "招待の辞退に失敗しました。",
+        "reloadButton": "再読み込み"
+      },
+      "info": {
+        "householdTitle": "招待先のおうち",
+        "inviterLabel": "招待者:",
+        "invitedEmailLabel": "招待先メールアドレス:"
+      },
+      "warning": {
+        "emailMismatch": "現在ログインしているアカウント（{currentEmail}）と、招待先メールアドレス（{invitedEmail}）が異なります。\n正しいアカウントで参加しているか確認してください。"
+      },
+      "loginNeeded": {
+        "message": "参加するには、ログインまたはアカウント作成が必要です。",
+        "loginAndJoin": "ログインして参加する",
+        "signupAndJoin": "新しくアカウントを作成する"
+      },
+      "loggedIn": {
+        "confirmMessage": "このアカウントでおうち「{householdName}」に参加しますか？"
+      },
+      "actions": {
+        "accept": "参加する",
+        "decline": "参加しない"
+      }
+    }
+  },
+  "layout": {
+    "sidebar": {
+      "householdTitle": "おうち",
+      "currentHouseholdLabel": "現在のおうち",
+      "noHouseholdSelected": "おうちが選択されていません",
+      "otherHouseholdsLabel": "他のおうち",
+      "editingWarning": "編集中はおうちの切り替えはできません",
+      "mobileHouseholdPrefix": "おうち: ",
+      "confirmChangeHousehold": "編集中の内容が破棄される可能性があります。おうちを切り替えますか？"
+    }
+  },
+  "appHeader": {
+    "iconAlt": "ユーザーアイコン"
+  },
+  "home": {
+    "intro": "家事や買い物のざっくりした状況をここで確認できます。詳細な操作は各機能の画面（My Tasks / 家事割り当て / 買い物リスト）から行います。",
+
+    "common": {
+      "taskCount": "{count} 件",
+      "itemCount": "{count} 件"
+    },
+
+    "myTasks": {
+      "summary": "あなたに割り当てられている家事タスクのサマリーです。",
+      "todayLabel": "今日の家事",
+      "weekLabel": "直近1週間",
+      "overdueLabel": "期限超過",
+      "note": "※ ステータスの更新は「My Tasks」画面で行えます。",
+      "openButton": "My Tasks を開く"
+    },
+
+    "unassigned": {
+      "title": "家事の未割り当て",
+      "summary": "担当者が決まっていない家事タスクです。早めに誰かに割り振っておきましょう。",
+      "totalLabel": "未割り当て",
+      "totalPeriod": "全期間",
+      "soonLabel": "今日〜3日以内",
+      "soonDescription": "早めに担当を決めたい家事",
+      "note": "※ 担当者の変更は「家事割り当て」画面から行えます。",
+      "openButton": "家事割り当てを開く"
+    },
+
+    "shopping": {
+      "title": "買い物リスト",
+      "summary": "このおうちで未購入のアイテム数です。お店ごとの件数と、最近追加された数を表示します。",
+      "super": "スーパー",
+      "drug": "ドラッグストア",
+      "online": "オンライン",
+      "recentLabel": "直近2日以内に追加されたアイテム",
+      "openButton": "買い物リストを開く"
+    },
+
+    "household": {
+      "title": "おうちの様子",
+      "summary": "過去6日〜未来6日までの家事タスク件数です。メンバーごとの色分けで、誰にどれくらい予定が入っているかをざっくり把握できます（未割当も含む）。",
+      "empty": "表示できる家事タスクがまだありません。家事テンプレートを登録し、家事割り当てを行うとここにおうちの様子が表示されます。"
+    }
+  },
+  "assign": {
+    "intro": "このおうちの家事タスクの担当者を調整します。未割当の家事や、負荷が偏っている家事をここで割り振ります。",
+
+    "summary": {
+      "heading": "メンバー別の未対応件数",
+      "unassignedBadge": "未",
+      "unassignedLabel": "未割当",
+      "tasksLabel": "未対応タスク {total}件（未割当: {unassigned}件）"
+    },
+
+    "filter": {
+      "label": "表示対象",
+      "all": "すべて",
+      "unassignedOnly": "未割当のみ",
+      "mineAndUnassigned": "自分＋未割当"
+    },
+
+    "list": {
+      "empty": "条件に一致する家事タスクがありません。",
+      "unassignedBadge": "未",
+      "executionDate": "実施日: {date}",
+      "assignToMe": "⭐ 自分にする",
+      "selectUnassigned": "未割当"
+    },
+
+    "messages": {
+      "fetchError": "家事タスクの取得に失敗しました",
+      "assigneeUpdateSuccess": "担当者を更新しました",
+      "assigneeUpdateError": "担当者の更新に失敗しました"
+    },
+
+    "avatarAlt": "メンバーアイコン"
+  },
+  "myTasks": {
+    "intro": "あなたに割り当てられている家事タスクの一覧です。ここから完了・スキップに更新ができます。",
+
+    "past": {
+      "title": "過去の家事",
+      "description": "今日より前に対応する予定だった家事のうち、まだ未対応のものです。",
+      "bulkComplete": "すべて完了にする",
+      "empty": "過去の未対応タスクはありません。",
+      "groupCount": "（{count}件）"
+    },
+
+    "future": {
+      "title": "これからの家事",
+      "description": "今日以降に予定されている家事です。必要に応じて完了やスキップに更新できます。",
+      "filterAll": "すべて",
+      "filterToday": "今日",
+      "filterWeek": "1週間",
+      "pendingCount": "未対応: {count}件",
+      "empty": "これからの未対応タスクはありません。",
+      "groupCount": "（{count}件）"
+    },
+
+    "actions": {
+      "skip": "スキップ",
+      "complete": "完了する"
+    },
+
+    "messages": {
+      "fetchError": "家事タスクの取得に失敗しました",
+      "doneSuccess": "家事を完了にしました",
+      "doneError": "完了の更新に失敗しました",
+      "skipPrompt": "スキップ理由（任意）を入力してください",
+      "skipSuccess": "家事をスキップしました",
+      "skipError": "スキップの更新に失敗しました",
+      "bulkConfirm": "今日より前の未対応タスク {count}件をすべて「完了」にします。よろしいですか？",
+      "bulkSuccess": "過去の家事をすべて完了にしました",
+      "bulkError": "一括完了の更新に失敗しました"
+    },
+
+    "date": {
+      "today": "今日",
+      "tomorrow": "明日",
+      "weekday": {
+        "0": "日",
+        "1": "月",
+        "2": "火",
+        "3": "水",
+        "4": "木",
+        "5": "金",
+        "6": "土"
+      },
+      "label": "{month}/{day}（{weekday}）"
+    }
+  },
+  "shopping": {
+    "list": {
+      "titleSr": "買い物リスト",
+      "intro": "このおうちの買い物アイテムを管理します。",
+      "addButton": "＋ アイテムを追加",
+      "filters": {
+        "all": "すべて"
+      },
+      "notPurchased": {
+        "title": "買うものリスト（未購入）",
+        "count": "{count} 件",
+        "countWithFilter": "{filtered} 件 ／ 全 {total} 件",
+        "emptyAll": "まだ未購入のアイテムがありません。",
+        "emptyFiltered": "条件に一致する未購入アイテムがありません。"
+      },
+      "basket": {
+        "title": "買い物かご",
+        "count": "{count} 件",
+        "empty": "かごに入っているアイテムはありません。",
+        "completeButton": "購入済みにする"
+      },
+      "completed": {
+        "title": "購入済み",
+        "count": "{count} 件",
+        "daysLabel": "直近 {days} 日",
+        "empty": "直近 {days} 日間の購入済みアイテムはまだありません。"
+      },
+      "actions": {
+        "toBasket": "🧺 かごへ",
+        "return": "戻す"
+      },
+      "messages": {
+        "fetchError": "買い物リストの取得に失敗しました",
+        "favoriteUpdateError": "お気に入りの更新に失敗しました",
+        "statusUpdateError": "ステータスの更新に失敗しました",
+        "completeSuccess": "購入済みに更新しました",
+        "completeError": "購入済みへの更新に失敗しました"
+      }
+    },
+    "create": {
+      "titleSr": "アイテムを追加",
+      "intro": "このおうちの買い物リストに新しいアイテムを追加します。",
+      "historyButton": "過去の購入から選ぶ",
+      "fields": {
+        "name": "品名",
+        "memo": "メモ（任意）",
+        "storeType": "購入場所",
+        "favorite": "お気に入りにする"
+      },
+      "image": {
+        "label": "画像（任意）",
+        "description": "1枚だけ添付できます。アイテムを追加したあとに画像がアップロードされます。",
+        "rightHint": "最大 5MB / 1枚まで"
+      },
+      "buttons": {
+        "submit": "追加する",
+        "cancel": "キャンセル"
+      },
+      "messages": {
+        "householdNotSelected": "おうちが選択されていません",
+        "invalidInput": "入力内容を確認してください",
+        "storeTypeRequired": "購入場所を選択してください",
+        "createSuccess": "アイテムを追加しました",
+        "createError": "アイテムの追加に失敗しました"
+      }
+    },
+    "detail": {
+      "titleSr": "アイテム詳細",
+      "intro": "このおうちの買い物アイテムの詳細を確認・編集します。",
+      "back": "戻る",
+      "fields": {
+        "name": "品名",
+        "memo": "メモ",
+        "storeType": "購入場所",
+        "storeTypeUnset": "未設定",
+        "favoriteLabel": "お気に入り",
+        "status": "ステータス"
+      },
+      "saveButton": "保存する",
+      "imageSection": {
+        "title": "画像",
+        "none": "まだ画像が登録されていません。",
+        "addTitle": "画像を追加",
+        "description": "※ 1枚ずつ追加されます。2MB程度までを推奨します。",
+        "deleteButton": "削除"
+      },
+      "statusHelp": {
+        "notPurchased": "まだ買う前の状態です。買い物かごに入れたら「かご」に移動します。",
+        "inBasket": "買い物かごに入っている状態です。購入したら「購入済み」にしましょう。",
+        "purchased": "購入済みのアイテムです。必要なら、再び「未購入」に戻すこともできます。"
+      },
+      "messages": {
+        "fetchError": "アイテム詳細の取得に失敗しました",
+        "updateSuccess": "アイテム情報を更新しました",
+        "updateError": "アイテム情報の更新に失敗しました",
+        "statusUpdateError": "ステータスの更新に失敗しました",
+        "favoriteUpdateError": "お気に入りの更新に失敗しました",
+        "imageAddSuccess": "画像を追加しました",
+        "imageAddError": "画像追加に失敗しました",
+        "imageDeleteConfirm": "この画像を削除しますか？",
+        "imageDeleteSuccess": "画像を削除しました",
+        "imageDeleteError": "画像削除に失敗しました"
+      }
+    },
+    "historyModal": {
+      "title": "過去の購入から選ぶ",
+      "description": "最近購入したアイテムから再利用できます。",
+      "reload": "再読み込み",
+      "loading": "読み込み中…",
+      "emptyAll": "過去の購入履歴がまだありません。",
+      "emptyFiltered": "条件に一致する履歴がありません。",
+      "filters": {
+        "keywordPlaceholder": "品名で検索",
+        "storeType": {
+          "all": "すべて",
+          "supermarket": "スーパー",
+          "online": "オンライン",
+          "drugstore": "ドラッグストア"
+        },
+        "period": {
+          "all": "全期間",
+          "d30": "過去30日",
+          "d90": "過去90日",
+          "d365": "過去1年"
+        }
+      },
+      "item": {
+        "thumbnail": {
+          "hasImage": "IMG",
+          "noImage": "NO IMG"
+        },
+        "storeTypeUnset": "未設定",
+        "lastPurchasedPrefix": "最終:",
+        "purchaseCountSuffix": "回",
+        "selectButton": "追加"
+      }
+    }
+  },
+  "housework": {
+    "list": {
+      "title": "家事設定",
+      "description": "この世帯で使う家事テンプレートを管理します。周期や担当者を決めておくと、家事割り当てや My Tasks に反映されます。",
+      "addButtonLabel": "＋ 家事を追加",
+      "totalPrefix": "登録されている家事テンプレート：",
+      "totalUnit": "件",
+      "filter": {
+        "categoryLabel": "カテゴリ",
+        "categoryAll": "すべて"
+      },
+      "columns": {
+        "name": "家事名",
+        "category": "カテゴリ",
+        "recurrenceType": "周期",
+        "defaultAssignee": "デフォルト担当者",
+        "activePeriod": "有効期間"
+      },
+      "empty": "条件に一致する家事テンプレートがありません。",
+      "sp": {
+        "defaultAssigneeLabel": "デフォルト担当：",
+        "defaultAssigneeUnset": "未設定",
+        "empty": "条件に一致する家事テンプレートがありません。"
+      }
+    },
+    "create": {
+      "title": "家事を追加",
+      "description": "この世帯で使う家事テンプレートを新しく登録します。周期や担当者を決めておくと、家事割り当てや My Tasks に反映されます。",
+      "toast": {
+        "saveSuccess": "家事を保存しました",
+        "saveFailed": "家事の保存に失敗しました"
+      }
+    },
+    "edit": {
+      "title": "家事を編集",
+      "description": "この世帯で使う家事テンプレートを編集します。周期や担当者を見直すと、家事割り当てや My Tasks の予定にも反映されます。",
+      "toast": {
+        "saveSuccess": "家事を保存しました",
+        "saveFailed": "家事の保存に失敗しました"
+      }
+    },
+    "form": {
+      "sections": {
+        "basic": {
+          "title": "基本情報",
+          "description": "家事の名前やカテゴリ、説明を設定します。家事割り当てや My Tasks に表示されるタイトルになります。"
+        },
+        "recurrence": {
+          "title": "周期設定",
+          "description": "この家事をどの頻度で実施するかを設定します。週ごと・月ごと・第n曜日などを選べます。"
+        },
+        "assigneeAndPeriod": {
+          "title": "担当者・有効期間",
+          "description": "担当者と、家事テンプレートの有効期間を設定します。"
+        }
+      },
+      "fields": {
+        "name": "家事名",
+        "description": "説明",
+        "category": "カテゴリ",
+        "recurrenceType": "周期",
+        "weeklyDays": "実施する曜日",
+        "dayOfMonth": "日付",
+        "lastDayOfMonth": "月末",
+        "nthWeek": "第 n 週",
+        "weekday": "曜日",
+        "defaultAssigneeUserId": "デフォルト担当者",
+        "defaultAssigneePlaceholder": "担当者を設定しない（未割り当て）",
+        "startDate": "開始日",
+        "endDate": "終了日"
+      },
+      "errors": {
+        "name": {
+          "required": "家事名は必須です。",
+          "maxBytes": "家事名は10バイト以内で入力してください。"
+        },
+        "description": {
+          "maxBytes": "説明は500バイト以内で入力してください。"
+        },
+        "category": {
+          "required": "カテゴリを選択してください。"
+        },
+        "recurrenceType": {
+          "required": "周期タイプを選択してください。"
+        },
+        "weeklyDays": {
+          "required": "曜日を1つ以上選択してください。"
+        },
+        "dayOfMonth": {
+          "required": "日付を選択してください。"
+        },
+        "nthWeek": {
+          "required": "第n週を選択してください。"
+        },
+        "weekday": {
+          "required": "曜日を選択してください。"
+        },
+        "startDate": {
+          "required": "有効開始日を入力してください。"
+        },
+        "endDate": {
+          "required": "有効終了日を入力してください。",
+          "afterStart": "有効終了日は有効開始日以降の日付を指定してください。"
+        }
+      }
+    }
+  },
+  "household": {
+    "createDialog": {
+      "title": "新しいおうちを作成",
+      "description": "家事や買い物リストを管理するためのおうちを追加します。",
+      "nameLabel": "おうち名",
+      "nameRequired": "おうち名を入力してください。",
+      "namePlaceholder": "例）実家／自宅／○○家 など",
+      "note": "作成すると、あなたはこのおうちのメンバーとして自動的に追加されます。",
+      "cancel": "キャンセル",
+      "submit": "おうちを作成",
+      "close": "閉じる"
+    },
+    "switcher": {
+      "label": "おうち",
+      "current": "現在のおうち",
+      "noneSelected": "世帯が選択されていません",
+      "mobile": {
+        "title": "世帯を選択",
+        "close": "閉じる",
+        "description": "切り替えた世帯の家事・買い物リストが表示されます。",
+        "householdLabel": "世帯",
+        "current": "現在の世帯"
+      }
+    }
+  },
+  "settings": {
+    "pageTitle": "設定",
+    "description": "アカウントやおうちに関する設定を管理できます。",
+    "sections": {
+      "account": {
+        "title": "アカウント設定",
+        "subtitle": "表示名・言語設定など"
+      },
+      "household": {
+        "title": "おうち設定",
+        "subtitle": "おうち名・おうちごとのニックネーム、メンバーの招待など"
+      },
+      "housework": {
+        "title": "家事設定",
+        "subtitle": "家事テンプレートの管理"
+      },
+      "about": {
+        "title": "アプリ情報",
+        "subtitle": "バージョン・利用規約など"
+      }
+    },
+    "account": {
+      "description": "このアプリ全体で使われるあなたの表示名や、利用する言語を設定できます。",
+      "info": {
+        "title": "アカウント情報",
+        "emailLabel": "メール",
+        "displayNameLabel": "表示名",
+        "note": "※ 表示名は下のフォームから変更できます。"
+      },
+      "displayName": {
+        "title": "表示名",
+        "description": "この表示名は Housework Hub 全体で使われます。各おうちごとの呼び名（ママ／パパ など）は「おうち設定」から変更できます。",
+        "fieldLabel": "表示名"
+      },
+      "icon": {
+        "title": "プロフィール画像",
+        "description": "このアカウントのアイコンとして表示されます。画像を選択すると即時アップロードされます。",
+        "selectLabel": "画像を選択",
+        "note": "※ 2MB 程度までの画像を推奨します。"
+      },
+      "language": {
+        "title": "言語設定",
+        "description": "画面表示に使う言語を選択します。アカウントに紐づく設定として保存されます。",
+        "fieldLabel": "言語"
+      },
+      "toasts": {
+        "iconUpdated": "プロフィール画像を更新しました",
+        "iconUpdateFailed": "プロフィール画像の更新に失敗しました",
+        "saveSuccess": "アカウント設定を保存しました",
+        "saveFailed": "アカウント設定の保存に失敗しました"
+      }
+    },
+    "household": {
+      "title": "おうち設定",
+      "description": "あなたが所属しているおうちや、このおうちでのあなたのニックネームなどを管理します。",
+      "list": {
+        "title": "所属しているおうち",
+        "addButtonPc": "＋ おうちを追加",
+        "empty": "所属しているおうちがありません。",
+        "currentBadge": "現在のおうち",
+        "selectButton": "このおうちを選択",
+        "addButtonSp": "＋ 新しいおうちを作成",
+        "householdId": "おうちID",
+        "note": "詳細な設定は、現在選択中のおうちを対象に行います。"
+      },
+      "info": {
+        "title": "おうちの情報",
+        "noCurrent": "現在選択されているおうちがありません。",
+        "nameLabel": "おうち名",
+        "nameHelp": "このおうち名は、おうち切り替えの表示や家事一覧などに使われます。",
+        "saveButton": "おうち名を保存"
+      },
+      "mySettings": {
+        "title": "このおうちでのあなたの設定",
+        "description": "このおうちの中で、あなたがどのように表示されるかを設定します。例: ママ / パパ / お姉ちゃん / たろ など",
+        "nicknameLabel": "このおうちでのあなたのニックネーム",
+        "nicknameHelp": "このニックネームはおうち内の表示名として保存され、家事の担当者名やヘッダーなどに表示されます。",
+        "saveButton": "ニックネームを保存"
+      },
+      "members": {
+        "title": "メンバー一覧",
+        "empty": "メンバー情報を読み込み中、またはメンバーがいません。",
+        "table": {
+          "displayName": "表示名",
+          "nickname": "ニックネーム",
+          "status": "ステータス",
+          "role": "権限",
+          "actions": "操作",
+          "roleOwner": "OWNER",
+          "roleMember": "メンバー",
+          "you": "あなた",
+          "nicknameNone": "（なし）"
+        },
+        "mobile": {
+          "nicknameLabel": "ニックネーム：",
+          "statusLabel": "ステータス："
+        },
+        "actions": {
+          "leave": "このおうちから離脱",
+          "remove": "おうちから外す"
+        }
+      },
+      "invite": {
+        "title": "メンバー招待",
+        "description": "このおうちに参加してほしい人のメールアドレスを入力して、招待リンクを作成します。作成されたリンクは、ご自身でメールやメッセージアプリなどで共有してください。",
+        "emailPlaceholder": "you{'@'}example.com",
+        "createButton": "招待リンクを作成",
+        "sentTitle": "送信済みの招待",
+        "none": "まだこのおうちへの招待はありません。",
+        "joinedMemberLabel": "参加したメンバー：",
+        "expiresLabel": "有効期限: {date}",
+        "copyButton": "リンクをコピー",
+        "revokeButton": "取り消す"
+      },
+      "toasts": {
+        "createSuccess": "新しいおうちを作成しました",
+        "createFailed": "おうちの作成に失敗しました",
+
+        "switchSuccess": "おうちを切り替えました",
+        "switchFailed": "おうちの切り替えに失敗しました",
+
+        "saveNameSuccess": "おうち名を保存しました",
+        "saveNameFailed": "おうち名の保存に失敗しました",
+
+        "saveNicknameSuccess": "ニックネームを保存しました",
+        "saveNicknameFailed": "ニックネームの保存に失敗しました",
+
+        "leaveSuccess": "このおうちから離脱しました",
+        "leaveFailed": "離脱に失敗しました",
+
+        "removeMemberSuccess": "メンバーをおうちから削除しました",
+        "removeMemberFailed": "メンバーの削除に失敗しました",
+
+        "copyInviteSuccess": "招待リンクをコピーしました",
+        "copyInviteFailed": "クリップボードへのコピーに失敗しました",
+
+        "inviteCreateSuccess": "招待リンクを作成しました",
+        "inviteCreateFailed": "招待リンクの作成に失敗しました",
+
+        "revokeInviteSuccess": "招待を取り消しました",
+        "revokeInviteFailed": "招待の取り消しに失敗しました"
+      },
+      "confirms": {
+        "leaveHousehold": "このおうちから離脱しますか？\n家事の担当からも外れます。",
+        "removeMember": "「{name}」さんをこのおうちから削除しますか？",
+        "revokeInvite": "この招待を取り消しますか？"
+      }
+    }
+  },
+  "appInfo": {
+    "title": "アプリ情報",
+    "description": "Housework Hub のバージョンや、利用規約・プライバシー情報などを確認できます。",
+    "version": {
+      "sectionTitle": "バージョン",
+      "label": "v0.1.0（開発中）",
+      "note": "今後のアップデート内容や重要なお知らせを、ここに掲載していく予定です。"
+    },
+    "legal": {
+      "sectionTitle": "利用規約・プライバシーポリシー",
+      "description": "Housework Hub のご利用条件や、個人情報の取り扱いについてまとめています。",
+      "termsLinkLabel": "利用規約",
+      "privacyLinkLabel": "プライバシーポリシー"
+    },
+    "privacyOverview": {
+      "sectionTitle": "データとプライバシーについて",
+      "items": {
+        "householdVisibility": "家事・買い物リストなどの情報は、世帯のメンバーだけが閲覧できます。",
+        "analyticsUsage": "サービス改善のために、匿名化された統計情報を利用する場合があります。",
+        "noSelling": "法令で定められている場合を除き、第三者に個人情報を販売・共有することはありません。"
+      },
+      "note": "詳細は「プライバシーポリシー」をご確認ください。"
+    },
+    "developer": {
+      "sectionTitle": "開発・運営者",
+      "appNameLabel": "アプリ名：Housework Hub",
+      "operatorLabel": "開発・運営：○○（後で正式名称に変更してください）",
+      "contactLabel": "お問い合わせ：",
+      "contactEmail": "example{'@'}example.com"
+    },
+    "oss": {
+      "sectionTitle": "オープンソースライセンス",
+      "body": "本アプリケーションでは、オープンソースソフトウェアを利用しています。代表例：Vue.js / Vite / Tailwind CSS など。詳細なライセンス一覧は、今後別ページとして掲載予定です。"
+    }
+  },
+  "terms": {
+    "title": "利用規約",
+    "intro": "この規約は、Housework Hub（以下「本サービス」）の利用条件を定めるものです。本サービスを利用することで、本規約に同意したものとみなします。",
+    "article1": {
+      "title": "第1条（適用）",
+      "body": "本規約は、本サービスの提供条件および利用に関する権利義務関係を定めるものです。"
+    },
+    "article2": {
+      "title": "第2条（アカウント）",
+      "items": {
+        "accurateInfo": "利用者は、正確な情報を登録のうえ本サービスのアカウントを作成します。",
+        "accountResponsibility": "アカウント情報の管理は利用者自身が責任を負うものとします。",
+        "illegalUseNotice": "第三者による不正利用等が判明した場合は、速やかに運営者へ連絡してください。"
+      }
+    },
+    "article3": {
+      "title": "第3条（禁止事項）",
+      "items": {
+        "lawAndOrder": "法令または公序良俗に反する行為",
+        "impersonation": "他の利用者になりすます行為",
+        "serviceDisruption": "本サービスの運営を妨げる行為",
+        "reverseEngineering": "リバースエンジニアリング等によりシステムを解析する行為"
+      }
+    },
+    "article4": {
+      "title": "第4条（サービスの変更・停止）",
+      "body": "運営者は、事前の通知なく本サービスの内容を変更・一時停止・終了することがあります。"
+    },
+    "article5": {
+      "title": "第5条（免責事項）",
+      "body": "本サービスの利用に関連して利用者に生じた損害について、運営者は故意または重過失がある場合を除き、一切の責任を負いません。"
+    },
+    "article6": {
+      "title": "第6条（規約の変更）",
+      "body": "運営者は、必要に応じて本規約を変更することができます。変更後の規約は、本サービス上での掲示その他の方法で告知した時点から効力を生じます。"
+    },
+    "note": "※ 実際に公開する際は、必要に応じて専門家による確認を行ってください。"
+  },
+  "privacy": {
+    "title": "プライバシーポリシー",
+    "intro": "Housework Hub（以下「本サービス」）では、利用者の個人情報を適切に取り扱うため、以下のとおりプライバシーポリシーを定めます。",
+    "section1": {
+      "title": "1. 収集する情報",
+      "items": {
+        "accountInfo": "メールアドレス、表示名などのアカウント情報",
+        "usageData": "世帯情報、家事テンプレート、買い物リスト等の利用データ",
+        "logInfo": "アクセス日時、IP アドレス、ブラウザ情報などのログ情報"
+      }
+    },
+    "section2": {
+      "title": "2. 情報の利用目的",
+      "items": {
+        "serviceProvision": "本サービスの提供・維持・改善のため",
+        "troubleshooting": "不具合・障害発生時の調査および対応のため",
+        "analytics": "利用状況の統計的な分析のため（個人が特定されない形で実施）"
+      }
+    },
+    "section3": {
+      "title": "3. 第三者提供",
+      "body": "法令に基づく場合を除き、利用者の同意なく個人情報を第三者に提供することはありません。"
+    },
+    "section4": {
+      "title": "4. 情報の安全管理",
+      "body": "不正アクセスや情報の漏えい・改ざん・滅失を防止するため、アクセス制御等の安全管理措置を講じます。"
+    },
+    "section5": {
+      "title": "5. 情報の保存期間",
+      "body": "アカウントが有効な期間中、本サービスの提供に必要な範囲でデータを保存します。退会時や削除のご希望があった場合には、合理的な範囲で速やかに削除を行います。"
+    },
+    "section6": {
+      "title": "6. お問い合わせ",
+      "body": "本ポリシーや個人情報の取り扱いに関するご質問は、アプリ情報ページ記載の連絡先までお問い合わせください。"
+    },
+    "note": "※ 実際に公開する際は、法令やストアポリシーに合わせて内容を調整し、専門家による確認を行うことをおすすめします。"
+  },
+  "common": {
+    "cancel": "キャンセル",
+    "save": "保存",
+    "loading": "読み込み中...",
+    "selectPlaceholder": "選択してください",
+    "logout": "ログアウト",
+    "itemCount": "{count} 件",
+    "notSet": "（未設定）",
+    "fileInput": {
+      "buttonDefault": "画像を選択",
+      "rightHintDefault": "JPEG / PNG など",
+      "noFileSelected": "ファイルを選択してください",
+      "fileSizeError": "ファイルサイズが上限を超えています。"
+    }
+  }
+}

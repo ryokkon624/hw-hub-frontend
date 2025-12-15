@@ -1,0 +1,74 @@
+{
+  "housework": {
+    "list": {
+      "title": "Lista de Tareas del Hogar",
+      "columns": {
+        "id": "ID",
+        "name": "Nombre",
+        "category": "Categoría",
+        "recurrenceType": "Tipo de Recurrencia",
+        "startDate": "Fecha de Inicio",
+        "endDate": "Fecha de Finalización"
+      }
+    },
+    "create": { "title": "Nueva Tarea del Hogar" },
+    "edit": { "title": "Editar Tarea del Hogar" },
+    "form": {
+      "fields": {
+        "name": "Nombre",
+        "description": "Descripción",
+        "category": "Categoría",
+        "recurrenceType": "Tipo de Recurrencia",
+        "weeklyDays": "Días de la Semana",
+        "dayOfMonth": "Día del Mes",
+        "lastDayOfMonth": "Último Día del Mes",
+        "nthWeek": "Semana N",
+        "weekday": "Día de la Semana",
+        "defaultAssigneeUserId": "Asignado por Defecto",
+        "defaultAssigneePlaceholder": "Introduzca el nombre",
+        "startDate": "Fecha de Inicio",
+        "endDate": "Fecha de Finalización"
+      },
+      "errors": {
+        "name": {
+          "required": "El nombre es obligatorio.",
+          "maxBytes": "El nombre debe tener hasta 10 bytes."
+        },
+        "description": {
+          "maxBytes": "La descripción debe tener hasta 500 bytes."
+        },
+        "category": {
+          "required": "Seleccione una categoría."
+        },
+        "recurrenceType": {
+          "required": "Seleccione un tipo de recurrencia."
+        },
+        "weeklyDays": {
+          "required": "Seleccione al menos un día."
+        },
+        "dayOfMonth": {
+          "required": "Seleccione un día."
+        },
+        "nthWeek": {
+          "required": "Seleccione una semana."
+        },
+        "weekday": {
+          "required": "Seleccione un día de la semana."
+        },
+        "startDate": {
+          "required": "La fecha de inicio es obligatoria."
+        },
+        "endDate": {
+          "required": "La fecha de finalización es obligatoria.",
+          "afterStart": "La fecha de finalización debe ser posterior a la de inicio."
+        }
+      }
+    }
+  },
+  "common": {
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "loading": "Cargando...",
+    "selectPlaceholder": "Seleccione"
+  }
+}

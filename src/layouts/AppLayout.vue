@@ -1,0 +1,205 @@
+<template>
+  <div class="min-h-screen flex bg-hwhub-surface">
+    <!-- サイドバー（PC） -->
+    <aside class="hidden md:flex w-60 flex-col border-r bg-white">
+      <div class="h-16 flex items-center px-4 border-b">
+        <span class="font-bold text-lg text-hwhub-brand">Housework Hub</span>
+      </div>
+
+      <!-- 世帯ブロック -->
+      <div class="px-4 py-3 border-b">
+        <div class="text-xs font-semibold text-hwhub-muted mb-1">
+          {{ t('layout.sidebar.householdTitle') }}
+        </div>
+
+        <div
+          v-if="currentHousehold"
+          class="mb-2 rounded-md border border-hwhub-primary bg-hwhub-surface-subtle px-3 py-2"
+        >
+          <div class="text-sm font-medium text-hwhub-heading truncate">
+            {{ currentHousehold.name }}
+          </div>
+          <div class="text-xs text-hwhub-muted">{{ currentHousehold.name }}</div>
+        </div>
+        <div v-else class="text-xs text-hwhub-muted">
+          {{ t('layout.sidebar.noHouseholdSelected') }}
+        </div>
+
+        <!-- 切り替え候補（複数世帯がある場合） -->
+        <div v-if="otherHouseholds.length > 0" class="mt-2 space-y-1">
+          <div class="text-xs text-hwhub-muted">{{ t('layout.sidebar.otherHouseholdsLabel') }}</div>
+          <button
+            v-for="h in otherHouseholds"
+            :key="h.householdId"
+            type="button"
+            class="w-full text-left text-xs rounded-md px-2 py-1 hover:bg-hwhub-surface-subtle"
+            :disabled="isEditingHousework"
+            @click="changeHousehold(h.householdId)"
+          >
+            {{ h.name }}
+          </button>
+          <p v-if="isEditingHousework" class="mt-1 text-[11px] text-hwhub-muted">
+            {{ t('layout.sidebar.editingWarning') }}
+          </p>
+        </div>
+      </div>
+
+      <!-- メインナビ -->
+      <nav class="flex-1 px-2 py-3 space-y-1">
+        <button
+          v-for="item in mainNavItems"
+          :key="item.name"
+          type="button"
+          class="w-full flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition hover:bg-hwhub-surface-subtle"
+          :class="
+            isActive(item.name)
+              ? 'bg-hwhub-primary text-white hover:bg-hwhub-primary'
+              : 'text-hwhub-nav-inactive'
+          "
+          @click="navigate(item.name)"
+        >
+          <span class="text-lg">{{ item.icon }}</span>
+          <span class="flex-1 text-left">{{ t(item.labelKey) }}</span>
+        </button>
+      </nav>
+    </aside>
+
+    <!-- メイン領域 -->
+    <div class="flex-1 flex flex-col">
+      <!-- ヘッダー -->
+      <header class="h-16 flex items-center justify-between px-4 border-b bg-white">
+        <!-- 左側：ページタイトル + 世帯 -->
+        <div class="flex items-center gap-2">
+          <div class="flex flex-col gap-0.5">
+            <h1 class="font-semibold text-lg text-hwhub-heading">
+              {{ pageTitle }}
+            </h1>
+            <!-- SP時のみ現在の世帯をサブタイトル的に表示 -->
+            <div v-if="currentHousehold" class="md:hidden text-xs text-hwhub-muted">
+              {{ t('layout.sidebar.mobileHouseholdPrefix') }}{{ currentHousehold.name }}
+            </div>
+          </div>
+        </div>
+
+        <!-- 右側：言語切替 + ユーザメニュー -->
+        <AppHeader />
+      </header>
+
+      <!-- コンテンツ：SP ではタブバーぶん余白を確保 -->
+      <main class="flex-1 p-4 pb-20 md:pb-4 overflow-x-hidden">
+        <RouterView />
+      </main>
+
+      <!-- SP用 ブランドバー + タブバー -->
+      <div class="fixed bottom-0 inset-x-0 z-40 md:hidden">
+        <!-- ブランドバー -->
+        <div
+          class="h-6 flex items-center justify-center text-[11px] text-hwhub-muted bg-white/95 backdrop-blur border-t"
+        >
+          Housework Hub
+        </div>
+
+        <!-- タブバー -->
+        <nav class="flex items-stretch justify-around bg-white/95 backdrop-blur text-xs border-t">
+          <button
+            v-for="item in mainNavItems"
+            :key="item.name"
+            type="button"
+            class="flex-1 flex flex-col items-center justify-center py-1.5"
+            :class="
+              isActive(item.name)
+                ? 'text-hwhub-primary font-semibold'
+                : 'text-hwhub-nav-inactive-mobile'
+            "
+            @click="navigate(item.name)"
+          >
+            <span class="text-lg leading-none mb-0.5">
+              {{ item.icon }}
+            </span>
+            <span class="leading-none">{{ t(item.labelKey) }}</span>
+          </button>
+        </nav>
+      </div>
+    </div>
+
+    <!-- ここから共通 UI -->
+    <LoadingOverlay />
+    <AppToastContainer />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { useRoute, useRouter, RouterView } from 'vue-router'
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import AppHeader from '@/components/AppHeader.vue'
+import AppToastContainer from '@/components/AppToastContainer.vue'
+import LoadingOverlay from '@/components/LoadingOverlay.vue'
+import { useHouseholdStore } from '@/stores/householdStore'
+
+const route = useRoute()
+const router = useRouter()
+const householdStore = useHouseholdStore()
+const { t } = useI18n()
+
+type MainNavItem = {
+  name: string
+  labelKey: string
+  icon: string // ここはとりあえず絵文字でOK
+}
+
+const mainNavItems: MainNavItem[] = [
+  { name: 'home', labelKey: 'pageTitles.home', icon: '🏠' },
+  { name: 'housework.assign', labelKey: 'pageTitles.houseworkAssign', icon: '📋' },
+  { name: 'housework.tasks', labelKey: 'pageTitles.myTasks', icon: '✅' },
+  { name: 'shopping', labelKey: 'pageTitles.shopping', icon: '🛒' },
+  { name: 'settings', labelKey: 'pageTitles.settings', icon: '⚙️' },
+]
+
+const pageTitle = computed(() => {
+  const key = route.meta.titleKey as string | undefined
+  return key ? t(key) : 'Housework Hub'
+})
+
+const isActive = (name: string) => route.name === name
+
+const navigate = (name: string) => {
+  if (route.name === name) return
+  router.push({ name })
+}
+
+// ── 世帯まわり ──────────────────────────────
+const currentHousehold = computed(
+  () =>
+    householdStore.households.find((h) => h.householdId === householdStore.currentHouseholdId) ??
+    null,
+)
+
+const otherHouseholds = computed(() =>
+  householdStore.households.filter((h) => h.householdId !== householdStore.currentHouseholdId),
+)
+
+// 編集画面中かどうか
+const isEditingHousework = computed(() =>
+  [
+    'settings.housework.new',
+    'settings.housework.edit',
+    'shopping.new',
+    'shopping.item.detail',
+  ].includes(route.name as string),
+)
+
+const changeHousehold = async (householdId: number) => {
+  if (householdId === householdStore.currentHouseholdId) return
+
+  // 編集画面中なら確認してから
+  if (isEditingHousework.value) {
+    const ok = window.confirm(t('layout.sidebar.confirmChangeHousehold'))
+    if (!ok) return
+    // 一旦家事一覧に戻す想定
+    await router.push({ name: 'houseworks' })
+  }
+
+  householdStore.setCurrentHousehold(householdId)
+}
+</script>

@@ -1,0 +1,54 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependency directories
+node_modules/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Build output
+dist/
+dist-ssr/
+*.local
+
+# Test coverage
+coverage/
+
+# TypeScript
+*.tsbuildinfo
+
+# Cache
+.eslintcache
+.cache/
+vite.config.ts.timestamp-* 
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
+
+# Vitest
+__screenshots__/
+.vitest/
+
+# Output of image optimization plugins
+*.orig
+
+# Local env files
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+*.swp
+*.swo
