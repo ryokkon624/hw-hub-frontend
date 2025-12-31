@@ -39,7 +39,7 @@ jobs:
         run: npm ci
 
       - name: Build (stg)
-        run: npm run build -- --mode stg
+        run: npm run build:stg
 
       # dist/ を S3 に同期（不要ファイルは削除）
       - name: Upload to S3
