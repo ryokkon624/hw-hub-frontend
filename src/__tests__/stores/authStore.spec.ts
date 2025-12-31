@@ -16,6 +16,7 @@ vi.mock('@/api/authApi', () => ({
   authApi: {
     login: vi.fn(),
     register: vi.fn(),
+    putToPresignedUrl: vi.fn(),
   },
 }))
 
@@ -263,6 +264,7 @@ describe('authStore', () => {
       uploadUrl: 'https://upload.example.com',
       fileKey: 'file-key-123',
     })
+    vi.mocked(authApi.putToPresignedUrl).mockResolvedValue(undefined)
     vi.mocked(userApi.updateUserIcon).mockResolvedValue(undefined)
 
     const fetchProfileSpy = vi.spyOn(store, 'fetchUserProfile').mockResolvedValue(undefined)
@@ -276,13 +278,14 @@ describe('authStore', () => {
       fileName: 'icon.png',
       mimeType: 'image/png',
     })
-    expect(globalThis.fetch).toHaveBeenCalledWith('https://upload.example.com', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'image/png',
-      },
-      body: file,
-    })
+    expect(authApi.putToPresignedUrl).toHaveBeenCalledWith('https://upload.example.com', file)
+    // expect(globalThis.fetch).toHaveBeenCalledWith('https://upload.example.com', {
+    //   method: 'PUT',
+    //   headers: {
+    //     'Content-Type': 'image/png',
+    //   },
+    //   body: file,
+    // })
     expect(userApi.updateUserIcon).toHaveBeenCalledWith({ fileKey: 'file-key-123' })
     expect(fetchProfileSpy).toHaveBeenCalled()
   })

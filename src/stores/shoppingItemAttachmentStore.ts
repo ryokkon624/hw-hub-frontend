@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { shoppingItemAttachmentApi } from '@/api/shoppingItemAttachmentApi'
+import { authApi } from '@/api/authApi'
 import type { ShoppingItemAttachmentModel } from '@/domain'
 
 interface ShoppingItemState {
@@ -88,14 +89,7 @@ export const useShoppingItemAttachmentStore = defineStore('shoppingItem', {
           mimeType: file.type,
         })
 
-        // ブラウザから PUT
-        await fetch(upload.uploadUrl, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': file.type,
-          },
-          body: file,
-        })
+        await authApi.putToPresignedUrl(upload.uploadUrl, file)
 
         // メタ情報登録（戻り値は使わないので握りつぶす）
         await shoppingItemAttachmentApi.createAttachment(itemId, {

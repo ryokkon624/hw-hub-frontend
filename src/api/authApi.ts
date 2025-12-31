@@ -33,6 +33,27 @@ export const authApi = {
     )
     return toAuthSession(res.data)
   },
+
+  /**
+   * S3への画像をPUTする。
+   * @param uploadUrl presignedUrl
+   * @param file Uploadするファイル
+   */
+  async putToPresignedUrl(uploadUrl: string, file: File) {
+    const contentType = file.type || 'application/octet-stream'
+
+    const res = await fetch(uploadUrl, {
+      method: 'PUT',
+      headers: { 'Content-Type': contentType },
+      body: file,
+    })
+
+    if (!res.ok) {
+      // S3はCORSの都合で本文が読めないことがあるので
+      const text = await res.text().catch(() => '')
+      throw new Error(`S3 upload failed: ${res.status} ${res.statusText} ${text}`)
+    }
+  },
 }
 
 // ---- API DTO ----------------------------------------------------

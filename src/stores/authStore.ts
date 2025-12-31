@@ -158,16 +158,9 @@ export const useAuthStore = defineStore('auth', {
           mimeType: file.type || 'application/octet-stream',
         })
 
-        await fetch(uploadUrl, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': file.type || 'application/octet-stream',
-          },
-          body: file,
-        })
+        await authApi.putToPresignedUrl(uploadUrl, file)
 
         await userApi.updateUserIcon({ fileKey })
-
         await this.fetchUserProfile()
       } finally {
         this.isUploadingIcon = false

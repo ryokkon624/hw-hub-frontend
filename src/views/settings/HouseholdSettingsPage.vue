@@ -67,8 +67,10 @@
             </button>
           </div>
         </div>
+      </div>
 
-        <!-- SP 用：世帯追加カード -->
+      <!-- SP 用：世帯追加カード -->
+      <div class="flex flex-col gap-2">
         <button
           type="button"
           class="md:hidden mt-1 flex items-center justify-center rounded-lg border-2 border-dashed border-gray-300 px-3 py-3 text-sm text-hwhub-muted hover:bg-hwhub-surface-subtle"

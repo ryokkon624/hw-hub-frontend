@@ -134,4 +134,84 @@ describe('authApi', () => {
       })
     })
   })
+
+  describe('putToPresignedUrl', () => {
+    beforeEach(() => {
+      vi.clearAllMocks()
+      // fetch を毎回初期化
+      globalThis.fetch = vi.fn()
+    })
+
+    it('PUT が 200/204 のときは成功する（例: 200）', async () => {
+      // Response っぽい最小形
+      ;(globalThis.fetch as unknown as ReturnType<typeof vi.fn>).mockResolvedValue({
+        ok: true,
+        status: 200,
+        statusText: 'OK',
+        text: vi.fn().mockResolvedValue(''),
+      })
+
+      const file = new File([new Uint8Array([1, 2, 3])], 'icon.jpg', { type: 'image/jpeg' })
+
+      await expect(
+        authApi.putToPresignedUrl('https://example.com/presigned', file),
+      ).resolves.toBeUndefined()
+
+      expect(globalThis.fetch).toHaveBeenCalledTimes(1)
+      expect(globalThis.fetch).toHaveBeenCalledWith('https://example.com/presigned', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'image/jpeg' },
+        body: file,
+      })
+    })
+
+    it('file.type が空のとき Content-Type は application/octet-stream になる', async () => {
+      ;(globalThis.fetch as unknown as ReturnType<typeof vi.fn>).mockResolvedValue({
+        ok: true,
+        status: 200,
+        statusText: 'OK',
+        text: vi.fn().mockResolvedValue(''),
+      })
+
+      const file = new File([new Uint8Array([1])], 'blob.bin') // type なし
+
+      await authApi.putToPresignedUrl('https://example.com/presigned', file)
+
+      expect(globalThis.fetch).toHaveBeenCalledWith('https://example.com/presigned', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/octet-stream' },
+        body: file,
+      })
+    })
+
+    it('PUT が失敗したら status / statusText / text を含む Error を投げる（text 読めるケース）', async () => {
+      ;(globalThis.fetch as unknown as ReturnType<typeof vi.fn>).mockResolvedValue({
+        ok: false,
+        status: 403,
+        statusText: 'Forbidden',
+        text: vi.fn().mockResolvedValue('<Error>AccessDenied</Error>'),
+      })
+
+      const file = new File([new Uint8Array([1])], 'icon.jpg', { type: 'image/jpeg' })
+
+      await expect(
+        authApi.putToPresignedUrl('https://example.com/presigned', file),
+      ).rejects.toThrow('S3 upload failed: 403 Forbidden <Error>AccessDenied</Error>')
+    })
+
+    it('PUT が失敗し、res.text() も失敗する場合は空文字で Error を投げる（CORSなど）', async () => {
+      ;(globalThis.fetch as unknown as ReturnType<typeof vi.fn>).mockResolvedValue({
+        ok: false,
+        status: 403,
+        statusText: 'Forbidden',
+        text: vi.fn().mockRejectedValue(new Error('blocked')),
+      })
+
+      const file = new File([new Uint8Array([1])], 'icon.jpg', { type: 'image/jpeg' })
+
+      await expect(
+        authApi.putToPresignedUrl('https://example.com/presigned', file),
+      ).rejects.toThrow('S3 upload failed: 403 Forbidden ')
+    })
+  })
 })
