@@ -1,54 +1,144 @@
-# hw-hub-frontend
+# Housework Hub (HwHub)
 
-This template should help get you started developing with Vue 3 in Vite.
+## 概要
 
-## Recommended IDE Setup
+Housework
+Hub（HwHub）は、家庭内の家事・買い物・メンバー管理を協調的に行うためのアプリケーションです。  
+複数のおうち（Household）をサポートし、家事タスクのテンプレート化、定期実行、担当者割当、履歴管理などを提供します。
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+本リポジトリ群は以下の構成で成り立っています：
 
-## Recommended Browser Setup
+- **hw-hub-backend** : メインAPI（Spring Boot / MyBatis / MySQL）
+- **hw-hub-batch** : 定期バッチ処理（Spring Batch / ECS Fargate）
+- **hw-hub-frontend** : フロントエンド（Vue 3 + Vite + TypeScript）
+- **hw-hub-database** : DBスキーマ・Flywayマイグレーション管理
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+---
 
-## Type Support for `.vue` Imports in TS
+## 全体アーキテクチャ
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+- Backend / Batch は AWS ECS Fargate 上で稼働
+- DB は Amazon RDS (MySQL)
+- ファイル保存は S3
+- 認証は JWT
+- フロントエンドは S3 + CloudFront によりホスティング
+- バッチは EventBridge Scheduler により起動
 
-## Customize configuration
+### High-level Flow
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+Online(frontend + backend)
 
-## Project Setup
-
-```sh
-npm install
+```mermaid
+flowchart LR
+    Browser["Browser"]
+    CloudFront["CloudFront"]
+    S3["S3 (Frontend SPA)"]
+    ALB["ALB"]
+    ECS["ECS (Backend API)"]
+    RDS["RDS (MySQL)"]
+    Browser --> CloudFront
+    CloudFront --> S3
+    S3 --> ALB
+    ALB --> ECS
+    ECS --> RDS
 ```
 
-### Compile and Hot-Reload for Development
+Batch Processing
 
-```sh
-npm run dev
+```mermaid
+flowchart LR
+    Scheduler["EventBridge Scheduler"]
+    ECSBatch["ECS (Batch Task)"]
+    RDS["RDS (MySQL)"]
+    Scheduler --> ECSBatch
+    ECSBatch --> RDS
 ```
 
-### Type-Check, Compile and Minify for Production
+---
 
-```sh
-npm run build
-```
+## リポジトリ一覧と役割
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+| リポジトリ                                                       | 役割                                                   |
+| ---------------------------------------------------------------- | ------------------------------------------------------ |
+| [hw-hub-backend](https://github.com/ryokkon624/hw-hub-backend)   | REST API / 認証 / 業務ロジック                         |
+| [hw-hub-batch](https://github.com/ryokkon624/hw-hub-batch)       | 定期実行ジョブ（タスク生成、再計算、期限切れ処理など） |
+| [hw-hub-frontend](https://github.com/ryokkon624/hw-hub-frontend) | Web UI                                                 |
+| [hw-hub-database](https://github.com/ryokkon624/hw-hub-database) | Flyway によるスキーマ管理                              |
 
-```sh
-npm run test:unit
-```
+---
 
-### Lint with [ESLint](https://eslint.org/)
+## 開発方針・ポリシー
 
-```sh
-npm run lint
-```
+### Backend
+
+- Java 21 / Spring Boot 3.x
+- MyBatis + MyBatis Generator
+- Flyway によるマイグレーション管理
+- DDD 風レイヤード構成
+- WHO カラム（create_user_id / created_at / update_user_id / updated_at / etc）を全テーブルに保持
+- コードマスタ（m_code）から Enum を自動生成
+
+### Frontend
+
+- Vue 3 + Composition API + TypeScript
+- Pinia（すべての API コールは Store Action からaxiosを薄くラップしたclientを呼び出す）
+- Tailwind CSS
+- vue-i18n による多言語対応
+
+### テスト
+
+- Backend / Batch: Spock + JUnit Platform + JaCoCo
+- Frontend: Vitest
+- GitHub Actions により Coverage レポートを GitHub Pages に公開
+
+---
+
+## CI / CD 概要
+
+- push to main で以下を自動実行
+  - テスト
+  - カバレッジ生成
+  - Docker build & push (ECR)
+  - ECS TaskDefinition 更新
+  - Scheduler / Service への反映
+- カバレッジレポートは GitHub Pages に公開
+
+---
+
+## カバレッジレポート
+
+- Backend: GitHub Pages (backend coverage workflow)
+- Batch: GitHub Pages (batch coverage workflow)
+- Frontend: GitHub Pages (frontend coverage workflow)
+
+---
+
+## ドキュメント構成
+
+- 本 README: プロジェクト全体概要
+- 各リポジトリ配下の README: xxxx_README.md
+  - セットアップ方法
+  - 開発手順
+  - テスト実行方法
+  - デプロイ方法
+  - 運用時の注意点
+
+---
+
+## 次に読むべきドキュメント
+
+- [backend_README.md](https://github.com/ryokkon624/hw-hub-backend/blob/main/backend_README.md)
+- [batch_README.md](https://github.com/ryokkon624/hw-hub-batch/blob/main/batch_README.md)
+- [frontend_README.md](https://github.com/ryokkon624/hw-hub-frontend/blob/main/frontend_README.md)
+- [database_README.md](https://github.com/ryokkon624/hw-hub-database/blob/main/database_README.md)
+
+---
+
+## ステータス
+
+このプロジェクトは以下の状態に到達しています：
+
+- アーキテクチャ確定
+- CI/CD パイプライン構築済み
+- 高カバレッジなテスト整備済み
+- 本番運用を想定した構成・監視・デプロイフロー整備済み
