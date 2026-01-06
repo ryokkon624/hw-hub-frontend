@@ -127,12 +127,3 @@ npm run test:unit -- --coverage
 - API 接続先の向き先
 
 ---
-
-## 関連ドキュメント
-
-- 全体概要：[README.md]()
-- バックエンド：[backend_README.md]()
-- バッチ：[batch_README.md]()
-- フロントエンド：[frontend_README.md]()
-- データベース：[database_README.md]()
-- 運用：[RUNBOOK.md]()
