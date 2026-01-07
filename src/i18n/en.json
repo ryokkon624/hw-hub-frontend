@@ -9,11 +9,12 @@
     "shoppingEdit": "Edit shopping item",
     "settings": "Settings",
     "accountSettings": "Account settings",
+    "householdSettings": "Household settings",
     "houseworkCreate": "New housework",
     "houseworkEdit": "Edit housework",
-    "app": "アプリ情報",
-    "terms": "利用規約",
-    "privacy": "プライバシーポリシー"
+    "app": "App info",
+    "terms": "Terms of service",
+    "privacy": "Privacy policy"
   },
   "login": {
     "hero": {
@@ -144,6 +145,21 @@
   },
   "home": {
     "intro": "You can quickly check the overall status of housework and shopping here. For detailed operations, please use each page (My Tasks / Assignment / Shopping list).",
+
+    "onboarding": {
+      "title": "Welcome to Housework Hub!",
+      "subtitle": "Let's get ready to use the app.",
+      "step1": {
+        "title": "Join or create a household",
+        "description": "First, create a household foundation or get invited by a family member.",
+        "button": "Go to Household Settings"
+      },
+      "step2": {
+        "title": "Create housework templates",
+        "description": "Register master tasks like 'Cleaning' or 'Laundry' for this household.",
+        "button": "Go to Housework Settings"
+      }
+    },
 
     "common": {
       "taskCount": "{count} tasks",
