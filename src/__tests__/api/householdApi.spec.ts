@@ -135,4 +135,17 @@ describe('householdApi', () => {
       expect(mockedClient.delete).toHaveBeenCalledWith('/api/households/123')
     })
   })
+
+  describe('transferOwner', () => {
+    it('PUT /api/households/{id}/transfer-owner に newOwnerUserId を送信する', async () => {
+      mockedClient.put.mockResolvedValue({})
+
+      await householdApi.transferOwner(1, 200)
+
+      expect(mockedClient.put).toHaveBeenCalledTimes(1)
+      expect(mockedClient.put).toHaveBeenCalledWith('/api/households/1/transfer-owner', {
+        newOwnerUserId: 200,
+      })
+    })
+  })
 })

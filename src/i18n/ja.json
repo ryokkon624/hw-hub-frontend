@@ -666,7 +666,8 @@
         },
         "actions": {
           "leave": "このおうちから離脱",
-          "remove": "おうちから外す"
+          "remove": "おうちから外す",
+          "transferOwner": "OWNERを譲渡"
         }
       },
       "invite": {
@@ -709,12 +710,15 @@
         "revokeInviteSuccess": "招待を取り消しました",
         "revokeInviteFailed": "招待の取り消しに失敗しました",
         "deleteSuccess": "おうちを削除しました",
-        "deleteFailed": "おうちの削除に失敗しました"
+        "deleteFailed": "おうちの削除に失敗しました",
+        "transferOwnerSuccess": "OWNER権限を譲渡しました",
+        "transferOwnerFailed": "OWNER権限の譲渡に失敗しました"
       },
       "confirms": {
         "leaveHousehold": "このおうちから離脱しますか？\n家事の担当からも外れます。",
         "removeMember": "「{name}」さんをこのおうちから削除しますか？",
         "revokeInvite": "この招待を取り消しますか？",
+        "transferOwner": "「{name}」さんにOWNER権限を譲渡しますか？\n譲渡すると、あなたはこのおうちの一般メンバーになります。",
         "deleteHousehold": "本当にこのおうちを削除しますか？\n削除すると復元できません。\n\n【以下のデータも削除されます】\n・未購入の買い物アイテム: {shoppingCount}件\n・有効な家事設定: {houseworkCount}件"
       },
       "danger": {

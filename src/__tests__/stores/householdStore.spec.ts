@@ -20,6 +20,7 @@ vi.mock('@/api/householdApi', () => ({
     updateHouseholdName: vi.fn(),
     createHousehold: vi.fn(),
     deleteHousehold: vi.fn(),
+    transferOwner: vi.fn(),
   },
 }))
 
@@ -400,7 +401,19 @@ describe('householdStore', () => {
     expect(store.currentHouseholdId).toBe(1)
   })
 
+  it('transferOwnership: API を呼び、state を更新してから fetchMembers を force:true で呼ぶ', async () => {
+    const store = useHouseholdStore()
+    const fetchMembersSpy = vi.spyOn(store, 'fetchMembers').mockResolvedValue(undefined)
+    vi.mocked(householdApi.transferOwner).mockResolvedValue(undefined)
 
+    store.households = [{ householdId: 1, name: 'H1', ownerUserId: 1 }]
+
+    await store.transferOwnership(1, 200)
+
+    expect(householdApi.transferOwner).toHaveBeenCalledWith(1, 200)
+    expect(store.households[0]!.ownerUserId).toBe(200)
+    expect(fetchMembersSpy).toHaveBeenCalledWith(1, { force: true })
+  })
 
   it('reset: state と localStorage をクリアする', () => {
     const store = useHouseholdStore()
