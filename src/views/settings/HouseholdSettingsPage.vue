@@ -286,7 +286,7 @@
                 <img
                   v-if="m.iconUrl"
                   :src="m.iconUrl"
-                  alt="アイコン"
+                  :alt="t('assign.avatarAlt')"
                   class="w-full h-full object-cover"
                 />
                 <span v-else>
@@ -459,6 +459,29 @@
         </ul>
       </div>
     </section>
+
+    <!-- おうち削除 -->
+    <section
+      v-if="isOwnerInCurrentHousehold"
+      class="bg-white rounded-lg shadow-sm p-4 border mt-6 border-red-200"
+    >
+      <h2 class="text-sm font-semibold text-red-600">
+        {{ t('settings.household.danger.title') }}
+      </h2>
+      <p class="text-xs text-red-600 mt-2 whitespace-pre-wrap">
+        {{ t('settings.household.danger.note') }}
+      </p>
+
+      <div class="mt-4 flex justify-end">
+        <button
+          type="button"
+          class="px-4 py-2 rounded-md bg-red-600 text-white text-sm font-semibold hover:bg-red-700"
+          @click="onClickDeleteHousehold"
+        >
+          {{ t('settings.household.danger.deleteButton') }}
+        </button>
+      </div>
+    </section>
     <!-- 世帯作成ダイアログ -->
     <HouseholdCreateDialog v-model="showCreateDialog" @create="handleCreateHousehold" />
   </div>
@@ -476,8 +499,13 @@ import { useHouseholdInvitationStore } from '@/stores/householdInvitationStore'
 import { HOUSEHOLD_MEMBER_STATUS, INVITATION_STATUS } from '@/constants/code.constants'
 import { useHouseholdCodes } from '@/composables/useHouseholdCodes'
 import { useI18n } from 'vue-i18n'
+import { useHouseworkStore } from '@/stores/houseworkStore'
+import { useShoppingStore } from '@/stores/shoppingStore'
+import { SHOPPING_ITEM_STATUS } from '@/constants/code.constants'
 
 const householdStore = useHouseholdStore()
+const houseworkStore = useHouseworkStore()
+const shoppingStore = useShoppingStore()
 const uiStore = useUiStore()
 const authStore = useAuthStore()
 const invitationStore = useHouseholdInvitationStore()
@@ -510,10 +538,10 @@ const handleCreateHousehold = async (name: string) => {
     })
 
     showCreateDialog.value = false
-    uiStore.showToast('success', '新しい世帯を作成しました')
+    uiStore.showToast('success', t('settings.household.toasts.createSuccess'))
   } catch (e) {
     console.error(e)
-    uiStore.showToast('error', '世帯の作成に失敗しました')
+    uiStore.showToast('error', t('settings.household.toasts.createFailed'))
   }
 }
 
@@ -599,10 +627,10 @@ const onChangeHousehold = async (householdId: number) => {
       await householdStore.setCurrentHousehold(householdId)
     })
 
-    uiStore.showToast('success', '世帯を切り替えました')
+    uiStore.showToast('success', t('settings.household.toasts.switchSuccess'))
   } catch (e) {
     console.error(e)
-    uiStore.showToast('error', '世帯の切り替えに失敗しました')
+    uiStore.showToast('error', t('settings.household.toasts.switchFailed'))
   }
 }
 
@@ -632,10 +660,10 @@ const onSaveHouseholdName = async () => {
       originalHouseholdName.value = name
     })
 
-    uiStore.showToast('success', '世帯名を保存しました')
+    uiStore.showToast('success', t('settings.household.toasts.saveNameSuccess'))
   } catch (e) {
     console.error(e)
-    uiStore.showToast('error', '世帯名の保存に失敗しました')
+    uiStore.showToast('error', t('settings.household.toasts.saveNameFailed'))
   }
 }
 
@@ -652,10 +680,10 @@ const onSaveNickname = async () => {
       // 例：householdStore.updateMyNickname(currentHousehold.value.id, myNickname.value.trim())
     })
     await householdStore.fetchMembers(householdId, { force: true })
-    uiStore.showToast('success', 'ニックネームを保存しました')
+    uiStore.showToast('success', t('settings.household.toasts.saveNicknameSuccess'))
   } catch (e) {
     console.error(e)
-    uiStore.showToast('error', 'ニックネームの保存に失敗しました')
+    uiStore.showToast('error', t('settings.household.toasts.saveNicknameFailed'))
   }
 }
 
@@ -668,7 +696,7 @@ const isOwnerInCurrentHousehold = computed(() => {
 const leaveHousehold = async () => {
   if (!currentHouseholdId.value || !loginUserId.value) return
 
-  if (!confirm('この世帯から離脱しますか？\n家事の担当からも外れます。')) {
+  if (!confirm(t('settings.household.confirms.leaveHousehold'))) {
     return
   }
 
@@ -676,10 +704,10 @@ const leaveHousehold = async () => {
     await uiStore.withLoading(async () => {
       await householdStore.leaveMyself(currentHouseholdId.value!)
     })
-    uiStore.showToast('success', 'この世帯から離脱しました')
+    uiStore.showToast('success', t('settings.household.toasts.leaveSuccess'))
   } catch (e) {
     console.error(e)
-    uiStore.showToast('error', '離脱に失敗しました')
+    uiStore.showToast('error', t('settings.household.toasts.leaveFailed'))
   }
 }
 
@@ -691,16 +719,16 @@ const removeMember = async (userId: number) => {
   const target = currentAllMembers.value.find((m) => m.userId === userId)
   if (!target) return
 
-  if (!confirm(`「${target.displayName}」さんをこの世帯から削除しますか？`)) return
+  if (!confirm(t('settings.household.confirms.removeMember', { name: target.displayName }))) return
 
   try {
     await uiStore.withLoading(async () => {
       await householdMemberApi.removeMember(currentHouseholdId.value!, userId)
     })
-    uiStore.showToast('success', 'メンバーを世帯から削除しました')
+    uiStore.showToast('success', t('settings.household.toasts.removeMemberSuccess'))
   } catch (e) {
     console.error(e)
-    uiStore.showToast('error', 'メンバーの削除に失敗しました')
+    uiStore.showToast('error', t('settings.household.toasts.removeMemberFailed'))
   }
 }
 
@@ -761,13 +789,65 @@ const sendInvitation = async () => {
 
 const revokeInvitation = async (token: string) => {
   if (!currentHouseholdId.value) return
-  if (!confirm('この招待を取り消しますか？')) return
+  if (!confirm(t('settings.household.confirms.revokeInvite'))) return
 
   try {
     await invitationStore.revokeInvitation(currentHouseholdId.value, token)
     uiStore.showToast('success', '招待を取り消しました')
   } catch {
     uiStore.showToast('error', '招待の取り消しに失敗しました')
+  }
+}
+
+// おうち削除
+const onClickDeleteHousehold = async () => {
+  const householdId = currentHouseholdId.value
+  if (!householdId) return
+
+  // 1. 他の有効メンバーチェック
+  // 自分(active)を含めて1人 = 自分だけ
+  const activeMembers = householdStore.currentMembers
+  if (activeMembers.length > 1) {
+    uiStore.showToast('error', t('settings.household.danger.errorHasMembers'))
+    return
+  }
+
+  // 2. 関連データの件数確認 (家事、買い物)
+  let houseworkCount = 0
+  let shoppingCount = 0
+
+  await uiStore.withLoading(async () => {
+    // 最新化
+    await houseworkStore.loadAll({ force: true })
+    await shoppingStore.fetchItems(householdId, { force: true })
+
+    // 有効な家事
+    const today = new Date().toISOString().slice(0, 10)
+    const houseworks = houseworkStore.itemsByHouseholdId[householdId] ?? []
+    houseworkCount = houseworks.filter((h) => (h.endDate ?? '') >= today).length
+
+    // 未購入の買い物 (NOT_PURCHASED: 0, IN_BASKET: 1) -> 9:PURCHASED 以外
+    const shoppings = shoppingStore.items(householdId)
+    shoppingCount = shoppings.filter((i) => i.status !== SHOPPING_ITEM_STATUS.PURCHASED).length
+  })
+
+  // 3. 確認メッセージ
+  const message = t('settings.household.confirms.deleteHousehold', {
+    houseworkCount,
+    shoppingCount,
+  })
+
+  if (!confirm(message)) return
+
+  // 4. 実行
+  try {
+    await uiStore.withLoading(async () => {
+      await householdStore.deleteHousehold(householdId)
+    })
+    uiStore.showToast('success', t('settings.household.toasts.deleteSuccess'))
+  } catch (e) {
+    console.error(e)
+    uiStore.showToast('error', t('settings.household.toasts.deleteFailed'))
   }
 }
 

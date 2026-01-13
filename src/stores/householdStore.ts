@@ -198,6 +198,21 @@ export const useHouseholdStore = defineStore('household', {
     },
 
     /**
+     * 世帯を削除する。
+     * @param householdId 世帯ID
+     */
+    async deleteHousehold(householdId: number) {
+      await householdApi.deleteHousehold(householdId)
+
+      this.households = this.households.filter((h) => h.householdId !== householdId)
+
+      if (this.currentHouseholdId === householdId) {
+        const next = this.households[0]?.householdId ?? null
+        await this.setCurrentHousehold(next)
+      }
+    },
+
+    /**
      * ログアウト時などに全部リセットしたい場合だけ使う
      */
     reset() {

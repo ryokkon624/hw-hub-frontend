@@ -698,12 +698,21 @@
         "inviteCreateFailed": "招待リンクの作成に失敗しました",
 
         "revokeInviteSuccess": "招待を取り消しました",
-        "revokeInviteFailed": "招待の取り消しに失敗しました"
+        "revokeInviteFailed": "招待の取り消しに失敗しました",
+        "deleteSuccess": "おうちを削除しました",
+        "deleteFailed": "おうちの削除に失敗しました"
       },
       "confirms": {
         "leaveHousehold": "このおうちから離脱しますか？\n家事の担当からも外れます。",
         "removeMember": "「{name}」さんをこのおうちから削除しますか？",
-        "revokeInvite": "この招待を取り消しますか？"
+        "revokeInvite": "この招待を取り消しますか？",
+        "deleteHousehold": "本当にこのおうちを削除しますか？\n削除すると復元できません。\n\n【以下のデータも削除されます】\n・未購入の買い物アイテム: {shoppingCount}件\n・有効な家事設定: {houseworkCount}件"
+      },
+      "danger": {
+        "title": "おうち削除",
+        "deleteButton": "このおうちを削除する",
+        "note": "おうちを削除すると、家事や買い物リストなどすべてのデータが削除されます。この操作は取り消せません。\nまた、自分以外のメンバーがいる場合は削除できません。",
+        "errorHasMembers": "自分以外の有効なメンバーがいるため削除できません。先にメンバーを解除してください。"
       }
     }
   },

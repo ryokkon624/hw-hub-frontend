@@ -19,6 +19,7 @@ vi.mock('@/api/householdApi', () => ({
     getHouseholdMembers: vi.fn(),
     updateHouseholdName: vi.fn(),
     createHousehold: vi.fn(),
+    deleteHousehold: vi.fn(),
   },
 }))
 
@@ -319,6 +320,87 @@ describe('householdStore', () => {
     expect(householdMemberApi.removeMember).toHaveBeenCalledWith(2, 99)
     expect(fetchMembersSpy).toHaveBeenCalledWith(2, { force: true })
   })
+
+  it('deleteHousehold: API 呼び出し後に households から削除し、currentHouseholdId を更新する', async () => {
+    const store = useHouseholdStore()
+    const setCurrentSpy = vi.spyOn(store, 'setCurrentHousehold').mockResolvedValue(undefined)
+    vi.mocked(householdApi.deleteHousehold).mockResolvedValue(undefined)
+
+    // 初期状態: household 1 (current), 2
+    store.households = [
+      { householdId: 1, name: 'H1', ownerUserId: 1 },
+      { householdId: 2, name: 'H2', ownerUserId: 1 },
+    ]
+    store.currentHouseholdId = 1
+
+    await store.deleteHousehold(1)
+
+    // API が呼ばれていること
+    expect(householdApi.deleteHousehold).toHaveBeenCalledWith(1)
+
+    // households から削除されていること
+    expect(store.households).toHaveLength(1)
+    expect(store.households[0]!.householdId).toBe(2)
+
+    // current が削除されたので次の世帯へ切り替わっていること
+    expect(setCurrentSpy).toHaveBeenCalledWith(2)
+  })
+
+  it('deleteHousehold: current 以外の削除では current は変わらない', async () => {
+    const store = useHouseholdStore()
+    const setCurrentSpy = vi.spyOn(store, 'setCurrentHousehold').mockResolvedValue(undefined)
+    vi.mocked(householdApi.deleteHousehold).mockResolvedValue(undefined)
+
+    // 初期状態: household 1 (current), 2
+    store.households = [
+      { householdId: 1, name: 'H1', ownerUserId: 1 },
+      { householdId: 2, name: 'H2', ownerUserId: 1 },
+    ]
+    store.currentHouseholdId = 1
+
+    await store.deleteHousehold(2)
+
+    // households から削除されていること
+    expect(store.households).toHaveLength(1)
+    expect(store.households[0]!.householdId).toBe(1)
+
+    // current は 1 のままなので setCurrentHousehold は呼ばれない
+    expect(setCurrentSpy).not.toHaveBeenCalled()
+    expect(store.currentHouseholdId).toBe(1)
+  })
+
+  it('deleteHousehold: 全ての世帯がなくなったら currentHouseholdId を null にする', async () => {
+    const store = useHouseholdStore()
+    const setCurrentSpy = vi.spyOn(store, 'setCurrentHousehold').mockResolvedValue(undefined)
+    vi.mocked(householdApi.deleteHousehold).mockResolvedValue(undefined)
+
+    // 初期状態: 1つだけ
+    store.households = [{ householdId: 1, name: 'H1', ownerUserId: 1 }]
+    store.currentHouseholdId = 1
+
+    await store.deleteHousehold(1)
+
+    expect(store.households).toHaveLength(0)
+    expect(setCurrentSpy).toHaveBeenCalledWith(null)
+  })
+
+  it('deleteHousehold: API 失敗時はエラーを投げ、状態は変更しない', async () => {
+    const store = useHouseholdStore()
+    const households = [{ householdId: 1, name: 'H1', ownerUserId: 1 }]
+    store.households = [...households]
+    store.currentHouseholdId = 1
+
+    const error = new Error('Delete failed')
+    vi.mocked(householdApi.deleteHousehold).mockRejectedValue(error)
+
+    await expect(store.deleteHousehold(1)).rejects.toThrow('Delete failed')
+
+    // 状態が変わっていないこと
+    expect(store.households).toEqual(households)
+    expect(store.currentHouseholdId).toBe(1)
+  })
+
+
 
   it('reset: state と localStorage をクリアする', () => {
     const store = useHouseholdStore()

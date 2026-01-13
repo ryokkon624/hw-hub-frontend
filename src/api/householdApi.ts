@@ -36,6 +36,14 @@ export const householdApi = {
 
     return toHouseholdModel(res.data)
   },
+
+  /**
+   * 世帯を削除する。
+   * @param householdId 世帯ID
+   */
+  async deleteHousehold(householdId: number): Promise<void> {
+    await apiClient.delete(`/api/households/${householdId}`)
+  },
 }
 
 // ---- API DTO ----------------------------------------------------
