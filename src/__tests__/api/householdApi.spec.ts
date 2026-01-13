@@ -7,6 +7,7 @@ type MockedApiClient = {
   get: ReturnType<typeof vi.fn>
   post: ReturnType<typeof vi.fn>
   put: ReturnType<typeof vi.fn>
+  delete: ReturnType<typeof vi.fn>
 }
 
 // 実体をモック型として扱う
@@ -19,6 +20,7 @@ vi.mock('@/api/client', () => {
       get: vi.fn(),
       post: vi.fn(),
       put: vi.fn(),
+      delete: vi.fn(),
     },
   }
 })
@@ -120,6 +122,17 @@ describe('householdApi', () => {
         name: 'Created Household',
         ownerUserId: 99,
       })
+    })
+  })
+
+  describe('deleteHousehold', () => {
+    it('DELETE /api/households/{id} を呼び出す', async () => {
+      mockedClient.delete = vi.fn().mockResolvedValue({})
+
+      await householdApi.deleteHousehold(123)
+
+      expect(mockedClient.delete).toHaveBeenCalledTimes(1)
+      expect(mockedClient.delete).toHaveBeenCalledWith('/api/households/123')
     })
   })
 })

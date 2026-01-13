@@ -20,6 +20,7 @@ export default mergeConfig(
           'src/**/__tests__/**',
           '**config.ts',
           '**config.js',
+          'dist/',
         ],
       },
     },
