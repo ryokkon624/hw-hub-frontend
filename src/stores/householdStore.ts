@@ -213,6 +213,24 @@ export const useHouseholdStore = defineStore('household', {
     },
 
     /**
+     * 世帯のOWNERを譲渡する。
+     * @param householdId 世帯ID
+     * @param newOwnerUserId 新しいOWNERのユーザID
+     */
+    async transferOwnership(householdId: number, newOwnerUserId: number) {
+      await householdApi.transferOwner(householdId, newOwnerUserId)
+
+      // storeの情報を更新
+      const target = this.households.find((h) => h.householdId === householdId)
+      if (target) {
+        target.ownerUserId = newOwnerUserId
+      }
+
+      // メンバー一覧を再取得（roleが変わるため）
+      await this.fetchMembers(householdId, { force: true })
+    },
+
+    /**
      * ログアウト時などに全部リセットしたい場合だけ使う
      */
     reset() {

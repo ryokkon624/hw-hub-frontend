@@ -44,6 +44,17 @@ export const householdApi = {
   async deleteHousehold(householdId: number): Promise<void> {
     await apiClient.delete(`/api/households/${householdId}`)
   },
+
+  /**
+   * 世帯OWNERを譲渡する。
+   * @param householdId 世帯ID
+   * @param newOwnerUserId 新しいOWNERのユーザID
+   */
+  async transferOwner(householdId: number, newOwnerUserId: number): Promise<void> {
+    await apiClient.put(`/api/households/${householdId}/transfer-owner`, {
+      newOwnerUserId,
+    })
+  },
 }
 
 // ---- API DTO ----------------------------------------------------

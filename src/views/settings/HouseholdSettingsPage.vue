@@ -263,6 +263,16 @@
               >
                 {{ t('settings.household.members.actions.remove') }}
               </button>
+
+              <!-- OWNER が他メンバーに譲渡 -->
+              <button
+                v-if="isOwnerInCurrentHousehold && m.userId !== loginUserId && m.status === '1'"
+                type="button"
+                class="ml-2 px-3 py-1 rounded-full border text-[11px] text-amber-600 hover:bg-amber-50"
+                @click="transferOwner(m)"
+              >
+                {{ t('settings.household.members.actions.transferOwner') }}
+              </button>
             </td>
           </tr>
         </tbody>
@@ -351,6 +361,16 @@
               @click="removeMember(m.userId)"
             >
               {{ t('settings.household.members.actions.remove') }}
+            </button>
+
+            <!-- OWNER が他メンバーに譲渡 -->
+            <button
+              v-if="isOwnerInCurrentHousehold && m.userId !== loginUserId && m.status === '1'"
+              type="button"
+              class="ml-2 px-3 py-1 rounded-full border text-[11px] text-amber-600 hover:bg-amber-50"
+              @click="transferOwner(m)"
+            >
+              {{ t('settings.household.members.actions.transferOwner') }}
             </button>
           </div>
         </div>
@@ -491,7 +511,7 @@
 import { computed, ref, watch, onMounted } from 'vue'
 import { useHouseholdStore } from '@/stores/householdStore'
 import { useUiStore } from '@/stores/uiStore'
-import type { HouseholdModel } from '@/domain'
+import type { HouseholdModel, HouseholdMember } from '@/domain'
 import { householdMemberApi } from '@/api/householdMemberApi'
 import { useAuthStore } from '@/stores/authStore'
 import HouseholdCreateDialog from '@/components/HouseholdCreateDialog.vue'
@@ -796,6 +816,30 @@ const revokeInvitation = async (token: string) => {
     uiStore.showToast('success', t('settings.household.toasts.revokeInviteSuccess'))
   } catch {
     uiStore.showToast('error', t('settings.household.toasts.revokeInviteFailed'))
+  }
+}
+
+const transferOwner = async (member: HouseholdMember) => {
+  if (!currentHouseholdId.value) return
+  if (!isOwnerInCurrentHousehold.value) return
+
+  if (
+    !confirm(
+      t('settings.household.confirms.transferOwner', {
+        name: member.nickname || member.displayName,
+      }),
+    )
+  )
+    return
+
+  try {
+    await uiStore.withLoading(async () => {
+      await householdStore.transferOwnership(currentHouseholdId.value!, member.userId)
+    })
+    uiStore.showToast('success', t('settings.household.toasts.transferOwnerSuccess'))
+  } catch (e) {
+    console.error(e)
+    uiStore.showToast('error', t('settings.household.toasts.transferOwnerFailed'))
   }
 }
 
