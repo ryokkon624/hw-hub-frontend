@@ -167,7 +167,7 @@
           class="relative w-full rounded-xl bg-hwhub-surface-subtle flex items-center justify-center overflow-hidden aspect-4/3"
         >
           <template v-if="selectedImageUrl">
-            <img :src="selectedImageUrl" alt="アイテム画像" class="w-full h-full object-cover" />
+            <img :src="selectedImageUrl" :alt="t('shopping.detail.fields.name')" class="w-full h-full object-cover" />
             <button
               v-if="selectedAttachment"
               type="button"

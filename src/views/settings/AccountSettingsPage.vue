@@ -73,7 +73,7 @@
           <img
             v-if="userIconUrl"
             :src="userIconUrl"
-            alt="プロフィール画像"
+            :alt="t('settings.account.icon.title')"
             class="w-full h-full object-cover"
           />
           <span v-else class="text-sm text-hwhub-muted">NO IMG</span>
@@ -162,12 +162,7 @@ const originalDisplayName = ref<string | null>(null)
 const originalLocale = ref<Locale>('ja')
 
 const labelForLocale = (lang: Locale) => {
-  switch (lang) {
-    case 'ja':
-      return '日本語'
-    case 'en':
-      return 'English'
-  }
+  return t(`common.locales.${lang}`)
 }
 
 // vee-validate フォーム

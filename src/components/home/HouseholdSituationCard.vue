@@ -120,7 +120,7 @@ const stackedChartData = computed<StackedBarData>(() => {
   const datasets: ChartDataset<'bar', number[]>[] = keys.map((key, index) => {
     const isUnassigned = key === UNASSIGNED_KEY
     const label = isUnassigned
-      ? '未割当'
+      ? t('assign.summary.unassignedLabel')
       : (() => {
           const idNum = Number(key)
           const m = memberMap.value.get(idNum)

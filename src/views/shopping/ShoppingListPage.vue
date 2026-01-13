@@ -521,7 +521,7 @@ type CompletedGroup = {
   items: ShoppingItemModel[]
 }
 
-const WEEKDAYS = ['日', '月', '火', '水', '木', '金', '土'] as const
+
 
 const formatDateLabel = (dateStr: string): string => {
   // dateStr は 'YYYY-MM-DD' 想定
@@ -552,11 +552,12 @@ const formatDateLabel = (dateStr: string): string => {
   yesterday.setDate(today.getDate() - 1)
   const yesterdayYmd = yesterday.toISOString().substring(0, 10)
 
-  if (ymd === todayYmd) return '今日'
-  if (ymd === yesterdayYmd) return '昨日'
+  if (ymd === todayYmd) return t('myTasks.date.today')
+  if (ymd === yesterdayYmd) return t('common.yesterday')
 
-  const wd = WEEKDAYS[target.getDay()]
-  return `${m}/${d}（${wd}）`
+  const weekdayKey = `myTasks.date.weekday.${target.getDay()}`
+  const wd = t(weekdayKey)
+  return t('myTasks.date.label', { month: m, day: d, weekday: wd })
 }
 
 const completedGroups = computed<CompletedGroup[]>(() => {

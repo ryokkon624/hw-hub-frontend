@@ -5,7 +5,7 @@ import { useHouseholdStore } from '@/stores/householdStore'
 import { useHouseworkTaskStore } from '@/stores/houseworkTaskStore'
 import type { HouseworkTaskModel } from '@/domain'
 import { toYmd, addDays } from '@/utils/dateUtils'
-import { SHOPPING_ITEM_STATUS } from '@/constants/code.constants'
+import { TASK_STATUS } from '@/constants/code.constants'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -26,9 +26,7 @@ const allTasks = computed<HouseworkTaskModel[]>(() => {
 })
 
 const unassignedTasks = computed(() =>
-  allTasks.value.filter(
-    (t) => t.assigneeUserId == null && t.status === SHOPPING_ITEM_STATUS.NOT_PURCHASED,
-  ),
+  allTasks.value.filter((t) => t.assigneeUserId == null && t.status === TASK_STATUS.NOT_DONE),
 )
 
 const unassignedTotal = computed(() => unassignedTasks.value.length)

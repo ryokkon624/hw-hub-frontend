@@ -5,6 +5,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { useHouseworkTaskStore } from '@/stores/houseworkTaskStore'
 import type { HouseworkTaskModel } from '@/domain'
 import { toYmd, addDays } from '@/utils/dateUtils'
+import { TASK_STATUS } from '@/constants/code.constants'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -22,7 +23,9 @@ const allTasks = computed<HouseworkTaskModel[]>(() => taskStore.items ?? [])
 
 // 自分担当 & 未対応
 const myOpenTasks = computed(() =>
-  allTasks.value.filter((t) => t.assigneeUserId === loginUserId.value && t.status === '0'),
+  allTasks.value.filter(
+    (t) => t.assigneeUserId === loginUserId.value && t.status === TASK_STATUS.NOT_DONE,
+  ),
 )
 
 const myTodayCount = computed(
