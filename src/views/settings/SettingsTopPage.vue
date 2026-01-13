@@ -1,6 +1,6 @@
 <template>
   <div class="space-y-4">
-    <h2 class="sr-only">設定</h2>
+    <h2 class="sr-only">{{ t('settings.pageTitle') }}</h2>
     <p class="text-sm text-hwhub-muted">{{ t('settings.description') }}</p>
 
     <div class="mt-4 space-y-3">

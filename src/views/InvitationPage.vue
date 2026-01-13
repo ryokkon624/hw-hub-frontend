@@ -41,7 +41,7 @@ const load = async () => {
     status.value = data
   } catch (e) {
     console.error(e)
-    error.value = 'この招待は無効か、有効期限が切れている可能性があります。'
+    error.value = t('invite.page.error.invalid')
   } finally {
     loading.value = false
   }
@@ -64,7 +64,7 @@ const accept = async () => {
     router.push({ name: 'home' })
   } catch (e) {
     console.error(e)
-    error.value = 'おうちへの参加に失敗しました。時間をおいて再度お試しください。'
+    error.value = t('invite.page.error.acceptFailed')
   }
 }
 
@@ -75,7 +75,7 @@ const decline = async () => {
     router.push({ name: 'login' })
   } catch (e) {
     console.error(e)
-    error.value = '招待の辞退に失敗しました。'
+    error.value = t('invite.page.error.declineFailed')
   }
 }
 

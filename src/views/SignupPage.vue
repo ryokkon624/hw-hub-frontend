@@ -21,10 +21,10 @@ const authStore = useAuthStore()
 const router = useRouter()
 const uiStore = useUiStore()
 
-const locales = [
-  { value: 'ja', label: '日本語' },
-  { value: 'en', label: 'English' },
-]
+const locales = computed(() => [
+  { value: 'ja', label: t('common.locales.ja') },
+  { value: 'en', label: t('common.locales.en') },
+])
 
 const canSubmit = computed(() => {
   return (

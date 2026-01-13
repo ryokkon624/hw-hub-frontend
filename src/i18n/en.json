@@ -452,6 +452,15 @@
         "empty": "No housework templates match the current filter."
       }
     },
+    "recurrence": {
+      "weekly": "Every week",
+      "weeklyWithDays": "Every week {days}",
+      "monthly": "Every month",
+      "monthlyLastDay": "Every month (last day)",
+      "monthlyWithDay": "Every month day {day}",
+      "nthWeekday": "Every month {nth} {weekday}",
+      "nthWeekdayPlain": "Every month (weekday)"
+    },
     "create": {
       "title": "Add housework",
       "description": "Register a new housework template for this household. When you set recurrence and default assignees, they will be reflected in Assignment and My Tasks.",
@@ -834,6 +843,12 @@
     "logout": "Log out",
     "itemCount": "{count} item(s)",
     "notSet": "(Not set)",
+    "userWithId": "User {id}",
+    "yesterday": "Yesterday",
+    "locales": {
+      "ja": "Japanese",
+      "en": "English"
+    },
     "fileInput": {
       "buttonDefault": "Select image",
       "rightHintDefault": "JPEG / PNG, etc.",

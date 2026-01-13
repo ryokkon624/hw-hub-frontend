@@ -372,7 +372,7 @@
         <input
           v-model="inviteEmail"
           type="email"
-          placeholder="you@example.com"
+          :placeholder="t('settings.household.invite.emailPlaceholder')"
           class="flex-1 rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
         />
         <button
@@ -764,10 +764,10 @@ const copyInviteLink = async (token: string) => {
   const url = buildInviteUrl(token)
   try {
     await navigator.clipboard.writeText(url)
-    uiStore.showToast('success', '招待リンクをコピーしました')
+    uiStore.showToast('success', t('settings.household.toasts.copyInviteSuccess'))
   } catch (e) {
     console.error(e)
-    uiStore.showToast('error', 'クリップボードへのコピーに失敗しました')
+    uiStore.showToast('error', t('settings.household.toasts.copyInviteFailed'))
   }
 }
 
@@ -779,9 +779,9 @@ const sendInvitation = async () => {
   try {
     await invitationStore.createInvitation(currentHouseholdId.value, email)
     inviteEmail.value = ''
-    uiStore.showToast('success', '招待リンクを作成しました')
+    uiStore.showToast('success', t('settings.household.toasts.inviteCreateSuccess'))
   } catch {
-    uiStore.showToast('error', '招待リンクの作成に失敗しました')
+    uiStore.showToast('error', t('settings.household.toasts.inviteCreateFailed'))
   } finally {
     isSendingInvite.value = false
   }
@@ -793,9 +793,9 @@ const revokeInvitation = async (token: string) => {
 
   try {
     await invitationStore.revokeInvitation(currentHouseholdId.value, token)
-    uiStore.showToast('success', '招待を取り消しました')
+    uiStore.showToast('success', t('settings.household.toasts.revokeInviteSuccess'))
   } catch {
-    uiStore.showToast('error', '招待の取り消しに失敗しました')
+    uiStore.showToast('error', t('settings.household.toasts.revokeInviteFailed'))
   }
 }
 

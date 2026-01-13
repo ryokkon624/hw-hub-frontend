@@ -57,33 +57,30 @@ const weeklyDaysLabel = (mask: number | null): string => {
 
 // recurrence_type + 各カラム → ロケール別・ユーザ向け1行表示
 const buildRecurrenceSummary = (hw: Housework): string => {
-  const loc = locale.value
   const type = hw.recurrenceType
 
   // 1: Weekly
   if (type === RECURRENCE_TYPE.WEEKLY) {
     const days = weeklyDaysLabel(hw.weeklyDays)
     if (!days) {
-      return loc === 'ja' ? '毎週' : 'Every week'
+      return t('housework.recurrence.weekly')
     }
-    return loc === 'ja' ? `毎週 ${days}` : `Every week ${days}`
+    return t('housework.recurrence.weeklyWithDays', { days })
   }
 
   // 2: Monthly（日付 / 月末）
   if (type === RECURRENCE_TYPE.MONTHLY) {
     const opt = hw.dayOfMonth ?? null
-    const dom = hw.dayOfMonth ?? null
 
     if (opt === 31) {
-      return loc === 'ja' ? '毎月 月末' : 'Every month (last day)'
+      return t('housework.recurrence.monthlyLastDay')
     }
 
-    const day = opt ?? dom
-    if (day != null) {
-      return loc === 'ja' ? `毎月 ${day}日` : `Every month day ${day}`
+    if (opt != null) {
+      return t('housework.recurrence.monthlyWithDay', { day: opt })
     }
 
-    return loc === 'ja' ? '毎月' : 'Every month'
+    return t('housework.recurrence.monthly')
   }
 
   // 3: NthWeekday（nthWeek + weekday）
@@ -92,12 +89,10 @@ const buildRecurrenceSummary = (hw: Housework): string => {
     const wd = weekdayLabel(hw.weekday)
 
     if (nth && wd) {
-      // 例: 毎月 最終週日曜日 / Every month Last Week Sunday
-      return loc === 'ja' ? `毎月 ${nth}${wd}` : `Every month ${nth} ${wd}`
+      return t('housework.recurrence.nthWeekday', { nth, weekday: wd })
     }
 
-    // どちらか欠けている場合はざっくり表示
-    return loc === 'ja' ? '毎月 第n曜日' : 'Every month (weekday)'
+    return t('housework.recurrence.nthWeekdayPlain')
   }
 
   // 想定外の場合はコードラベルのみ
