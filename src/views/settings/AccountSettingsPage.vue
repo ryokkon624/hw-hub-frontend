@@ -134,6 +134,26 @@
         {{ t('common.save') }}
       </button>
     </div>
+
+    <!-- アカウント削除 -->
+    <section class="rounded-xl border border-red-200 bg-white p-4 shadow-sm space-y-3 mt-8">
+      <h3 class="text-sm font-semibold text-red-600">
+        {{ t('settings.account.delete.title') }}
+      </h3>
+      <p class="text-xs text-red-600 whitespace-pre-wrap">
+        {{ t('settings.account.delete.description') }}
+      </p>
+
+      <div class="flex justify-end">
+        <button
+          type="button"
+          class="inline-flex items-center rounded-md bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700"
+          @click="onDeleteAccount"
+        >
+          {{ t('settings.account.delete.button') }}
+        </button>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -261,4 +281,30 @@ const onSave = handleSubmit(async (formValues) => {
     uiStore.showToast('error', t('settings.account.toasts.saveFailed'))
   }
 })
+
+
+const onDeleteAccount = async () => {
+  if (!confirm(t('settings.account.delete.confirm'))) return
+
+  try {
+    await uiStore.withLoading(async () => {
+      // バリデーション実行
+      await authStore.validateAccountDeletion()
+
+      await authStore.deleteAccount()
+    })
+    alert(t('settings.account.toasts.deleteSuccess'))
+    window.location.href = '/login'
+  } catch (e: unknown) {
+    console.error(e)
+    if (e instanceof Error && e.message === 'VALIDATION_ERROR_OWNER_WITH_MEMBERS') {
+      alert(t('settings.account.delete.validationError'))
+      return
+    }
+
+    const err = e as { response?: { data?: { message?: string } } }
+    const msg = err.response?.data?.message || ''
+    uiStore.showToast('error', t('settings.account.toasts.deleteFailed') + (msg ? `\n${msg}` : ''))
+  }
+}
 </script>

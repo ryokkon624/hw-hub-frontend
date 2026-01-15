@@ -9,6 +9,7 @@ vi.mock('@/api/client', () => {
       get: vi.fn(),
       post: vi.fn(),
       put: vi.fn(),
+      delete: vi.fn(),
     },
   }
 })
@@ -17,6 +18,7 @@ type MockedApiClient = {
   get: ReturnType<typeof vi.fn>
   post: ReturnType<typeof vi.fn>
   put: ReturnType<typeof vi.fn>
+  delete: ReturnType<typeof vi.fn>
 }
 
 const mockedClient = apiClient as unknown as MockedApiClient
@@ -146,5 +148,14 @@ describe('userApi', () => {
     expect(mockedClient.post).toHaveBeenCalledWith('/api/users/me/icon', {
       fileKey: 'icon-key-999',
     })
+  })
+
+  it('deleteAccount: DELETE /users/me を実行する', async () => {
+    mockedClient.delete.mockResolvedValue({ data: undefined })
+
+    await userApi.deleteAccount()
+
+    expect(mockedClient.delete).toHaveBeenCalledTimes(1)
+    expect(mockedClient.delete).toHaveBeenCalledWith('/api/users/me')
   })
 })

@@ -4,6 +4,7 @@ import { authApi } from '@/api/authApi'
 import { userApi } from '@/api/userApi'
 import { useHouseholdStore } from '@/stores/householdStore'
 import { useCodeStore } from '@/stores/codeStore'
+import { HOUSEHOLD_MEMBER_STATUS } from '@/constants/code.constants'
 
 interface AuthState {
   accessToken: string | null
@@ -146,6 +147,34 @@ export const useAuthStore = defineStore('auth', {
     },
 
     /**
+     * 退会可能かどうかチェックする。
+     * 自分がOWNERの世帯で、他にもメンバーがいる場合はエラーを投げる。
+     */
+    async validateAccountDeletion() {
+      const householdStore = useHouseholdStore()
+      // ストアの世帯一覧を使用（ログイン時に取得済み）
+      const households = householdStore.households
+      if (!households) return
+
+      const myId = this.currentUser?.userId
+      if (!myId) return
+
+      for (const h of households) {
+        if (h.ownerUserId === myId) {
+          // メンバ一覧を取得（キャッシュがあればAPI呼ばれない）
+          await householdStore.fetchMembers(h.householdId)
+          const members = householdStore.membersByHouseholdId[h.householdId] || []
+
+          // 有効なメンバーが自分以外にもいるか (status='1' が2人以上)
+          const activeMembers = members.filter((m) => m.status === HOUSEHOLD_MEMBER_STATUS.ACTIVE)
+          if (activeMembers.length > 1) {
+             throw new Error('VALIDATION_ERROR_OWNER_WITH_MEMBERS')
+          }
+        }
+      }
+    },
+
+    /**
      * ユーザのアイコンを更新する。
      * @param file uploadするファイル
      */
@@ -165,6 +194,14 @@ export const useAuthStore = defineStore('auth', {
       } finally {
         this.isUploadingIcon = false
       }
+    },
+
+    /**
+     * アカウントを退会する。
+     */
+    async deleteAccount() {
+      await userApi.deleteAccount()
+      this.logout()
     },
   },
 })

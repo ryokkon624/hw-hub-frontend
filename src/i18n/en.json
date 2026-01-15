@@ -617,7 +617,16 @@
         "iconUpdated": "Profile image has been updated.",
         "iconUpdateFailed": "Failed to update profile image.",
         "saveSuccess": "Account settings have been saved.",
-        "saveFailed": "Failed to save account settings."
+        "saveFailed": "Failed to save account settings.",
+        "deleteSuccess": "Your account has been deleted. Thank you for using Housework Hub.",
+        "deleteFailed": "Failed to delete account."
+      },
+      "delete": {
+        "title": "Delete Account",
+        "description": "Delete your account permanently.\nAll data regarding your account will be deleted and cannot be recovered.\n\n* If you are the OWNER of a household with other members, you must transfer ownership before deleting your account.",
+        "button": "Delete Account",
+        "confirm": "Are you sure you want to delete your account?\nThis action cannot be undone.",
+        "validationError": "You cannot delete your account because you are the OWNER of a household with other members.\nPlease transfer ownership or remove members from Household Settings before deleting your account."
       }
     },
     "household": {
