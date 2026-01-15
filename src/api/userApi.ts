@@ -51,6 +51,13 @@ export const userApi = {
   async updateUserIcon(params: { fileKey: string }): Promise<void> {
     await apiClient.post('/api/users/me/icon', params)
   },
+
+  /**
+   * アカウントを退会する。
+   */
+  async deleteAccount(): Promise<void> {
+    await apiClient.delete('/api/users/me')
+  },
 }
 
 // ---- API DTO ----------------------------------------------------

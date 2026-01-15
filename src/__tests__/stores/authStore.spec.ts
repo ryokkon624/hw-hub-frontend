@@ -3,7 +3,8 @@ import { setActivePinia, createPinia } from 'pinia'
 import { useAuthStore } from '@/stores/authStore'
 import { authApi } from '@/api/authApi'
 import { userApi } from '@/api/userApi'
-import type { AuthSession, LoginUser } from '@/domain'
+import type { AuthSession, LoginUser, HouseholdModel, HouseholdMember } from '@/domain'
+import { HOUSEHOLD_MEMBER_STATUS } from '@/constants/code.constants'
 
 const testGlobal = globalThis as typeof globalThis & {
   localStorage: Storage
@@ -26,6 +27,7 @@ vi.mock('@/api/userApi', () => ({
     updateProfile: vi.fn(),
     createIconUploadUrl: vi.fn(),
     updateUserIcon: vi.fn(),
+    deleteAccount: vi.fn(),
   },
 }))
 
@@ -34,6 +36,10 @@ const mockHouseholdStore = {
   initFromStorage: vi.fn(),
   fetchMyHouseholds: vi.fn(),
   reset: vi.fn(),
+  // 追加: プロパティもモックできるようにする
+  households: [] as HouseholdModel[],
+  membersByHouseholdId: {} as Record<number, HouseholdMember[]>,
+  fetchMembers: vi.fn(),
 }
 
 const mockCodeStore = {
@@ -288,5 +294,105 @@ describe('authStore', () => {
     // })
     expect(userApi.updateUserIcon).toHaveBeenCalledWith({ fileKey: 'file-key-123' })
     expect(fetchProfileSpy).toHaveBeenCalled()
+  })
+
+  it('deleteAccount は userApi.deleteAccount を呼び、logout を実行する', async () => {
+    const store = useAuthStore()
+    const logoutSpy = vi.spyOn(store, 'logout')
+    vi.mocked(userApi.deleteAccount).mockResolvedValue(undefined)
+
+    await store.deleteAccount()
+
+    expect(userApi.deleteAccount).toHaveBeenCalled()
+    expect(logoutSpy).toHaveBeenCalled()
+  })
+
+  // --- validateAccountDeletion ---
+
+  const createMember = (overrides: Partial<HouseholdMember> = {}): HouseholdMember => ({
+    householdId: 100,
+    userId: 0,
+    displayName: 'Member',
+    iconUrl: null,
+    nickname: null,
+    status: HOUSEHOLD_MEMBER_STATUS.ACTIVE, // '1'
+    role: 'MEMBER',
+    ...overrides,
+  })
+
+  it('validateAccountDeletion は自分がオーナーの世帯に他の有効メンバーがいる場合にエラーを投げる', async () => {
+    const store = useAuthStore()
+    store.currentUser = createLoginUser({ userId: 10 })
+
+    // householdStore の状態をモック
+    // householdId=100 の世帯のオーナーは自分(10)
+    mockHouseholdStore.households = [
+      { householdId: 100, name: 'MyHome', ownerUserId: 10 }
+    ]
+    // メンバーは自分(10)と他人(20)がいて、両方ACTIVE
+    mockHouseholdStore.membersByHouseholdId = {
+      100: [
+        createMember({ userId: 10, status: HOUSEHOLD_MEMBER_STATUS.ACTIVE }),
+        createMember({ userId: 20, status: HOUSEHOLD_MEMBER_STATUS.ACTIVE }),
+      ]
+    }
+    // fetchMembers は何もしない（データは既にある体）
+    mockHouseholdStore.fetchMembers.mockResolvedValue(undefined)
+
+    await expect(store.validateAccountDeletion()).rejects.toThrow('VALIDATION_ERROR_OWNER_WITH_MEMBERS')
+
+    expect(mockHouseholdStore.fetchMembers).toHaveBeenCalledWith(100)
+  })
+
+  it('validateAccountDeletion は自分がオーナーでも他メンバーが全員非アクティブなら成功する', async () => {
+    const store = useAuthStore()
+    store.currentUser = createLoginUser({ userId: 10 })
+
+    mockHouseholdStore.households = [
+      { householdId: 100, name: 'MyHome', ownerUserId: 10 }
+    ]
+    mockHouseholdStore.membersByHouseholdId = {
+      100: [
+        createMember({ userId: 10, status: HOUSEHOLD_MEMBER_STATUS.ACTIVE }),
+        createMember({ userId: 20, status: HOUSEHOLD_MEMBER_STATUS.LEFT }), // LEFT='9'
+      ]
+    }
+    mockHouseholdStore.fetchMembers.mockResolvedValue(undefined)
+
+    await expect(store.validateAccountDeletion()).resolves.toBeUndefined()
+  })
+
+  it('validateAccountDeletion は自分がオーナーで自分しかいないなら成功する', async () => {
+    const store = useAuthStore()
+    store.currentUser = createLoginUser({ userId: 10 })
+
+    mockHouseholdStore.households = [
+      { householdId: 100, name: 'MyHome', ownerUserId: 10 }
+    ]
+    mockHouseholdStore.membersByHouseholdId = {
+      100: [
+        createMember({ userId: 10, status: HOUSEHOLD_MEMBER_STATUS.ACTIVE }),
+      ]
+    }
+    mockHouseholdStore.fetchMembers.mockResolvedValue(undefined)
+
+    await expect(store.validateAccountDeletion()).resolves.toBeUndefined()
+  })
+
+  it('validateAccountDeletion は自分が一般メンバーなら成功する', async () => {
+    const store = useAuthStore()
+    store.currentUser = createLoginUser({ userId: 20 }) // 自分は20
+
+    mockHouseholdStore.households = [
+      { householdId: 100, name: 'OthersHome', ownerUserId: 10 } // オーナーは10
+    ]
+    // メンバーチェックは走らないはずだが、仮に入れておく
+    mockHouseholdStore.membersByHouseholdId = {}
+    mockHouseholdStore.fetchMembers.mockResolvedValue(undefined)
+
+    await expect(store.validateAccountDeletion()).resolves.toBeUndefined()
+
+    // 自分がオーナーの世帯がないので fetchMembers は呼ばれない
+    expect(mockHouseholdStore.fetchMembers).not.toHaveBeenCalled()
   })
 })
