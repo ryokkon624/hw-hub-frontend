@@ -5,6 +5,8 @@ import { useUiStore } from '@/stores/uiStore'
 import LoginPage from '@/views/LoginPage.vue'
 import SignupPage from '@/views/SignupPage.vue'
 import InvitationPage from '@/views/InvitationPage.vue'
+import SignupVerifyWaitPage from '@/views/SignupVerifyWaitPage.vue'
+import EmailVerifyPage from '@/views/EmailVerifyPage.vue'
 // 共通レイアウト
 import AppLayout from '@/layouts/AppLayout.vue'
 // Home
@@ -42,6 +44,18 @@ const routes: RouteRecordRaw[] = [
     name: 'signup',
     component: SignupPage,
     meta: { title: 'Signup', public: true },
+  },
+  {
+    path: '/signup/verify-wait',
+    name: 'signup.verify-wait',
+    component: SignupVerifyWaitPage,
+    meta: { titleKey: 'pageTitles.signupVerifyWait', public: true },
+  },
+  {
+    path: '/email-verify',
+    name: 'email-verify',
+    component: EmailVerifyPage,
+    meta: { titleKey: 'pageTitles.emailVerify', public: true },
   },
   {
     path: '/invite/:token',

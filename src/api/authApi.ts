@@ -1,5 +1,5 @@
 import { apiClient } from './client'
-import type { AuthSession, LoginUser } from '@/domain'
+import type { AuthSession, LoginUser, RegisterResult } from '@/domain'
 
 export const authApi = {
   /**
@@ -17,8 +17,11 @@ export const authApi = {
 
   /**
    * アカウント登録を行う。
+   * - メール認証OFF（local/stg）: LOGGED_IN を返す（=即ログイン可能）
+   * - メール認証ON（prod）: VERIFICATION_REQUIRED を返す（=メール確認待ち）
+   *
    * @param body アカウント登録時に入力値
-   * @returns ログイン後のセッション情報 Domain Model
+   * @returns RegisterResult
    */
   async register(body: {
     email: string
@@ -26,12 +29,12 @@ export const authApi = {
     displayName: string
     locale: string
     invitationToken?: string | null
-  }): Promise<AuthSession> {
-    const res = await apiClient.post<LoginResponseDto>(
+  }): Promise<RegisterResult> {
+    const res = await apiClient.post<RegisterResponseDto>(
       '/api/auth/register',
       body as RegisterRequestDto,
     )
-    return toAuthSession(res.data)
+    return toRegisterResult(res.data)
   },
 
   /**
@@ -53,6 +56,14 @@ export const authApi = {
       const text = await res.text().catch(() => '')
       throw new Error(`S3 upload failed: ${res.status} ${res.statusText} ${text}`)
     }
+  },
+
+  verifyEmail(payload: { token: string }) {
+    return apiClient.post<void>('/api/auth/email-verification/verify', payload)
+  },
+
+  resendVerification(payload: { email: string }) {
+    return apiClient.post<void>('/api/auth/email-verification/resend', payload)
   },
 }
 
@@ -96,6 +107,16 @@ interface LoginResponseDto {
   user: LoginUserDto
 }
 
+/**
+ * register Response用のDTO
+ */
+interface RegisterResponseDto {
+  emailVerificationRequired: boolean
+  accessToken: string | null
+  user: LoginUserDto
+  verificationExpiresAt?: string | null
+}
+
 // ---- Mapper: DTO ⇔ Domain ----------------------------------------------------
 
 /**
@@ -120,3 +141,26 @@ const toAuthSession = (dto: LoginResponseDto): AuthSession => ({
   accessToken: dto.accessToken,
   user: toLoginUser(dto.user),
 })
+
+/**
+ * Register Response DTO → Domain Model への変換
+ * @param dto Response DTO
+ * @returns Domain Model
+ */
+const toRegisterResult = (dto: RegisterResponseDto): RegisterResult => {
+  // メール認証が必要、または token が返ってこない場合は確認待ち扱い
+  if (dto.emailVerificationRequired || !dto.accessToken) {
+    return {
+      kind: 'VERIFICATION_REQUIRED',
+      verificationExpiresAt: dto.verificationExpiresAt ?? null,
+    }
+  }
+
+  // 即ログイン可能
+  const session: AuthSession = {
+    accessToken: dto.accessToken,
+    user: toLoginUser(dto.user),
+  }
+
+  return { kind: 'LOGGED_IN', session }
+}

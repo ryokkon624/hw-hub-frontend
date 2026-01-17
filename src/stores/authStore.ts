@@ -90,9 +90,16 @@ export const useAuthStore = defineStore('auth', {
       locale: string
       invitationToken?: string | null
     }) {
-      const session = await authApi.register(payload)
-      this.accessToken = session.accessToken
-      this.currentUser = session.user
+      const result = await authApi.register(payload)
+
+      if (result.kind === 'VERIFICATION_REQUIRED') {
+        // セッション保存はしない（未ログイン扱い）
+        return result
+      }
+
+      // LOGGED_IN の場合のみセッション保存
+      this.accessToken = result.session.accessToken
+      this.currentUser = result.session.user
       this.saveToStorage()
 
       const householdStore = useHouseholdStore()
@@ -100,6 +107,16 @@ export const useAuthStore = defineStore('auth', {
 
       const codeStore = useCodeStore()
       codeStore.loadAllIfNeeded()
+
+      return result
+    },
+
+    async verifyEmail(token: string): Promise<void> {
+      await authApi.verifyEmail({ token })
+    },
+
+    async resendVerification(email: string): Promise<void> {
+      await authApi.resendVerification({ email })
     },
 
     /**

@@ -18,6 +18,8 @@ vi.mock('@/api/authApi', () => ({
     login: vi.fn(),
     register: vi.fn(),
     putToPresignedUrl: vi.fn(),
+    verifyEmail: vi.fn(),
+    resendVerification: vi.fn(),
   },
 }))
 
@@ -174,17 +176,20 @@ describe('authStore', () => {
     expect(mockCodeStore.loadAllIfNeeded).toHaveBeenCalled()
   })
 
-  it('register は authApi.register を呼び、login と同様に状態を更新する', async () => {
+    it('register は authApi.register を呼び、login と同様に状態を更新する', async () => {
     const user = createLoginUser({ displayName: 'NewUser' })
     vi.mocked(authApi.register).mockResolvedValue({
-      accessToken: 'register-token',
-      user,
+      kind: 'LOGGED_IN',
+      session: {
+        accessToken: 'register-token',
+        user,
+      }
     })
 
     const store = useAuthStore()
     const saveSpy = vi.spyOn(store, 'saveToStorage')
 
-    await store.register({
+    const result = await store.register({
       email: 'new@example.com',
       password: 'pw',
       displayName: 'NewUser',
@@ -198,6 +203,50 @@ describe('authStore', () => {
     expect(saveSpy).toHaveBeenCalled()
     expect(mockHouseholdStore.fetchMyHouseholds).toHaveBeenCalled()
     expect(mockCodeStore.loadAllIfNeeded).toHaveBeenCalled()
+    expect(result).toEqual({ kind: 'LOGGED_IN', session: { accessToken: 'register-token', user } })
+  })
+
+  it('register: VERIFICATION_REQUIRED の場合はセッション保存せず結果を返す', async () => {
+    vi.mocked(authApi.register).mockResolvedValue({
+      kind: 'VERIFICATION_REQUIRED',
+      verificationExpiresAt: '2025-01-01',
+    })
+
+    const store = useAuthStore()
+    const saveSpy = vi.spyOn(store, 'saveToStorage')
+
+    const result = await store.register({
+      email: 'verify@example.com',
+      password: 'pw',
+      displayName: 'Verify',
+      locale: 'ja',
+    })
+
+    expect(authApi.register).toHaveBeenCalled()
+    expect(store.accessToken).toBeNull()
+    expect(saveSpy).not.toHaveBeenCalled()
+    expect(result).toEqual({
+      kind: 'VERIFICATION_REQUIRED',
+      verificationExpiresAt: '2025-01-01',
+    })
+  })
+
+  it('verifyEmail は authApi.verifyEmail を呼ぶ', async () => {
+    const store = useAuthStore()
+    vi.mocked(authApi.verifyEmail).mockResolvedValue({ data: undefined } as any)
+
+    await store.verifyEmail('token-abc')
+
+    expect(authApi.verifyEmail).toHaveBeenCalledWith({ token: 'token-abc' })
+  })
+
+  it('resendVerification は authApi.resendVerification を呼ぶ', async () => {
+    const store = useAuthStore()
+    vi.mocked(authApi.resendVerification).mockResolvedValue({ data: undefined } as any)
+
+    await store.resendVerification('resend@example.com')
+
+    expect(authApi.resendVerification).toHaveBeenCalledWith({ email: 'resend@example.com' })
   })
 
   it('logout は state と localStorage をクリアし、householdStore.reset を呼ぶ', () => {

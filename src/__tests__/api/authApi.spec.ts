@@ -123,14 +123,74 @@ describe('authApi', () => {
 
       // mapper の確認
       expect(result).toEqual({
-        accessToken: 'reg-token',
+        kind: 'LOGGED_IN',
+        session: {
+          accessToken: 'reg-token',
+          user: {
+            userId: 3,
+            email: 'new@example.com',
+            displayName: 'New User',
+            locale: 'ja',
+            iconUrl: null,
+          },
+        },
+      })
+    })
+
+    it('register: emailVerificationRequired=true の場合は VERIFICATION_REQUIRED を返す', async () => {
+      const dto = {
+        emailVerificationRequired: true,
+        accessToken: null,
         user: {
-          userId: 3,
-          email: 'new@example.com',
-          displayName: 'New User',
+          userId: 4,
+          email: 'verify@example.com',
+          displayName: 'Verify User',
           locale: 'ja',
           iconUrl: null,
         },
+        verificationExpiresAt: '2025-01-01T12:00:00',
+      }
+
+      mockedClient.post.mockResolvedValue({
+        data: dto,
+      })
+
+      const result = await authApi.register({
+        email: 'verify@example.com',
+        password: 'pw',
+        displayName: 'Verify',
+        locale: 'ja',
+      })
+
+      expect(result).toEqual({
+        kind: 'VERIFICATION_REQUIRED',
+        verificationExpiresAt: '2025-01-01T12:00:00',
+      })
+    })
+  })
+
+  describe('verifyEmail', () => {
+    it('verifyEmail: /api/auth/email-verification/verify に POST する', async () => {
+      mockedClient.post.mockResolvedValue({ data: undefined })
+
+      await authApi.verifyEmail({ token: 'abc-def' })
+
+      expect(mockedClient.post).toHaveBeenCalledTimes(1)
+      expect(mockedClient.post).toHaveBeenCalledWith('/api/auth/email-verification/verify', {
+        token: 'abc-def',
+      })
+    })
+  })
+
+  describe('resendVerification', () => {
+    it('resendVerification: /api/auth/email-verification/resend に POST する', async () => {
+      mockedClient.post.mockResolvedValue({ data: undefined })
+
+      await authApi.resendVerification({ email: 'resend@example.com' })
+
+      expect(mockedClient.post).toHaveBeenCalledTimes(1)
+      expect(mockedClient.post).toHaveBeenCalledWith('/api/auth/email-verification/resend', {
+        email: 'resend@example.com',
       })
     })
   })
