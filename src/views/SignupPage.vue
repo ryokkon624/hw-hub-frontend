@@ -3,9 +3,9 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
 import { useUiStore } from '@/stores/uiStore'
-import type { ApiError } from '@/api/client'
 import { useI18n } from 'vue-i18n'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
+import { toApiErrorMessageKey } from '@/utils/apiErrorMessage'
 
 const { t } = useI18n()
 const email = ref('')
@@ -41,13 +41,23 @@ const onSubmit = async () => {
   isSubmitting.value = true
 
   try {
-    await authStore.register({
+    const result = await authStore.register({
       email: email.value,
       displayName: displayName.value,
       password: password.value,
       locale: locale.value,
     })
 
+    // メール確認が必要な場合：確認待ち画面へ（未ログイン扱い）
+    if (result.kind === 'VERIFICATION_REQUIRED') {
+      router.push({
+        name: 'signup.verify-wait',
+        query: { email: email.value },
+      })
+      return
+    }
+
+    // 即ログインできた場合（local/stg）：従来どおりリダイレクト
     const redirect = uiStore.redirectAfterLogin
     uiStore.setRedirectAfterLogin(null)
 
@@ -57,13 +67,8 @@ const onSubmit = async () => {
       router.push({ name: 'home' })
     }
   } catch (e) {
-    const err = e as ApiError
-    if (err.status === 409 && err.errorCode === 'EMAIL_ALREADY_USED') {
-      errorMessage.value = t('signup.errors.emailUsed')
-    } else {
-      errorMessage.value = t('signup.errors.failed')
-      console.error(e)
-    }
+    errorMessage.value = t(toApiErrorMessageKey(e))
+    console.error(e)
   } finally {
     isSubmitting.value = false
   }

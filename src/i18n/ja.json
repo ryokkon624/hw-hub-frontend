@@ -1,4 +1,36 @@
 {
+  "emailVerify": {
+    "page": {
+      "title": "メール確認",
+      "loading": "確認しています...",
+      "success": "確認が完了しました。ログインしてください。",
+      "invalid": "リンクが無効、または期限切れです。登録画面から再送してください。",
+      "toLogin": "ログインへ",
+      "toSignup": "アカウント登録画面へ"
+    },
+    "waitPage": {
+      "title": "確認メールを送信しました",
+      "sentTo": "「{email}」宛に確認メールを送信しました。",
+      "instruction": "メール内のリンクをクリックして登録を完了してください。",
+      "spamNote": "迷惑メールフォルダもご確認ください。",
+      "alertResent": "確認メールを再送しました",
+      "resendButton": "確認メールを再送",
+      "resendCooldown": "再送（{seconds}秒後に再試行）"
+    },
+    "errors": {
+      "tokenInvalid": "トークンが無効または期限切れです。",
+      "cooldown": "再送リクエストが早すぎます。しばらく待ってから試してください。",
+      "tooManyRequests": "1日の再送回数制限を超えました。"
+    }
+  },
+  "errors": {
+    "unauthorized": "認証が必要です。",
+    "forbidden": "アクセス権限がありません。",
+    "validation": "入力内容を確認してください。",
+    "network": "ネットワークエラーが発生しました。",
+    "server": "サーバーエラーが発生しました。",
+    "unexpected": "予期しないエラーが発生しました。"
+  },
   "pageTitles": {
     "home": "ホーム",
     "houseworkSettings": "家事設定",
@@ -45,7 +77,10 @@
     },
     "noAccount": "アカウントをお持ちでない方は",
     "goSignup": "新規登録",
-    "goSignupSuffix": "へ"
+    "goSignupSuffix": "へ",
+    "errors": {
+      "emailNotVerified": "メールアドレスの確認が完了していません。"
+    }
   },
   "signup": {
     "title": "アカウント作成",

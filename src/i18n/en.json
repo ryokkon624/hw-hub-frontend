@@ -1,4 +1,36 @@
 {
+  "emailVerify": {
+    "page": {
+      "title": "Email Verification",
+      "loading": "Verifying...",
+      "success": "Verification completed. Please sign in.",
+      "invalid": "The link is invalid or has expired. Please verify again from the sign-up page.",
+      "toLogin": "Go to login",
+      "toSignup": "Go to sign-up"
+    },
+    "waitPage": {
+      "title": "Verification email sent",
+      "sentTo": "Confirmation email has been sent to \"{email}\".",
+      "instruction": "Please click the link in the email to complete the registration.",
+      "spamNote": "Please also check your spam folder.",
+      "alertResent": "Verification email has been resent.",
+      "resendButton": "Resend email",
+      "resendCooldown": "Resend in {seconds}s"
+    },
+    "errors": {
+      "tokenInvalid": "Token is invalid or expired.",
+      "cooldown": "Too many requests. Please wait a while.",
+      "tooManyRequests": "Daily limit for verification requests exceeded."
+    }
+  },
+  "errors": {
+    "unauthorized": "Authentication required.",
+    "forbidden": "Access denied.",
+    "validation": "Please check your input.",
+    "network": "Network error occurred.",
+    "server": "Server error occurred.",
+    "unexpected": "Unexpected error occurred."
+  },
   "pageTitles": {
     "home": "Home",
     "houseworkSettings": "Housework settings",
@@ -46,7 +78,10 @@
     },
     "noAccount": "Don't have an account?",
     "goSignup": "Sign up",
-    "goSignupSuffix": ""
+    "goSignupSuffix": "",
+    "errors": {
+      "emailNotVerified": "Email address has not been verified."
+    }
   },
   "signup": {
     "title": "Create Account",
