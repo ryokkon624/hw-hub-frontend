@@ -29,6 +29,92 @@
       <p class="mt-2 text-xs text-hwhub-muted">{{ t('settings.account.info.note') }}</p>
     </section>
 
+    <!-- パスワード変更 -->
+    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
+      <h3 class="text-sm font-semibold text-hwhub-heading">
+        {{ t('settings.account.password.title') }}
+      </h3>
+      <p class="text-xs text-hwhub-muted">
+        {{ t('settings.account.password.description') }}
+      </p>
+
+      <form class="space-y-3" @submit.prevent="onChangePassword">
+        <div>
+          <label class="block text-xs text-hwhub-muted mb-1">
+            {{ t('settings.account.password.fields.currentPassword') }}
+          </label>
+          <Field name="currentPassword" v-slot="{ field }">
+            <input
+              v-bind="field"
+              type="password"
+              autocomplete="current-password"
+              class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+              :disabled="authStore.isChangingPassword"
+            />
+          </Field>
+          <ErrorMessage name="currentPassword" v-slot="{ message }">
+            <p class="text-xs text-red-600 mt-1">{{ message }}</p>
+          </ErrorMessage>
+        </div>
+
+        <div>
+          <label class="block text-xs text-hwhub-muted mb-1">
+            {{ t('settings.account.password.fields.newPassword') }}
+          </label>
+          <Field name="newPassword" v-slot="{ field }">
+            <input
+              v-bind="field"
+              type="password"
+              autocomplete="new-password"
+              class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+              :disabled="authStore.isChangingPassword"
+            />
+          </Field>
+          <ErrorMessage name="newPassword" v-slot="{ message }">
+            <p class="text-xs text-red-600 mt-1">{{ message }}</p>
+          </ErrorMessage>
+        </div>
+
+        <div>
+          <label class="block text-xs text-hwhub-muted mb-1">
+            {{ t('settings.account.password.fields.newPasswordConfirm') }}
+          </label>
+          <Field name="newPasswordConfirm" v-slot="{ field }">
+            <input
+              v-bind="field"
+              type="password"
+              autocomplete="new-password"
+              class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+              :disabled="authStore.isChangingPassword"
+            />
+          </Field>
+          <ErrorMessage name="newPasswordConfirm" v-slot="{ message }">
+            <p class="text-xs text-red-600 mt-1">{{ message }}</p>
+          </ErrorMessage>
+        </div>
+
+        <div class="flex justify-end pt-1">
+          <button
+            type="submit"
+            class="inline-flex items-center rounded-md bg-hwhub-primary px-4 py-2 text-sm font-semibold text-white hover:bg-hwhub-primary disabled:opacity-50"
+            :disabled="authStore.isChangingPassword || !passwordMeta.valid"
+          >
+            <span v-if="!authStore.isChangingPassword">
+              {{ t('settings.account.password.actions.submit') }}
+            </span>
+            <span v-else class="flex items-center gap-2">
+              <span class="h-4 w-4 rounded-full border-2 border-white/60 border-t-transparent animate-spin" />
+              {{ t('settings.account.password.actions.submitting') }}
+            </span>
+          </button>
+        </div>
+
+        <p class="text-[11px] text-hwhub-muted">
+          {{ t('settings.account.password.noteLogout') }}
+        </p>
+      </form>
+    </section>
+
     <!-- 表示名の変更 -->
     <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
       <h3 class="text-sm font-semibold text-hwhub-heading">
@@ -160,6 +246,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 import { useForm, Field, ErrorMessage } from 'vee-validate'
 import { SUPPORT_LOCALES, type Locale } from '@/i18n'
 import { useAuthStore } from '@/stores/authStore'
@@ -169,9 +256,14 @@ import {
   accountSettingsTypedSchema,
   type AccountSettingsSchemaType,
 } from '@/domain/user/accountSettings.validation'
+import {
+  passwordChangeTypedSchema,
+  type PasswordChangeSchemaType,
+} from '@/domain/user/passwordChange.validation'
 
 const authStore = useAuthStore()
 const uiStore = useUiStore()
+const router = useRouter()
 const { t, locale } = useI18n()
 
 // ロケール一覧
@@ -185,7 +277,7 @@ const labelForLocale = (lang: Locale) => {
   return t(`common.locales.${lang}`)
 }
 
-// vee-validate フォーム
+// vee-validate フォーム(アカウント設定用)
 const { handleSubmit, values, resetForm } = useForm<AccountSettingsSchemaType>({
   validationSchema: accountSettingsTypedSchema,
   // 初期値はいったんダミーにしておき、onMounted で resetForm で上書きする
@@ -193,6 +285,20 @@ const { handleSubmit, values, resetForm } = useForm<AccountSettingsSchemaType>({
     displayName: '',
     locale: 'ja',
     iconFile: null,
+  },
+})
+
+// vee-validate フォーム(パスワード変更用)
+const {
+  handleSubmit: handlePasswordSubmit,
+  meta: passwordMeta,
+  resetForm: resetPasswordForm,
+} = useForm<PasswordChangeSchemaType>({
+  validationSchema: passwordChangeTypedSchema,
+  initialValues: {
+    currentPassword: '',
+    newPassword: '',
+    newPasswordConfirm: '',
   },
 })
 
@@ -238,6 +344,26 @@ onMounted(() => {
   originalLocale.value = initialLocale
 })
 
+const onChangePassword = handlePasswordSubmit(async (formValues) => {
+  try {
+    await uiStore.withLoading(async () => {
+      await authStore.changeMyPassword({
+        currentPassword: formValues.currentPassword,
+        newPassword: formValues.newPassword,
+      })
+    })
+
+    // ログアウト → ログインへ
+    authStore.logout()
+
+    await router.push({ name: 'login', query: { pwChanged: '1' } })
+    resetPasswordForm()
+  } catch (e) {
+    console.error(e)
+    uiStore.showToast('error', t('settings.account.password.toasts.failed'))
+  }
+})
+
 // プロフィール画像：選択したら即アップロード
 const onIconFileChange = async (files: File[] | null) => {
   if (!files || files.length === 0) return
@@ -281,7 +407,6 @@ const onSave = handleSubmit(async (formValues) => {
     uiStore.showToast('error', t('settings.account.toasts.saveFailed'))
   }
 })
-
 
 const onDeleteAccount = async () => {
   if (!confirm(t('settings.account.delete.confirm'))) return

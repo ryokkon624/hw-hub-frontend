@@ -1,5 +1,7 @@
 // code
 export * from './code/code.model'
+// error
+export * from './error/uiError.ts'
 // auth
 export * from './auth/auth.model.ts'
 // user

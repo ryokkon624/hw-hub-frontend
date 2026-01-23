@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
-import { toApiErrorMessageKey } from '@/utils/apiErrorMessage'
+import { toUiError } from '@/domain/error/errorMapper'
 import { useI18n } from 'vue-i18n'
 
 const route = useRoute()
@@ -10,28 +10,40 @@ const router = useRouter()
 const authStore = useAuthStore()
 const { t } = useI18n()
 
+/**
+ * /email-verify?token=...
+ */
 const token = computed(() => String(route.query.token ?? ''))
 
-const status = ref<'loading' | 'success' | 'error'>('loading')
-const errorMessage = ref<string | null>(null)
+/**
+ * 結果画面へ集約する
+ */
+const goResult = (status: 'success' | 'expired' | 'invalid') =>
+  router.replace({
+    name: 'auth.result',
+    query: { type: 'emailVerify', status },
+  })
 
 onMounted(async () => {
+  // tokenなしはinvalid扱い
   if (!token.value) {
-    status.value = 'error'
+    goResult('invalid')
     return
   }
-  errorMessage.value = null
+
   try {
     await authStore.verifyEmail(token.value)
-    status.value = 'success'
+    goResult('success')
   } catch (e) {
-    errorMessage.value = t(toApiErrorMessageKey(e))
-    status.value = 'error'
+    const uiErr = toUiError(e)
+    if (uiErr.messageKey === 'errors.emailVerify.expired') {
+      goResult('expired')
+      return
+    }
+
+    goResult('invalid')
   }
 })
-
-const goToLogin = () => router.push({ name: 'login' })
-const goToSignup = () => router.push({ name: 'signup' })
 </script>
 
 <template>
@@ -39,23 +51,7 @@ const goToSignup = () => router.push({ name: 'signup' })
     <h1 class="text-xl font-semibold">{{ t('emailVerify.page.title') }}</h1>
 
     <div class="mt-6">
-      <p v-if="status === 'loading'" class="text-sm text-gray-600">{{ t('emailVerify.page.loading') }}</p>
-
-      <div v-else-if="status === 'success'">
-        <p class="text-sm text-gray-600">{{ t('emailVerify.page.success') }}</p>
-        <button class="mt-4 w-full rounded bg-hwhub-primary px-4 py-2 text-white" @click="goToLogin">
-          {{ t('emailVerify.page.toLogin') }}
-        </button>
-      </div>
-
-      <div v-else>
-        <p class="text-sm text-gray-600">
-          {{ t('emailVerify.page.invalid') }}
-        </p>
-        <button class="mt-4 w-full rounded border px-4 py-2" @click="goToSignup">
-          {{ t('emailVerify.page.toSignup') }}
-        </button>
-      </div>
+      <p class="text-sm text-gray-600">{{ t('emailVerify.page.loading') }}</p>
     </div>
   </div>
 </template>

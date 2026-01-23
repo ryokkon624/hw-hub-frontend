@@ -7,6 +7,10 @@ import SignupPage from '@/views/SignupPage.vue'
 import InvitationPage from '@/views/InvitationPage.vue'
 import SignupVerifyWaitPage from '@/views/SignupVerifyWaitPage.vue'
 import EmailVerifyPage from '@/views/EmailVerifyPage.vue'
+import PasswordForgotPage from '@/views/PasswordForgotPage.vue'
+import PasswordResetSentPage from '@/views/PasswordResetSentPage.vue'
+import PasswordResetPage from '@/views/PasswordResetPage.vue'
+import AuthActionResultPage from '@/views/AuthActionResultPage.vue'
 // 共通レイアウト
 import AppLayout from '@/layouts/AppLayout.vue'
 // Home
@@ -62,6 +66,30 @@ const routes: RouteRecordRaw[] = [
     name: 'invitation',
     component: InvitationPage,
     meta: { title: 'Invitation', public: true },
+  },
+  {
+    path: '/password/forgot',
+    name: 'password.forgot',
+    component: PasswordForgotPage,
+    meta: { titleKey: 'pageTitles.passwordForgot', public: true },
+  },
+  {
+    path: '/password/reset-sent',
+    name: 'password.reset-sent',
+    component: PasswordResetSentPage,
+    meta: { titleKey: 'pageTitles.passwordResetSent', public: true },
+  },
+  {
+    path: '/password/reset',
+    name: 'password.reset',
+    component: PasswordResetPage,
+    meta: { titleKey: 'pageTitles.passwordReset', public: true },
+  },
+  {
+    path: '/auth/result',
+    name: 'auth.result',
+    component: AuthActionResultPage,
+    meta: { titleKey: 'pageTitles.authResult', public: true },
   },
   {
     path: '/',

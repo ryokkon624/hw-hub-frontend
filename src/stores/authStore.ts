@@ -10,6 +10,7 @@ interface AuthState {
   accessToken: string | null
   currentUser: LoginUser | null
   isUploadingIcon: boolean
+  isChangingPassword: boolean
 }
 
 const STORAGE_KEY = 'hwhub.auth'
@@ -19,6 +20,7 @@ export const useAuthStore = defineStore('auth', {
     accessToken: null,
     currentUser: null,
     isUploadingIcon: false,
+    isChangingPassword: false,
   }),
 
   getters: {
@@ -161,6 +163,22 @@ export const useAuthStore = defineStore('auth', {
       }
 
       this.saveToStorage()
+    },
+
+    /**
+     * 自分のパスワードを変更する。
+     * - 変更後の「ログアウトして再ログイン」は画面側で実施
+     */
+    async changeMyPassword(payload: { currentPassword: string; newPassword: string }) {
+      try {
+        this.isChangingPassword = true
+        await userApi.changeMyPassword({
+          currentPassword: payload.currentPassword,
+          newPassword: payload.newPassword,
+        })
+      } finally {
+        this.isChangingPassword = false
+      }
     },
 
     /**

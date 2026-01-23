@@ -1,35 +1,89 @@
 {
-  "emailVerify": {
-    "page": {
-      "title": "メール確認",
-      "loading": "確認しています...",
-      "success": "確認が完了しました。ログインしてください。",
-      "invalid": "リンクが無効、または期限切れです。登録画面から再送してください。",
-      "toLogin": "ログインへ",
-      "toSignup": "アカウント登録画面へ"
-    },
-    "waitPage": {
-      "title": "確認メールを送信しました",
-      "sentTo": "「{email}」宛に確認メールを送信しました。",
-      "instruction": "メール内のリンクをクリックして登録を完了してください。",
-      "spamNote": "迷惑メールフォルダもご確認ください。",
-      "alertResent": "確認メールを再送しました",
-      "resendButton": "確認メールを再送",
-      "resendCooldown": "再送（{seconds}秒後に再試行）"
-    },
-    "errors": {
-      "tokenInvalid": "トークンが無効または期限切れです。",
-      "cooldown": "再送リクエストが早すぎます。しばらく待ってから試してください。",
-      "tooManyRequests": "1日の再送回数制限を超えました。"
-    }
-  },
   "errors": {
+    "common": {
+      "network": "ネットワークエラーが発生しました。",
+      "validation": "入力内容を確認してください。",
+      "badRequest": "不正なリクエストです。",
+      "unauthorized": "認証が必要です。",
+      "forbidden": "アクセス権限がありません。",
+      "notFound": "見つかりませんでした。",
+      "conflict": "データの整合性エラーが発生しました。",
+      "tooManyRequests": "リクエストが多すぎます。しばらく待ってから試してください。",
+      "failed": "処理に失敗しました。"
+    },
+    "auth": {
+      "emailAlreadyUsed": "このメールアドレスは既に使用されています。",
+      "emailNotVerified": "メールアドレスが確認されていません。"
+    },
+    "emailVerify": {
+      "invalid": "トークンが無効または期限切れです。",
+      "cooldown": "再送リクエストが早すぎます。しばらく待ってから試してください。",
+      "limitExceeded": "1日の再送回数制限を超えました。",
+      "alreadyVerified": "既に確認済みです。ログインしてください。"
+    },
+    "passwordReset": {
+      "disabled": "現在、パスワード再設定機能は利用できません。",
+      "invalid": "トークンが無効または期限切れです。",
+      "expired": "トークンの有効期限が切れています。",
+      "cooldown": "再送リクエストが早すぎます。",
+      "limitExceeded": "リクエスト回数制限を超えました。"
+    },
+    "passwordChange": {
+      "currentPasswordInvalid": "現在のパスワードが正しくありません。",
+      "sameAsOld": "新しいパスワードが現在のパスワードと同じです。",
+      "tooWeak": "パスワードが脆弱です。より強力なパスワードにしてください。"
+    },
     "unauthorized": "認証が必要です。",
     "forbidden": "アクセス権限がありません。",
     "validation": "入力内容を確認してください。",
     "network": "ネットワークエラーが発生しました。",
     "server": "サーバーエラーが発生しました。",
     "unexpected": "予期しないエラーが発生しました。"
+  },
+  "passwordReset": {
+    "page": {
+        "title": "パスワード再設定",
+        "description": "新しいパスワードを入力してください。",
+        "missingToken": "トークンが見つかりません。URLを確認してください。"
+    },
+    "form": {
+        "newPassword": "新しいパスワード",
+        "newPasswordPlaceholder": "8文字以上",
+        "confirmPassword": "新しいパスワード（確認）",
+        "confirmPasswordPlaceholder": "もう一度入力",
+        "submit": "パスワードを変更",
+        "submitting": "送信中..."
+    },
+    "links": {
+        "requestNew": "再発行する",
+        "backToLogin": "ログインへ戻る"
+    },
+    "errors": {
+        "mismatch": "パスワードが一致しません。"
+    }
+  },
+  "passwordForgot": {
+      "title": "パスワードをお忘れですか？",
+      "description": "メールアドレスを入力してください。アカウントが存在すれば、パスワード再設定用のリンクを送信します。",
+      "email": "メールアドレス",
+      "placeholder": "you@example.com",
+      "submit": "再設定リンクを送信",
+      "submitting": "送信中...",
+      "backToLogin": "ログインへ戻る"
+  },
+  "passwordResetSent": {
+      "title": "メールを確認してください",
+      "description": "アカウントが存在する場合、再設定リンクを送信しました。",
+      "checkSpam": "メールが届かない場合？",
+      "spamActions": {
+          "spamFolder": "迷惑メールフォルダを確認してください",
+          "settings": "受信設定を確認してください",
+          "wait": "少し待ってから再送してください"
+      },
+      "resend": "メールを再送",
+      "sending": "送信中...",
+      "useDifferentEmail": "別のメールアドレスを使う",
+      "backToLogin": "ログインへ戻る"
   },
   "pageTitles": {
     "home": "ホーム",
@@ -46,7 +100,8 @@
     "houseworkEdit": "家事の編集",
     "app": "アプリ情報",
     "terms": "利用規約",
-    "privacy": "プライバシーポリシー"
+    "privacy": "プライバシーポリシー",
+    "authResult": "結果"
   },
   "login": {
     "hero": {
@@ -78,9 +133,17 @@
     "noAccount": "アカウントをお持ちでない方は",
     "goSignup": "新規登録",
     "goSignupSuffix": "へ",
+    "notice": {
+      "passwordResetSuccess": "パスワードを変更しました。新しいパスワードでログインしてください。",
+      "emailVerified": "メールアドレスの確認が完了しました。ログインしてください。"
+    },
+    "toasts": {
+      "passwordChanged": "パスワードを変更しました。新しいパスワードでログインしてください。"
+    },
     "errors": {
       "emailNotVerified": "メールアドレスの確認が完了していません。"
-    }
+    },
+    "forgotPassword": "パスワードを忘れた場合"
   },
   "signup": {
     "title": "アカウント作成",
@@ -124,6 +187,69 @@
     },
     "header": {
       "haveAccountLink": "すでにアカウントをお持ちの方はこちら"
+    }
+  },
+  "emailVerify": {
+    "page": {
+      "title": "メール確認",
+      "loading": "確認しています...",
+      "success": "確認が完了しました。ログインしてください。",
+      "invalid": "リンクが無効、または期限切れです。登録画面から再送してください。",
+      "toLogin": "ログインへ",
+      "toSignup": "アカウント登録画面へ"
+    },
+    "waitPage": {
+      "title": "確認メールを送信しました",
+      "sentTo": "「{email}」宛に確認メールを送信しました。",
+      "instruction": "メール内のリンクをクリックして登録を完了してください。",
+      "spamNote": "迷惑メールフォルダもご確認ください。",
+      "alertResent": "確認メールを再送しました",
+      "resendButton": "確認メールを再送",
+      "resendCooldown": "再送（{seconds}秒後に再試行）"
+    },
+    "errors": {
+      "tokenInvalid": "トークンが無効または期限切れです。",
+      "cooldown": "再送リクエストが早すぎます。しばらく待ってから試してください。",
+      "tooManyRequests": "1日の再送回数制限を超えました。"
+    }
+  },
+  "authResult": {
+    "common": {
+      "title": "処理結果",
+      "message": "画面を閉じて、もう一度お試しください。"
+    },
+    "actions": {
+      "toLogin": "ログインへ",
+      "retryPasswordReset": "パスワード再設定をやり直す",
+      "toSignup": "サインアップへ"
+    },
+    "emailVerify": {
+      "success": {
+        "title": "メール認証が完了しました",
+        "message": "ログインしてご利用ください。"
+      },
+      "expired": {
+        "title": "リンクの有効期限が切れています",
+        "message": "サインアップ画面から、認証メールの再送を行ってください。"
+      },
+      "invalid": {
+        "title": "無効な認証リンクです",
+        "message": "リンクが正しくないか、すでに使用されています。"
+      }
+    },
+    "passwordReset": {
+      "success": {
+        "title": "パスワードを変更しました",
+        "message": "新しいパスワードでログインしてください。"
+      },
+      "expired": {
+        "title": "リンクの有効期限が切れています",
+        "message": "再度パスワードリセットを申請してください。"
+      },
+      "invalid": {
+        "title": "無効なリセットリンクです",
+        "message": "リンクが正しくないか、すでに使用されています。"
+      }
     }
   },
   "invite": {
@@ -661,6 +787,39 @@
         "button": "退会する",
         "confirm": "本当に退会しますか？\nこの操作は取り消せません。",
         "validationError": "あなたがOWNERとなっている世帯に他のメンバーがいるため退会できません。\n退会する前に、おうち設定からOWNER権限を譲渡するか、メンバーを削除してください。"
+      },
+      "password": {
+        "title": "パスワード変更",
+        "description": "ログイン用パスワードを変更します。",
+        "fields": {
+          "currentPassword": "現在のパスワード",
+          "newPassword": "新しいパスワード",
+          "newPasswordConfirm": "新しいパスワード（確認）"
+        },
+        "actions": {
+          "submit": "変更する",
+          "submitting": "変更中..."
+        },
+        "noteLogout": "※ パスワードを変更するとログアウトされます。",
+        "toasts": {
+          "success": "パスワードを変更しました。",
+          "failed": "パスワードの変更に失敗しました。"
+        },
+        "form": {
+          "errors": {
+            "currentPassword": {
+              "required": "現在のパスワードを入力してください。"
+            },
+            "newPassword": {
+              "required": "新しいパスワードを入力してください。",
+              "minLength": "8文字以上で入力してください。"
+            },
+            "newPasswordConfirm": {
+              "required": "確認用パスワードを入力してください。",
+              "mismatch": "パスワードが一致しません。"
+            }
+          }
+        }
       }
     },
     "household": {
