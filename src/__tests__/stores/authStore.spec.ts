@@ -30,6 +30,7 @@ vi.mock('@/api/userApi', () => ({
     createIconUploadUrl: vi.fn(),
     updateUserIcon: vi.fn(),
     deleteAccount: vi.fn(),
+    changeMyPassword: vi.fn(),
   },
 }))
 
@@ -233,7 +234,7 @@ describe('authStore', () => {
 
   it('verifyEmail は authApi.verifyEmail を呼ぶ', async () => {
     const store = useAuthStore()
-    vi.mocked(authApi.verifyEmail).mockResolvedValue({ data: undefined } as any)
+    vi.mocked(authApi.verifyEmail).mockResolvedValue({ data: undefined, status: 200, statusText: 'OK', headers: {}, config: {} } as unknown as import('axios').AxiosResponse)
 
     await store.verifyEmail('token-abc')
 
@@ -242,7 +243,7 @@ describe('authStore', () => {
 
   it('resendVerification は authApi.resendVerification を呼ぶ', async () => {
     const store = useAuthStore()
-    vi.mocked(authApi.resendVerification).mockResolvedValue({ data: undefined } as any)
+    vi.mocked(authApi.resendVerification).mockResolvedValue({ data: undefined, status: 200, statusText: 'OK', headers: {}, config: {} } as unknown as import('axios').AxiosResponse)
 
     await store.resendVerification('resend@example.com')
 
@@ -354,6 +355,25 @@ describe('authStore', () => {
 
     expect(userApi.deleteAccount).toHaveBeenCalled()
     expect(logoutSpy).toHaveBeenCalled()
+  })
+
+  it('changeMyPassword は userApi.changeMyPassword を呼び出し、isChangingPassword フラグを管理する', async () => {
+    const store = useAuthStore()
+    vi.mocked(userApi.changeMyPassword).mockResolvedValue(undefined)
+
+    const promise = store.changeMyPassword({
+      currentPassword: 'old',
+      newPassword: 'new',
+    })
+
+    expect(store.isChangingPassword).toBe(true)
+    await promise
+    expect(store.isChangingPassword).toBe(false)
+
+    expect(userApi.changeMyPassword).toHaveBeenCalledWith({
+      currentPassword: 'old',
+      newPassword: 'new',
+    })
   })
 
   // --- validateAccountDeletion ---

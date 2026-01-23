@@ -158,4 +158,19 @@ describe('userApi', () => {
     expect(mockedClient.delete).toHaveBeenCalledTimes(1)
     expect(mockedClient.delete).toHaveBeenCalledWith('/api/users/me')
   })
+
+  it('changeMyPassword: PUT /users/me/password に payload を送信する', async () => {
+    mockedClient.put.mockResolvedValue({ data: undefined })
+
+    await userApi.changeMyPassword({
+      currentPassword: 'old',
+      newPassword: 'new',
+    })
+
+    expect(mockedClient.put).toHaveBeenCalledTimes(1)
+    expect(mockedClient.put).toHaveBeenCalledWith('/api/users/me/password', {
+      currentPassword: 'old',
+      newPassword: 'new',
+    })
+  })
 })
