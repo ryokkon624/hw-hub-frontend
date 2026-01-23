@@ -29,6 +29,14 @@ export const userApi = {
   },
 
   /**
+   * 自分のパスワードを変更する。
+   * @param payload 現在パスワード / 新しいパスワード
+   */
+  async changeMyPassword(payload: ChangeMyPasswordRequestDto): Promise<void> {
+    await apiClient.put<void>('/api/users/me/password', payload)
+  },
+
+  /**
    * ユーザのアイコンをuploadするURLを生成する。
    * @param params Uploadするファイル名など
    * @returns uploadするURL
@@ -80,6 +88,14 @@ interface UserProfileDto {
   displayName: string
   locale: string
   iconUrl?: string | null
+}
+
+/**
+ * パスワード変更Request用のDTO
+ */
+interface ChangeMyPasswordRequestDto {
+  currentPassword: string
+  newPassword: string
 }
 
 // ---- Mapper: DTO ⇔ Domain ----------------------------------------------------

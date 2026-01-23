@@ -6,6 +6,9 @@ import { useUiStore } from '@/stores/uiStore'
 import { useI18n } from 'vue-i18n'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 import { toApiErrorMessageKey } from '@/utils/apiErrorMessage'
+import { onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import AppToastContainer from '@/components/AppToastContainer.vue'
 
 const { t } = useI18n()
 const email = ref('')
@@ -15,7 +18,32 @@ const errorMessage = ref<string | null>(null)
 
 const authStore = useAuthStore()
 const router = useRouter()
+const route = useRoute()
 const uiStore = useUiStore()
+
+onMounted(async () => {
+  let shouldClearQuery = false
+
+  const notice = route.query.notice
+  if (notice === 'passwordResetSuccess') {
+    uiStore.showToast('success', t('login.notice.passwordResetSuccess'))
+    shouldClearQuery = true
+  } else if (notice === 'emailVerified') {
+    uiStore.showToast('success', t('login.notice.emailVerified'))
+    shouldClearQuery = true
+  }
+
+  const pwChanged = route.query.pwChanged
+  if (pwChanged === '1') {
+    uiStore.showToast('success', t('login.toasts.passwordChanged'))
+    shouldClearQuery = true
+  }
+
+  // クエリを消す（再表示防止）
+  if (shouldClearQuery) {
+    await router.replace({ name: 'login', query: {} })
+  }
+})
 
 const onSubmit = async () => {
   errorMessage.value = null
@@ -38,6 +66,14 @@ const onSubmit = async () => {
   } finally {
     isSubmitting.value = false
   }
+}
+
+const goToForgotPassword = () => {
+  const trimmed = email.value.trim()
+  router.push({
+    name: 'password.forgot',
+    query: trimmed ? { email: trimmed } : {},
+  })
 }
 
 // 将来 Google ログインを実装する場所
@@ -155,6 +191,17 @@ const onClickGoogle = () => {
               />
             </div>
 
+            <div class="space-y-1 text-right">
+              <button
+                type="button"
+                class="text-[11px] text-hwhub-primary hover:underline disabled:opacity-60"
+                :disabled="isSubmitting"
+                @click="goToForgotPassword"
+              >
+                {{ t('login.forgotPassword') }}
+              </button>
+            </div>
+
             <p v-if="errorMessage" class="text-xs text-red-600">
               {{ errorMessage }}
             </p>
@@ -187,4 +234,5 @@ const onClickGoogle = () => {
       </section>
     </div>
   </div>
+  <AppToastContainer />
 </template>

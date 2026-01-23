@@ -1,35 +1,89 @@
 {
-  "emailVerify": {
-    "page": {
-      "title": "Email Verification",
-      "loading": "Verifying...",
-      "success": "Verification completed. Please sign in.",
-      "invalid": "The link is invalid or has expired. Please verify again from the sign-up page.",
-      "toLogin": "Go to login",
-      "toSignup": "Go to sign-up"
-    },
-    "waitPage": {
-      "title": "Verification email sent",
-      "sentTo": "Confirmation email has been sent to \"{email}\".",
-      "instruction": "Please click the link in the email to complete the registration.",
-      "spamNote": "Please also check your spam folder.",
-      "alertResent": "Verification email has been resent.",
-      "resendButton": "Resend email",
-      "resendCooldown": "Resend in {seconds}s"
-    },
-    "errors": {
-      "tokenInvalid": "Token is invalid or expired.",
-      "cooldown": "Too many requests. Please wait a while.",
-      "tooManyRequests": "Daily limit for verification requests exceeded."
-    }
-  },
   "errors": {
+    "common": {
+      "network": "Network error occurred.",
+      "validation": "Please check your input.",
+      "badRequest": "Invalid request.",
+      "unauthorized": "Authentication required.",
+      "forbidden": "Access denied.",
+      "notFound": "Not found.",
+      "conflict": "Data integrity error occurred.",
+      "tooManyRequests": "Too many requests. Please wait a while.",
+      "failed": "Processing failed."
+    },
+    "auth": {
+      "emailAlreadyUsed": "This email address is already in use.",
+      "emailNotVerified": "Email address has not been verified."
+    },
+    "emailVerify": {
+      "invalid": "Token is invalid or expired.",
+      "cooldown": "Too many resend requests. Please wait a while.",
+      "limitExceeded": "Daily limit for resend requests exceeded.",
+      "alreadyVerified": "Already verified. Please sign in."
+    },
+    "passwordReset": {
+      "disabled": "Password reset is currently unavailable.",
+      "invalid": "Token is invalid or expired.",
+      "expired": "Token has expired.",
+      "cooldown": "Too many resend requests.",
+      "limitExceeded": "Request limit exceeded."
+    },
+    "passwordChange": {
+      "currentPasswordInvalid": "Current password is incorrect.",
+      "sameAsOld": "New password is the same as the current one.",
+      "tooWeak": "Password is too weak. Please use a stronger password."
+    },
     "unauthorized": "Authentication required.",
     "forbidden": "Access denied.",
     "validation": "Please check your input.",
     "network": "Network error occurred.",
     "server": "Server error occurred.",
     "unexpected": "Unexpected error occurred."
+  },
+  "passwordReset": {
+    "page": {
+        "title": "Reset Password",
+        "description": "Enter your new password.",
+        "missingToken": "Token not found. Please check the URL."
+    },
+    "form": {
+        "newPassword": "New password",
+        "newPasswordPlaceholder": "8 characters or more",
+        "confirmPassword": "Confirm new password",
+        "confirmPasswordPlaceholder": "Enter again",
+        "submit": "Reset Password",
+        "submitting": "Sending..."
+    },
+    "links": {
+        "requestNew": "Request a new link",
+        "backToLogin": "Back to login"
+    },
+    "errors": {
+        "mismatch": "Passwords do not match."
+    }
+  },
+  "passwordForgot": {
+      "title": "Forgot your password?",
+      "description": "Enter your email address. If an account exists, we’ll send a password reset link.",
+      "email": "Email",
+      "placeholder": "you@example.com",
+      "submit": "Send reset link",
+      "submitting": "Sending...",
+      "backToLogin": "Back to login"
+  },
+  "passwordResetSent": {
+      "title": "Check your email",
+      "description": "If an account exists, a reset link has been sent.",
+      "checkSpam": "Didn’t get the email?",
+      "spamActions": {
+          "spamFolder": "Check your spam folder",
+          "settings": "Check your receive settings",
+          "wait": "Wait a minute and try resending"
+      },
+      "resend": "Resend email",
+      "sending": "Sending...",
+      "useDifferentEmail": "Use a different email",
+      "backToLogin": "Back to login"
   },
   "pageTitles": {
     "home": "Home",
@@ -81,7 +135,11 @@
     "goSignupSuffix": "",
     "errors": {
       "emailNotVerified": "Email address has not been verified."
-    }
+    },
+    "toasts": {
+      "passwordChanged": "Password changed. Please sign in with your new password."
+    },
+    "forgotPassword": "Forgot your password?"
   },
   "signup": {
     "title": "Create Account",
@@ -125,6 +183,69 @@
     },
     "header": {
       "haveAccountLink": "Already have an account?"
+    }
+  },
+  "emailVerify": {
+    "page": {
+      "title": "Email Verification",
+      "loading": "Verifying...",
+      "success": "Verification completed. Please sign in.",
+      "invalid": "The link is invalid or has expired. Please verify again from the sign-up page.",
+      "toLogin": "Go to login",
+      "toSignup": "Go to sign-up"
+    },
+    "waitPage": {
+      "title": "Verification email sent",
+      "sentTo": "Confirmation email has been sent to \"{email}\".",
+      "instruction": "Please click the link in the email to complete the registration.",
+      "spamNote": "Please also check your spam folder.",
+      "alertResent": "Verification email has been resent.",
+      "resendButton": "Resend email",
+      "resendCooldown": "Resend in {seconds}s"
+    },
+    "errors": {
+      "tokenInvalid": "Token is invalid or expired.",
+      "cooldown": "Too many requests. Please wait a while.",
+      "tooManyRequests": "Daily limit for verification requests exceeded."
+    }
+  },
+  "authResult": {
+    "common": {
+      "title": "Result",
+      "message": "Please close this screen and try again."
+    },
+    "actions": {
+      "toLogin": "Go to login",
+      "retryPasswordReset": "Try password request again",
+      "toSignup": "Go to sign-up"
+    },
+    "emailVerify": {
+      "success": {
+        "title": "Email verification completed",
+        "message": "Please sign in to continue."
+      },
+      "expired": {
+        "title": "Link has expired",
+        "message": "Please request a new verification email from the sign-up page."
+      },
+      "invalid": {
+        "title": "Invalid verification link",
+        "message": "The link is incorrect or has already been used."
+      }
+    },
+    "passwordReset": {
+      "success": {
+        "title": "Password changed",
+        "message": "Please sign in with your new password."
+      },
+      "expired": {
+        "title": "Link has expired",
+        "message": "Please request a password reset again."
+      },
+      "invalid": {
+        "title": "Invalid reset link",
+        "message": "The link is incorrect or has already been used."
+      }
     }
   },
   "invite": {
@@ -180,7 +301,6 @@
   },
   "home": {
     "intro": "You can quickly check the overall status of housework and shopping here. For detailed operations, please use each page (My Tasks / Assignment / Shopping list).",
-
     "onboarding": {
       "title": "Welcome to Housework Hub!",
       "subtitle": "Let's get ready to use the app.",
@@ -195,12 +315,10 @@
         "button": "Go to Housework Settings"
       }
     },
-
     "common": {
       "taskCount": "{count} tasks",
       "itemCount": "{count} items"
     },
-
     "myTasks": {
       "summary": "A summary of housework tasks assigned to you.",
       "todayLabel": "Today’s tasks",
@@ -209,7 +327,6 @@
       "note": "※ You can update statuses on the “My Tasks” page.",
       "openButton": "Open My Tasks"
     },
-
     "unassigned": {
       "title": "Unassigned housework",
       "summary": "Housework tasks that have no assignee yet. Try assigning them early.",
@@ -220,7 +337,6 @@
       "note": "※ You can change assignees on the “Assignment” page.",
       "openButton": "Open assignment"
     },
-
     "shopping": {
       "title": "Shopping list",
       "summary": "Number of unpurchased items in this household. Shows counts per store and recently added items.",
@@ -230,7 +346,6 @@
       "recentLabel": "Items added in the last 2 days",
       "openButton": "Open shopping list"
     },
-
     "household": {
       "title": "Household overview",
       "summary": "Number of housework tasks from 6 days in the past to 6 days in the future. Colors show who has how many tasks (including unassigned).",
@@ -239,21 +354,18 @@
   },
   "assign": {
     "intro": "Adjust assignees for housework tasks in this household. Use this page to assign unassigned tasks and balance the workload.",
-
     "summary": {
       "heading": "Pending tasks by member",
       "unassignedBadge": "Un",
       "unassignedLabel": "Unassigned",
       "tasksLabel": "Pending tasks: {total} (Unassigned: {unassigned})"
     },
-
     "filter": {
       "label": "Filter",
       "all": "All",
       "unassignedOnly": "Unassigned only",
       "mineAndUnassigned": "Mine + unassigned"
     },
-
     "list": {
       "empty": "There are no housework tasks matching the current filters.",
       "unassignedBadge": "Un",
@@ -261,18 +373,15 @@
       "assignToMe": "⭐ Assign to me",
       "selectUnassigned": "Unassigned"
     },
-
     "messages": {
       "fetchError": "Failed to load housework tasks.",
       "assigneeUpdateSuccess": "Assignee has been updated.",
       "assigneeUpdateError": "Failed to update the assignee."
     },
-
     "avatarAlt": "Member icon"
   },
   "myTasks": {
     "intro": "This is a list of housework tasks assigned to you. You can mark them as done or skipped here.",
-
     "past": {
       "title": "Past tasks",
       "description": "Tasks that were scheduled before today and are still pending.",
@@ -280,7 +389,6 @@
       "empty": "There are no pending tasks in the past.",
       "groupCount": "({count} tasks)"
     },
-
     "future": {
       "title": "Upcoming tasks",
       "description": "Tasks scheduled from today onward. You can mark them as done or skipped as needed.",
@@ -291,12 +399,10 @@
       "empty": "There are no upcoming pending tasks.",
       "groupCount": "({count} tasks)"
     },
-
     "actions": {
       "skip": "Skip",
       "complete": "Mark as done"
     },
-
     "messages": {
       "fetchError": "Failed to load housework tasks.",
       "doneSuccess": "Task has been marked as done.",
@@ -308,7 +414,6 @@
       "bulkSuccess": "All past tasks have been marked as done.",
       "bulkError": "Failed to update tasks in bulk."
     },
-
     "date": {
       "today": "Today",
       "tomorrow": "Tomorrow",
@@ -662,6 +767,39 @@
         "button": "Delete Account",
         "confirm": "Are you sure you want to delete your account?\nThis action cannot be undone.",
         "validationError": "You cannot delete your account because you are the OWNER of a household with other members.\nPlease transfer ownership or remove members from Household Settings before deleting your account."
+      },
+      "password": {
+        "title": "Change Password",
+        "description": "Change your login password.",
+        "fields": {
+          "currentPassword": "Current password",
+          "newPassword": "New password",
+          "newPasswordConfirm": "Confirm new password"
+        },
+        "actions": {
+          "submit": "Change",
+          "submitting": "Changing..."
+        },
+        "noteLogout": "* Changing your password will sign you out.",
+        "toasts": {
+          "success": "Password changed.",
+          "failed": "Failed to change password."
+        },
+        "form": {
+          "errors": {
+            "currentPassword": {
+              "required": "Current password is required."
+            },
+            "newPassword": {
+              "required": "New password is required.",
+              "minLength": "Must be at least 8 characters."
+            },
+            "newPasswordConfirm": {
+              "required": "Please confirm your new password.",
+              "mismatch": "Passwords do not match."
+            }
+          }
+        }
       }
     },
     "household": {
@@ -729,28 +867,20 @@
       "toasts": {
         "createSuccess": "A new household has been created.",
         "createFailed": "Failed to create household.",
-
         "switchSuccess": "Switched household.",
         "switchFailed": "Failed to switch household.",
-
         "saveNameSuccess": "Household name has been saved.",
         "saveNameFailed": "Failed to save household name.",
-
         "saveNicknameSuccess": "Nickname has been saved.",
         "saveNicknameFailed": "Failed to save nickname.",
-
         "leaveSuccess": "You have left this household.",
         "leaveFailed": "Failed to leave the household.",
-
         "removeMemberSuccess": "Member has been removed from the household.",
         "removeMemberFailed": "Failed to remove member.",
-
         "copyInviteSuccess": "Invitation link has been copied.",
         "copyInviteFailed": "Failed to copy to clipboard.",
-
         "inviteCreateSuccess": "Invitation link has been created.",
         "inviteCreateFailed": "Failed to create invitation link.",
-
         "revokeInviteSuccess": "Invitation has been revoked.",
         "revokeInviteFailed": "Failed to revoke invitation.",
         "deleteSuccess": "Household deleted",
