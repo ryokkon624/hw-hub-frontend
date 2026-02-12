@@ -85,6 +85,7 @@ interface UserHouseholdDto {
 interface UserProfileDto {
   userId: number
   email: string
+  authProvider: string
   displayName: string
   locale: string
   iconUrl?: string | null
@@ -119,6 +120,7 @@ const toHouseholdModel = (dto: UserHouseholdDto): HouseholdModel => ({
 const toUserProfile = (dto: UserProfileDto): UserProfile => ({
   userId: dto.userId,
   email: dto.email,
+  authProvider: dto.authProvider,
   displayName: dto.displayName,
   locale: dto.locale,
   iconUrl: dto.iconUrl ?? null,

@@ -8,16 +8,22 @@ export interface Toast {
   message: string
 }
 
+const REDIRECT_AFTER_LOGIN_KEY = 'hwhub.redirectAfterLogin'
+
 export const useUiStore = defineStore('ui', {
   state: () => ({
     toasts: [] as Toast[],
     loadingCount: 0,
     nextToastId: 1,
-    redirectAfterLogin: null as string | null,
+    // OAuth のフルリダイレクトでも保持するため localStorage から復元
+    redirectAfterLogin:
+      (localStorage.getItem(REDIRECT_AFTER_LOGIN_KEY) as string | null) ?? null,
   }),
+
   getters: {
     isLoading: (state) => state.loadingCount > 0,
   },
+
   actions: {
     showToast(type: ToastType, message: string) {
       const id = this.nextToastId++
@@ -55,6 +61,13 @@ export const useUiStore = defineStore('ui', {
 
     setRedirectAfterLogin(path: string | null) {
       this.redirectAfterLogin = path
+
+      // 永続化（OAuth のフルリダイレクトでPiniaが初期化されても復元できるように）
+      if (path) {
+        localStorage.setItem(REDIRECT_AFTER_LOGIN_KEY, path)
+      } else {
+        localStorage.removeItem(REDIRECT_AFTER_LOGIN_KEY)
+      }
     },
   },
 })

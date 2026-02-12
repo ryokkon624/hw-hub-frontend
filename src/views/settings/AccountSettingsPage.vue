@@ -30,90 +30,7 @@
     </section>
 
     <!-- パスワード変更 -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
-      <h3 class="text-sm font-semibold text-hwhub-heading">
-        {{ t('settings.account.password.title') }}
-      </h3>
-      <p class="text-xs text-hwhub-muted">
-        {{ t('settings.account.password.description') }}
-      </p>
-
-      <form class="space-y-3" @submit.prevent="onChangePassword">
-        <div>
-          <label class="block text-xs text-hwhub-muted mb-1">
-            {{ t('settings.account.password.fields.currentPassword') }}
-          </label>
-          <Field name="currentPassword" v-slot="{ field }">
-            <input
-              v-bind="field"
-              type="password"
-              autocomplete="current-password"
-              class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
-              :disabled="authStore.isChangingPassword"
-            />
-          </Field>
-          <ErrorMessage name="currentPassword" v-slot="{ message }">
-            <p class="text-xs text-red-600 mt-1">{{ message }}</p>
-          </ErrorMessage>
-        </div>
-
-        <div>
-          <label class="block text-xs text-hwhub-muted mb-1">
-            {{ t('settings.account.password.fields.newPassword') }}
-          </label>
-          <Field name="newPassword" v-slot="{ field }">
-            <input
-              v-bind="field"
-              type="password"
-              autocomplete="new-password"
-              class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
-              :disabled="authStore.isChangingPassword"
-            />
-          </Field>
-          <ErrorMessage name="newPassword" v-slot="{ message }">
-            <p class="text-xs text-red-600 mt-1">{{ message }}</p>
-          </ErrorMessage>
-        </div>
-
-        <div>
-          <label class="block text-xs text-hwhub-muted mb-1">
-            {{ t('settings.account.password.fields.newPasswordConfirm') }}
-          </label>
-          <Field name="newPasswordConfirm" v-slot="{ field }">
-            <input
-              v-bind="field"
-              type="password"
-              autocomplete="new-password"
-              class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
-              :disabled="authStore.isChangingPassword"
-            />
-          </Field>
-          <ErrorMessage name="newPasswordConfirm" v-slot="{ message }">
-            <p class="text-xs text-red-600 mt-1">{{ message }}</p>
-          </ErrorMessage>
-        </div>
-
-        <div class="flex justify-end pt-1">
-          <button
-            type="submit"
-            class="inline-flex items-center rounded-md bg-hwhub-primary px-4 py-2 text-sm font-semibold text-white hover:bg-hwhub-primary disabled:opacity-50"
-            :disabled="authStore.isChangingPassword || !passwordMeta.valid"
-          >
-            <span v-if="!authStore.isChangingPassword">
-              {{ t('settings.account.password.actions.submit') }}
-            </span>
-            <span v-else class="flex items-center gap-2">
-              <span class="h-4 w-4 rounded-full border-2 border-white/60 border-t-transparent animate-spin" />
-              {{ t('settings.account.password.actions.submitting') }}
-            </span>
-          </button>
-        </div>
-
-        <p class="text-[11px] text-hwhub-muted">
-          {{ t('settings.account.password.noteLogout') }}
-        </p>
-      </form>
-    </section>
+    <PasswordChangeSection />
 
     <!-- 表示名の変更 -->
     <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
@@ -137,7 +54,7 @@
           />
         </Field>
         <ErrorMessage name="displayName" v-slot="{ message }">
-          <p class="text-xs text-red-600 mt-1">{{ message }}</p>
+          <p class="text-xs text-red-600 mt-1">{{ tMaybe(message) }}</p>
         </ErrorMessage>
       </div>
     </section>
@@ -204,7 +121,7 @@
           </select>
         </Field>
         <ErrorMessage name="locale" v-slot="{ message }">
-          <p class="text-xs text-red-600 mt-1">{{ message }}</p>
+          <p class="text-xs text-red-600 mt-1">{{ tMaybe(message) }}</p>
         </ErrorMessage>
       </div>
     </section>
@@ -220,6 +137,91 @@
         {{ t('common.save') }}
       </button>
     </div>
+
+    <!-- Google 連携 -->
+    <section v-if="shouldShowGoogleLinkSection" class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
+      <div class="flex items-start justify-between gap-4">
+        <div class="min-w-0">
+          <h3 class="text-sm font-semibold text-hwhub-heading">
+            {{ t('settings.account.google.title') }}
+          </h3>
+
+          <!-- 未連携 -->
+          <p v-if="!isGoogleLinked" class="text-xs text-hwhub-muted mt-1">
+            {{ t('settings.account.google.description.notLinked') }}
+          </p>
+
+          <!-- 連携済み -->
+          <p v-else class="text-xs text-hwhub-muted mt-1 whitespace-pre-line">
+            {{ t('settings.account.google.description.linked') }}
+          </p>
+        </div>
+
+        <span
+          class="shrink-0 inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-semibold"
+          :class="isGoogleLinked ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-slate-50 text-slate-600 border border-slate-200'"
+        >
+          {{ isGoogleLinked ? t('settings.account.google.status.linked') : t('settings.account.google.status.notLinked') }}
+        </span>
+      </div>
+
+      <div v-if="!isGoogleLinked" class="flex flex-col gap-3 pt-2">
+        <button
+          type="button"
+          class="
+            group
+            w-full
+            sm:w-auto
+            inline-flex
+            items-center
+            justify-center
+            gap-3
+            rounded-xl
+            border
+            border-gray-300
+            bg-white
+            px-5
+            py-2.5
+            text-sm
+            font-medium
+            text-gray-700
+            shadow-sm
+            transition
+            hover:bg-gray-50
+            hover:shadow
+            focus:outline-none
+            focus:ring-2
+            focus:ring-hwhub-primary/40
+            disabled:opacity-60
+          "
+          :disabled="authStore.isStartingGoogleLink"
+          @click="onStartGoogleLink"
+        >
+          <!-- Google Logo -->
+          <img
+            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+            alt="Google"
+            class="h-5 w-5"
+          />
+
+          <span v-if="!authStore.isStartingGoogleLink" class="tracking-tight">
+            {{ t('settings.account.google.actions.link') }}
+          </span>
+          <span v-else class="flex items-center gap-2">
+            <span class="h-4 w-4 rounded-full border-2 border-gray-400/60 border-t-transparent animate-spin" />
+            {{ t('settings.account.google.actions.linking') }}
+          </span>
+        </button>
+
+        <p class="text-[11px] text-hwhub-muted">
+          {{ t('settings.account.google.note') }}
+        </p>
+      </div>
+
+      <div v-else class="rounded-lg border border-amber-200 bg-amber-50 p-3 text-[11px] text-amber-900 whitespace-pre-line">
+        {{ t('settings.account.google.warning.passwordDisabled') }}
+      </div>
+    </section>
 
     <!-- アカウント削除 -->
     <section class="rounded-xl border border-red-200 bg-white p-4 shadow-sm space-y-3 mt-8">
@@ -247,6 +249,7 @@
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useForm, Field, ErrorMessage } from 'vee-validate'
 import { SUPPORT_LOCALES, type Locale } from '@/i18n'
 import { useAuthStore } from '@/stores/authStore'
@@ -256,14 +259,12 @@ import {
   accountSettingsTypedSchema,
   type AccountSettingsSchemaType,
 } from '@/domain/user/accountSettings.validation'
-import {
-  passwordChangeTypedSchema,
-  type PasswordChangeSchemaType,
-} from '@/domain/user/passwordChange.validation'
+import PasswordChangeSection from '@/components/inputs/PasswordChangeSection.vue'
 
 const authStore = useAuthStore()
 const uiStore = useUiStore()
 const router = useRouter()
+const route = useRoute()
 const { t, locale } = useI18n()
 
 // ロケール一覧
@@ -288,20 +289,6 @@ const { handleSubmit, values, resetForm } = useForm<AccountSettingsSchemaType>({
   },
 })
 
-// vee-validate フォーム(パスワード変更用)
-const {
-  handleSubmit: handlePasswordSubmit,
-  meta: passwordMeta,
-  resetForm: resetPasswordForm,
-} = useForm<PasswordChangeSchemaType>({
-  validationSchema: passwordChangeTypedSchema,
-  initialValues: {
-    currentPassword: '',
-    newPassword: '',
-    newPasswordConfirm: '',
-  },
-})
-
 // 読み取り用：メールなど
 const userEmail = computed(() => {
   const user = authStore.currentUser as { email?: string } | undefined
@@ -321,7 +308,18 @@ const hasChanges = computed(() => {
   )
 })
 
-onMounted(() => {
+const isGoogleLinked = computed(() => {
+  const user = authStore.currentUser as { authProvider?: string | null } | null
+  return user?.authProvider === 'GOOGLE'
+})
+
+// Google連携UIを出す条件：gmail のときだけ（例: xxx@gmail.com）
+const shouldShowGoogleLinkSection = computed(() => {
+  const email = userEmail.value?.toLowerCase() ?? ''
+  return email.endsWith('@gmail.com')
+})
+
+onMounted(async () => {
   const user = authStore.currentUser as {
     displayName?: string
     locale?: Locale
@@ -342,25 +340,24 @@ onMounted(() => {
 
   originalDisplayName.value = initialDisplayName
   originalLocale.value = initialLocale
-})
 
-const onChangePassword = handlePasswordSubmit(async (formValues) => {
-  try {
-    await uiStore.withLoading(async () => {
-      await authStore.changeMyPassword({
-        currentPassword: formValues.currentPassword,
-        newPassword: formValues.newPassword,
-      })
-    })
+  const notice = route.query.notice
+  const token = route.query.token
 
-    // ログアウト → ログインへ
-    authStore.logout()
-
-    await router.push({ name: 'login', query: { pwChanged: '1' } })
-    resetPasswordForm()
-  } catch (e) {
-    console.error(e)
-    uiStore.showToast('error', t('settings.account.password.toasts.failed'))
+  if (notice === 'googleLinked' && typeof token === 'string' && token.length > 0) {
+    try {
+      await authStore.completeOAuthLogin(token)
+      uiStore.showToast('success', t('settings.account.google.linkedSuccess'))
+    } catch (e) {
+      console.error(e)
+      uiStore.showToast('error', t('settings.account.google.linkedFailed'))
+    } finally {
+      // クエリを削除（再表示防止）
+      await router.replace({ query: {} })
+    }
+  } else if (notice === 'googleLinkFailed') {
+    uiStore.showToast('error', t('settings.account.google.linkedFailed'))
+    await router.replace({ query: {} })
   }
 })
 
@@ -408,6 +405,15 @@ const onSave = handleSubmit(async (formValues) => {
   }
 })
 
+const onStartGoogleLink = async () => {
+  try {
+    await authStore.startGoogleLink()
+  } catch (e) {
+    console.error(e)
+    uiStore.showToast('error', t('settings.account.google.toasts.failed'))
+  }
+}
+
 const onDeleteAccount = async () => {
   if (!confirm(t('settings.account.delete.confirm'))) return
 
@@ -431,5 +437,11 @@ const onDeleteAccount = async () => {
     const msg = err.response?.data?.message || ''
     uiStore.showToast('error', t('settings.account.toasts.deleteFailed') + (msg ? `\n${msg}` : ''))
   }
+}
+
+const tMaybe = (msg: string | undefined | null) => {
+  if (!msg) return ''
+  if (msg.startsWith('settings.')) return t(msg)
+  return msg
 }
 </script>

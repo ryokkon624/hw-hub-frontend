@@ -13,6 +13,11 @@ import type { UiError } from '@/domain'
 export const toUiError = (err: unknown): UiError => {
   const e = err as Partial<ApiError>
 
+  // ApiError形式じゃない（想定外例外）
+  if (!e || typeof e !== 'object') {
+    return { messageKey: 'errors.common.failed' }
+  }
+
   // ネットワークやCORSなど、HTTPレスポンスに到達していないケース
   if (e.status == null) {
     return { messageKey: 'errors.common.network' }
@@ -106,6 +111,20 @@ const ERROR_CODE_TO_I18N_KEY: Record<string, string> = {
   CURRENT_PASSWORD_INVALID: 'errors.passwordChange.currentPasswordInvalid',
   PASSWORD_SAME_AS_OLD: 'errors.passwordChange.sameAsOld',
   PASSWORD_TOO_WEAK: 'errors.passwordChange.tooWeak',
+
+  // ---- OAuth ----
+  OAUTH_STATE_MISMATCH: 'errors.oauth.stateMismatch',
+  OAUTH_ID_TOKEN_INVALID: 'errors.oauth.idTokenInvalid',
+  OAUTH_EMAIL_NOT_VERIFIED: 'errors.oauth.emailNotVerified',
+  OAUTH_EMAIL_ALREADY_REGISTERED: 'errors.oauth.emailAlreadyRegistered',
+
+  // ---- Google Link ----
+  GOOGLE_ALREADY_LINKED: 'errors.google.alreadyLinked',
+  GOOGLE_SUB_ALREADY_USED: 'errors.google.subAlreadyUsed',
+
+  // ---- Login ----
+  PASSWORD_LOGIN_NOT_ALLOWED: 'errors.auth.passwordLoginNotAllowed',
+  AUTH_INVALID_CREDENTIALS: 'errors.auth.invalidCredentials',
 
   // ---- Common (by code) ----
   VALIDATION_ERROR: 'errors.common.validation',

@@ -13,7 +13,9 @@
     },
     "auth": {
       "emailAlreadyUsed": "This email address is already in use.",
-      "emailNotVerified": "Email address has not been verified."
+      "emailNotVerified": "Email address has not been verified.",
+      "passwordLoginNotAllowed": "Password login is not allowed for this account. Please use Google login.",
+      "invalidCredentials": "Email or password is incorrect."
     },
     "emailVerify": {
       "invalid": "Token is invalid or expired.",
@@ -32,6 +34,16 @@
       "currentPasswordInvalid": "Current password is incorrect.",
       "sameAsOld": "New password is the same as the current one.",
       "tooWeak": "Password is too weak. Please use a stronger password."
+    },
+    "oauth": {
+      "stateMismatch": "Authentication state mismatch. Please try again.",
+      "idTokenInvalid": "Authentication token is invalid. Please try again.",
+      "emailNotVerified": "Google account email is not verified.",
+      "emailAlreadyRegistered": "This email address is already registered. To link with your Google account, please sign in and go to Account Settings."
+    },
+    "google": {
+      "alreadyLinked": "This account is already linked with Google.",
+      "subAlreadyUsed": "This Google account is already used by another account."
     },
     "unauthorized": "Authentication required.",
     "forbidden": "Access denied.",
@@ -138,6 +150,10 @@
     },
     "toasts": {
       "passwordChanged": "Password changed. Please sign in with your new password."
+    },
+    "notice": {
+      "googleLoginSuccess": "Signed in with Google.",
+      "googleLoginFailed": "Failed to sign in with Google."
     },
     "forgotPassword": "Forgot your password?"
   },
@@ -767,6 +783,44 @@
         "button": "Delete Account",
         "confirm": "Are you sure you want to delete your account?\nThis action cannot be undone.",
         "validationError": "You cannot delete your account because you are the OWNER of a household with other members.\nPlease transfer ownership or remove members from Household Settings before deleting your account."
+      },
+      "form": {
+        "errors": {
+          "displayName": {
+            "required": "Display name is required.",
+            "maxBytes": "Display name must be within 100 bytes."
+          },
+          "locale": {
+            "required": "Please select a language."
+          },
+          "iconFile": {
+            "maxSize": "File size must be within 5MB."
+          }
+        }
+      },
+      "google": {
+        "title": "Google Integration",
+        "status": {
+          "linked": "Linked",
+          "notLinked": "Not linked"
+        },
+        "description": {
+          "notLinked": "Link your Google account to sign in with one click.",
+          "linked": "This account uses Google Sign-In.\nPassword login is disabled."
+        },
+        "actions": {
+          "link": "Link Google Account",
+          "linking": "Linking..."
+        },
+        "note": "Password login will be disabled after linking.",
+        "warning": {
+          "passwordDisabled": "Password login is disabled because you are linked with Google.\nPlease sign in using the Google button."
+        },
+        "toasts": {
+          "failed": "Failed to start Google integration."
+        },
+        "linkedSuccess": "Google account linked successfully.",
+        "linkedFailed": "Failed to link Google account."
       },
       "password": {
         "title": "Change Password",

@@ -5,7 +5,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { useUiStore } from '@/stores/uiStore'
 import { useI18n } from 'vue-i18n'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
-import { toApiErrorMessageKey } from '@/utils/apiErrorMessage'
+import { toUiError } from '@/domain/error/errorMapper'
 import { onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import AppToastContainer from '@/components/AppToastContainer.vue'
@@ -24,12 +24,48 @@ const uiStore = useUiStore()
 onMounted(async () => {
   let shouldClearQuery = false
 
+  // OAuth の token を拾ってログイン完了
+  const token = route.query.token
+  const tokenStr = typeof token === 'string' ? token : ''
+
+  if (tokenStr) {
+    try {
+      await authStore.completeOAuthLogin(tokenStr)
+
+      uiStore.showToast('success', t('login.notice.googleLoginSuccess'))
+      shouldClearQuery = true
+
+      // ログイン後の遷移：redirectAfterLogin があるなら優先
+      const redirect = uiStore.redirectAfterLogin
+      uiStore.setRedirectAfterLogin(null)
+
+      if (redirect) {
+        await router.replace(redirect)
+      } else {
+        await router.replace({ name: 'home' })
+      }
+
+      return
+    } catch (e) {
+      console.error(e)
+      uiStore.showToast('error', t('login.notice.googleLoginFailed'))
+      shouldClearQuery = true
+    }
+  }
+
+  // notice / pwChanged toast
   const notice = route.query.notice
   if (notice === 'passwordResetSuccess') {
     uiStore.showToast('success', t('login.notice.passwordResetSuccess'))
     shouldClearQuery = true
   } else if (notice === 'emailVerified') {
     uiStore.showToast('success', t('login.notice.emailVerified'))
+    shouldClearQuery = true
+  } else if (notice === 'googleLoginSuccess') {
+    uiStore.showToast('success', t('login.notice.googleLoginSuccess'))
+    shouldClearQuery = true
+  } else if (notice === 'googleLoginFailed') {
+    uiStore.showToast('error', t('login.notice.googleLoginFailed'))
     shouldClearQuery = true
   }
 
@@ -61,7 +97,7 @@ const onSubmit = async () => {
       router.push({ name: 'home' })
     }
   } catch (e) {
-    errorMessage.value = t(toApiErrorMessageKey(e))
+    errorMessage.value = t(toUiError(e).messageKey)
     console.error(e)
   } finally {
     isSubmitting.value = false
@@ -76,10 +112,13 @@ const goToForgotPassword = () => {
   })
 }
 
-// 将来 Google ログインを実装する場所
-const onClickGoogle = () => {
-  // TODO: Google OAuth 連携
-  console.log('Google login is not implemented yet.')
+const onClickGoogle = async () => {
+  try {
+    await authStore.startGoogleLogin()
+  } catch (e) {
+    console.error(e)
+    uiStore.showToast('error', t('login.notice.googleLoginFailed'))
+  }
 }
 </script>
 
@@ -137,23 +176,51 @@ const onClickGoogle = () => {
             </p>
           </header>
 
-          <!-- Google ログイン（見た目だけ） -->
+          <!-- Google ログイン -->
           <div class="space-y-3">
             <button
               type="button"
-              class="w-full inline-flex items-center justify-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-hwhub-heading hover:bg-hwhub-surface-subtle disabled:opacity-60"
+              class="
+                group
+                w-full
+                inline-flex
+                items-center
+                justify-center
+                gap-3
+                rounded-xl
+                border
+                border-gray-300
+                bg-white
+                px-4
+                py-2.5
+                text-sm
+                font-medium
+                text-gray-700
+                shadow-sm
+                transition
+                hover:bg-gray-50
+                hover:shadow
+                focus:outline-none
+                focus:ring-2
+                focus:ring-hwhub-primary/40
+                disabled:opacity-60
+              "
               :disabled="isSubmitting"
               @click="onClickGoogle"
             >
-              <!-- 簡易 G アイコン（あとで正式ロゴに差し替え可） -->
-              <span
-                class="flex items-center justify-center h-5 w-5 rounded-full border border-gray-300 text-[11px]"
-              >
-                G
+              <!-- Google Logo -->
+              <img
+                src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                alt="Google"
+                class="h-5 w-5"
+              />
+
+              <span class="tracking-tight">
+                Google アカウントでログイン
               </span>
-              <span>{{ t('login.google') }}</span>
             </button>
 
+            <!-- Divider -->
             <div class="flex items-center gap-2 text-[11px] text-hwhub-muted">
               <span class="flex-1 h-px bg-gray-200" />
               <span>{{ t('login.divider') }}</span>
