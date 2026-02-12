@@ -38,9 +38,14 @@ apiClient.interceptors.response.use(
   async (error: AxiosError) => {
     const status = error?.response?.status
     if (status === 401 && !isHandling401) {
-      isHandling401 = true
       try {
         const authStore = useAuthStore()
+        // 認証状態が揺れている最中は logout しない
+        if (authStore.isBootstrapping) {
+          // isHandling401 を立てないことで処理を止める
+          return Promise.reject(error)
+        }
+        isHandling401 = true
         authStore.logout()
 
         // 今いる場所を記録しておいて、ログイン後に戻す

@@ -109,4 +109,11 @@ describe('errorMapper', () => {
     }
     expect(toUiError(err2).messageKey).toBe('errors.passwordReset.invalid')
   })
+
+  it('入力が null/undefined/非オブジェクトの場合は errors.common.failed を返す', () => {
+    expect(toUiError(null).messageKey).toBe('errors.common.failed')
+    expect(toUiError(undefined).messageKey).toBe('errors.common.failed')
+    expect(toUiError('some string').messageKey).toBe('errors.common.failed')
+    expect(toUiError(123).messageKey).toBe('errors.common.failed')
+  })
 })

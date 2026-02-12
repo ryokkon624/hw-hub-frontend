@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
-import { toApiErrorMessageKey } from '@/utils/apiErrorMessage'
+import { toUiError } from '@/domain/error/errorMapper'
 import { useI18n } from 'vue-i18n'
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
@@ -32,7 +32,7 @@ const onResend = async () => {
     alert(t('emailVerify.waitPage.alertResent'))
     startCooldown(60)
   } catch (e) {
-    errorMessage.value = t(toApiErrorMessageKey(e))
+    errorMessage.value = t(toUiError(e).messageKey)
     console.error(e)
   } finally {
     isSubmitting.value = false

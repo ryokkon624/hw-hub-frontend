@@ -4,6 +4,7 @@
 export interface LoginUser {
   userId: number
   email: string
+  authProvider: string
   displayName: string
   locale: string
   iconUrl?: string | null

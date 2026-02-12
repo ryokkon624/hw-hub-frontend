@@ -30,6 +30,7 @@ vi.mock('@/stores/authStore', () => {
   const logout = vi.fn()
 
   let token: string | null = null
+  let bootstrapping = false
 
   const useAuthStore = () => ({
     get accessToken() {
@@ -40,6 +41,12 @@ vi.mock('@/stores/authStore', () => {
     },
     get isAuthenticated() {
       return token != null
+    },
+    get isBootstrapping() {
+      return bootstrapping
+    },
+    set isBootstrapping(v: boolean) {
+      bootstrapping = v
     },
     logout,
   })
@@ -218,6 +225,31 @@ describe('apiClient response interceptor - ErrorResponse あり', () => {
     expect(logout).toHaveBeenCalledTimes(1)
     expect(push).toHaveBeenCalledTimes(1)
     expect(push).toHaveBeenCalledWith({ name: 'login' })
+  })
+
+  it('401 かつ isBootstrapping=true の場合 → logout/redirect は呼ばれず、reject だけされる', async () => {
+    const rejected = getResponseRejected()
+    const logout = getLogoutMock()
+    const push = getPushMock()
+
+    // store の isBootstrapping を true に設定
+    const store = useAuthStore()
+    store.isBootstrapping = true
+
+    const axiosError = {
+      response: {
+        status: 401,
+        data: { errorCode: 'AUTH001' },
+      },
+    } as unknown as AxiosError
+
+    // isBootstrapping = true のときは reject されるが、logout / redirect は呼ばれない
+    await expect(rejected(axiosError)).rejects.toMatchObject({
+      response: { status: 401 },
+    })
+
+    expect(logout).not.toHaveBeenCalled()
+    expect(push).not.toHaveBeenCalled()
   })
 })
 

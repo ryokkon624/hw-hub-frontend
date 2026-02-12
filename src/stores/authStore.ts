@@ -5,12 +5,15 @@ import { userApi } from '@/api/userApi'
 import { useHouseholdStore } from '@/stores/householdStore'
 import { useCodeStore } from '@/stores/codeStore'
 import { HOUSEHOLD_MEMBER_STATUS } from '@/constants/code.constants'
+import { nextTick } from 'vue'
 
 interface AuthState {
   accessToken: string | null
   currentUser: LoginUser | null
   isUploadingIcon: boolean
   isChangingPassword: boolean
+  isStartingGoogleLink: boolean
+  isBootstrapping: boolean // accessTokenが揺れている時はtrue。アカウントの連携時など
 }
 
 const STORAGE_KEY = 'hwhub.auth'
@@ -21,6 +24,8 @@ export const useAuthStore = defineStore('auth', {
     currentUser: null,
     isUploadingIcon: false,
     isChangingPassword: false,
+    isStartingGoogleLink: false,
+    isBootstrapping: false,
   }),
 
   getters: {
@@ -49,9 +54,10 @@ export const useAuthStore = defineStore('auth', {
      * @returns
      */
     initFromStorage() {
-      const raw = localStorage.getItem(STORAGE_KEY)
-      if (!raw) return
+      this.isBootstrapping = true
       try {
+        const raw = localStorage.getItem(STORAGE_KEY)
+        if (!raw) return
         const parsed = JSON.parse(raw) as AuthSession
         this.accessToken = parsed.accessToken
         this.currentUser = parsed.user
@@ -60,6 +66,8 @@ export const useAuthStore = defineStore('auth', {
         householdStore.initFromStorage()
       } catch {
         localStorage.removeItem(STORAGE_KEY)
+      } finally {
+        this.isBootstrapping = false
       }
     },
 
@@ -121,6 +129,36 @@ export const useAuthStore = defineStore('auth', {
       await authApi.resendVerification({ email })
     },
 
+    async startGoogleLogin() {
+      const apiBase = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8080'
+      window.location.assign(`${apiBase}/oauth/google/start`)
+    },
+
+    async completeOAuthLogin(accessToken: string) {
+      this.isBootstrapping = true
+      try {
+        this.accessToken = accessToken
+        this.saveToStorage()
+
+        await nextTick()
+
+        await this.fetchUserProfile()
+
+        const householdStore = useHouseholdStore()
+        await householdStore.fetchMyHouseholds()
+
+        const codeStore = useCodeStore()
+        codeStore.loadAllIfNeeded()
+      } finally {
+        this.isBootstrapping = false
+      }
+    },
+
+    async startGoogleLink() {
+      const url = await authApi.getGoogleLinkStartUrl()
+      window.location.assign(url)
+    },
+
     /**
      * ログアウトする。
      */
@@ -141,6 +179,7 @@ export const useAuthStore = defineStore('auth', {
       this.currentUser = {
         userId: profile.userId,
         email: profile.email,
+        authProvider: profile.authProvider,
         displayName: profile.displayName,
         locale: profile.locale,
         iconUrl: profile.iconUrl,

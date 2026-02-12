@@ -5,7 +5,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { useUiStore } from '@/stores/uiStore'
 import { useI18n } from 'vue-i18n'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
-import { toApiErrorMessageKey } from '@/utils/apiErrorMessage'
+import { toUiError } from '@/domain/error/errorMapper'
 
 const { t } = useI18n()
 const email = ref('')
@@ -67,7 +67,7 @@ const onSubmit = async () => {
       router.push({ name: 'home' })
     }
   } catch (e) {
-    errorMessage.value = t(toApiErrorMessageKey(e))
+    errorMessage.value = t(toUiError(e).messageKey)
     console.error(e)
   } finally {
     isSubmitting.value = false

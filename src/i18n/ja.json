@@ -13,7 +13,9 @@
     },
     "auth": {
       "emailAlreadyUsed": "このメールアドレスは既に使用されています。",
-      "emailNotVerified": "メールアドレスが確認されていません。"
+      "emailNotVerified": "メールアドレスが確認されていません。",
+      "passwordLoginNotAllowed": "このアカウントはパスワードログインが無効です。Googleログインをご利用ください。",
+      "invalidCredentials": "メールアドレスまたはパスワードが正しくありません。"
     },
     "emailVerify": {
       "invalid": "トークンが無効または期限切れです。",
@@ -32,6 +34,16 @@
       "currentPasswordInvalid": "現在のパスワードが正しくありません。",
       "sameAsOld": "新しいパスワードが現在のパスワードと同じです。",
       "tooWeak": "パスワードが脆弱です。より強力なパスワードにしてください。"
+    },
+    "oauth": {
+      "stateMismatch": "認証の状態が一致しません。もう一度お試しください。",
+      "idTokenInvalid": "認証トークンが無効です。もう一度お試しください。",
+      "emailNotVerified": "Googleアカウントのメールアドレスが確認されていません。",
+      "emailAlreadyRegistered": "このメールアドレスは既に登録されています。Googleアカウントと連携する場合はログイン後にアカウント設定画面で行ってください。"
+    },
+    "google": {
+      "alreadyLinked": "このアカウントは既にGoogleと連携済みです。",
+      "subAlreadyUsed": "このGoogleアカウントは既に別のアカウントで使用されています。"
     },
     "unauthorized": "認証が必要です。",
     "forbidden": "アクセス権限がありません。",
@@ -135,7 +147,9 @@
     "goSignupSuffix": "へ",
     "notice": {
       "passwordResetSuccess": "パスワードを変更しました。新しいパスワードでログインしてください。",
-      "emailVerified": "メールアドレスの確認が完了しました。ログインしてください。"
+      "emailVerified": "メールアドレスの確認が完了しました。ログインしてください。",
+      "googleLoginSuccess": "Googleログインしました。",
+      "googleLoginFailed": "Googleログインに失敗しました。"
     },
     "toasts": {
       "passwordChanged": "パスワードを変更しました。新しいパスワードでログインしてください。"
@@ -788,9 +802,48 @@
         "confirm": "本当に退会しますか？\nこの操作は取り消せません。",
         "validationError": "あなたがOWNERとなっている世帯に他のメンバーがいるため退会できません。\n退会する前に、おうち設定からOWNER権限を譲渡するか、メンバーを削除してください。"
       },
+      "form": {
+        "errors": {
+          "displayName": {
+            "required": "表示名を入力してください。",
+            "maxBytes": "表示名は100バイト以内で入力してください。"
+          },
+          "locale": {
+            "required": "言語を選択してください。"
+          },
+          "iconFile": {
+            "maxSize": "ファイルサイズは5MB以内でアップロードしてください。"
+          }
+        }
+      },
+      "google": {
+        "title": "Google連携",
+        "status": {
+          "linked": "連携済み",
+          "notLinked": "未連携"
+        },
+        "description": {
+          "notLinked": "Googleアカウントと連携すると、次回からワンクリックでログインできます。",
+          "linked": "このアカウントはGoogleログインを使用します。\n今後はパスワードではログインできません。"
+        },
+        "actions": {
+          "link": "Googleと連携する",
+          "linking": "連携を開始しています..."
+        },
+        "note": "連携後はパスワードログインが無効になります。",
+        "warning": {
+          "passwordDisabled": "Google連携済みのため、パスワードログインは無効です。\nログインはGoogleボタンから行ってください。"
+        },
+        "toasts": {
+          "failed": "Google連携の開始に失敗しました。"
+        },
+        "linkedSuccess": "Google連携が完了しました。",
+        "linkedFailed": "Google連携に失敗しました。"
+      },
       "password": {
         "title": "パスワード変更",
         "description": "ログイン用パスワードを変更します。",
+        "descriptionGoogleLinked": "Google連携済みのため、このアカウントではパスワード変更は利用できません。",
         "fields": {
           "currentPassword": "現在のパスワード",
           "newPassword": "新しいパスワード",

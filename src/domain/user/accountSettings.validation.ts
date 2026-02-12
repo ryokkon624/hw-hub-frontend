@@ -14,21 +14,21 @@ export const accountSettingsSchema = yup.object({
   // 表示名：必須 & 100バイト以内
   displayName: yup
     .string()
-    .required('account.form.errors.displayName.required')
+    .required('settings.account.form.errors.displayName.required')
     .test(
       'displayName-byte-length',
-      'account.form.errors.displayName.maxBytes',
+      'settings.account.form.errors.displayName.maxBytes',
       (value) => byteLength(value) <= 100,
     ),
 
   // ロケール：必須（ja / en / es など）
-  locale: yup.string<Locale>().required('account.form.errors.locale.required'),
+  locale: yup.string<Locale>().required('settings.account.form.errors.locale.required'),
 
   // アイコンファイル：任意 & 5MB 以内
   iconFile: yup
     .mixed()
     .nullable()
-    .test('iconFile-size', 'account.form.errors.iconFile.maxSize', (value) => {
+    .test('iconFile-size', 'settings.account.form.errors.iconFile.maxSize', (value) => {
       if (!value) return true // null / undefined は OK（任意）
       const file = value as File
       return file.size <= MAX_ICON_BYTES

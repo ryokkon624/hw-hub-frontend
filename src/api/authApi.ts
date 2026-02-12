@@ -65,6 +65,14 @@ export const authApi = {
   resendVerification(payload: { email: string }) {
     return apiClient.post<void>('/api/auth/email-verification/resend', payload)
   },
+
+  async getGoogleLinkStartUrl(): Promise<string> {
+    const res = await apiClient.get<{ authorizationUrl: string }>(
+      '/api/users/me/google/link/start',
+      { withCredentials: true },
+    )
+    return res.data.authorizationUrl
+  },
 }
 
 // ---- API DTO ----------------------------------------------------
@@ -94,6 +102,7 @@ interface RegisterRequestDto {
 interface LoginUserDto {
   userId: number
   email: string
+  authProvider: string
   displayName: string
   locale: string
   iconUrl?: string | null
@@ -127,6 +136,7 @@ interface RegisterResponseDto {
 const toLoginUser = (dto: LoginUserDto): LoginUser => ({
   userId: dto.userId,
   email: dto.email,
+  authProvider: dto.authProvider,
   displayName: dto.displayName,
   locale: dto.locale,
   iconUrl: dto.iconUrl ?? null,

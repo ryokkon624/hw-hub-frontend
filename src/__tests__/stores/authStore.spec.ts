@@ -20,6 +20,7 @@ vi.mock('@/api/authApi', () => ({
     putToPresignedUrl: vi.fn(),
     verifyEmail: vi.fn(),
     resendVerification: vi.fn(),
+    getGoogleLinkStartUrl: vi.fn(),
   },
 }))
 
@@ -91,11 +92,19 @@ describe('authStore', () => {
     // fetch もモック（アイコンアップロード用）
     const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 200 }))
     testGlobal.fetch = fetchMock
+
+    // 一旦既存の location を退避
+    const oldLocation = window.location
+    // @ts-expect-error: jsdom environment restriction
+    delete window.location
+    // @ts-expect-error: workaround for jsdom type mismatch
+    window.location = { ...oldLocation, assign: vi.fn() } as unknown as Location
   })
 
   const createLoginUser = (overrides: Partial<LoginUser> = {}): LoginUser => ({
     userId: 1,
     email: 'test@example.com',
+    authProvider: 'google', // Default value
     displayName: 'Tester',
     locale: 'ja',
     iconUrl: null,
@@ -271,6 +280,7 @@ describe('authStore', () => {
       displayName: 'FromProfile',
       locale: 'ja',
       iconUrl: 'https://example.com/icon.png',
+      authProvider: 'google',
     })
 
     const store = useAuthStore()
@@ -282,6 +292,7 @@ describe('authStore', () => {
     expect(store.currentUser).toEqual({
       userId: 1,
       email: 'profile@example.com',
+      authProvider: 'google', // Added expectation
       displayName: 'FromProfile',
       locale: 'ja',
       iconUrl: 'https://example.com/icon.png',
@@ -463,5 +474,64 @@ describe('authStore', () => {
 
     // 自分がオーナーの世帯がないので fetchMembers は呼ばれない
     expect(mockHouseholdStore.fetchMembers).not.toHaveBeenCalled()
+  })
+
+  // --- OAuth / Google Link ---
+
+  it('startGoogleLogin は window.location.assign を呼び出す', async () => {
+    const store = useAuthStore()
+    await store.startGoogleLogin()
+
+    const apiBase = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8080'
+    expect(window.location.assign).toHaveBeenCalledWith(`${apiBase}/oauth/google/start`)
+  })
+
+  it('completeOAuthLogin はトークン保存 → プロフィール取得 → 世帯情報取得を行う', async () => {
+    const store = useAuthStore()
+    const saveSpy = vi.spyOn(store, 'saveToStorage')
+    const fetchProfileSpy = vi.spyOn(store, 'fetchUserProfile').mockResolvedValue()
+
+    await store.completeOAuthLogin('oauth-token')
+
+    expect(store.accessToken).toBe('oauth-token')
+    expect(saveSpy).toHaveBeenCalled()
+    expect(fetchProfileSpy).toHaveBeenCalled()
+    expect(mockHouseholdStore.fetchMyHouseholds).toHaveBeenCalled()
+    expect(mockCodeStore.loadAllIfNeeded).toHaveBeenCalled()
+    expect(store.isBootstrapping).toBe(false)
+  })
+
+  it('completeOAuthLogin はエラー時に isBootstrapping を false に戻す', async () => {
+    const store = useAuthStore()
+    vi.spyOn(store, 'fetchUserProfile').mockRejectedValue(new Error('fail'))
+
+    await expect(store.completeOAuthLogin('token')).rejects.toThrow('fail')
+    expect(store.isBootstrapping).toBe(false)
+  })
+
+  it('startGoogleLink は authApi.getGoogleLinkStartUrl を呼び、リダイレクトする', async () => {
+    const store = useAuthStore()
+    vi.mocked(authApi.getGoogleLinkStartUrl).mockResolvedValue('https://accounts.google.com/...')
+
+    await store.startGoogleLink()
+
+    expect(authApi.getGoogleLinkStartUrl).toHaveBeenCalled()
+    expect(window.location.assign).toHaveBeenCalledWith('https://accounts.google.com/...')
+  })
+
+  it('validateAccountDeletion: households がまだロードされていない場合は何もしない（成功扱い）', async () => {
+    const store = useAuthStore()
+    store.currentUser = createLoginUser()
+    mockHouseholdStore.households = null as unknown as HouseholdModel[] // 未ロード想定
+
+    await expect(store.validateAccountDeletion()).resolves.toBeUndefined()
+  })
+
+  it('validateAccountDeletion: currentUser がいない場合は何もしない', async () => {
+    const store = useAuthStore()
+    store.currentUser = null
+
+    mockHouseholdStore.households = []
+    await expect(store.validateAccountDeletion()).resolves.toBeUndefined()
   })
 })
