@@ -56,6 +56,7 @@ describe('userApi', () => {
         displayName: 'ユーザ',
         locale: 'ja',
         iconUrl: 'https://example.com/icon.png',
+        authProvider: 'google',
       },
     })
 
@@ -70,6 +71,7 @@ describe('userApi', () => {
       displayName: 'ユーザ',
       locale: 'ja',
       iconUrl: 'https://example.com/icon.png',
+      authProvider: 'google',
     }
     expect(result).toEqual(expected)
   })
@@ -81,6 +83,7 @@ describe('userApi', () => {
         email: 'no-icon@example.com',
         displayName: 'No Icon',
         locale: 'en',
+        authProvider: 'google',
         // iconUrl 省略
       },
     })
@@ -93,6 +96,7 @@ describe('userApi', () => {
       displayName: 'No Icon',
       locale: 'en',
       iconUrl: null,
+      authProvider: 'google',
     }
     expect(result).toEqual(expected)
   })
