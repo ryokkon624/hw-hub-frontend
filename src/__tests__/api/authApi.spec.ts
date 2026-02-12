@@ -5,6 +5,7 @@ import { apiClient } from '@/api/client'
 // apiClient モック用の型（any なし）
 type MockedApiClient = {
   post: ReturnType<typeof vi.fn>
+  get: ReturnType<typeof vi.fn>
 }
 
 // 実体をモックとして扱う
@@ -15,6 +16,7 @@ vi.mock('@/api/client', () => {
   return {
     apiClient: {
       post: vi.fn(),
+      get: vi.fn(),
     },
   }
 })
@@ -167,6 +169,37 @@ describe('authApi', () => {
         verificationExpiresAt: '2025-01-01T12:00:00',
       })
     })
+
+    it('register: accessToken が空の場合は（認証が必要とみなして）VERIFICATION_REQUIRED を返す', async () => {
+      const dto = {
+        emailVerificationRequired: false,
+        accessToken: null, // トークンがない
+        user: {
+          userId: 5,
+          email: 'notoken@example.com',
+          displayName: 'NoToken',
+          locale: 'ja',
+          iconUrl: null,
+        },
+        verificationExpiresAt: null,
+      }
+
+      mockedClient.post.mockResolvedValue({
+        data: dto,
+      })
+
+      const result = await authApi.register({
+        email: 'notoken@example.com',
+        password: 'pw',
+        displayName: 'NoToken',
+        locale: 'ja',
+      })
+
+      expect(result).toEqual({
+        kind: 'VERIFICATION_REQUIRED',
+        verificationExpiresAt: null,
+      })
+    })
   })
 
   describe('verifyEmail', () => {
@@ -272,6 +305,22 @@ describe('authApi', () => {
       await expect(
         authApi.putToPresignedUrl('https://example.com/presigned', file),
       ).rejects.toThrow('S3 upload failed: 403 Forbidden ')
+    })
+  })
+
+  describe('getGoogleLinkStartUrl', () => {
+    it('getGoogleLinkStartUrl: /api/users/me/google/link/start に GET し、URL を返す', async () => {
+      mockedClient.get.mockResolvedValue({
+        data: { authorizationUrl: 'https://accounts.google.com/o/oauth2/v2/auth?client_id=...' },
+      })
+
+      const url = await authApi.getGoogleLinkStartUrl()
+
+      expect(mockedClient.get).toHaveBeenCalledTimes(1)
+      expect(mockedClient.get).toHaveBeenCalledWith('/api/users/me/google/link/start', {
+        withCredentials: true,
+      })
+      expect(url).toBe('https://accounts.google.com/o/oauth2/v2/auth?client_id=...')
     })
   })
 })

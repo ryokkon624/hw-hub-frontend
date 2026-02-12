@@ -30,7 +30,7 @@ describe('accountSettings.validation', () => {
         ...baseValid,
         displayName: '' as unknown as string,
       },
-      ['account.form.errors.displayName.required'],
+      ['settings.account.form.errors.displayName.required'],
     )
 
     // 100バイト以内（"あ" 30個 = 90バイト）
@@ -49,7 +49,7 @@ describe('accountSettings.validation', () => {
         ...baseValid,
         displayName: ngName,
       },
-      ['account.form.errors.displayName.maxBytes'],
+      ['settings.account.form.errors.displayName.maxBytes'],
     )
   })
 
@@ -59,7 +59,7 @@ describe('accountSettings.validation', () => {
         ...baseValid,
         locale: '' as unknown as 'ja',
       },
-      ['account.form.errors.locale.required'],
+      ['settings.account.form.errors.locale.required'],
     )
 
     // 代表で 'ja' が通ることを確認
@@ -108,7 +108,7 @@ describe('accountSettings.validation', () => {
         ...baseValid,
         iconFile: bigFile,
       },
-      ['account.form.errors.iconFile.maxSize'],
+      ['settings.account.form.errors.iconFile.maxSize'],
     )
   })
 })
