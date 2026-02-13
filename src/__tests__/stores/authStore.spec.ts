@@ -534,4 +534,119 @@ describe('authStore', () => {
     mockHouseholdStore.households = []
     await expect(store.validateAccountDeletion()).resolves.toBeUndefined()
   })
+
+  // --- beginAuthTransition / endAuthTransition ---
+
+  it('beginAuthTransition は isAuthTransition を true にする', () => {
+    const store = useAuthStore()
+    expect(store.isAuthTransition).toBe(false)
+
+    store.beginAuthTransition()
+
+    expect(store.isAuthTransition).toBe(true)
+  })
+
+  it('endAuthTransition は isAuthTransition を false に戻す', () => {
+    const store = useAuthStore()
+    store.isAuthTransition = true
+
+    store.endAuthTransition()
+
+    expect(store.isAuthTransition).toBe(false)
+  })
+
+  // --- ブランチカバレッジ追加 ---
+
+  it('initFromStorage はストレージにデータがない場合、状態を変更せず早期リターンする', () => {
+    const store = useAuthStore()
+    store.initFromStorage()
+
+    expect(store.accessToken).toBeNull()
+    expect(store.currentUser).toBeNull()
+    expect(store.isBootstrapping).toBe(false)
+  })
+
+  it('saveToStorage は accessToken が null の場合、空文字で保存する', () => {
+    const store = useAuthStore()
+    store.accessToken = null
+    store.currentUser = createLoginUser()
+
+    store.saveToStorage()
+
+    const raw = localStorage.getItem(STORAGE_KEY)
+    expect(raw).not.toBeNull()
+    const parsed = JSON.parse(raw!) as AuthSession
+    expect(parsed.accessToken).toBe('')
+  })
+
+  it('updateAccountProfile は currentUser が null の場合、何もしない', async () => {
+    const store = useAuthStore()
+    store.currentUser = null
+    vi.mocked(userApi.updateProfile).mockResolvedValue(undefined)
+
+    const saveSpy = vi.spyOn(store, 'saveToStorage')
+
+    await store.updateAccountProfile({ displayName: 'Name', locale: 'ja' })
+
+    expect(userApi.updateProfile).toHaveBeenCalled()
+    // currentUser が null なので saveToStorage は呼ばれない
+    expect(saveSpy).not.toHaveBeenCalled()
+    expect(store.currentUser).toBeNull()
+  })
+
+  it('uploadUserIcon は file.type が空の場合、application/octet-stream をフォールバックとして使う', async () => {
+    const store = useAuthStore()
+    const file = new File(['dummy'], 'data.bin', { type: '' })
+
+    vi.mocked(userApi.createIconUploadUrl).mockResolvedValue({
+      uploadUrl: 'https://upload.example.com',
+      fileKey: 'file-key-456',
+    })
+    vi.mocked(authApi.putToPresignedUrl).mockResolvedValue(undefined)
+    vi.mocked(userApi.updateUserIcon).mockResolvedValue(undefined)
+    vi.spyOn(store, 'fetchUserProfile').mockResolvedValue(undefined)
+
+    await store.uploadUserIcon(file)
+
+    expect(userApi.createIconUploadUrl).toHaveBeenCalledWith({
+      fileName: 'data.bin',
+      mimeType: 'application/octet-stream',
+    })
+  })
+
+  it('uploadUserIcon はエラー発生時でも isUploadingIcon を false に戻す', async () => {
+    const store = useAuthStore()
+    const file = new File(['dummy'], 'icon.png', { type: 'image/png' })
+
+    vi.mocked(userApi.createIconUploadUrl).mockRejectedValue(new Error('upload error'))
+
+    await expect(store.uploadUserIcon(file)).rejects.toThrow('upload error')
+    expect(store.isUploadingIcon).toBe(false)
+  })
+
+  it('changeMyPassword はエラー発生時でも isChangingPassword を false に戻す', async () => {
+    const store = useAuthStore()
+    vi.mocked(userApi.changeMyPassword).mockRejectedValue(new Error('password error'))
+
+    await expect(
+      store.changeMyPassword({ currentPassword: 'old', newPassword: 'new' }),
+    ).rejects.toThrow('password error')
+
+    expect(store.isChangingPassword).toBe(false)
+  })
+
+  it('validateAccountDeletion はメンバー配列が存在しない場合でもエラーにならない', async () => {
+    const store = useAuthStore()
+    store.currentUser = createLoginUser({ userId: 10 })
+
+    mockHouseholdStore.households = [
+      { householdId: 200, name: 'EmptyHome', ownerUserId: 10 },
+    ]
+    // membersByHouseholdId に対応するキーがない（undefined が返る）
+    mockHouseholdStore.membersByHouseholdId = {}
+    mockHouseholdStore.fetchMembers.mockResolvedValue(undefined)
+
+    await expect(store.validateAccountDeletion()).resolves.toBeUndefined()
+    expect(mockHouseholdStore.fetchMembers).toHaveBeenCalledWith(200)
+  })
 })

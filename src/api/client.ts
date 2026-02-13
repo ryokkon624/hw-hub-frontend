@@ -37,11 +37,12 @@ apiClient.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     const status = error?.response?.status
+
     if (status === 401 && !isHandling401) {
       try {
         const authStore = useAuthStore()
         // 認証状態が揺れている最中は logout しない
-        if (authStore.isBootstrapping) {
+        if (authStore.isBootstrapping || authStore.isAuthTransition) {
           // isHandling401 を立てないことで処理を止める
           return Promise.reject(error)
         }
