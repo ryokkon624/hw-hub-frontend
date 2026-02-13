@@ -16,9 +16,10 @@ onMounted(async () => {
 })
 
 watch(
-  () => [authStore.isBootstrapping, authStore.isAuthenticated] as const,
-  async ([boot, authed]) => {
+  () => [authStore.isBootstrapping, authStore.isAuthTransition, authStore.isAuthenticated] as const,
+  async ([boot, oauth, authed]) => {
     if (boot) return
+    if (oauth) return
     if (!authed) return
 
     householdStore.initFromStorage()

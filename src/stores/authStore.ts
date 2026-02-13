@@ -14,6 +14,7 @@ interface AuthState {
   isChangingPassword: boolean
   isStartingGoogleLink: boolean
   isBootstrapping: boolean // accessTokenが揺れている時はtrue。アカウントの連携時など
+  isAuthTransition: boolean // OAuth token差し替え中のガード用
 }
 
 const STORAGE_KEY = 'hwhub.auth'
@@ -26,6 +27,7 @@ export const useAuthStore = defineStore('auth', {
     isChangingPassword: false,
     isStartingGoogleLink: false,
     isBootstrapping: false,
+    isAuthTransition: false,
   }),
 
   getters: {
@@ -87,6 +89,13 @@ export const useAuthStore = defineStore('auth', {
 
       const codeStore = useCodeStore()
       codeStore.loadAllIfNeeded()
+    },
+
+    beginAuthTransition() {
+      this.isAuthTransition = true
+    },
+    endAuthTransition() {
+      this.isAuthTransition = false
     },
 
     /**

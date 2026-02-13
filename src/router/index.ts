@@ -11,6 +11,7 @@ import PasswordForgotPage from '@/views/PasswordForgotPage.vue'
 import PasswordResetSentPage from '@/views/PasswordResetSentPage.vue'
 import PasswordResetPage from '@/views/PasswordResetPage.vue'
 import AuthActionResultPage from '@/views/AuthActionResultPage.vue'
+import OAuthResultPage from '@/views/auth/OAuthResultPage.vue'
 // 共通レイアウト
 import AppLayout from '@/layouts/AppLayout.vue'
 // Home
@@ -97,6 +98,14 @@ const routes: RouteRecordRaw[] = [
     meta: { requiresAuth: true },
     children: [
       { path: '', redirect: { name: 'home' } },
+
+      // ---- OAuth Result ----
+      {
+        path: 'oauth/result',
+        name: 'oauth.result',
+        component: OAuthResultPage,
+        meta: { titleKey: 'pageTitles.oauthResult' },
+      },
 
       // ---- Home ----
       {

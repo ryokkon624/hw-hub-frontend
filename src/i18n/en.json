@@ -112,11 +112,12 @@
     "houseworkEdit": "Edit housework",
     "app": "App info",
     "terms": "Terms of service",
-    "privacy": "Privacy policy"
+    "privacy": "Privacy policy",
+    "authResult": "Result",
+    "oauthResult": "Result"
   },
   "login": {
     "hero": {
-      "title": "Share housework and shopping with your household.",
       "titleFirst": "Share housework and shopping,",
       "title2nd": "gently with everyone at home.",
       "description": {
@@ -314,6 +315,10 @@
   },
   "appHeader": {
     "iconAlt": "User icon"
+  },
+  "oauthResult": {
+    "processing": "Processing...",
+    "status": "Signing in..."
   },
   "home": {
     "intro": "You can quickly check the overall status of housework and shopping here. For detailed operations, please use each page (My Tasks / Assignment / Shopping list).",

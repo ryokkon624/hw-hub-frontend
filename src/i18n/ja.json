@@ -113,7 +113,8 @@
     "app": "アプリ情報",
     "terms": "利用規約",
     "privacy": "プライバシーポリシー",
-    "authResult": "結果"
+    "authResult": "結果",
+    "oauthResult": "結果"
   },
   "login": {
     "hero": {
@@ -316,6 +317,10 @@
   },
   "appHeader": {
     "iconAlt": "ユーザーアイコン"
+  },
+  "oauthResult": {
+    "processing": "Processing...",
+    "status": "サインイン情報を反映しています。"
   },
   "home": {
     "intro": "家事や買い物のざっくりした状況をここで確認できます。詳細な操作は各機能の画面（My Tasks / 家事割り当て / 買い物リスト）から行います。",
