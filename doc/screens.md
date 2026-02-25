@@ -28,6 +28,7 @@
 | **アプリ情報** | `/settings/app` | **必須** | ・アプリ情報の表示 |
 | **利用規約** | `/settings/app/terms` | **必須** | ・利用規約の表示 |
 | **プライバシー** | `/settings/app/privacy` | **必須** | ・プライバシーポリシーの表示 |
+| **通知センター** | `/notifications` | **必須** | ・最新の通知一覧表示<br>・通知の既読化<br>・各機能への遷移 |
 
 ## 2. 画面遷移図
 
@@ -76,6 +77,7 @@ stateDiagram-v2
     state "家事設定一覧" as HwSettings
     state "家事編集" as HwEdit
     state "家事作成" as HwNew
+    state "通知センター" as Notifications
 
     [*] --> Home : 認証済み
 
@@ -83,6 +85,7 @@ stateDiagram-v2
     Home --> MyTasks : ナビゲーション
     Home --> Shopping : ナビゲーション
     Home --> Settings : ナビゲーション
+    Home --> Notifications : ベルアイコン
 
     %% 家事
     Assign --> MyTasks : "自分のタスクへ"
@@ -97,6 +100,7 @@ stateDiagram-v2
     Settings --> AccSettings
     Settings --> HouseSettings
     Settings --> HwSettings
+    Settings --> Notifications
     
     %% 家事設定
     HwSettings --> HwEdit : 選択
