@@ -186,14 +186,14 @@ describe('authStore', () => {
     expect(mockCodeStore.loadAllIfNeeded).toHaveBeenCalled()
   })
 
-    it('register は authApi.register を呼び、login と同様に状態を更新する', async () => {
+  it('register は authApi.register を呼び、login と同様に状態を更新する', async () => {
     const user = createLoginUser({ displayName: 'NewUser' })
     vi.mocked(authApi.register).mockResolvedValue({
       kind: 'LOGGED_IN',
       session: {
         accessToken: 'register-token',
         user,
-      }
+      },
     })
 
     const store = useAuthStore()
@@ -243,7 +243,13 @@ describe('authStore', () => {
 
   it('verifyEmail は authApi.verifyEmail を呼ぶ', async () => {
     const store = useAuthStore()
-    vi.mocked(authApi.verifyEmail).mockResolvedValue({ data: undefined, status: 200, statusText: 'OK', headers: {}, config: {} } as unknown as import('axios').AxiosResponse)
+    vi.mocked(authApi.verifyEmail).mockResolvedValue({
+      data: undefined,
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config: {},
+    } as unknown as import('axios').AxiosResponse)
 
     await store.verifyEmail('token-abc')
 
@@ -252,7 +258,13 @@ describe('authStore', () => {
 
   it('resendVerification は authApi.resendVerification を呼ぶ', async () => {
     const store = useAuthStore()
-    vi.mocked(authApi.resendVerification).mockResolvedValue({ data: undefined, status: 200, statusText: 'OK', headers: {}, config: {} } as unknown as import('axios').AxiosResponse)
+    vi.mocked(authApi.resendVerification).mockResolvedValue({
+      data: undefined,
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config: {},
+    } as unknown as import('axios').AxiosResponse)
 
     await store.resendVerification('resend@example.com')
 
@@ -406,20 +418,20 @@ describe('authStore', () => {
 
     // householdStore の状態をモック
     // householdId=100 の世帯のオーナーは自分(10)
-    mockHouseholdStore.households = [
-      { householdId: 100, name: 'MyHome', ownerUserId: 10 }
-    ]
+    mockHouseholdStore.households = [{ householdId: 100, name: 'MyHome', ownerUserId: 10 }]
     // メンバーは自分(10)と他人(20)がいて、両方ACTIVE
     mockHouseholdStore.membersByHouseholdId = {
       100: [
         createMember({ userId: 10, status: HOUSEHOLD_MEMBER_STATUS.ACTIVE }),
         createMember({ userId: 20, status: HOUSEHOLD_MEMBER_STATUS.ACTIVE }),
-      ]
+      ],
     }
     // fetchMembers は何もしない（データは既にある体）
     mockHouseholdStore.fetchMembers.mockResolvedValue(undefined)
 
-    await expect(store.validateAccountDeletion()).rejects.toThrow('VALIDATION_ERROR_OWNER_WITH_MEMBERS')
+    await expect(store.validateAccountDeletion()).rejects.toThrow(
+      'VALIDATION_ERROR_OWNER_WITH_MEMBERS',
+    )
 
     expect(mockHouseholdStore.fetchMembers).toHaveBeenCalledWith(100)
   })
@@ -428,14 +440,12 @@ describe('authStore', () => {
     const store = useAuthStore()
     store.currentUser = createLoginUser({ userId: 10 })
 
-    mockHouseholdStore.households = [
-      { householdId: 100, name: 'MyHome', ownerUserId: 10 }
-    ]
+    mockHouseholdStore.households = [{ householdId: 100, name: 'MyHome', ownerUserId: 10 }]
     mockHouseholdStore.membersByHouseholdId = {
       100: [
         createMember({ userId: 10, status: HOUSEHOLD_MEMBER_STATUS.ACTIVE }),
         createMember({ userId: 20, status: HOUSEHOLD_MEMBER_STATUS.LEFT }), // LEFT='9'
-      ]
+      ],
     }
     mockHouseholdStore.fetchMembers.mockResolvedValue(undefined)
 
@@ -446,13 +456,9 @@ describe('authStore', () => {
     const store = useAuthStore()
     store.currentUser = createLoginUser({ userId: 10 })
 
-    mockHouseholdStore.households = [
-      { householdId: 100, name: 'MyHome', ownerUserId: 10 }
-    ]
+    mockHouseholdStore.households = [{ householdId: 100, name: 'MyHome', ownerUserId: 10 }]
     mockHouseholdStore.membersByHouseholdId = {
-      100: [
-        createMember({ userId: 10, status: HOUSEHOLD_MEMBER_STATUS.ACTIVE }),
-      ]
+      100: [createMember({ userId: 10, status: HOUSEHOLD_MEMBER_STATUS.ACTIVE })],
     }
     mockHouseholdStore.fetchMembers.mockResolvedValue(undefined)
 
@@ -464,7 +470,7 @@ describe('authStore', () => {
     store.currentUser = createLoginUser({ userId: 20 }) // 自分は20
 
     mockHouseholdStore.households = [
-      { householdId: 100, name: 'OthersHome', ownerUserId: 10 } // オーナーは10
+      { householdId: 100, name: 'OthersHome', ownerUserId: 10 }, // オーナーは10
     ]
     // メンバーチェックは走らないはずだが、仮に入れておく
     mockHouseholdStore.membersByHouseholdId = {}
@@ -639,9 +645,7 @@ describe('authStore', () => {
     const store = useAuthStore()
     store.currentUser = createLoginUser({ userId: 10 })
 
-    mockHouseholdStore.households = [
-      { householdId: 200, name: 'EmptyHome', ownerUserId: 10 },
-    ]
+    mockHouseholdStore.households = [{ householdId: 200, name: 'EmptyHome', ownerUserId: 10 }]
     // membersByHouseholdId に対応するキーがない（undefined が返る）
     mockHouseholdStore.membersByHouseholdId = {}
     mockHouseholdStore.fetchMembers.mockResolvedValue(undefined)

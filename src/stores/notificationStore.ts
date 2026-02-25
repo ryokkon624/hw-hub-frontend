@@ -97,12 +97,11 @@ export const useNotificationStore = defineStore('notification', {
 
     markAsReadLocally(notificationId: number) {
       const item = this.latestItems.find((i) => i.notificationId === notificationId)
-      if (item) {
+      if (item && !item.isRead) {
         item.isRead = true
-      }
-
-      if (this.unreadCount > 0) {
-        this.unreadCount -= 1
+        if (this.unreadCount > 0) {
+          this.unreadCount -= 1
+        }
       }
     },
   },
