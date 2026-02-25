@@ -71,7 +71,9 @@ const canResend = computed(() => !isSubmitting.value && cooldownSeconds.value <=
       :disabled="!canResend"
       @click="onResend"
     >
-      <span v-if="cooldownSeconds > 0">{{ t('emailVerify.waitPage.resendCooldown', { seconds: cooldownSeconds }) }}</span>
+      <span v-if="cooldownSeconds > 0">{{
+        t('emailVerify.waitPage.resendCooldown', { seconds: cooldownSeconds })
+      }}</span>
       <span v-else>{{ t('emailVerify.waitPage.resendButton') }}</span>
     </button>
 

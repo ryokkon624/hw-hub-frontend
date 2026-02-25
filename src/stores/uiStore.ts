@@ -16,8 +16,7 @@ export const useUiStore = defineStore('ui', {
     loadingCount: 0,
     nextToastId: 1,
     // OAuth のフルリダイレクトでも保持するため localStorage から復元
-    redirectAfterLogin:
-      (localStorage.getItem(REDIRECT_AFTER_LOGIN_KEY) as string | null) ?? null,
+    redirectAfterLogin: (localStorage.getItem(REDIRECT_AFTER_LOGIN_KEY) as string | null) ?? null,
   }),
 
   getters: {

@@ -139,7 +139,10 @@
     </div>
 
     <!-- Google 連携 -->
-    <section v-if="shouldShowGoogleLinkSection" class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
+    <section
+      v-if="shouldShowGoogleLinkSection"
+      class="rounded-xl border bg-white p-4 shadow-sm space-y-3"
+    >
       <div class="flex items-start justify-between gap-4">
         <div class="min-w-0">
           <h3 class="text-sm font-semibold text-hwhub-heading">
@@ -159,41 +162,24 @@
 
         <span
           class="shrink-0 inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-semibold"
-          :class="isGoogleLinked ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-slate-50 text-slate-600 border border-slate-200'"
+          :class="
+            isGoogleLinked
+              ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+              : 'bg-slate-50 text-slate-600 border border-slate-200'
+          "
         >
-          {{ isGoogleLinked ? t('settings.account.google.status.linked') : t('settings.account.google.status.notLinked') }}
+          {{
+            isGoogleLinked
+              ? t('settings.account.google.status.linked')
+              : t('settings.account.google.status.notLinked')
+          }}
         </span>
       </div>
 
       <div v-if="!isGoogleLinked" class="flex flex-col gap-3 pt-2">
         <button
           type="button"
-          class="
-            group
-            w-full
-            sm:w-auto
-            inline-flex
-            items-center
-            justify-center
-            gap-3
-            rounded-xl
-            border
-            border-gray-300
-            bg-white
-            px-5
-            py-2.5
-            text-sm
-            font-medium
-            text-gray-700
-            shadow-sm
-            transition
-            hover:bg-gray-50
-            hover:shadow
-            focus:outline-none
-            focus:ring-2
-            focus:ring-hwhub-primary/40
-            disabled:opacity-60
-          "
+          class="group w-full sm:w-auto inline-flex items-center justify-center gap-3 rounded-xl border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50 hover:shadow focus:outline-none focus:ring-2 focus:ring-hwhub-primary/40 disabled:opacity-60"
           :disabled="authStore.isStartingGoogleLink"
           @click="onStartGoogleLink"
         >
@@ -208,7 +194,9 @@
             {{ t('settings.account.google.actions.link') }}
           </span>
           <span v-else class="flex items-center gap-2">
-            <span class="h-4 w-4 rounded-full border-2 border-gray-400/60 border-t-transparent animate-spin" />
+            <span
+              class="h-4 w-4 rounded-full border-2 border-gray-400/60 border-t-transparent animate-spin"
+            />
             {{ t('settings.account.google.actions.linking') }}
           </span>
         </button>
@@ -218,7 +206,10 @@
         </p>
       </div>
 
-      <div v-else class="rounded-lg border border-amber-200 bg-amber-50 p-3 text-[11px] text-amber-900 whitespace-pre-line">
+      <div
+        v-else
+        class="rounded-lg border border-amber-200 bg-amber-50 p-3 text-[11px] text-amber-900 whitespace-pre-line"
+      >
         {{ t('settings.account.google.warning.passwordDisabled') }}
       </div>
     </section>

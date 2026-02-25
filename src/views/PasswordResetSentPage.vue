@@ -27,7 +27,7 @@ const onResend = async () => {
     await passwordResetStore.request(email.value)
     infoMessage.value = 'Email sent. Please check your inbox.'
   } catch (e) {
-errorKey.value = toUiError(e).messageKey
+    errorKey.value = toUiError(e).messageKey
   }
 }
 </script>
@@ -70,7 +70,10 @@ errorKey.value = toUiError(e).messageKey
           {{ t('passwordResetSent.useDifferentEmail') }}
         </router-link>
 
-        <router-link class="block text-center text-sm text-emerald-700 hover:underline" :to="{ name: 'login' }">
+        <router-link
+          class="block text-center text-sm text-emerald-700 hover:underline"
+          :to="{ name: 'login' }"
+        >
           {{ t('passwordResetSent.backToLogin') }}
         </router-link>
       </div>

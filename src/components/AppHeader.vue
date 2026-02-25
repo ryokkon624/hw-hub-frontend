@@ -3,6 +3,9 @@
     <!-- 言語切替 -->
     <LanguageSwitcher />
 
+    <!-- 通知ベル -->
+    <NotificationBell />
+
     <!-- ユーザメニュー -->
     <div class="relative">
       <button
@@ -66,6 +69,7 @@ import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
 import { useHouseholdStore } from '@/stores/householdStore'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
+import NotificationBell from '@/components/notifications/NotificationBell.vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()

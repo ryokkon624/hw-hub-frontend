@@ -6,6 +6,7 @@ import { useHouseholdStore } from '@/stores/householdStore'
 import { useCodeStore } from '@/stores/codeStore'
 import { HOUSEHOLD_MEMBER_STATUS } from '@/constants/code.constants'
 import { nextTick } from 'vue'
+import { useNotificationStore } from './notificationStore'
 
 interface AuthState {
   accessToken: string | null
@@ -160,6 +161,8 @@ export const useAuthStore = defineStore('auth', {
         codeStore.loadAllIfNeeded()
       } finally {
         this.isBootstrapping = false
+        const notificationStore = useNotificationStore()
+        notificationStore.refreshUnreadCount()
       }
     },
 
@@ -251,7 +254,7 @@ export const useAuthStore = defineStore('auth', {
           // 有効なメンバーが自分以外にもいるか (status='1' が2人以上)
           const activeMembers = members.filter((m) => m.status === HOUSEHOLD_MEMBER_STATUS.ACTIVE)
           if (activeMembers.length > 1) {
-             throw new Error('VALIDATION_ERROR_OWNER_WITH_MEMBERS')
+            throw new Error('VALIDATION_ERROR_OWNER_WITH_MEMBERS')
           }
         }
       }

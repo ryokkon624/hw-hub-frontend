@@ -54,48 +54,48 @@
   },
   "passwordReset": {
     "page": {
-        "title": "Reset Password",
-        "description": "Enter your new password.",
-        "missingToken": "Token not found. Please check the URL."
+      "title": "Reset Password",
+      "description": "Enter your new password.",
+      "missingToken": "Token not found. Please check the URL."
     },
     "form": {
-        "newPassword": "New password",
-        "newPasswordPlaceholder": "8 characters or more",
-        "confirmPassword": "Confirm new password",
-        "confirmPasswordPlaceholder": "Enter again",
-        "submit": "Reset Password",
-        "submitting": "Sending..."
+      "newPassword": "New password",
+      "newPasswordPlaceholder": "8 characters or more",
+      "confirmPassword": "Confirm new password",
+      "confirmPasswordPlaceholder": "Enter again",
+      "submit": "Reset Password",
+      "submitting": "Sending..."
     },
     "links": {
-        "requestNew": "Request a new link",
-        "backToLogin": "Back to login"
+      "requestNew": "Request a new link",
+      "backToLogin": "Back to login"
     },
     "errors": {
-        "mismatch": "Passwords do not match."
+      "mismatch": "Passwords do not match."
     }
   },
   "passwordForgot": {
-      "title": "Forgot your password?",
-      "description": "Enter your email address. If an account exists, we’ll send a password reset link.",
-      "email": "Email",
-      "placeholder": "you@example.com",
-      "submit": "Send reset link",
-      "submitting": "Sending...",
-      "backToLogin": "Back to login"
+    "title": "Forgot your password?",
+    "description": "Enter your email address. If an account exists, we’ll send a password reset link.",
+    "email": "Email",
+    "placeholder": "you@example.com",
+    "submit": "Send reset link",
+    "submitting": "Sending...",
+    "backToLogin": "Back to login"
   },
   "passwordResetSent": {
-      "title": "Check your email",
-      "description": "If an account exists, a reset link has been sent.",
-      "checkSpam": "Didn’t get the email?",
-      "spamActions": {
-          "spamFolder": "Check your spam folder",
-          "settings": "Check your receive settings",
-          "wait": "Wait a minute and try resending"
-      },
-      "resend": "Resend email",
-      "sending": "Sending...",
-      "useDifferentEmail": "Use a different email",
-      "backToLogin": "Back to login"
+    "title": "Check your email",
+    "description": "If an account exists, a reset link has been sent.",
+    "checkSpam": "Didn’t get the email?",
+    "spamActions": {
+      "spamFolder": "Check your spam folder",
+      "settings": "Check your receive settings",
+      "wait": "Wait a minute and try resending"
+    },
+    "resend": "Resend email",
+    "sending": "Sending...",
+    "useDifferentEmail": "Use a different email",
+    "backToLogin": "Back to login"
   },
   "pageTitles": {
     "home": "Home",
@@ -110,6 +110,7 @@
     "householdSettings": "Household settings",
     "houseworkCreate": "New housework",
     "houseworkEdit": "Edit housework",
+    "notifications": "Notification Center",
     "app": "App info",
     "terms": "Terms of service",
     "privacy": "Privacy policy",
@@ -146,15 +147,17 @@
     "noAccount": "Don't have an account?",
     "goSignup": "Sign up",
     "goSignupSuffix": "",
-    "errors": {
-      "emailNotVerified": "Email address has not been verified."
+    "notice": {
+      "passwordResetSuccess": "Password changed successfully. Please sign in with your new password.",
+      "emailVerified": "Email address verified successfully. Please sign in.",
+      "googleLoginSuccess": "Signed in with Google.",
+      "googleLoginFailed": "Failed to sign in with Google."
     },
     "toasts": {
       "passwordChanged": "Password changed. Please sign in with your new password."
     },
-    "notice": {
-      "googleLoginSuccess": "Signed in with Google.",
-      "googleLoginFailed": "Failed to sign in with Google."
+    "errors": {
+      "emailNotVerified": "Email address has not been verified."
     },
     "forgotPassword": "Forgot your password?"
   },
@@ -745,6 +748,10 @@
         "title": "Housework Settings",
         "subtitle": "Manage housework templates"
       },
+      "notifications": {
+        "title": "Notification Center",
+        "subtitle": "Check notifications"
+      },
       "about": {
         "title": "About This App",
         "subtitle": "Version, terms of use, and more"
@@ -830,6 +837,7 @@
       "password": {
         "title": "Change Password",
         "description": "Change your login password.",
+        "descriptionGoogleLinked": "Since this account is linked with Google, password change is not available.",
         "fields": {
           "currentPassword": "Current password",
           "newPassword": "New password",
@@ -862,6 +870,7 @@
       }
     },
     "household": {
+      "title": "Household Settings",
       "description": "Manage the households you belong to and your nickname within each household.",
       "list": {
         "title": "Households you belong to",
@@ -959,6 +968,59 @@
         "deleteButton": "Delete this household",
         "note": "Deleting a household will delete all data including housework and shopping lists. This action cannot be undone.\nAlso, you cannot delete a household if there are active members other than yourself.",
         "errorHasMembers": "Cannot delete household because there are other active members. Please remove them first."
+      }
+    }
+  },
+  "notifications": {
+    "bell": {
+      "ariaLabel": "Notification bell",
+      "title": "Notification Center",
+      "viewAll": "View all",
+      "empty": "No notifications",
+      "openHint": "Open"
+    },
+    "center": {
+      "title": "Notification Center",
+      "subtitle": "Latest notifications",
+      "reload": "Reload",
+      "empty": "No notifications"
+    },
+    "messages": {
+      "acceptInvitation": {
+        "title": "An invited member has joined the household.",
+        "body": "{memberName} has joined the household [{householdName}]."
+      },
+      "declineInvitation": {
+        "title": "Invitation declined.",
+        "body": "{memberName} has declined the invitation to the household [{householdName}]."
+      },
+      "removedFromHousehold": {
+        "title": "Removed from household.",
+        "body": "You have been removed from the household [{householdName}]."
+      },
+      "leftHousehold": {
+        "title": "A member has left the household.",
+        "body": "{memberName} has left the household [{householdName}]. Tasks assigned to {memberName} have been updated to unassigned."
+      },
+      "assigned2Owner": {
+        "title": "Set as household OWNER.",
+        "body": "You have been set as the OWNER of the household [{householdName}]."
+      },
+      "taskAssigned": {
+        "title": "Task assigned",
+        "body": "A task has been assigned by {actorName}. Household: {household}, Date: {date}, Tasks: {count}"
+      },
+      "beDumpedTasks": {
+        "title": "Task requested by another member",
+        "body": "A task has been requested by {actorName}. Household: {household}, Date: {date}, Tasks: {count}"
+      },
+      "yourTaskWasTaken": {
+        "title": "Another member took your task",
+        "body": "{actorName} has taken your task. Household: {household}, Date: {date}, Tasks: {count}"
+      },
+      "generic": {
+        "title": "Task assigned",
+        "body": "A task has been assigned. Household: {household}, Date: {date}, Tasks: {count}"
       }
     }
   },
@@ -1080,7 +1142,6 @@
     "logout": "Log out",
     "itemCount": "{count} item(s)",
     "notSet": "(Not set)",
-    "userWithId": "User {id}",
     "yesterday": "Yesterday",
     "locales": {
       "ja": "Japanese",

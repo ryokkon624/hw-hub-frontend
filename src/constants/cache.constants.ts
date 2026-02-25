@@ -2,4 +2,4 @@
 export const DEFAULT_CACHE_TTL_MS = 5 * 60 * 1000
 
 /** 少し短めにしたい場合用（1分） */
-export const SHORT_CACHE_TTL_MS = 60 * 1000
+export const SHORT_CACHE_TTL_MS = 15 * 1000
