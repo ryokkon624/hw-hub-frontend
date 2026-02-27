@@ -50,12 +50,20 @@ const mockCodeStore = {
   loadAllIfNeeded: vi.fn(),
 }
 
+const mockNotificationStore = {
+  refreshUnreadCount: vi.fn(),
+}
+
 vi.mock('@/stores/householdStore', () => ({
   useHouseholdStore: () => mockHouseholdStore,
 }))
 
 vi.mock('@/stores/codeStore', () => ({
   useCodeStore: () => mockCodeStore,
+}))
+
+vi.mock('@/stores/notificationStore', () => ({
+  useNotificationStore: () => mockNotificationStore,
 }))
 
 // --- localStorage モック -------------------------------------------------
