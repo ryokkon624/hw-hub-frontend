@@ -15,6 +15,7 @@ export const CODE_TYPE = {
   NOTIFICATION_STATUS: '0011', // NotificationStatus (お知らせステータス)
   PROGRAM_TYPE: '0012', // ProgramType (プログラム種別)
   FAVORITE_FLAG: '0013', // FavoriteFlag (お気に入りフラグ)
+  NOTIFICATION_LINK_TYPE: '0019', // NotificationLinkType (通知リンク種別)
 } as const
 
 /**
@@ -155,3 +156,16 @@ export const FAVORITE_FLAG = {
   NORMAL: '0', // 通常
   FAVORITE: '1', // お気に入り
 } as const
+
+/**
+ * 0019: 通知リンク種別 (NotificationLinkType)
+ */
+export const NOTIFICATION_LINK_TYPE = {
+  NONE: 'None',
+  MY_TASKS: 'MyTasks',
+  HOUSEHOLD: 'Household',
+  INVITATION: 'Invite',
+  SETTINGS: 'Settings',
+} as const
+export type NotificationLinkTypeCode =
+  (typeof NOTIFICATION_LINK_TYPE)[keyof typeof NOTIFICATION_LINK_TYPE]

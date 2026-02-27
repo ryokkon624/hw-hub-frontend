@@ -67,6 +67,27 @@
         </div>
       </RouterLink>
 
+      <!-- 通知センター -->
+      <RouterLink
+        to="/notifications"
+        class="block rounded-xl border bg-white p-4 shadow-sm hover:bg-hwhub-surface-subtle transition"
+      >
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-xl">🔔</span>
+            <div>
+              <div class="font-medium text-sm text-hwhub-heading">
+                {{ t('settings.sections.notifications.title') }}
+              </div>
+              <div class="text-xs text-hwhub-muted">
+                {{ t('settings.sections.notifications.subtitle') }}
+              </div>
+            </div>
+          </div>
+          <span class="text-hwhub-muted">›</span>
+        </div>
+      </RouterLink>
+
       <!-- アプリ情報 -->
       <RouterLink
         to="/settings/app"

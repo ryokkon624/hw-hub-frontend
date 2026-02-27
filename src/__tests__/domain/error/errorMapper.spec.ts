@@ -75,7 +75,9 @@ describe('errorMapper', () => {
     expect(toUiError({ status: 409, errorCode: 'X' }).messageKey).toBe('errors.common.conflict')
   })
   it('未知の errorCode (429)', () => {
-    expect(toUiError({ status: 429, errorCode: 'X' }).messageKey).toBe('errors.common.tooManyRequests')
+    expect(toUiError({ status: 429, errorCode: 'X' }).messageKey).toBe(
+      'errors.common.tooManyRequests',
+    )
   })
 
   it('errorCode が無く、statusがマップ外の場合 (例: 502) は errors.common.failed', () => {

@@ -34,8 +34,10 @@ import HouseholdSettingsPage from '@/views/settings/HouseholdSettingsPage.vue'
 import AppInfoPage from '@/views/settings/AppInfoPage.vue'
 import TermsPage from '@/views/settings/TermsPage.vue'
 import PrivacyPolicyPage from '@/views/settings/PrivacyPolicyPage.vue'
+import NotificationCenterPage from '@/views/notifications/NotificationCenterPage.vue'
 
 import { useAuthStore } from '@/stores/authStore'
+import { useNotificationStore } from '@/stores/notificationStore'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -208,6 +210,13 @@ const routes: RouteRecordRaw[] = [
         component: PrivacyPolicyPage,
         meta: { titleKey: 'pageTitles.privacy' },
       },
+      // ---- Notifications ----
+      {
+        path: 'notifications',
+        name: 'notifications',
+        component: NotificationCenterPage,
+        meta: { titleKey: 'pageTitles.notifications' },
+      },
     ],
   },
 ]
@@ -231,6 +240,13 @@ router.beforeEach((to) => {
   if (to.name === 'login' && authStore.isAuthenticated) {
     return { name: 'home' }
   }
+})
+
+router.afterEach((to) => {
+  if (!to.meta.requiresAuth) return
+
+  const notifStore = useNotificationStore()
+  notifStore.refreshUnreadCount()
 })
 
 export default router

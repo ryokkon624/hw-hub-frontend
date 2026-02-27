@@ -54,48 +54,48 @@
   },
   "passwordReset": {
     "page": {
-        "title": "パスワード再設定",
-        "description": "新しいパスワードを入力してください。",
-        "missingToken": "トークンが見つかりません。URLを確認してください。"
+      "title": "パスワード再設定",
+      "description": "新しいパスワードを入力してください。",
+      "missingToken": "トークンが見つかりません。URLを確認してください。"
     },
     "form": {
-        "newPassword": "新しいパスワード",
-        "newPasswordPlaceholder": "8文字以上",
-        "confirmPassword": "新しいパスワード（確認）",
-        "confirmPasswordPlaceholder": "もう一度入力",
-        "submit": "パスワードを変更",
-        "submitting": "送信中..."
+      "newPassword": "新しいパスワード",
+      "newPasswordPlaceholder": "8文字以上",
+      "confirmPassword": "新しいパスワード（確認）",
+      "confirmPasswordPlaceholder": "もう一度入力",
+      "submit": "パスワードを変更",
+      "submitting": "送信中..."
     },
     "links": {
-        "requestNew": "再発行する",
-        "backToLogin": "ログインへ戻る"
+      "requestNew": "再発行する",
+      "backToLogin": "ログインへ戻る"
     },
     "errors": {
-        "mismatch": "パスワードが一致しません。"
+      "mismatch": "パスワードが一致しません。"
     }
   },
   "passwordForgot": {
-      "title": "パスワードをお忘れですか？",
-      "description": "メールアドレスを入力してください。アカウントが存在すれば、パスワード再設定用のリンクを送信します。",
-      "email": "メールアドレス",
-      "placeholder": "you@example.com",
-      "submit": "再設定リンクを送信",
-      "submitting": "送信中...",
-      "backToLogin": "ログインへ戻る"
+    "title": "パスワードをお忘れですか？",
+    "description": "メールアドレスを入力してください。アカウントが存在すれば、パスワード再設定用のリンクを送信します。",
+    "email": "メールアドレス",
+    "placeholder": "you@example.com",
+    "submit": "再設定リンクを送信",
+    "submitting": "送信中...",
+    "backToLogin": "ログインへ戻る"
   },
   "passwordResetSent": {
-      "title": "メールを確認してください",
-      "description": "アカウントが存在する場合、再設定リンクを送信しました。",
-      "checkSpam": "メールが届かない場合？",
-      "spamActions": {
-          "spamFolder": "迷惑メールフォルダを確認してください",
-          "settings": "受信設定を確認してください",
-          "wait": "少し待ってから再送してください"
-      },
-      "resend": "メールを再送",
-      "sending": "送信中...",
-      "useDifferentEmail": "別のメールアドレスを使う",
-      "backToLogin": "ログインへ戻る"
+    "title": "メールを確認してください",
+    "description": "アカウントが存在する場合、再設定リンクを送信しました。",
+    "checkSpam": "メールが届かない場合？",
+    "spamActions": {
+      "spamFolder": "迷惑メールフォルダを確認してください",
+      "settings": "受信設定を確認してください",
+      "wait": "少し待ってから再送してください"
+    },
+    "resend": "メールを再送",
+    "sending": "送信中...",
+    "useDifferentEmail": "別のメールアドレスを使う",
+    "backToLogin": "ログインへ戻る"
   },
   "pageTitles": {
     "home": "ホーム",
@@ -110,6 +110,7 @@
     "householdSettings": "おうち設定",
     "houseworkCreate": "家事の登録",
     "houseworkEdit": "家事の編集",
+    "notifications": "通知センター",
     "app": "アプリ情報",
     "terms": "利用規約",
     "privacy": "プライバシーポリシー",
@@ -763,6 +764,10 @@
         "title": "家事設定",
         "subtitle": "家事テンプレートの管理"
       },
+      "notifications": {
+        "title": "通知センター",
+        "subtitle": "通知の確認"
+      },
       "about": {
         "title": "アプリ情報",
         "subtitle": "バージョン・利用規約など"
@@ -987,6 +992,59 @@
         "deleteButton": "このおうちを削除する",
         "note": "おうちを削除すると、家事や買い物リストなどすべてのデータが削除されます。この操作は取り消せません。\nまた、自分以外のメンバーがいる場合は削除できません。",
         "errorHasMembers": "自分以外の有効なメンバーがいるため削除できません。先にメンバーを解除してください。"
+      }
+    }
+  },
+  "notifications": {
+    "bell": {
+      "ariaLabel": "通知ベル",
+      "title": "通知センター",
+      "viewAll": "すべて見る",
+      "empty": "通知はありません",
+      "openHint": "開く"
+    },
+    "center": {
+      "title": "通知センター",
+      "subtitle": "最新の通知",
+      "reload": "更新",
+      "empty": "通知はありません"
+    },
+    "messages": {
+      "acceptInvitation": {
+        "title": "招待したメンバーがおうちに参加しました。",
+        "body": "おうち[{householdName}]に{memberName}が参加しました。"
+      },
+      "declineInvitation": {
+        "title": "招待を辞退されました。",
+        "body": "おうち[{householdName}]への招待を{memberName}が辞退しました。"
+      },
+      "removedFromHousehold": {
+        "title": "おうちから削除されました。",
+        "body": "おうち[{householdName}]から削除されました。"
+      },
+      "leftHousehold": {
+        "title": "メンバーがおうちから離脱しました。",
+        "body": "おうち[{householdName}]から、{memberName}が離脱しました。{memberName}に割当てられていたタスクは未割当に更新されています。"
+      },
+      "assigned2Owner": {
+        "title": "おうちのOWNERに設定されました。",
+        "body": "おうち[{householdName}]のOWNERに設定されました。"
+      },
+      "taskAssigned": {
+        "title": "タスクが割り当てられました",
+        "body": "{actorName}によってタスクが割り当てられました。おうち: {household}, 日付: {date}, 件数: {count}件"
+      },
+      "beDumpedTasks": {
+        "title": "他メンバーからタスクを依頼されました",
+        "body": "{actorName}のタスクを依頼されました。おうち: {household}, 日付: {date}, 件数: {count}件"
+      },
+      "yourTaskWasTaken": {
+        "title": "他メンバーがあなたのタスクを奪いました",
+        "body": "{actorName}があなたのタスクを奪いました。おうち: {household}, 日付: {date}, 件数: {count}件"
+      },
+      "generic": {
+        "title": "タスクが割り当てられました",
+        "body": "タスクが割り当てられました。おうち: {household}, 日付: {date}, 件数: {count}件"
       }
     }
   },

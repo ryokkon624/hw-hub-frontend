@@ -521,8 +521,6 @@ type CompletedGroup = {
   items: ShoppingItemModel[]
 }
 
-
-
 const formatDateLabel = (dateStr: string): string => {
   // dateStr は 'YYYY-MM-DD' 想定
   const ymd = dateStr.substring(0, 10)

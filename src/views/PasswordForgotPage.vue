@@ -37,7 +37,9 @@ const onSubmit = async () => {
 
       <form class="mt-6 space-y-4" @submit.prevent="onSubmit">
         <div>
-          <label class="block text-sm font-medium text-slate-700">{{ t('passwordForgot.email') }}</label>
+          <label class="block text-sm font-medium text-slate-700">{{
+            t('passwordForgot.email')
+          }}</label>
           <input
             v-model="email"
             type="email"

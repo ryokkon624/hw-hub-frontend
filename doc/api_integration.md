@@ -82,7 +82,14 @@
 | | POST | `/api/households/{id}/invitations` | 新規招待の作成 | `invitationStore` (`householdInvitationApi`) |
 | | POST | `/api/household-invitations/{token}/revoke` | 招待の取り消し | `invitationStore` (`householdInvitationApi`) |
 
-## 5. その他API
+## 5. 通知センター
+
+| 画面名 | メソッド | API エンドポイント | 機能概要 | 関連コンポーネント |
+| :--- | :--- | :--- | :--- | :--- |
+| **（全画面共通）** | GET | `/api/notifications/unread-count` | 未読通知件数の取得 | `notificationStore` (`notificationApi`) |
+| **通知センター** | GET | `/api/notifications` | 通知一覧の取得 | `notificationStore` (`notificationApi`) |
+
+## 6. その他API
 
 | API ファイル | メソッド | API エンドポイント | 機能概要 | 備考 |
 | :--- | :--- | :--- | :--- | :--- |

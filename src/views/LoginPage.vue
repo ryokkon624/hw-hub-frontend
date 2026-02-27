@@ -180,31 +180,7 @@ const onClickGoogle = async () => {
           <div class="space-y-3">
             <button
               type="button"
-              class="
-                group
-                w-full
-                inline-flex
-                items-center
-                justify-center
-                gap-3
-                rounded-xl
-                border
-                border-gray-300
-                bg-white
-                px-4
-                py-2.5
-                text-sm
-                font-medium
-                text-gray-700
-                shadow-sm
-                transition
-                hover:bg-gray-50
-                hover:shadow
-                focus:outline-none
-                focus:ring-2
-                focus:ring-hwhub-primary/40
-                disabled:opacity-60
-              "
+              class="group w-full inline-flex items-center justify-center gap-3 rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50 hover:shadow focus:outline-none focus:ring-2 focus:ring-hwhub-primary/40 disabled:opacity-60"
               :disabled="isSubmitting"
               @click="onClickGoogle"
             >
@@ -215,9 +191,7 @@ const onClickGoogle = async () => {
                 class="h-5 w-5"
               />
 
-              <span class="tracking-tight">
-                Google アカウントでログイン
-              </span>
+              <span class="tracking-tight"> Google アカウントでログイン </span>
             </button>
 
             <!-- Divider -->
