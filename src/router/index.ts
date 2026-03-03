@@ -245,8 +245,11 @@ router.beforeEach((to) => {
 router.afterEach((to) => {
   if (!to.meta.requiresAuth) return
 
-  const notifStore = useNotificationStore()
-  notifStore.refreshUnreadCount()
+  const authStore = useAuthStore()
+  if (authStore.isAuthenticated && authStore.currentUser?.notificationEnabled) {
+    const notifStore = useNotificationStore()
+    notifStore.refreshUnreadCount()
+  }
 })
 
 export default router

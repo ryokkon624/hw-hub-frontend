@@ -55,6 +55,7 @@ describe('userApi', () => {
         email: 'user@example.com',
         displayName: 'ユーザ',
         locale: 'ja',
+        notificationEnabled: true,
         iconUrl: 'https://example.com/icon.png',
         authProvider: 'google',
       },
@@ -70,6 +71,7 @@ describe('userApi', () => {
       email: 'user@example.com',
       displayName: 'ユーザ',
       locale: 'ja',
+      notificationEnabled: true,
       iconUrl: 'https://example.com/icon.png',
       authProvider: 'google',
     }
@@ -83,6 +85,7 @@ describe('userApi', () => {
         email: 'no-icon@example.com',
         displayName: 'No Icon',
         locale: 'en',
+        notificationEnabled: false,
         authProvider: 'google',
         // iconUrl 省略
       },
@@ -95,6 +98,7 @@ describe('userApi', () => {
       email: 'no-icon@example.com',
       displayName: 'No Icon',
       locale: 'en',
+      notificationEnabled: false,
       iconUrl: null,
       authProvider: 'google',
     }
@@ -176,5 +180,36 @@ describe('userApi', () => {
       currentPassword: 'old',
       newPassword: 'new',
     })
+  })
+  it('getNotificationSettings: GET /users/me/notification-settings して data を返す', async () => {
+    const responseData = {
+      notificationEnabled: true,
+      groupSettings: { '100': true, '200': false },
+    }
+    mockedClient.get.mockResolvedValue({ data: responseData })
+
+    const result = await userApi.getNotificationSettings()
+
+    expect(mockedClient.get).toHaveBeenCalledTimes(1)
+    expect(mockedClient.get).toHaveBeenCalledWith('/api/users/me/notification-settings')
+    expect(result).toEqual(responseData)
+  })
+
+  it('updateNotificationSettings: PUT /users/me/notification-settings に req を送信して data を返す', async () => {
+    const responseData = {
+      notificationEnabled: false,
+      groupSettings: { '100': false, '200': true },
+    }
+    mockedClient.put.mockResolvedValue({ data: responseData })
+
+    const req = {
+      notificationEnabled: false,
+      groupSettings: { '100': false },
+    }
+    const result = await userApi.updateNotificationSettings(req)
+
+    expect(mockedClient.put).toHaveBeenCalledTimes(1)
+    expect(mockedClient.put).toHaveBeenCalledWith('/api/users/me/notification-settings', req)
+    expect(result).toEqual(responseData)
   })
 })

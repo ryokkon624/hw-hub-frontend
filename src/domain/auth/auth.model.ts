@@ -7,6 +7,7 @@ export interface LoginUser {
   authProvider: string
   displayName: string
   locale: string
+  notificationEnabled: boolean
   iconUrl?: string | null
 }
 

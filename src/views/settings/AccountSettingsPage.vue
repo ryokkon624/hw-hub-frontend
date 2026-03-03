@@ -32,19 +32,25 @@
     <!-- パスワード変更 -->
     <PasswordChangeSection />
 
-    <!-- 表示名の変更 -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
-      <h3 class="text-sm font-semibold text-hwhub-heading">
-        {{ t('settings.account.displayName.title') }}
-      </h3>
-      <p class="text-xs text-hwhub-muted">
-        {{ t('settings.account.displayName.description') }}
-      </p>
-
+    <!-- プロフィール設定（表示名 + 言語 → 保存ボタン対象） -->
+    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-4">
       <div>
-        <label class="block text-xs text-hwhub-muted mb-1">{{
+        <h3 class="text-sm font-semibold text-hwhub-heading">
+          {{ t('settings.account.profile.title') }}
+        </h3>
+        <p class="text-xs text-hwhub-muted mt-1">
+          {{ t('settings.account.profile.description') }}
+        </p>
+      </div>
+
+      <!-- 表示名 -->
+      <div class="space-y-1">
+        <label class="block text-xs font-medium text-hwhub-heading">{{
           t('settings.account.displayName.fieldLabel')
         }}</label>
+        <p class="text-[11px] text-hwhub-muted">
+          {{ t('settings.account.displayName.description') }}
+        </p>
         <Field name="displayName" v-slot="{ field }">
           <input
             v-bind="field"
@@ -57,9 +63,44 @@
           <p class="text-xs text-red-600 mt-1">{{ tMaybe(message) }}</p>
         </ErrorMessage>
       </div>
+
+      <!-- 言語設定 -->
+      <div class="space-y-1">
+        <label class="block text-xs font-medium text-hwhub-heading">
+          {{ t('settings.account.language.fieldLabel') }}</label
+        >
+        <p class="text-[11px] text-hwhub-muted">
+          {{ t('settings.account.language.description') }}
+        </p>
+        <Field name="locale" v-slot="{ field }">
+          <select
+            v-bind="field"
+            class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+          >
+            <option v-for="lang in locales" :key="lang" :value="lang">
+              {{ labelForLocale(lang) }}
+            </option>
+          </select>
+        </Field>
+        <ErrorMessage name="locale" v-slot="{ message }">
+          <p class="text-xs text-red-600 mt-1">{{ tMaybe(message) }}</p>
+        </ErrorMessage>
+      </div>
+
+      <!-- 保存ボタン（このカード内で完結） -->
+      <div class="flex justify-end pt-2 border-t">
+        <button
+          type="button"
+          class="inline-flex items-center rounded-md bg-hwhub-primary px-4 py-2 text-sm font-semibold text-white hover:bg-hwhub-primary disabled:opacity-50"
+          :disabled="!hasChanges"
+          @click="onSave"
+        >
+          {{ t('common.save') }}
+        </button>
+      </div>
     </section>
 
-    <!-- プロフィール画像 -->
+    <!-- プロフィール画像（即時反映） -->
     <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
       <h3 class="text-sm font-semibold text-hwhub-heading">
         {{ t('settings.account.icon.title') }}
@@ -97,46 +138,87 @@
       </div>
     </section>
 
-    <!-- 言語設定 -->
+    <!-- 通知設定（即時反映） -->
     <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
       <h3 class="text-sm font-semibold text-hwhub-heading">
-        {{ t('settings.account.language.title') }}
+        {{ t('settings.account.notifications.title') }}
       </h3>
       <p class="text-xs text-hwhub-muted">
-        {{ t('settings.account.language.description') }}
+        {{ t('settings.account.notifications.description') }}
       </p>
 
-      <div>
-        <label class="block text-xs text-hwhub-muted mb-1">
-          {{ t('settings.account.language.fieldLabel') }}</label
+      <!-- グローバルON/OFF -->
+      <div class="flex items-center justify-between gap-4">
+        <div class="min-w-0">
+          <div class="text-sm text-hwhub-heading">
+            {{ t('settings.account.notifications.globalLabel') }}
+          </div>
+          <div class="text-[11px] text-hwhub-muted">
+            {{ t('settings.account.notifications.globalHint') }}
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="relative inline-flex h-7 w-12 items-center rounded-full transition
+                focus:outline-none focus-visible:ring-2 focus-visible:ring-hwhub-primary/30"
+          :class="notifEnabled ? 'bg-hwhub-primary' : 'bg-slate-300'"
+          :disabled="notifLoading"
+          @click="onToggleGlobal"
         >
-        <Field name="locale" v-slot="{ field }">
-          <select
-            v-bind="field"
-            class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+          <span
+            class="inline-block h-5 w-5 transform rounded-full bg-white transition"
+            :class="notifEnabled ? 'translate-x-6' : 'translate-x-1'"
+          />
+        </button>
+      </div>
+
+      <div class="pt-2 border-t space-y-3">
+        <!-- 世帯 -->
+        <div class="flex items-center justify-between gap-4"
+            :class="notifEnabled ? '' : 'opacity-50'">
+          <div class="text-sm text-hwhub-heading">
+            {{ t('settings.account.notifications.groups.household') }}
+          </div>
+
+          <button
+            type="button"
+            class="relative inline-flex h-7 w-12 items-center rounded-full transition
+                  focus:outline-none focus-visible:ring-2 focus-visible:ring-hwhub-primary/30"
+            :class="groupHousehold ? 'bg-hwhub-primary' : 'bg-slate-300'"
+            :disabled="notifLoading || !notifEnabled"
+            @click="onToggleGroupHousehold"
           >
-            <option v-for="lang in locales" :key="lang" :value="lang">
-              {{ labelForLocale(lang) }}
-            </option>
-          </select>
-        </Field>
-        <ErrorMessage name="locale" v-slot="{ message }">
-          <p class="text-xs text-red-600 mt-1">{{ tMaybe(message) }}</p>
-        </ErrorMessage>
+            <span
+              class="inline-block h-5 w-5 transform rounded-full bg-white transition"
+              :class="groupHousehold ? 'translate-x-6' : 'translate-x-1'"
+            />
+          </button>
+        </div>
+
+        <!-- タスク割当 -->
+        <div class="flex items-center justify-between gap-4"
+            :class="notifEnabled ? '' : 'opacity-50'">
+          <div class="text-sm text-hwhub-heading">
+            {{ t('settings.account.notifications.groups.taskAssignment') }}
+          </div>
+
+          <button
+            type="button"
+            class="relative inline-flex h-7 w-12 items-center rounded-full transition
+                  focus:outline-none focus-visible:ring-2 focus-visible:ring-hwhub-primary/30"
+            :class="groupTask ? 'bg-hwhub-primary' : 'bg-slate-300'"
+            :disabled="notifLoading || !notifEnabled"
+            @click="onToggleGroupTask"
+          >
+            <span
+              class="inline-block h-5 w-5 transform rounded-full bg-white transition"
+              :class="groupTask ? 'translate-x-6' : 'translate-x-1'"
+            />
+          </button>
+        </div>
       </div>
     </section>
-
-    <!-- 保存ボタン -->
-    <div class="flex justify-end">
-      <button
-        type="button"
-        class="inline-flex items-center rounded-md bg-hwhub-primary px-4 py-2 text-sm font-semibold text-white hover:bg-hwhub-primary disabled:opacity-50"
-        :disabled="!hasChanges"
-        @click="onSave"
-      >
-        {{ t('common.save') }}
-      </button>
-    </div>
 
     <!-- Google 連携 -->
     <section
@@ -251,12 +333,15 @@ import {
   type AccountSettingsSchemaType,
 } from '@/domain/user/accountSettings.validation'
 import PasswordChangeSection from '@/components/inputs/PasswordChangeSection.vue'
+import { useNotificationSettingsStore } from '@/stores/notificationSettingsStore'
+import { NOTIFICATION_GROUP } from '@/constants/code.constants'
 
 const authStore = useAuthStore()
 const uiStore = useUiStore()
 const router = useRouter()
 const route = useRoute()
 const { t, locale } = useI18n()
+const notifStore = useNotificationSettingsStore()
 
 // ロケール一覧
 const locales = SUPPORT_LOCALES
@@ -310,6 +395,15 @@ const shouldShowGoogleLinkSection = computed(() => {
   return email.endsWith('@gmail.com')
 })
 
+const notifLoading = computed(() => notifStore.isLoading)
+const notifEnabled = computed(() => notifStore.notificationEnabled)
+const groupHousehold = computed(() =>
+  notifStore.groupSettings[NOTIFICATION_GROUP.HOUSEHOLD],
+)
+const groupTask = computed(() =>
+  notifStore.groupSettings[NOTIFICATION_GROUP.TASK_ASSIGNMENT],
+)
+
 onMounted(async () => {
   const user = authStore.currentUser as {
     displayName?: string
@@ -319,6 +413,8 @@ onMounted(async () => {
 
   const initialDisplayName = user?.displayName ?? ''
   const initialLocale = (user?.locale as Locale | undefined) ?? (locale.value as Locale)
+
+  await notifStore.load()
 
   // フォームの初期値を反映
   resetForm({
@@ -366,6 +462,64 @@ const onIconFileChange = async (files: File[] | null) => {
   } catch (err) {
     console.error(err)
     uiStore.showToast('error', t('settings.account.toasts.iconUpdateFailed'))
+  }
+}
+
+const onToggleGlobal = async () => {
+  try {
+    await uiStore.withLoading(async () => {
+      await notifStore.setGlobalEnabled(!notifEnabled.value)
+    })
+    uiStore.showToast(
+      'success',
+      notifEnabled.value
+        ? t('settings.account.notifications.toasts.enabled')
+        : t('settings.account.notifications.toasts.disabled'),
+    )
+  } catch (e) {
+    console.error(e)
+    uiStore.showToast('error', t('settings.account.notifications.toasts.failed'))
+  }
+}
+
+const onToggleGroupHousehold = async () => {
+  try {
+    await uiStore.withLoading(async () => {
+      await notifStore.setGroupEnabled(
+        NOTIFICATION_GROUP.HOUSEHOLD,
+        !groupHousehold.value,
+      )
+    })
+    uiStore.showToast(
+      'success',
+      groupHousehold.value
+        ? t('settings.account.notifications.toasts.enabled')
+        : t('settings.account.notifications.toasts.disabled'),
+    )
+  } catch (e) {
+    console.error(e)
+    uiStore.showToast('error', t('settings.account.notifications.toasts.failed'))
+  }
+}
+
+
+const onToggleGroupTask = async () => {
+  try {
+    await uiStore.withLoading(async () => {
+      await notifStore.setGroupEnabled(
+        NOTIFICATION_GROUP.TASK_ASSIGNMENT,
+        !groupTask.value  ,
+      )
+    })
+    uiStore.showToast(
+      'success',
+      groupTask.value
+        ? t('settings.account.notifications.toasts.enabled')
+        : t('settings.account.notifications.toasts.disabled'),
+    )
+  } catch (e) {
+    console.error(e)
+    uiStore.showToast('error', t('settings.account.notifications.toasts.failed'))
   }
 }
 

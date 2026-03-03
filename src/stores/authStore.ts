@@ -194,6 +194,7 @@ export const useAuthStore = defineStore('auth', {
         authProvider: profile.authProvider,
         displayName: profile.displayName,
         locale: profile.locale,
+        notificationEnabled: profile.notificationEnabled,
         iconUrl: profile.iconUrl,
       }
       this.saveToStorage()
@@ -282,12 +283,32 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
+    async updateNotificationEnabled(enabled: boolean) {
+      const res = await userApi.updateNotificationSettings({ notificationEnabled: enabled })
+
+      if (!this.currentUser) return
+      this.currentUser = {
+        ...this.currentUser,
+        notificationEnabled: res.notificationEnabled ?? enabled,
+      }
+
+      if (!enabled) {
+        const notificationStore = useNotificationStore()
+        notificationStore.clear()
+      }
+    },
+
     /**
      * アカウントを退会する。
      */
     async deleteAccount() {
       await userApi.deleteAccount()
       this.logout()
+    },
+
+    patchCurrentUser(patch: Partial<{ notificationEnabled: boolean }>) {
+      if (!this.currentUser) return
+      this.currentUser = { ...this.currentUser, ...patch }
     },
   },
 })

@@ -765,6 +765,10 @@
         "displayNameLabel": "Display name",
         "note": "You can change your display name from the form below."
       },
+      "profile": {
+        "title": "Profile Settings",
+        "description": "Change your display name and language. Changes are not applied until you press \"Save\"."
+      },
       "displayName": {
         "title": "Display name",
         "description": "This display name is used across Housework Hub. Nicknames for each household (e.g. Mom / Dad) can be changed from “Household Settings”.",
@@ -780,6 +784,21 @@
         "title": "Language",
         "description": "Select the language used for the UI. This setting is saved to your account.",
         "fieldLabel": "Language"
+      },
+      "notifications": {
+        "title": "Notification Settings",
+        "description": "Toggle notifications on/off. Changes are applied immediately.",
+        "globalLabel": "Allow notifications",
+        "globalHint": "Turn on to receive notifications.",
+        "groups": {
+          "household": "Household",
+          "taskAssignment": "Task Assignment"
+        },
+        "toasts": {
+          "enabled": "Notifications enabled",
+          "disabled": "Notifications disabled",
+          "failed": "Failed to update notification settings"
+        }
       },
       "toasts": {
         "iconUpdated": "Profile image has been updated.",
