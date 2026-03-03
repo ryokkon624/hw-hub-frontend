@@ -781,6 +781,10 @@
         "displayNameLabel": "表示名",
         "note": "※ 表示名は下のフォームから変更できます。"
       },
+      "profile": {
+        "title": "プロフィール設定",
+        "description": "表示名と言語を変更できます。変更は「保存」を押すまで反映されません。"
+      },
       "displayName": {
         "title": "表示名",
         "description": "この表示名は Housework Hub 全体で使われます。各おうちごとの呼び名（ママ／パパ など）は「おうち設定」から変更できます。",
@@ -799,7 +803,7 @@
       },
       "notifications": {
         "title": "通知設定",
-        "description": "通知のオン/オフを設定します。",
+        "description": "通知のオン/オフを設定します。変更は即時反映されます。",
         "globalHint": "オンにすると、通知を受け取ることができます。",
         "globalLabel": "通知を許可する",
         "groups": {

@@ -32,19 +32,25 @@
     <!-- パスワード変更 -->
     <PasswordChangeSection />
 
-    <!-- 表示名の変更 -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
-      <h3 class="text-sm font-semibold text-hwhub-heading">
-        {{ t('settings.account.displayName.title') }}
-      </h3>
-      <p class="text-xs text-hwhub-muted">
-        {{ t('settings.account.displayName.description') }}
-      </p>
-
+    <!-- プロフィール設定（表示名 + 言語 → 保存ボタン対象） -->
+    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-4">
       <div>
-        <label class="block text-xs text-hwhub-muted mb-1">{{
+        <h3 class="text-sm font-semibold text-hwhub-heading">
+          {{ t('settings.account.profile.title') }}
+        </h3>
+        <p class="text-xs text-hwhub-muted mt-1">
+          {{ t('settings.account.profile.description') }}
+        </p>
+      </div>
+
+      <!-- 表示名 -->
+      <div class="space-y-1">
+        <label class="block text-xs font-medium text-hwhub-heading">{{
           t('settings.account.displayName.fieldLabel')
         }}</label>
+        <p class="text-[11px] text-hwhub-muted">
+          {{ t('settings.account.displayName.description') }}
+        </p>
         <Field name="displayName" v-slot="{ field }">
           <input
             v-bind="field"
@@ -57,9 +63,44 @@
           <p class="text-xs text-red-600 mt-1">{{ tMaybe(message) }}</p>
         </ErrorMessage>
       </div>
+
+      <!-- 言語設定 -->
+      <div class="space-y-1">
+        <label class="block text-xs font-medium text-hwhub-heading">
+          {{ t('settings.account.language.fieldLabel') }}</label
+        >
+        <p class="text-[11px] text-hwhub-muted">
+          {{ t('settings.account.language.description') }}
+        </p>
+        <Field name="locale" v-slot="{ field }">
+          <select
+            v-bind="field"
+            class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+          >
+            <option v-for="lang in locales" :key="lang" :value="lang">
+              {{ labelForLocale(lang) }}
+            </option>
+          </select>
+        </Field>
+        <ErrorMessage name="locale" v-slot="{ message }">
+          <p class="text-xs text-red-600 mt-1">{{ tMaybe(message) }}</p>
+        </ErrorMessage>
+      </div>
+
+      <!-- 保存ボタン（このカード内で完結） -->
+      <div class="flex justify-end pt-2 border-t">
+        <button
+          type="button"
+          class="inline-flex items-center rounded-md bg-hwhub-primary px-4 py-2 text-sm font-semibold text-white hover:bg-hwhub-primary disabled:opacity-50"
+          :disabled="!hasChanges"
+          @click="onSave"
+        >
+          {{ t('common.save') }}
+        </button>
+      </div>
     </section>
 
-    <!-- プロフィール画像 -->
+    <!-- プロフィール画像（即時反映） -->
     <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
       <h3 class="text-sm font-semibold text-hwhub-heading">
         {{ t('settings.account.icon.title') }}
@@ -97,36 +138,7 @@
       </div>
     </section>
 
-    <!-- 言語設定 -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
-      <h3 class="text-sm font-semibold text-hwhub-heading">
-        {{ t('settings.account.language.title') }}
-      </h3>
-      <p class="text-xs text-hwhub-muted">
-        {{ t('settings.account.language.description') }}
-      </p>
-
-      <div>
-        <label class="block text-xs text-hwhub-muted mb-1">
-          {{ t('settings.account.language.fieldLabel') }}</label
-        >
-        <Field name="locale" v-slot="{ field }">
-          <select
-            v-bind="field"
-            class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
-          >
-            <option v-for="lang in locales" :key="lang" :value="lang">
-              {{ labelForLocale(lang) }}
-            </option>
-          </select>
-        </Field>
-        <ErrorMessage name="locale" v-slot="{ message }">
-          <p class="text-xs text-red-600 mt-1">{{ tMaybe(message) }}</p>
-        </ErrorMessage>
-      </div>
-    </section>
-
-    <!-- 通知設定 -->
+    <!-- 通知設定（即時反映） -->
     <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
       <h3 class="text-sm font-semibold text-hwhub-heading">
         {{ t('settings.account.notifications.title') }}
@@ -135,7 +147,7 @@
         {{ t('settings.account.notifications.description') }}
       </p>
 
-      <!-- グローバルON/OFF（すでにあるならそれを流用してOK） -->
+      <!-- グローバルON/OFF -->
       <div class="flex items-center justify-between gap-4">
         <div class="min-w-0">
           <div class="text-sm text-hwhub-heading">
@@ -207,18 +219,6 @@
         </div>
       </div>
     </section>
-
-    <!-- 保存ボタン -->
-    <div class="flex justify-end">
-      <button
-        type="button"
-        class="inline-flex items-center rounded-md bg-hwhub-primary px-4 py-2 text-sm font-semibold text-white hover:bg-hwhub-primary disabled:opacity-50"
-        :disabled="!hasChanges"
-        @click="onSave"
-      >
-        {{ t('common.save') }}
-      </button>
-    </div>
 
     <!-- Google 連携 -->
     <section
