@@ -68,6 +68,8 @@
 | | PUT | `/api/users/me/password` | パスワードの変更 | `userApi` |
 | | POST | `/api/users/me/icon/upload-url` | アイコンアップロード用URL生成 | `userApi` |
 | | POST | `/api/users/me/icon` | ユーザアイコン情報の更新 | `userApi` |
+| | GET | `/api/users/me/notification-settings` | 通知設定の取得 | `notificationSettingsStore` (`userApi`) |
+| | PUT | `/api/users/me/notification-settings` | 通知設定の更新（グローバルON/OFF・グループ別） | `notificationSettingsStore` (`userApi`) |
 | | DELETE | `/api/users/me` | アカウントの削除（退会） | `userApi` |
 | **世帯設定** | GET | `/api/users/me/households` | 所属世帯一覧の取得 | `householdStore` (`userApi`) |
 | | POST | `/api/households` | 新しい世帯の作成 | `householdStore` (`householdApi`) |
