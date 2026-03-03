@@ -32,6 +32,7 @@ vi.mock('@/api/userApi', () => ({
     updateUserIcon: vi.fn(),
     deleteAccount: vi.fn(),
     changeMyPassword: vi.fn(),
+    updateNotificationSettings: vi.fn(),
   },
 }))
 
@@ -52,6 +53,7 @@ const mockCodeStore = {
 
 const mockNotificationStore = {
   refreshUnreadCount: vi.fn(),
+  clear: vi.fn(),
 }
 
 vi.mock('@/stores/householdStore', () => ({
@@ -112,9 +114,10 @@ describe('authStore', () => {
   const createLoginUser = (overrides: Partial<LoginUser> = {}): LoginUser => ({
     userId: 1,
     email: 'test@example.com',
-    authProvider: 'google', // Default value
+    authProvider: 'google',
     displayName: 'Tester',
     locale: 'ja',
+    notificationEnabled: true,
     iconUrl: null,
     ...overrides,
   })
@@ -299,6 +302,7 @@ describe('authStore', () => {
       email: 'profile@example.com',
       displayName: 'FromProfile',
       locale: 'ja',
+      notificationEnabled: true,
       iconUrl: 'https://example.com/icon.png',
       authProvider: 'google',
     })
@@ -312,9 +316,10 @@ describe('authStore', () => {
     expect(store.currentUser).toEqual({
       userId: 1,
       email: 'profile@example.com',
-      authProvider: 'google', // Added expectation
+      authProvider: 'google',
       displayName: 'FromProfile',
       locale: 'ja',
+      notificationEnabled: true,
       iconUrl: 'https://example.com/icon.png',
     })
     expect(saveSpy).toHaveBeenCalled()
@@ -660,5 +665,89 @@ describe('authStore', () => {
 
     await expect(store.validateAccountDeletion()).resolves.toBeUndefined()
     expect(mockHouseholdStore.fetchMembers).toHaveBeenCalledWith(200)
+  })
+
+  // --- updateNotificationEnabled ---
+
+  it('updateNotificationEnabled は通知設定を更新し currentUser を書き換える', async () => {
+    const store = useAuthStore()
+    store.currentUser = createLoginUser({ notificationEnabled: false })
+
+    vi.mocked(userApi.updateNotificationSettings).mockResolvedValue({
+      notificationEnabled: true,
+      groupSettings: {},
+    })
+
+    await store.updateNotificationEnabled(true)
+
+    expect(userApi.updateNotificationSettings).toHaveBeenCalledWith({
+      notificationEnabled: true,
+    })
+    expect(store.currentUser?.notificationEnabled).toBe(true)
+  })
+
+  it('updateNotificationEnabled で enabled=false の場合は notificationStore.clear を呼ぶ', async () => {
+    const store = useAuthStore()
+    store.currentUser = createLoginUser({ notificationEnabled: true })
+
+    vi.mocked(userApi.updateNotificationSettings).mockResolvedValue({
+      notificationEnabled: false,
+      groupSettings: {},
+    })
+
+    await store.updateNotificationEnabled(false)
+
+    expect(store.currentUser?.notificationEnabled).toBe(false)
+    expect(mockNotificationStore.clear).toHaveBeenCalled()
+  })
+
+  it('updateNotificationEnabled は currentUser が null の場合 currentUser を更新しない', async () => {
+    const store = useAuthStore()
+    store.currentUser = null
+
+    vi.mocked(userApi.updateNotificationSettings).mockResolvedValue({
+      notificationEnabled: true,
+      groupSettings: {},
+    })
+
+    await store.updateNotificationEnabled(true)
+
+    expect(userApi.updateNotificationSettings).toHaveBeenCalled()
+    expect(store.currentUser).toBeNull()
+  })
+
+  it('updateNotificationEnabled はAPIレスポンスに notificationEnabled がない場合 enabled 引数をフォールバックで使う', async () => {
+    const store = useAuthStore()
+    store.currentUser = createLoginUser({ notificationEnabled: false })
+
+    vi.mocked(userApi.updateNotificationSettings).mockResolvedValue({
+      notificationEnabled: undefined as unknown as boolean,
+      groupSettings: {},
+    })
+
+    await store.updateNotificationEnabled(true)
+
+    // res.notificationEnabled ?? enabled でフォールバック
+    expect(store.currentUser?.notificationEnabled).toBe(true)
+  })
+
+  // --- patchCurrentUser ---
+
+  it('patchCurrentUser は currentUser の一部を上書きする', () => {
+    const store = useAuthStore()
+    store.currentUser = createLoginUser({ notificationEnabled: false })
+
+    store.patchCurrentUser({ notificationEnabled: true })
+
+    expect(store.currentUser?.notificationEnabled).toBe(true)
+  })
+
+  it('patchCurrentUser は currentUser が null の場合は何もしない', () => {
+    const store = useAuthStore()
+    store.currentUser = null
+
+    store.patchCurrentUser({ notificationEnabled: true })
+
+    expect(store.currentUser).toBeNull()
   })
 })

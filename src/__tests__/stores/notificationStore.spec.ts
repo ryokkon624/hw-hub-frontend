@@ -256,4 +256,31 @@ describe('notificationStore', () => {
       expect(store.unreadCount).toBe(0)
     })
   })
+
+  describe('clear', () => {
+    it('全ての状態を初期値にリセットする', () => {
+      const store = useNotificationStore()
+
+      // 事前に状態を変更しておく
+      store.items = [createNotification(1), createNotification(2)]
+      store.lastFetchedAt = new Date()
+      store.unreadCount = 5
+      store.lastUnreadCountFetchedAt = new Date()
+      store.previousUnreadCount = 3
+      store.isLoading = true
+      store.isUnreadCountLoading = true
+      store.shouldAnimateBell = true
+
+      store.clear()
+
+      expect(store.items).toEqual([])
+      expect(store.lastFetchedAt).toBeNull()
+      expect(store.unreadCount).toBe(0)
+      expect(store.lastUnreadCountFetchedAt).toBeNull()
+      expect(store.previousUnreadCount).toBe(0)
+      expect(store.isLoading).toBe(false)
+      expect(store.isUnreadCountLoading).toBe(false)
+      expect(store.shouldAnimateBell).toBe(false)
+    })
+  })
 })
