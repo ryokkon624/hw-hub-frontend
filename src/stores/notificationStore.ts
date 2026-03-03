@@ -104,5 +104,16 @@ export const useNotificationStore = defineStore('notification', {
         }
       }
     },
+
+    clear() {
+      this.items = []
+      this.lastFetchedAt = null
+      this.unreadCount = 0
+      this.lastUnreadCountFetchedAt = null
+      this.previousUnreadCount = 0
+      this.isLoading = false
+      this.isUnreadCountLoading = false
+      this.shouldAnimateBell = false
+    },
   },
 })

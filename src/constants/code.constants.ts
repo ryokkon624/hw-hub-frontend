@@ -16,6 +16,7 @@ export const CODE_TYPE = {
   PROGRAM_TYPE: '0012', // ProgramType (プログラム種別)
   FAVORITE_FLAG: '0013', // FavoriteFlag (お気に入りフラグ)
   NOTIFICATION_LINK_TYPE: '0019', // NotificationLinkType (通知リンク種別)
+  NOTIFICATION_GROUP: '0020', // NotificationGroup (通知グループ)
 } as const
 
 /**
@@ -169,3 +170,12 @@ export const NOTIFICATION_LINK_TYPE = {
 } as const
 export type NotificationLinkTypeCode =
   (typeof NOTIFICATION_LINK_TYPE)[keyof typeof NOTIFICATION_LINK_TYPE]
+
+/**
+ * 0020: 通知グループ (NotificationGroup)
+ */
+export const NOTIFICATION_GROUP = {
+  HOUSEHOLD: '100',
+  TASK_ASSIGNMENT: '200',
+} as const
+export type NotificationGroupCode = (typeof NOTIFICATION_GROUP)[keyof typeof NOTIFICATION_GROUP]

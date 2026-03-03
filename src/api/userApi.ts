@@ -61,6 +61,25 @@ export const userApi = {
   },
 
   /**
+   * 通知設定を取得する。
+   * @returns 通知設定Response用のDTO
+   */
+  async getNotificationSettings(): Promise<NotificationSettingsResponse> {
+    const res = await apiClient.get<NotificationSettingsResponse>('/api/users/me/notification-settings')
+    return res.data
+  },
+
+  /**
+   * 通知設定を更新する。
+   * @param req 通知設定
+   * @returns 通知設定Response用のDTO
+   */
+  async updateNotificationSettings(req: UpdateNotificationSettingsRequest): Promise<NotificationSettingsResponse> {
+    const res = await apiClient.put('/api/users/me/notification-settings', req)
+    return res.data
+  },
+
+  /**
    * アカウントを退会する。
    */
   async deleteAccount(): Promise<void> {
@@ -88,6 +107,7 @@ interface UserProfileDto {
   authProvider: string
   displayName: string
   locale: string
+  notificationEnabled: boolean
   iconUrl?: string | null
 }
 
@@ -97,6 +117,22 @@ interface UserProfileDto {
 interface ChangeMyPasswordRequestDto {
   currentPassword: string
   newPassword: string
+}
+
+/**
+ * 通知設定更新Request用のDTO
+ */
+interface UpdateNotificationSettingsRequest {
+  notificationEnabled: boolean
+  groupSettings?: Record<string, boolean>
+}
+
+/**
+ * 通知設定Response用のDTO
+ */
+interface NotificationSettingsResponse {
+  notificationEnabled: boolean
+  groupSettings: Record<string, boolean>
 }
 
 // ---- Mapper: DTO ⇔ Domain ----------------------------------------------------
@@ -123,5 +159,6 @@ const toUserProfile = (dto: UserProfileDto): UserProfile => ({
   authProvider: dto.authProvider,
   displayName: dto.displayName,
   locale: dto.locale,
+  notificationEnabled: dto.notificationEnabled,
   iconUrl: dto.iconUrl ?? null,
 })

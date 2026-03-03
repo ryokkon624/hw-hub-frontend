@@ -126,6 +126,88 @@
       </div>
     </section>
 
+    <!-- 通知設定 -->
+    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
+      <h3 class="text-sm font-semibold text-hwhub-heading">
+        {{ t('settings.account.notifications.title') }}
+      </h3>
+      <p class="text-xs text-hwhub-muted">
+        {{ t('settings.account.notifications.description') }}
+      </p>
+
+      <!-- グローバルON/OFF（すでにあるならそれを流用してOK） -->
+      <div class="flex items-center justify-between gap-4">
+        <div class="min-w-0">
+          <div class="text-sm text-hwhub-heading">
+            {{ t('settings.account.notifications.globalLabel') }}
+          </div>
+          <div class="text-[11px] text-hwhub-muted">
+            {{ t('settings.account.notifications.globalHint') }}
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="relative inline-flex h-7 w-12 items-center rounded-full transition
+                focus:outline-none focus-visible:ring-2 focus-visible:ring-hwhub-primary/30"
+          :class="notifEnabled ? 'bg-hwhub-primary' : 'bg-slate-300'"
+          :disabled="notifLoading"
+          @click="onToggleGlobal"
+        >
+          <span
+            class="inline-block h-5 w-5 transform rounded-full bg-white transition"
+            :class="notifEnabled ? 'translate-x-6' : 'translate-x-1'"
+          />
+        </button>
+      </div>
+
+      <div class="pt-2 border-t space-y-3">
+        <!-- 世帯 -->
+        <div class="flex items-center justify-between gap-4"
+            :class="notifEnabled ? '' : 'opacity-50'">
+          <div class="text-sm text-hwhub-heading">
+            {{ t('settings.account.notifications.groups.household') }}
+          </div>
+
+          <button
+            type="button"
+            class="relative inline-flex h-7 w-12 items-center rounded-full transition
+                  focus:outline-none focus-visible:ring-2 focus-visible:ring-hwhub-primary/30"
+            :class="groupHousehold ? 'bg-hwhub-primary' : 'bg-slate-300'"
+            :disabled="notifLoading || !notifEnabled"
+            @click="onToggleGroupHousehold"
+          >
+            <span
+              class="inline-block h-5 w-5 transform rounded-full bg-white transition"
+              :class="groupHousehold ? 'translate-x-6' : 'translate-x-1'"
+            />
+          </button>
+        </div>
+
+        <!-- タスク割当 -->
+        <div class="flex items-center justify-between gap-4"
+            :class="notifEnabled ? '' : 'opacity-50'">
+          <div class="text-sm text-hwhub-heading">
+            {{ t('settings.account.notifications.groups.taskAssignment') }}
+          </div>
+
+          <button
+            type="button"
+            class="relative inline-flex h-7 w-12 items-center rounded-full transition
+                  focus:outline-none focus-visible:ring-2 focus-visible:ring-hwhub-primary/30"
+            :class="groupTask ? 'bg-hwhub-primary' : 'bg-slate-300'"
+            :disabled="notifLoading || !notifEnabled"
+            @click="onToggleGroupTask"
+          >
+            <span
+              class="inline-block h-5 w-5 transform rounded-full bg-white transition"
+              :class="groupTask ? 'translate-x-6' : 'translate-x-1'"
+            />
+          </button>
+        </div>
+      </div>
+    </section>
+
     <!-- 保存ボタン -->
     <div class="flex justify-end">
       <button
@@ -251,12 +333,15 @@ import {
   type AccountSettingsSchemaType,
 } from '@/domain/user/accountSettings.validation'
 import PasswordChangeSection from '@/components/inputs/PasswordChangeSection.vue'
+import { useNotificationSettingsStore } from '@/stores/notificationSettingsStore'
+import { NOTIFICATION_GROUP } from '@/constants/code.constants'
 
 const authStore = useAuthStore()
 const uiStore = useUiStore()
 const router = useRouter()
 const route = useRoute()
 const { t, locale } = useI18n()
+const notifStore = useNotificationSettingsStore()
 
 // ロケール一覧
 const locales = SUPPORT_LOCALES
@@ -310,6 +395,15 @@ const shouldShowGoogleLinkSection = computed(() => {
   return email.endsWith('@gmail.com')
 })
 
+const notifLoading = computed(() => notifStore.isLoading)
+const notifEnabled = computed(() => notifStore.notificationEnabled)
+const groupHousehold = computed(() =>
+  notifStore.groupSettings[NOTIFICATION_GROUP.HOUSEHOLD],
+)
+const groupTask = computed(() =>
+  notifStore.groupSettings[NOTIFICATION_GROUP.TASK_ASSIGNMENT],
+)
+
 onMounted(async () => {
   const user = authStore.currentUser as {
     displayName?: string
@@ -319,6 +413,8 @@ onMounted(async () => {
 
   const initialDisplayName = user?.displayName ?? ''
   const initialLocale = (user?.locale as Locale | undefined) ?? (locale.value as Locale)
+
+  await notifStore.load()
 
   // フォームの初期値を反映
   resetForm({
@@ -366,6 +462,64 @@ const onIconFileChange = async (files: File[] | null) => {
   } catch (err) {
     console.error(err)
     uiStore.showToast('error', t('settings.account.toasts.iconUpdateFailed'))
+  }
+}
+
+const onToggleGlobal = async () => {
+  try {
+    await uiStore.withLoading(async () => {
+      await notifStore.setGlobalEnabled(!notifEnabled.value)
+    })
+    uiStore.showToast(
+      'success',
+      notifEnabled.value
+        ? t('settings.account.notifications.toasts.enabled')
+        : t('settings.account.notifications.toasts.disabled'),
+    )
+  } catch (e) {
+    console.error(e)
+    uiStore.showToast('error', t('settings.account.notifications.toasts.failed'))
+  }
+}
+
+const onToggleGroupHousehold = async () => {
+  try {
+    await uiStore.withLoading(async () => {
+      await notifStore.setGroupEnabled(
+        NOTIFICATION_GROUP.HOUSEHOLD,
+        !groupHousehold.value,
+      )
+    })
+    uiStore.showToast(
+      'success',
+      groupHousehold.value
+        ? t('settings.account.notifications.toasts.enabled')
+        : t('settings.account.notifications.toasts.disabled'),
+    )
+  } catch (e) {
+    console.error(e)
+    uiStore.showToast('error', t('settings.account.notifications.toasts.failed'))
+  }
+}
+
+
+const onToggleGroupTask = async () => {
+  try {
+    await uiStore.withLoading(async () => {
+      await notifStore.setGroupEnabled(
+        NOTIFICATION_GROUP.TASK_ASSIGNMENT,
+        !groupTask.value  ,
+      )
+    })
+    uiStore.showToast(
+      'success',
+      groupTask.value
+        ? t('settings.account.notifications.toasts.enabled')
+        : t('settings.account.notifications.toasts.disabled'),
+    )
+  } catch (e) {
+    console.error(e)
+    uiStore.showToast('error', t('settings.account.notifications.toasts.failed'))
   }
 }
 

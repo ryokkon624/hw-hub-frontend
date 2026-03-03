@@ -4,7 +4,7 @@
     <LanguageSwitcher />
 
     <!-- 通知ベル -->
-    <NotificationBell />
+    <NotificationBell v-if="showNotificationBell" />
 
     <!-- ユーザメニュー -->
     <div class="relative">
@@ -113,6 +113,10 @@ const initials = computed(() => {
   const trimmed = text.trim()
   if (!trimmed) return '?'
   return trimmed.slice(0, 2).toUpperCase()
+})
+
+const showNotificationBell = computed(() => {
+  return !!authStore.currentUser?.notificationEnabled
 })
 
 const goToSettings = () => {
