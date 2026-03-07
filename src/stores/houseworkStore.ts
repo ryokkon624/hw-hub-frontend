@@ -84,11 +84,10 @@ export const useHouseworkStore = defineStore('houseworkStore', {
       }
 
       const created = await houseworkApi.createHousework(householdId, input)
-      this.items.push(created)
 
-      // householdIdキャッシュ側も更新
-      const list = this.itemsByHouseholdId[householdId] ?? []
-      this.itemsByHouseholdId[householdId] = [...list, created]
+      // items / cache を新しい配列で更新（参照共有による重複を防ぐ）
+      this.items = [...this.items, created]
+      this.itemsByHouseholdId[householdId] = [...this.items]
       return created
     },
 
