@@ -336,23 +336,24 @@ const members = computed<HouseholdMember[]>(() => householdStore.currentMembers)
           </ErrorMessage>
         </div>
       </div>
-
-      <!-- ボタン -->
-      <div class="flex justify-end gap-2 pt-2">
-        <button
-          type="button"
-          class="px-4 py-2 rounded-md border border-gray-300 text-xs md:text-sm text-hwhub-muted hover:bg-hwhub-surface-subtle"
-          @click="onCancel"
-        >
-          {{ t('common.cancel') }}
-        </button>
-        <button
-          type="submit"
-          class="px-4 py-2 rounded-md text-xs md:text-sm font-semibold text-white bg-hwhub-primary hover:bg-hwhub-primary"
-        >
-          {{ t('common.save') }}
-        </button>
-      </div>
     </section>
-  </form>
+
+    <!-- ボタン -->
+    <div class="flex justify-end gap-2 pt-2">
+      <button
+        type="button"
+        class="px-4 py-2 rounded-md border border-gray-300 text-xs md:text-sm text-hwhub-muted hover:bg-hwhub-surface-subtle"
+        @click="onCancel"
+      >
+        {{ t('common.cancel') }}
+      </button>
+      <button
+        type="submit"
+        class="px-4 py-2 rounded-md text-xs md:text-sm font-semibold text-white bg-hwhub-primary hover:bg-hwhub-primary"
+      >
+        {{ t('common.save') }}
+      </button>
+    </div>
+
+</form>
 </template>
