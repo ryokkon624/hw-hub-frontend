@@ -626,6 +626,12 @@
         "activePeriod": "有効期間"
       },
       "empty": "条件に一致する家事テンプレートがありません。",
+      "pagination": {
+        "showing": "{start}〜{end}件 ／ 全{total}件",
+        "prev": "前へ",
+        "next": "次へ",
+        "ariaLabel": "ページネーション"
+      },
       "sp": {
         "defaultAssigneeLabel": "デフォルト担当：",
         "defaultAssigneeUnset": "未設定",

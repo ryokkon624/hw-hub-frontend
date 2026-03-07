@@ -610,6 +610,12 @@
         "activePeriod": "Active period"
       },
       "empty": "No housework templates match the current filter.",
+      "pagination": {
+        "showing": "{start}–{end} of {total}",
+        "prev": "Prev",
+        "next": "Next",
+        "ariaLabel": "Pagination"
+      },
       "sp": {
         "defaultAssigneeLabel": "Default assignee:",
         "defaultAssigneeUnset": "Not set",

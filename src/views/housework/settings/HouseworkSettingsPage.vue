@@ -8,7 +8,10 @@ import { useHouseholdStore } from '@/stores/householdStore'
 import { weeklyDaysMaskToLabel } from '@/utils/weeklyDaysLabel'
 import type { Housework } from '@/domain'
 import HouseholdSwitcherField from '@/components/HouseholdSwitcherField.vue'
+import ListPagination from '@/components/ui/ListPagination.vue'
 import { useHouseworkCodes } from '@/composables/useHouseworkCodes'
+import { usePagination } from '@/composables/usePagination'
+import { useSortable } from '@/composables/useSortable'
 import { RECURRENCE_TYPE } from '@/constants/code.constants'
 
 const { t, locale } = useI18n()
@@ -99,12 +102,20 @@ const buildRecurrenceSummary = (hw: Housework): string => {
   return recurrenceTypeLabel(type)
 }
 
+// 表示用 view item 型
+interface HouseworkViewItem extends Housework {
+  categoryLabel: string
+  recurrenceSummary: string
+  defaultAssigneeLabel: string
+}
+
 // 表示用に加工
-const viewItems = computed(() =>
+const viewItems = computed<HouseworkViewItem[]>(() =>
   houseworkStore.items.map((hw: Housework) => ({
     ...hw,
     categoryLabel: categoryLabel(hw.category),
     recurrenceSummary: buildRecurrenceSummary(hw),
+    defaultAssigneeLabel: getNickName(hw.defaultAssigneeUserId) || '',
   })),
 )
 
@@ -115,6 +126,35 @@ const filteredItems = computed(() => {
 })
 
 const totalCount = computed(() => viewItems.value.length)
+
+// --- PC版: ソート → ページング ---
+const {
+  sortKey,
+  sortOrder,
+  sortedItems: pcSortedItems,
+  toggleSort,
+} = useSortable<HouseworkViewItem>(filteredItems, null)
+
+const {
+  pagedItems: pcPagedItems,
+  currentPage: pcCurrentPage,
+  totalPages: pcTotalPages,
+  startIndex: pcStartIndex,
+  endIndex: pcEndIndex,
+} = usePagination(pcSortedItems, 10)
+
+// --- SP版: ページングのみ ---
+const {
+  pagedItems: spPagedItems,
+  currentPage: spCurrentPage,
+  totalPages: spTotalPages,
+} = usePagination(filteredItems, 10)
+
+// ソートインジケータ
+const sortIcon = (key: keyof HouseworkViewItem) => {
+  if (sortKey.value !== key) return ''
+  return sortOrder.value === 'asc' ? '▲' : '▼'
+}
 
 const goEdit = (id: number) => {
   router.push({ name: 'settings.housework.edit', params: { houseworkId: id } })
@@ -184,31 +224,58 @@ const goCreate = () => {
         </div>
       </div>
 
-      <!-- 一覧（PC：テーブル表示） -->
+      <!-- ============================================================
+           PC版：テーブル表示（ソート + ページング）
+           ============================================================ -->
       <div class="mt-2 overflow-x-auto hidden md:block">
+        <!-- 表示件数 -->
+        <p v-if="filteredItems.length > 0" class="mb-2 text-[11px] text-hwhub-muted">
+          {{ t('housework.list.pagination.showing', { start: pcStartIndex, end: pcEndIndex, total: filteredItems.length }) }}
+        </p>
+
         <table class="min-w-full border-collapse text-sm">
           <thead>
             <tr class="border-b border-gray-200 bg-hwhub-surface-subtle">
-              <th class="px-3 py-2 text-left text-xs font-medium text-hwhub-muted">
+              <th
+                class="px-3 py-2 text-left text-xs font-medium text-hwhub-muted cursor-pointer select-none hover:text-hwhub-heading transition-colors"
+                @click="toggleSort('name')"
+              >
                 {{ t('housework.list.columns.name') }}
+                <span class="ml-0.5 text-[10px] text-hwhub-primary">{{ sortIcon('name') }}</span>
               </th>
-              <th class="px-3 py-2 text-left text-xs font-medium text-hwhub-muted">
+              <th
+                class="px-3 py-2 text-left text-xs font-medium text-hwhub-muted cursor-pointer select-none hover:text-hwhub-heading transition-colors"
+                @click="toggleSort('categoryLabel')"
+              >
                 {{ t('housework.list.columns.category') }}
+                <span class="ml-0.5 text-[10px] text-hwhub-primary">{{ sortIcon('categoryLabel') }}</span>
               </th>
-              <th class="px-3 py-2 text-left text-xs font-medium text-hwhub-muted">
+              <th
+                class="px-3 py-2 text-left text-xs font-medium text-hwhub-muted cursor-pointer select-none hover:text-hwhub-heading transition-colors"
+                @click="toggleSort('recurrenceSummary')"
+              >
                 {{ t('housework.list.columns.recurrenceType') }}
+                <span class="ml-0.5 text-[10px] text-hwhub-primary">{{ sortIcon('recurrenceSummary') }}</span>
               </th>
-              <th class="px-3 py-2 text-left text-xs font-medium text-hwhub-muted">
+              <th
+                class="px-3 py-2 text-left text-xs font-medium text-hwhub-muted cursor-pointer select-none hover:text-hwhub-heading transition-colors"
+                @click="toggleSort('defaultAssigneeLabel')"
+              >
                 {{ t('housework.list.columns.defaultAssignee') }}
+                <span class="ml-0.5 text-[10px] text-hwhub-primary">{{ sortIcon('defaultAssigneeLabel') }}</span>
               </th>
-              <th class="px-3 py-2 text-left text-xs font-medium text-hwhub-muted">
+              <th
+                class="px-3 py-2 text-left text-xs font-medium text-hwhub-muted cursor-pointer select-none hover:text-hwhub-heading transition-colors"
+                @click="toggleSort('startDate')"
+              >
                 {{ t('housework.list.columns.activePeriod') }}
+                <span class="ml-0.5 text-[10px] text-hwhub-primary">{{ sortIcon('startDate') }}</span>
               </th>
             </tr>
           </thead>
           <tbody>
             <tr
-              v-for="hw in filteredItems"
+              v-for="hw in pcPagedItems"
               :key="hw.houseworkId"
               class="border-b border-gray-100 hover:bg-hwhub-surface-subtle cursor-pointer"
               @click="goEdit(hw.houseworkId)"
@@ -242,7 +309,7 @@ const goCreate = () => {
               <!-- デフォルト担当者 -->
               <td class="px-3 py-2 align-top">
                 <div class="flex flex-col text-xs text-hwhub-heading">
-                  <span>{{ getNickName(hw.defaultAssigneeUserId) }}</span>
+                  <span>{{ hw.defaultAssigneeLabel }}</span>
                 </div>
               </td>
 
@@ -261,12 +328,20 @@ const goCreate = () => {
             </tr>
           </tbody>
         </table>
+
+        <!-- ページネーション（PC版） -->
+        <ListPagination
+          v-model:current-page="pcCurrentPage"
+          :total-pages="pcTotalPages"
+        />
       </div>
 
-      <!-- 一覧（SP：カード表示） -->
+      <!-- ============================================================
+           SP版：カード表示（ページングのみ）
+           ============================================================ -->
       <div class="mt-2 space-y-2 md:hidden">
         <button
-          v-for="hw in filteredItems"
+          v-for="hw in spPagedItems"
           :key="hw.houseworkId"
           type="button"
           class="w-full text-left rounded-xl border border-gray-200 bg-white px-3 py-2 shadow-sm hover:bg-hwhub-surface-subtle active:bg-hwhub-surface-subtle transition"
@@ -311,6 +386,12 @@ const goCreate = () => {
         <p v-if="filteredItems.length === 0" class="py-6 text-center text-xs text-hwhub-muted">
           {{ t('housework.list.sp.empty') }}
         </p>
+
+        <!-- ページネーション（SP版） -->
+        <ListPagination
+          v-model:current-page="spCurrentPage"
+          :total-pages="spTotalPages"
+        />
       </div>
     </section>
   </div>
