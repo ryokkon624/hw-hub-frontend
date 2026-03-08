@@ -40,7 +40,7 @@ describe('notificationLink', () => {
 
     await navigateByNotification(router, notification)
 
-    expect(router.push).toHaveBeenCalledWith({ name: 'myTasks' })
+    expect(router.push).toHaveBeenCalledWith({ name: 'housework.tasks' })
   })
 
   it('HOUSEHOLDのときはsettings.householdに遷移する', async () => {
@@ -87,6 +87,6 @@ describe('notificationLink', () => {
 
     // 例外が投げられずに終了することを確認
     await expect(navigateByNotification(router, notification)).resolves.not.toThrow()
-    expect(router.push).toHaveBeenCalledWith({ name: 'myTasks' })
+    expect(router.push).toHaveBeenCalledWith({ name: 'housework.tasks' })
   })
 })

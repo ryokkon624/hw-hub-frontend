@@ -8,7 +8,7 @@ export async function navigateByNotification(router: Router, n: NotificationMode
       return
 
     case NOTIFICATION_LINK_TYPE.MY_TASKS:
-      await router.push({ name: 'myTasks' }).catch(() => {})
+      await router.push({ name: 'housework.tasks' }).catch(() => {})
       return
 
     case NOTIFICATION_LINK_TYPE.HOUSEHOLD:
