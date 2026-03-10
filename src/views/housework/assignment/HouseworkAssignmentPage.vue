@@ -96,6 +96,20 @@
             }}
           </span>
         </div>
+
+        <!-- 過去の未割当スキップ -->
+        <div v-if="pastUnassignedTasks.length > 0" class="flex items-center gap-2 mt-0.5">
+          <span class="text-hwhub-muted">
+            {{ t('assign.bulk.pastUnassignedCount', { count: pastUnassignedTasks.length }) }}
+          </span>
+          <button
+            type="button"
+            class="px-3 py-1 rounded-full text-xs font-semibold text-white bg-amber-500 hover:bg-amber-600"
+            @click="bulkSkipPastUnassigned"
+          >
+            {{ t('assign.bulk.skipButton') }}
+          </button>
+        </div>
       </div>
 
       <div class="flex items-center gap-2">
@@ -248,8 +262,9 @@ import { useAuthStore } from '@/stores/authStore'
 import { useUiStore } from '@/stores/uiStore'
 import HouseholdSwitcherField from '@/components/HouseholdSwitcherField.vue'
 import type { HouseworkTaskModel, HouseholdMember } from '@/domain'
-import { TASK_ASSIGN_REASON } from '@/constants/code.constants'
+import { TASK_ASSIGN_REASON, TASK_STATUS } from '@/constants/code.constants'
 import { useOpenHouseworkTasks } from '@/composables/useOpenHouseworkTasks'
+import { toYmd } from '@/utils/dateUtils'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -274,6 +289,12 @@ const members = computed<HouseholdMember[]>(() => householdStore.currentMembers)
 const unassignedTasks = computed(() => allTasks.value.filter((t) => t.assigneeUserId == null))
 
 const myTasks = computed(() => allTasks.value.filter((t) => t.assigneeUserId === loginUserId.value))
+
+// 過去の未割当タスク（targetDate < today かつ assigneeUserId == null）
+const todayYmd = computed(() => toYmd(new Date()))
+const pastUnassignedTasks = computed<HouseworkTaskModel[]>(() =>
+  allTasks.value.filter((t) => t.assigneeUserId == null && t.targetDate < todayYmd.value),
+)
 
 // メンバー別件数サマリー
 type MemberSummary = {
@@ -373,6 +394,27 @@ const assignToMe = async (task: HouseworkTaskModel) => {
   // すでに自分なら何もしない
   if (task.assigneeUserId === loginUserId.value) return
   await changeAssignee(task, loginUserId.value)
+}
+
+// 過去の未割当タスク一括スキップ
+const bulkSkipPastUnassigned = async () => {
+  if (pastUnassignedTasks.value.length === 0) return
+
+  const ok = window.confirm(
+    t('assign.bulk.confirmSkip', { count: pastUnassignedTasks.value.length }),
+  )
+  if (!ok) return
+
+  try {
+    const taskIds = pastUnassignedTasks.value.map((t) => t.houseworkTaskId)
+    await uiStore.withLoading(async () => {
+      await taskStore.bulkUpdateStatus(taskIds, TASK_STATUS.SKIPPED, 'bulk update')
+    })
+    uiStore.showToast('success', t('assign.bulk.skipSuccess'))
+  } catch (e) {
+    console.error(e)
+    uiStore.showToast('error', t('assign.bulk.skipError'))
+  }
 }
 
 // ----------------------

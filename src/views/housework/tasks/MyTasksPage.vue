@@ -178,11 +178,9 @@ const bulkCompletePast = async () => {
   if (!ok) return
 
   try {
+    const taskIds = pastTasks.value.map((t) => t.houseworkTaskId)
     await uiStore.withLoading(async () => {
-      // v1 は素直にループでOK（あとで bulk API に差し替え）
-      for (const t of pastTasks.value) {
-        await taskStore.updateStatus(t.houseworkTaskId, TASK_STATUS.DONE, null)
-      }
+      await taskStore.bulkUpdateStatus(taskIds, TASK_STATUS.DONE, null)
     })
     uiStore.showToast('success', t('myTasks.messages.bulkSuccess'))
   } catch (e) {

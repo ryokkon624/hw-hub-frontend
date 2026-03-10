@@ -402,6 +402,13 @@
       "assigneeUpdateSuccess": "Assignee has been updated.",
       "assigneeUpdateError": "Failed to update the assignee."
     },
+    "bulk": {
+      "pastUnassignedCount": "Past unassigned: {count}",
+      "skipButton": "⏭ Skip past unassigned",
+      "confirmSkip": "Skip all {count} unassigned tasks before today. Are you sure?",
+      "skipSuccess": "Past unassigned tasks have been skipped.",
+      "skipError": "Failed to skip tasks in bulk."
+    },
     "avatarAlt": "Member icon"
   },
   "myTasks": {
