@@ -102,6 +102,51 @@ describe('shoppingItemApi', () => {
     })
   })
 
+  describe('getFavoriteShoppingItems', () => {
+    it('GET /api/households/:id/shopping-items/favorites して DTO を Domain Model に変換する', async () => {
+      const dtoList = [
+        {
+          shoppingItemId: 1,
+          householdId: 10,
+          name: '牛乳',
+          memo: '特売品',
+          storeType: '01',
+          status: '1',
+          favorite: FAVORITE_FLAG.FAVORITE,
+          purchasedAt: '2025-01-01',
+          createdAt: '2025-01-01T00:00:00Z',
+          hasImage: true,
+        },
+      ]
+
+      mockedClient.get.mockResolvedValue({
+        data: {
+          items: dtoList,
+        },
+      })
+
+      const result = await shoppingItemApi.getFavoriteShoppingItems(10)
+
+      expect(mockedClient.get).toHaveBeenCalledTimes(1)
+      expect(mockedClient.get).toHaveBeenCalledWith('/api/households/10/shopping-items/favorites')
+
+      expect(result).toEqual([
+        {
+          shoppingItemId: 1,
+          householdId: 10,
+          name: '牛乳',
+          memo: '特売品',
+          storeType: '01',
+          status: '1',
+          favorite: true,
+          purchasedAt: '2025-01-01',
+          createdAt: '2025-01-01T00:00:00Z',
+          hasImage: true,
+        },
+      ])
+    })
+  })
+
   describe('createItem', () => {
     it('POST /api/households/:id/shopping-items に Request DTO を渡し、戻り値を Domain Model に変換する', async () => {
       const input: ShoppingItemCreateInput = {

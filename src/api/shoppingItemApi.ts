@@ -22,6 +22,18 @@ export const shoppingItemApi = {
   },
 
   /**
+   * お気に入りの買い物アイテムを取得する。
+   * @param householdId 世帯ID
+   * @returns 買い物アイテムDomain Model配列
+   */
+  async getFavoriteShoppingItems(householdId: number): Promise<ShoppingItemModel[]> {
+    const res = await apiClient.get<ShoppingItemListResponse>(
+      `/api/households/${householdId}/shopping-items/favorites`,
+    )
+    return res.data.items.map(toShoppingItem)
+  },
+
+  /**
    * 買い物アイテムを登録する。
    * @param householdId 世帯ID
    * @param input 入力値

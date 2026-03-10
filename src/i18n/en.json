@@ -503,6 +503,7 @@
       "titleSr": "Add item",
       "intro": "Add a new item to the shopping list for this household.",
       "historyButton": "Choose from past purchases",
+      "favoriteButton": "Choose from favorites",
       "fields": {
         "name": "Item name",
         "memo": "Memo (optional)",
@@ -595,6 +596,26 @@
         "lastPurchasedPrefix": "Last:",
         "purchaseCountSuffix": " times",
         "selectButton": "Add"
+      }
+    },
+    "favoriteModal": {
+      "title": "Select from favorites",
+      "description": "You can select from items registered as favorites.",
+      "reload": "Reload",
+      "loading": "Loading…",
+      "emptyAll": "There are no favorites yet.",
+      "emptyFiltered": "No items match the current filters.",
+      "filters": {
+        "keywordPlaceholder": "Search by item name"
+      },
+      "item": {
+        "thumbnail": {
+          "hasImage": "IMG",
+          "noImage": "NO IMG"
+        },
+        "storeTypeUnset": "Not set",
+        "memoPrefix": " / ",
+        "selectButton": "Select"
       }
     }
   },

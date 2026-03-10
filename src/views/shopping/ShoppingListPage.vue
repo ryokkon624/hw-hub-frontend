@@ -58,66 +58,7 @@
         </div>
 
         <!-- 🔍 購入場所フィルタ -->
-        <div class="mb-2 flex flex-wrap gap-1 text-[11px]">
-          <!-- すべて -->
-          <button
-            type="button"
-            class="px-2 py-0.5 rounded-full border transition"
-            :class="
-              storeTypeFilter === 'all'
-                ? 'bg-hwhub-primary text-white border-hwhub-primary'
-                : 'border-gray-300 text-hwhub-muted hover:bg-hwhub-surface-subtle'
-            "
-            @click="storeTypeFilter = 'all'"
-          >
-            {{ t('shopping.list.filters.all') }}
-          </button>
-
-          <!-- スーパー -->
-          <button
-            type="button"
-            class="px-2 py-0.5 rounded-full border flex items-center gap-1 transition"
-            :class="
-              storeTypeFilter === '1'
-                ? 'bg-emerald-500 text-white border-emerald-500'
-                : 'border-emerald-200 text-emerald-700 hover:bg-emerald-50'
-            "
-            @click="storeTypeFilter = '1'"
-          >
-            <span class="h-2 w-2 rounded-full" :class="storeTypeDotClass('1')" />
-            {{ storeTypeLabel(PURCHASE_LOCATION_TYPE.SUPERMARKET) }}
-          </button>
-
-          <!-- ドラッグストア -->
-          <button
-            type="button"
-            class="px-2 py-0.5 rounded-full border flex items-center gap-1 transition"
-            :class="
-              storeTypeFilter === '3'
-                ? 'bg-rose-500 text-white border-rose-500'
-                : 'border-rose-200 text-rose-700 hover:bg-rose-50'
-            "
-            @click="storeTypeFilter = '3'"
-          >
-            <span class="h-2 w-2 rounded-full" :class="storeTypeDotClass('3')" />
-            {{ storeTypeLabel(PURCHASE_LOCATION_TYPE.DRUGSTORE) }}
-          </button>
-
-          <!-- オンライン -->
-          <button
-            type="button"
-            class="px-2 py-0.5 rounded-full border flex items-center gap-1 transition"
-            :class="
-              storeTypeFilter === '2'
-                ? 'bg-sky-500 text-white border-sky-500'
-                : 'border-sky-200 text-sky-700 hover:bg-sky-50'
-            "
-            @click="storeTypeFilter = '2'"
-          >
-            <span class="h-2 w-2 rounded-full" :class="storeTypeDotClass('2')" />
-            {{ storeTypeLabel(PURCHASE_LOCATION_TYPE.ONLINE) }}
-          </button>
-        </div>
+        <ShoppingStoreTypeFilter class="mb-2" v-model="storeTypeFilter" />
 
         <div
           v-if="filteredNotPurchasedItems.length === 0"
@@ -358,8 +299,9 @@ import { useShoppingStore } from '@/stores/shoppingStore'
 import { useUiStore } from '@/stores/uiStore'
 import { useCodeStore } from '@/stores/codeStore'
 import HouseholdSwitcherField from '@/components/HouseholdSwitcherField.vue'
+import ShoppingStoreTypeFilter from '@/components/shopping/ShoppingStoreTypeFilter.vue'
 import { useShoppingCodes } from '@/composables/useShoppingCodes'
-import { PURCHASE_LOCATION_TYPE, SHOPPING_ITEM_STATUS } from '@/constants/code.constants'
+import { SHOPPING_ITEM_STATUS } from '@/constants/code.constants'
 import { isWithinDays } from '@/utils/dateUtils'
 import { useI18n } from 'vue-i18n'
 
@@ -369,7 +311,7 @@ const householdStore = useHouseholdStore()
 const shoppingStore = useShoppingStore()
 const uiStore = useUiStore()
 const codeStore = useCodeStore()
-const { storeTypeLabel } = useShoppingCodes()
+const { storeTypeLabel, storeTypeBorderClass } = useShoppingCodes()
 
 const showCompleted = ref(false)
 
@@ -483,32 +425,6 @@ const filteredNotPurchasedItems = computed<ShoppingItemModel[]>(() => {
   if (storeTypeFilter.value === 'all') return base
   return base.filter((item) => item.storeType === storeTypeFilter.value)
 })
-
-// 左ライン用クラスhelper
-const storeTypeBorderClass = (code: string | null): string => {
-  switch (code) {
-    case PURCHASE_LOCATION_TYPE.SUPERMARKET:
-      return 'border-hwhub-store-super'
-    case PURCHASE_LOCATION_TYPE.ONLINE:
-      return 'border-hwhub-store-online'
-    case PURCHASE_LOCATION_TYPE.DRUGSTORE:
-      return 'border-hwhub-store-drug'
-    default:
-      return ''
-  }
-}
-
-// フィルタチップ用のラベル＋色（小さい丸）
-const storeTypeDotClass = (code: '1' | '2' | '3'): string => {
-  switch (code) {
-    case '1':
-      return 'bg-hwhub-store-super'
-    case '2':
-      return 'bg-hwhub-store-online'
-    case '3':
-      return 'bg-hwhub-store-drug'
-  }
-}
 
 /**
  * 購入済みリスト関連
