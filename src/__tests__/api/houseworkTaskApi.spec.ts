@@ -189,4 +189,32 @@ describe('houseworkTaskApi', () => {
       })
     })
   })
+
+  describe('bulkUpdateStatus', () => {
+    it('PATCH /api/housework-tasks/bulk-status を正しい payload で呼び出す', async () => {
+      mockedClient.patch.mockResolvedValue({})
+
+      await houseworkTaskApi.bulkUpdateStatus([10, 11], 'SKIPPED', 'bulk update')
+
+      expect(mockedClient.patch).toHaveBeenCalledTimes(1)
+      expect(mockedClient.patch).toHaveBeenCalledWith('/api/housework-tasks/bulk-status', {
+        taskIds: [10, 11],
+        status: 'SKIPPED',
+        skippedReason: 'bulk update',
+      })
+    })
+
+    it('skippedReason が null の場合も対応する', async () => {
+      mockedClient.patch.mockResolvedValue({})
+
+      await houseworkTaskApi.bulkUpdateStatus([12, 13], 'DONE', null)
+
+      expect(mockedClient.patch).toHaveBeenCalledTimes(1)
+      expect(mockedClient.patch).toHaveBeenCalledWith('/api/housework-tasks/bulk-status', {
+        taskIds: [12, 13],
+        status: 'DONE',
+        skippedReason: null,
+      })
+    })
+  })
 })

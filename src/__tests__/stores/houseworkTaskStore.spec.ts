@@ -11,6 +11,7 @@ vi.mock('@/api/houseworkTaskApi', () => ({
     fetchTasks: vi.fn(),
     updateAssignee: vi.fn(),
     updateStatus: vi.fn(),
+    bulkUpdateStatus: vi.fn(),
   },
 }))
 
@@ -200,5 +201,58 @@ describe('houseworkTaskStore', () => {
     const updatedCacheItem = store.cacheByKey[key][0]!
     expect(updatedCacheItem.status).toBe(TASK_STATUS.SKIPPED)
     expect(updatedCacheItem.skippedReason).toBe('雨だったため')
+  })
+
+  it('bulkUpdateStatus: 複数タスクの status と skippedReason を一括更新する', async () => {
+    const store = useHouseworkTaskStore()
+
+    const task1 = makeTask({
+      houseworkTaskId: 1,
+      status: TASK_STATUS.NOT_DONE,
+      skippedReason: null,
+    })
+    const task2 = makeTask({
+      houseworkTaskId: 2,
+      status: TASK_STATUS.NOT_DONE,
+      skippedReason: null,
+    })
+    const task3 = makeTask({
+      houseworkTaskId: 3,
+      status: TASK_STATUS.NOT_DONE,
+      skippedReason: null,
+    })
+    const key = `1__${TASK_STATUS.NOT_DONE}`
+
+    store.items = [task1, task2, task3]
+    store.cacheByKey[key] = [task1, task2, task3]
+
+    mockedApi.bulkUpdateStatus.mockResolvedValue()
+
+    await store.bulkUpdateStatus([1, 2], TASK_STATUS.SKIPPED, 'bulk update')
+
+    expect(mockedApi.bulkUpdateStatus).toHaveBeenCalledWith(
+      [1, 2],
+      TASK_STATUS.SKIPPED,
+      'bulk update',
+    )
+
+    // 対象タスクが更新されていること
+    const updated1 = store.items.find((t) => t.houseworkTaskId === 1)!
+    expect(updated1.status).toBe(TASK_STATUS.SKIPPED)
+    expect(updated1.skippedReason).toBe('bulk update')
+
+    const updated2 = store.items.find((t) => t.houseworkTaskId === 2)!
+    expect(updated2.status).toBe(TASK_STATUS.SKIPPED)
+    expect(updated2.skippedReason).toBe('bulk update')
+
+    // 対象外タスクは変わらないこと
+    const notTarget = store.items.find((t) => t.houseworkTaskId === 3)!
+    expect(notTarget.status).toBe(TASK_STATUS.NOT_DONE)
+    expect(notTarget.skippedReason).toBeNull()
+
+    // cache も更新されていること
+    const cachedUpdated1 = store.cacheByKey[key].find((t) => t.houseworkTaskId === 1)!
+    expect(cachedUpdated1.status).toBe(TASK_STATUS.SKIPPED)
+    expect(cachedUpdated1.skippedReason).toBe('bulk update')
   })
 })

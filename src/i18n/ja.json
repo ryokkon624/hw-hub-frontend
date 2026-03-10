@@ -413,6 +413,14 @@
       "assigneeUpdateError": "担当者の更新に失敗しました"
     },
 
+    "bulk": {
+      "pastUnassignedCount": "過去の未割当: {count}件",
+      "skipButton": "⏭ 過去の未割当をスキップ",
+      "confirmSkip": "今日より前の未割当タスク {count}件をすべて「スキップ」にします。よろしいですか？",
+      "skipSuccess": "過去の未割当タスクをスキップしました",
+      "skipError": "一括スキップの更新に失敗しました"
+    },
+
     "avatarAlt": "メンバーアイコン"
   },
   "myTasks": {

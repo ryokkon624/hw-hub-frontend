@@ -50,6 +50,24 @@ export const houseworkTaskApi = {
       skippedReason,
     })
   },
+
+  /**
+   * 家事タスクのステータスを一括で更新する。
+   * @param taskIds 家事タスクIDリスト
+   * @param status ステータス
+   * @param skippedReason スキップ理由
+   */
+  async bulkUpdateStatus(
+    taskIds: number[],
+    status: string,
+    skippedReason: string | null,
+  ): Promise<void> {
+    await apiClient.patch('/api/housework-tasks/bulk-status', {
+      taskIds,
+      status,
+      skippedReason,
+    })
+  },
 }
 
 // ---- API DTO ----------------------------------------------------

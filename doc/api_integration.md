@@ -35,8 +35,10 @@
 | | GET | `/api/households/{id}/shopping-items` | 買い物リストの取得 | `shoppingStore` (`shoppingItemApi`) |
 | **家事分担** | GET | `/api/housework-tasks` | 家事タスク一覧の取得（絞り込み含む） | `houseworkTaskStore` (`houseworkTaskApi`) |
 | | PATCH | `/api/housework-tasks/{id}/assign` | タスク担当者の変更 | `houseworkTaskStore` (`houseworkTaskApi`) |
-| **自分のタスク** | GET | `/api/housework-tasks` | 担当タスク一覧の取得 | `houseworkTaskStore` (`houseworkTaskApi`) |
+| | PATCH | `/api/housework-tasks/bulk-status` | タスクステータスの一括更新（完了/スキップ） | `houseworkTaskStore` (`houseworkTaskApi`) |
+| **My Tasks** | GET | `/api/housework-tasks` | 担当タスク一覧の取得 | `houseworkTaskStore` (`houseworkTaskApi`) |
 | | PATCH | `/api/housework-tasks/{id}/status` | タスクの完了/スキップ登録 | `houseworkTaskStore` (`houseworkTaskApi`) |
+| | PATCH | `/api/housework-tasks/bulk-status` | タスクステータスの一括更新（完了/スキップ） | `houseworkTaskStore` (`houseworkTaskApi`) |
 | **家事設定一覧** | GET | `/api/houseworks` | 家事マスタ一覧の取得 | `houseworkStore` (`houseworkApi`) |
 | | DELETE | `/api/houseworks/{id}` | 家事マスタの削除 | `houseworkStore` (`houseworkApi`) |
 | **家事新規作成** | POST | `/api/houseworks` | 新しい家事マスタの登録 | `houseworkStore` (`houseworkApi`) |
