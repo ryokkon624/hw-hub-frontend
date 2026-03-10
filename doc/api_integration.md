@@ -53,6 +53,7 @@
 | | PATCH | `/api/shopping-items/{id}/status` | ステータス変更（未購入/かご/購入済み） | `shoppingStore` (`shoppingItemApi`) |
 | | PATCH | `/api/shopping-items/{id}/favorite` | お気に入りの切替 | `shoppingStore` (`shoppingItemApi`) |
 | **買い物アイテム作成** | POST | `/api/households/{id}/shopping-items` | 新しい買い物アイテムの登録 | `shoppingStore` (`shoppingItemApi`) |
+| | GET | `/api/households/{id}/shopping-items/favorites` | お気に入り買い物アイテム一覧の取得 | `shoppingFavoriteStore` (`shoppingItemApi`) |
 | | GET | `/api/households/{id}/shopping-items/history-suggestions` | 過去の買い物履歴からのサジェスト取得 | `shoppingHistoryStore` (`shoppingItemApi`) |
 | **買い物アイテム詳細** | PUT | `/api/households/{id}/shopping-items/{itemId}` | アイテム基本情報の更新 | `shoppingStore` (`shoppingItemApi`) |
 | | GET | `/api/shopping-items/{itemId}/attachments` | 添付画像一覧の取得 | `attachmentStore` (`shoppingItemAttachmentApi`) |

@@ -8,23 +8,43 @@
       </div>
     </header>
 
-    <!-- 過去の履歴から選ぶボタン（PC） -->
-    <button
-      type="button"
-      class="hidden sm:inline-flex items-center rounded-full bg-hwhub-primary px-4 py-1.5 text-sm font-semibold text-white hover:bg-hwhub-primary"
-      @click="openHistoryModal"
-    >
-      {{ t('shopping.create.historyButton') }}
-    </button>
+    <!-- PC用ボタンエリア -->
+    <div class="hidden sm:flex items-center gap-2">
+      <button
+        type="button"
+        class="inline-flex items-center rounded-full bg-hwhub-primary px-4 py-1.5 text-sm font-semibold text-white hover:bg-hwhub-primary"
+        @click="openHistoryModal"
+      >
+        {{ t('shopping.create.historyButton') }}
+      </button>
 
-    <!-- SP 用 -->
-    <button
-      type="button"
-      class="sm:hidden w-full rounded-full bg-hwhub-primary px-4 py-2 text-sm font-semibold text-white hover:bg-hwhub-primary"
-      @click="openHistoryModal"
-    >
-      {{ t('shopping.create.historyButton') }}
-    </button>
+      <button
+        type="button"
+        class="inline-flex items-center rounded-full bg-hwhub-primary px-4 py-1.5 text-sm font-semibold text-white hover:bg-hwhub-primary"
+        @click="openFavoriteModal"
+      >
+        {{ t('shopping.create.favoriteButton') }}
+      </button>
+    </div>
+
+    <!-- SP用ボタンエリア -->
+    <div class="sm:hidden space-y-2">
+      <button
+        type="button"
+        class="w-full rounded-full bg-hwhub-primary px-4 py-2 text-sm font-semibold text-white hover:bg-hwhub-primary"
+        @click="openHistoryModal"
+      >
+        {{ t('shopping.create.historyButton') }}
+      </button>
+
+      <button
+        type="button"
+        class="w-full rounded-full bg-hwhub-primary px-4 py-2 text-sm font-semibold text-white hover:bg-hwhub-primary"
+        @click="openFavoriteModal"
+      >
+        {{ t('shopping.create.favoriteButton') }}
+      </button>
+    </div>
 
     <form class="space-y-4 max-w-xl" @submit.prevent="onSubmit">
       <!-- 品名 -->
@@ -80,9 +100,10 @@
           id="favorite"
           v-model="favorite"
           type="checkbox"
-          class="h-4 w-4 rounded border-gray-300 text-hwhub-primary focus:ring-hwhub-primary focus:ring-offset-0"
+          :disabled="isFavoriteFixed"
+          class="h-4 w-4 rounded border-gray-300 text-hwhub-primary focus:ring-hwhub-primary focus:ring-offset-0 disabled:opacity-50"
         />
-        <label for="favorite" class="text-sm text-hwhub-heading">
+        <label for="favorite" class="text-sm text-hwhub-heading" :class="{ 'opacity-50': isFavoriteFixed }">
           {{ t('shopping.create.fields.favorite') }}
         </label>
       </div>
@@ -123,6 +144,13 @@
     @close="closeHistoryModal"
     @selected="onHistorySelected"
   />
+
+  <ShoppingItemFavoriteModal
+    v-if="showFavoriteModal && currentHouseholdId"
+    :household-id="currentHouseholdId"
+    @close="closeFavoriteModal"
+    @selected="onFavoriteSelected"
+  />
 </template>
 
 <script setup lang="ts">
@@ -134,8 +162,9 @@ import { useUiStore } from '@/stores/uiStore'
 import { useCodeStore } from '@/stores/codeStore' // 購入場所（0010）用
 import { useShoppingItemAttachmentStore } from '@/stores/shoppingItemAttachmentStore'
 import { useShoppingHistoryStore } from '@/stores/shoppingHistoryStore'
-import type { ShoppingItemHistorySuggestionModel, ShoppingItemCreateInput } from '@/domain'
+import type { ShoppingItemHistorySuggestionModel, ShoppingItemCreateInput, ShoppingItemModel } from '@/domain'
 import ShoppingItemHistoryModal from '@/components/ShoppingItemHistoryModal.vue'
+import ShoppingItemFavoriteModal from '@/components/ShoppingItemFavoriteModal.vue'
 import ImageFileInput from '@/components/inputs/ImageFileInput.vue'
 import { useShoppingCodes } from '@/composables/useShoppingCodes'
 import type { PurchaseLocationTypeCode } from '@/constants/code.constants'
@@ -158,6 +187,7 @@ const name = ref('')
 const memo = ref<string | null>('')
 const storeType = ref<PurchaseLocationTypeCode | ''>('')
 const favorite = ref(false)
+const isFavoriteFixed = ref(false)
 const selectedFile = ref<File | null>(null)
 const selectedSourceShoppingItemId = ref<number | null>(null)
 
@@ -254,5 +284,29 @@ const onHistorySelected = async (historyItem: ShoppingItemHistorySuggestionModel
   name.value = historyItem.name
   storeType.value = historyItem.storeType ?? ''
   selectedSourceShoppingItemId.value = historyItem.sourceShoppingItemId ?? null
+  isFavoriteFixed.value = false
+}
+
+// お気に入りから選んだときの処理
+const showFavoriteModal = ref(false)
+
+const openFavoriteModal = () => {
+  showFavoriteModal.value = true
+}
+
+const closeFavoriteModal = () => {
+  showFavoriteModal.value = false
+}
+
+const onFavoriteSelected = async (favoriteItem: ShoppingItemModel) => {
+  if (!currentHouseholdId.value) return
+
+  name.value = favoriteItem.name
+  memo.value = favoriteItem.memo ?? ''
+  storeType.value = favoriteItem.storeType ?? ''
+  selectedSourceShoppingItemId.value = favoriteItem.shoppingItemId
+
+  favorite.value = false
+  isFavoriteFixed.value = true
 }
 </script>

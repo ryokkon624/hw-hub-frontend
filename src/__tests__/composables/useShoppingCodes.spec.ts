@@ -57,4 +57,52 @@ describe('useShoppingCodes', () => {
     expect(optionsOfMock).toHaveBeenCalledWith(CODE_TYPE.PURCHASE_LOCATION_TYPE)
     expect(result).toEqual(expected)
   })
+
+  describe('storeTypeBorderClass', () => {
+    it('1の場合は border-hwhub-store-super を返す', () => {
+      const { storeTypeBorderClass } = useShoppingCodes()
+      expect(storeTypeBorderClass('1')).toBe('border-hwhub-store-super')
+    })
+
+    it('2の場合は border-hwhub-store-online を返す', () => {
+      const { storeTypeBorderClass } = useShoppingCodes()
+      expect(storeTypeBorderClass('2')).toBe('border-hwhub-store-online')
+    })
+
+    it('3の場合は border-hwhub-store-drug を返す', () => {
+      const { storeTypeBorderClass } = useShoppingCodes()
+      expect(storeTypeBorderClass('3')).toBe('border-hwhub-store-drug')
+    })
+
+    it('それ以外(不正値、null、undefined)の場合は border-gray-300 を返す', () => {
+      const { storeTypeBorderClass } = useShoppingCodes()
+      expect(storeTypeBorderClass('99')).toBe('border-gray-300')
+      expect(storeTypeBorderClass(null)).toBe('border-gray-300')
+      expect(storeTypeBorderClass(undefined)).toBe('border-gray-300')
+    })
+  })
+
+  describe('storeTypeDotClass', () => {
+    it('1の場合は bg-hwhub-store-super を返す', () => {
+      const { storeTypeDotClass } = useShoppingCodes()
+      expect(storeTypeDotClass('1')).toBe('bg-hwhub-store-super')
+    })
+
+    it('2の場合は bg-hwhub-store-online を返す', () => {
+      const { storeTypeDotClass } = useShoppingCodes()
+      expect(storeTypeDotClass('2')).toBe('bg-hwhub-store-online')
+    })
+
+    it('3の場合は bg-hwhub-store-drug を返す', () => {
+      const { storeTypeDotClass } = useShoppingCodes()
+      expect(storeTypeDotClass('3')).toBe('bg-hwhub-store-drug')
+    })
+
+    it('それ以外(不正値、null、undefined)の場合は bg-gray-300 を返す', () => {
+      const { storeTypeDotClass } = useShoppingCodes()
+      expect(storeTypeDotClass('99')).toBe('bg-gray-300')
+      expect(storeTypeDotClass(null)).toBe('bg-gray-300')
+      expect(storeTypeDotClass(undefined)).toBe('bg-gray-300')
+    })
+  })
 })

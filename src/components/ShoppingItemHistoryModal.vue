@@ -1,5 +1,5 @@
 <template>
-  <BaseModal title="過去の購入から選ぶ" @close="$emit('close')">
+  <BaseModal :title="t('shopping.historyModal.title')" @close="$emit('close')">
     <div class="flex justify-between items-center mb-2">
       <p class="text-xs text-hwhub-muted">{{ t('shopping.historyModal.description') }}</p>
       <button
@@ -13,26 +13,16 @@
 
     <!-- 🔍 フィルタ UI -->
     <div class="mb-3 space-y-2">
-      <div class="flex gap-2">
-        <!-- 品名検索 -->
-        <input
-          v-model="keyword"
-          type="text"
-          class="flex-1 rounded-md border border-hwhub-border-subtle px-2 py-1 text-xs bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
-          placeholder="品名で検索"
-        />
+      <!-- 品名検索 -->
+      <input
+        v-model="keyword"
+        type="text"
+        class="w-full rounded-md border border-hwhub-border-subtle px-2 py-1 text-xs bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
+        :placeholder="t('shopping.historyModal.filters.keywordPlaceholder')"
+      />
 
-        <!-- 購入場所 -->
-        <select
-          v-model="storeTypeFilter"
-          class="w-28 rounded-md border border-hwhub-border-subtle px-2 py-1 text-xs bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
-        >
-          <option value="all">{{ t('shopping.historyModal.filters.storeType.all') }}</option>
-          <option value="1">{{ t('shopping.historyModal.filters.storeType.supermarket') }}</option>
-          <option value="2">{{ t('shopping.historyModal.filters.storeType.online') }}</option>
-          <option value="3">{{ t('shopping.historyModal.filters.storeType.drugstore') }}</option>
-        </select>
-      </div>
+      <!-- 購入場所 -->
+      <ShoppingStoreTypeFilter v-model="storeTypeFilter" />
 
       <!-- 期間フィルタ -->
       <div class="flex flex-wrap gap-1 text-[11px]">
@@ -105,7 +95,8 @@
       <li
         v-for="h in histories"
         :key="h.sourceShoppingItemId"
-        class="border border-hwhub-border-subtle rounded-lg px-3 py-2 text-xs flex gap-2 items-center hover:bg-hwhub-surface-subtle cursor-pointer transition"
+        class="border bg-white rounded-lg px-3 py-2 text-xs flex gap-2 items-center hover:bg-hwhub-surface-subtle cursor-pointer transition shadow-sm hover:shadow-md hover:-translate-y-px"
+        :class="storeTypeBorderClass(h.storeType)"
         @click="onSelect(h)"
       >
         <!-- サムネ -->
@@ -142,6 +133,7 @@
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue'
 import BaseModal from '@/components/ui/BaseModal.vue'
+import ShoppingStoreTypeFilter from '@/components/shopping/ShoppingStoreTypeFilter.vue'
 import { useShoppingHistoryStore } from '@/stores/shoppingHistoryStore'
 import type { ShoppingItemHistorySuggestionModel } from '@/domain'
 import { useShoppingCodes } from '@/composables/useShoppingCodes'
@@ -159,7 +151,7 @@ const emit = defineEmits<{
 }>()
 
 const historyStore = useShoppingHistoryStore()
-const { storeTypeLabel } = useShoppingCodes()
+const { storeTypeLabel, storeTypeBorderClass } = useShoppingCodes()
 
 // 元データ（Store からのそのまま）
 const rawHistories = computed<ShoppingItemHistorySuggestionModel[]>(() => {
