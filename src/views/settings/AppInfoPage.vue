@@ -12,12 +12,25 @@
       <h3 class="text-sm font-semibold mb-1">
         {{ t('appInfo.version.sectionTitle') }}
       </h3>
-      <p class="text-sm text-hwhub-heading">
-        {{ t('appInfo.version.label') }}
-      </p>
-      <p class="text-xs text-hwhub-muted">
-        {{ t('appInfo.version.note') }}
-      </p>
+
+      <!-- フロントエンドバージョン（ビルド時に静的埋め込み） -->
+      <div class="flex items-center justify-between text-sm">
+        <span class="text-hwhub-muted">{{ t('appInfo.version.frontend') }}</span>
+        <span class="font-mono text-hwhub-heading">{{ appInfoStore.frontVersion }}</span>
+      </div>
+
+      <!-- APIバージョン（/actuator/info から取得） -->
+      <div class="flex items-center justify-between text-sm">
+        <span class="text-hwhub-muted">{{ t('appInfo.version.api') }}</span>
+        <span class="font-mono text-hwhub-heading">
+          <template v-if="appInfoStore.isLoading">
+            <span class="text-hwhub-muted text-xs">{{ t('appInfo.version.loading') }}</span>
+          </template>
+          <template v-else>
+            {{ appInfoStore.apiVersion ?? t('appInfo.version.unknown') }}
+          </template>
+        </span>
+      </div>
     </section>
 
     <!-- 利用規約・プライバシーポリシー -->
@@ -95,8 +108,15 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { RouterLink } from 'vue-router'
+import { useAppInfoStore } from '@/stores/appInfoStore'
 
 const { t } = useI18n()
+const appInfoStore = useAppInfoStore()
+
+onMounted(() => {
+  appInfoStore.fetchApiVersion()
+})
 </script>

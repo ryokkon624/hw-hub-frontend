@@ -5,6 +5,7 @@ on:
     branches: ['main']
     paths:
       - '**'
+  workflow_dispatch:
 
 permissions:
   id-token: write
@@ -22,6 +23,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # git describe がタグ履歴を参照するため fetch-depth: 0 が必須
+          fetch-depth: 0
+
+      - name: Resolve STG version (git describe)
+        id: version
+        run: |
+          # タグが1件もない場合のフォールバック
+          RAW=$(git describe --tags --long 2>/dev/null || echo "v0.0.0-0-g${GITHUB_SHA:0:7}")
+          # v1.0.0-3-gabcdef1  →  v1.0.0-stg.3 に変換
+          TAG=$(echo "$RAW" | sed 's/-[0-9]*-g[0-9a-f]*$//')
+          DISTANCE=$(echo "$RAW" | grep -oP '(?<=-)\d+(?=-g)')
+          APP_VERSION="${TAG}-stg.${DISTANCE}"
+          echo "app_version=${APP_VERSION}" >> "$GITHUB_OUTPUT"
+          echo "Resolved STG version: ${APP_VERSION}"
 
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
@@ -39,7 +55,9 @@ jobs:
         run: npm ci
 
       - name: Build (stg)
-        run: npm run build:stg
+        # VITE_APP_VERSION をビルド時環境変数として渡す
+        # vite.config.ts の define で import.meta.env.VITE_APP_VERSION に展開される
+        run: VITE_APP_VERSION=${{ steps.version.outputs.app_version }} npm run build:stg
 
       # dist/ を S3 に同期（不要ファイルは削除）
       - name: Upload to S3

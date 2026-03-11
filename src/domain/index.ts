@@ -1,3 +1,5 @@
+// appinfo
+export * from './appInfo/appInfo.mode.ts'
 // code
 export * from './code/code.model'
 // error
