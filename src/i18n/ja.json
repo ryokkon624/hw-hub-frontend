@@ -1107,8 +1107,10 @@
     "description": "Housework Hub のバージョンや、利用規約・プライバシー情報などを確認できます。",
     "version": {
       "sectionTitle": "バージョン",
-      "label": "v0.1.0（開発中）",
-      "note": "今後のアップデート内容や重要なお知らせを、ここに掲載していく予定です。"
+      "frontend": "UI",
+      "api": "API",
+      "loading": "取得中...",
+      "unknown": "取得失敗"
     },
     "legal": {
       "sectionTitle": "利用規約・プライバシーポリシー",
@@ -1128,7 +1130,7 @@
     "developer": {
       "sectionTitle": "開発・運営者",
       "appNameLabel": "アプリ名：Housework Hub",
-      "operatorLabel": "開発・運営：○○（後で正式名称に変更してください）",
+      "operatorLabel": "開発・運営：(to be updated)",
       "contactLabel": "お問い合わせ：",
       "contactEmail": "example{'@'}example.com"
     },

@@ -1082,8 +1082,10 @@
     "description": "Here you can check the version of Housework Hub and read the terms of use and privacy information.",
     "version": {
       "sectionTitle": "Version",
-      "label": "v0.1.0 (in development)",
-      "note": "Future release notes and important announcements will be shown here."
+      "frontend": "UI",
+      "api": "API",
+      "loading": "Loading...",
+      "unknown": "Failed to get version"
     },
     "legal": {
       "sectionTitle": "Terms & Privacy Policy",
