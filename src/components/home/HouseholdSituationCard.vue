@@ -14,6 +14,7 @@ import {
   type ChartDataset,
 } from 'chart.js'
 import type { HouseworkTaskModel, HouseholdMember } from '@/domain'
+import { Users } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -199,7 +200,7 @@ const stackedChartOptions = computed<ChartOptions<'bar'>>(() => ({
     <header class="flex items-start justify-between gap-3">
       <div>
         <h3 class="text-sm font-semibold text-hwhub-heading flex items-center gap-2">
-          <span class="text-lg">👨‍👩‍👧‍👦</span>
+          <Users class="w-5 h-5" />
           <span>{{ t('home.household.title') }}</span>
         </h3>
         <p class="mt-1 text-xs text-hwhub-muted">

@@ -403,7 +403,7 @@
       "empty": "条件に一致する家事タスクがありません。",
       "unassignedBadge": "未",
       "executionDate": "実施日: {date}",
-      "assignToMe": "⭐ 自分にする",
+      "assignToMe": "自分にする",
       "selectUnassigned": "未割当"
     },
 
@@ -505,7 +505,7 @@
         "empty": "直近 {days} 日間の購入済みアイテムはまだありません。"
       },
       "actions": {
-        "toBasket": "🧺 かごへ",
+        "toBasket": "かごへ",
         "return": "戻す"
       },
       "messages": {

@@ -197,7 +197,7 @@ const bulkCompletePast = async () => {
       {{ t('myTasks.intro') }}
     </section>
 
-    <!-- 👇 SP 専用 世帯スイッチャー（既存コンポーネントをそのまま利用） -->
+    <!-- SP 専用 世帯スイッチャー（既存コンポーネントをそのまま利用） -->
     <HouseholdSwitcherField class="sm:hidden" />
 
     <!-- セクション A: 過去の家事（今日より前） -->

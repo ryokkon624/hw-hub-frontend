@@ -58,7 +58,7 @@
           "
           @click="navigate(item.name)"
         >
-          <span class="text-lg">{{ item.icon }}</span>
+          <component :is="item.icon" class="w-5 h-5" />
           <span class="flex-1 text-left">{{ t(item.labelKey) }}</span>
         </button>
       </nav>
@@ -113,9 +113,7 @@
             "
             @click="navigate(item.name)"
           >
-            <span class="text-lg leading-none mb-0.5">
-              {{ item.icon }}
-            </span>
+            <component :is="item.icon" class="w-5 h-5 mb-0.5" />
             <span class="leading-none">{{ t(item.labelKey) }}</span>
           </button>
         </nav>
@@ -131,7 +129,9 @@
 <script setup lang="ts">
 import { useRoute, useRouter, RouterView } from 'vue-router'
 import { computed } from 'vue'
+import type { Component } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { House, ClipboardList, CheckSquare, ShoppingCart, Settings } from 'lucide-vue-next'
 import AppHeader from '@/components/AppHeader.vue'
 import AppToastContainer from '@/components/AppToastContainer.vue'
 import LoadingOverlay from '@/components/LoadingOverlay.vue'
@@ -145,15 +145,15 @@ const { t } = useI18n()
 type MainNavItem = {
   name: string
   labelKey: string
-  icon: string // ここはとりあえず絵文字でOK
+  icon: Component
 }
 
 const mainNavItems: MainNavItem[] = [
-  { name: 'home', labelKey: 'pageTitles.home', icon: '🏠' },
-  { name: 'housework.assign', labelKey: 'pageTitles.houseworkAssign', icon: '📋' },
-  { name: 'housework.tasks', labelKey: 'pageTitles.myTasks', icon: '✅' },
-  { name: 'shopping', labelKey: 'pageTitles.shopping', icon: '🛒' },
-  { name: 'settings', labelKey: 'pageTitles.settings', icon: '⚙️' },
+  { name: 'home', labelKey: 'pageTitles.home', icon: House },
+  { name: 'housework.assign', labelKey: 'pageTitles.houseworkAssign', icon: ClipboardList },
+  { name: 'housework.tasks', labelKey: 'pageTitles.myTasks', icon: CheckSquare },
+  { name: 'shopping', labelKey: 'pageTitles.shopping', icon: ShoppingCart },
+  { name: 'settings', labelKey: 'pageTitles.settings', icon: Settings },
 ]
 
 const pageTitle = computed(() => {

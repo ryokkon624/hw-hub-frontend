@@ -216,7 +216,7 @@
             </p>
           </div>
 
-          <!-- 右：担当セレクト + ⭐ 自分にする -->
+          <!-- 右：担当セレクト + 自分にする -->
           <div class="shrink-0 flex flex-col items-end gap-1 min-w-24">
             <div
               class="flex flex-col sm:flex-row sm:justify-end items-stretch sm:items-center gap-1 sm:gap-2 w-full"
@@ -388,7 +388,7 @@ const changeAssignee = async (task: HouseworkTaskModel, newUserId: number | null
   }
 }
 
-// ⭐で自分にする
+// 自分にする
 const assignToMe = async (task: HouseworkTaskModel) => {
   if (!loginUserId.value) return
   // すでに自分なら何もしない

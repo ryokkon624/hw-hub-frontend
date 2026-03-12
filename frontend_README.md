@@ -9,6 +9,7 @@
 - Pinia（状態管理）
 - Vue Router（History モード）
 - Tailwind CSS
+- Lucide
 - 多言語対応（vue-i18n）
 
 ホスティング：
@@ -42,6 +43,7 @@ src/
 - **API Callは必ず Store の Action からAPIクラインとを呼び出し実行**
 - View / Component から直接 API を呼ばない
 - 単方向データフローを厳守
+- アイコンを使う場合はLucideを利用し、各ファイルで使うアイコンだけ import する（named import）
 
 ---
 

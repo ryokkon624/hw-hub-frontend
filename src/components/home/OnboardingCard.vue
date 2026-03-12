@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { Hand, House, CheckSquare, Brush } from 'lucide-vue-next'
 import { useHouseholdStore } from '@/stores/householdStore'
 import { useHouseworkStore } from '@/stores/houseworkStore'
 
@@ -45,7 +46,7 @@ const goHouseworkSettings = () => {
   >
     <header class="mb-4">
       <h3 class="text-lg font-bold text-hwhub-heading flex items-center gap-2">
-        <span class="text-2xl">👋</span>
+        <Hand class="w-6 h-6" />
         <span>{{ t('home.onboarding.title') }}</span>
       </h3>
       <p class="mt-1 text-sm text-hwhub-muted ml-9">
@@ -65,13 +66,13 @@ const goHouseworkSettings = () => {
       >
         <div class="flex items-start justify-between">
           <div class="flex items-center gap-2 mb-2">
-            <span class="text-xl">🏠</span>
+            <House class="w-5 h-5" />
             <h4 class="font-bold text-hwhub-heading text-sm">
               {{ t('home.onboarding.step1.title') }}
             </h4>
           </div>
           <div v-if="isStep1Done">
-            <span class="text-hwhub-primary text-xl">✅</span>
+            <CheckSquare class="w-5 h-5 text-hwhub-primary" />
           </div>
         </div>
 
@@ -102,13 +103,13 @@ const goHouseworkSettings = () => {
       >
         <div class="flex items-start justify-between">
           <div class="flex items-center gap-2 mb-2">
-            <span class="text-xl">🧹</span>
+            <Brush class="w-5 h-5" />
             <h4 class="font-bold text-hwhub-heading text-sm">
               {{ t('home.onboarding.step2.title') }}
             </h4>
           </div>
           <div v-if="isStep2Done">
-            <span class="text-hwhub-primary text-xl">✅</span>
+            <CheckSquare class="w-5 h-5 text-hwhub-primary" />
           </div>
         </div>
 

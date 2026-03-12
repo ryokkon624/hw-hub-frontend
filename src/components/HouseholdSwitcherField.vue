@@ -8,9 +8,9 @@
     >
       <div class="flex items-center gap-2">
         <div
-          class="h-8 w-8 rounded-full bg-hwhub-surface-subtle flex items-center justify-center text-base text-hwhub-heading"
+          class="h-8 w-8 rounded-full bg-hwhub-surface-subtle flex items-center justify-center text-hwhub-heading"
         >
-          🏠
+          <House class="w-4 h-4" />
         </div>
         <div class="flex flex-col">
           <span class="font-medium truncate text-hwhub-heading">
@@ -30,6 +30,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import HouseholdSwitcherMobile from './HouseholdSwitcherMobile.vue'
+import { House } from 'lucide-vue-next'
 import { useHouseholdStore } from '@/stores/householdStore'
 import { useI18n } from 'vue-i18n'
 

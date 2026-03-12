@@ -11,7 +11,7 @@
       >
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
-            <span class="text-xl">👤</span>
+            <User class="w-5 h-5" />
             <div>
               <div class="font-medium text-sm text-hwhub-heading">
                 {{ t('settings.sections.account.title') }}
@@ -32,7 +32,7 @@
       >
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
-            <span class="text-xl">🏠</span>
+            <House class="w-5 h-5" />
             <div>
               <div class="font-medium text-sm text-hwhub-heading">
                 {{ t('settings.sections.household.title') }}
@@ -53,7 +53,7 @@
       >
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
-            <span class="text-xl">🧹</span>
+            <Brush class="w-5 h-5" />
             <div>
               <div class="font-medium text-sm text-hwhub-heading">
                 {{ t('settings.sections.housework.title') }}
@@ -74,7 +74,7 @@
       >
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
-            <span class="text-xl">🔔</span>
+            <Bell class="w-5 h-5" />
             <div>
               <div class="font-medium text-sm text-hwhub-heading">
                 {{ t('settings.sections.notifications.title') }}
@@ -95,7 +95,7 @@
       >
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
-            <span class="text-xl">ℹ️</span>
+            <Info class="w-5 h-5" />
             <div>
               <div class="font-medium text-sm text-hwhub-heading">
                 {{ t('settings.sections.about.title') }}
@@ -114,6 +114,7 @@
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import { User, House, Brush, Bell, Info } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 </script>

@@ -52,3 +52,6 @@ __screenshots__/
 # Temporary files
 *.swp
 *.swo
+
+# AI Skills
+CLAUDE_frontend.md

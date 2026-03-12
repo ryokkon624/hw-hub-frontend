@@ -11,7 +11,7 @@
       </button>
     </div>
 
-    <!-- 🔍 フィルタ UI -->
+    <!-- フィルタ UI -->
     <div class="mb-3 space-y-2">
       <!-- 品名検索 -->
       <input
@@ -105,7 +105,7 @@ const rawFavorites = computed<ShoppingItemModel[]>(() => {
 
 const loading = ref(false)
 
-// 🔍 フィルタ用 state
+// フィルタ用 state
 const keyword = ref('')
 const storeTypeFilter = ref<'all' | '1' | '2' | '3'>('all')
 
