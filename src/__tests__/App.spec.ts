@@ -21,7 +21,7 @@ describe('App', () => {
     const authStore = useAuthStore()
     const householdStore = useHouseholdStore()
 
-    // ✅ onMounted が走る前に状態をセットしておく
+    // onMounted が走る前に状態をセットしておく
     authStore.accessToken = options?.authenticated ? 'dummy-token' : null
     householdStore.households = (options?.households ?? []) as HouseholdModel[]
 

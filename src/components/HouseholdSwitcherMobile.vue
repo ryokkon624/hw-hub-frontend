@@ -51,14 +51,14 @@
               >
                 <div class="flex items-center gap-2">
                   <div
-                    class="h-8 w-8 rounded-full flex items-center justify-center text-base"
+                    class="h-8 w-8 rounded-full flex items-center justify-center"
                     :class="
                       h.householdId === currentHouseholdId
                         ? 'bg-white text-hwhub-heading'
                         : 'bg-hwhub-surface-subtle text-hwhub-muted'
                     "
                   >
-                    🏠
+                    <House class="w-4 h-4" />
                   </div>
                   <div class="flex flex-col">
                     <span class="text-sm font-medium truncate">
@@ -95,6 +95,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { House } from 'lucide-vue-next'
 import { useHouseholdStore } from '@/stores/householdStore'
 import { useI18n } from 'vue-i18n'
 

@@ -183,7 +183,7 @@ const goCreate = () => {
       </button>
     </header>
 
-    <!-- 👇 SP 専用 世帯スイッチャー -->
+    <!-- SP 専用 世帯スイッチャー -->
     <HouseholdSwitcherField class="sm:hidden" />
 
     <!-- SP 用追加ボタン -->

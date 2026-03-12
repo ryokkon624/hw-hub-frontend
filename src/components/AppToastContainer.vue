@@ -6,10 +6,10 @@
       class="min-w-[220px] max-w-xs rounded-lg border px-3 py-2 shadow-md bg-white flex items-start gap-2"
       :class="toastClass(toast.type)"
     >
-      <div class="text-lg pt-0.5">
-        <span v-if="toast.type === 'success'">✅</span>
-        <span v-else-if="toast.type === 'error'">⚠️</span>
-        <span v-else>ℹ️</span>
+      <div class="pt-0.5">
+        <CheckSquare v-if="toast.type === 'success'" class="w-5 h-5" />
+        <TriangleAlert v-else-if="toast.type === 'error'" class="w-5 h-5" />
+        <Info v-else class="w-5 h-5" />
       </div>
       <div class="flex-1 text-sm">
         {{ toast.message }}
@@ -27,6 +27,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { CheckSquare, TriangleAlert, Info } from 'lucide-vue-next'
 import { useUiStore } from '@/stores/uiStore'
 
 const uiStore = useUiStore()

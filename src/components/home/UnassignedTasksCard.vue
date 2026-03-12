@@ -6,6 +6,7 @@ import { useHouseworkTaskStore } from '@/stores/houseworkTaskStore'
 import type { HouseworkTaskModel } from '@/domain'
 import { toYmd, addDays } from '@/utils/dateUtils'
 import { TASK_STATUS } from '@/constants/code.constants'
+import { ClipboardList } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -47,7 +48,7 @@ const goAssign = () => {
     <header class="flex items-start justify-between gap-3">
       <div>
         <h3 class="text-sm font-semibold text-hwhub-heading flex items-center gap-2">
-          <span class="text-lg">📋</span>
+          <ClipboardList class="w-5 h-5" />
           <span>
             <span>{{ t('home.unassigned.title') }}</span></span
           >

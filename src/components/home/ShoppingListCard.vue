@@ -6,6 +6,7 @@ import { useShoppingStore } from '@/stores/shoppingStore'
 import type { ShoppingItemModel } from '@/domain'
 import { toYmd, addDays } from '@/utils/dateUtils'
 import { PURCHASE_LOCATION_TYPE, SHOPPING_ITEM_STATUS } from '@/constants/code.constants'
+import { ShoppingCart } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -63,7 +64,7 @@ const goShopping = () => {
     <header class="flex items-start justify-between gap-3">
       <div>
         <h3 class="text-sm font-semibold text-hwhub-heading flex items-center gap-2">
-          <span class="text-lg">🛒</span>
+          <ShoppingCart class="w-5 h-5" />
           <span>{{ t('home.shopping.title') }}</span>
         </h3>
         <p class="mt-1 text-xs text-hwhub-muted">

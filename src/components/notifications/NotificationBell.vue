@@ -7,7 +7,7 @@
       :aria-label="t('notifications.bell.ariaLabel')"
       @click="toggle"
     >
-      <span class="text-xl">🔔</span>
+      <Bell class="w-5 h-5" />
 
       <!-- 未読バッジ -->
       <span
@@ -54,6 +54,7 @@
 
 <script setup lang="ts">
 import { computed, ref, onBeforeUnmount } from 'vue'
+import { Bell } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { useNotificationStore } from '@/stores/notificationStore'

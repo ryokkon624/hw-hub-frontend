@@ -57,7 +57,7 @@
           </span>
         </div>
 
-        <!-- 🔍 購入場所フィルタ -->
+        <!-- 購入場所フィルタ -->
         <ShoppingStoreTypeFilter class="mb-2" v-model="storeTypeFilter" />
 
         <div
@@ -105,9 +105,9 @@
                 <!-- 右上：画像アイコン（あるときだけ） -->
                 <div v-if="item.hasImage" class="shrink-0 ml-1 mt-0.5">
                   <span
-                    class="inline-flex items-center justify-center h-5 w-5 rounded-full bg-hwhub-surface-subtle text-[11px] text-hwhub-muted"
+                    class="inline-flex items-center justify-center h-5 w-5 rounded-full bg-hwhub-surface-subtle text-hwhub-muted"
                   >
-                    📷
+                    <Camera class="w-3 h-3" />
                   </span>
                 </div>
 
@@ -200,9 +200,9 @@
                 <!-- 右上：画像アイコン（あるときだけ） -->
                 <div v-if="item.hasImage" class="shrink-0 ml-1 mt-0.5">
                   <span
-                    class="inline-flex items-center justify-center h-5 w-5 rounded-full bg-hwhub-surface-subtle text-[11px] text-hwhub-muted"
+                    class="inline-flex items-center justify-center h-5 w-5 rounded-full bg-hwhub-surface-subtle text-hwhub-muted"
                   >
-                    📷
+                    <Camera class="w-3 h-3" />
                   </span>
                 </div>
 
@@ -303,6 +303,7 @@ import ShoppingStoreTypeFilter from '@/components/shopping/ShoppingStoreTypeFilt
 import { useShoppingCodes } from '@/composables/useShoppingCodes'
 import { SHOPPING_ITEM_STATUS } from '@/constants/code.constants'
 import { isWithinDays } from '@/utils/dateUtils'
+import { Camera } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -527,7 +528,7 @@ const completedTotalCount = computed(() =>
   transition: transform 0.18s ease;
 }
 
-/* -------- 🎨 移動アニメーション -------- */
+/* -------- 移動アニメーション -------- */
 .shopping-move-list-move {
   transition: transform 0.25s ease;
 }

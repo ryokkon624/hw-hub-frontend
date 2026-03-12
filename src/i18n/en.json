@@ -394,7 +394,7 @@
       "empty": "There are no housework tasks matching the current filters.",
       "unassignedBadge": "Un",
       "executionDate": "Date: {date}",
-      "assignToMe": "⭐ Assign to me",
+      "assignToMe": "Assign to me",
       "selectUnassigned": "Unassigned"
     },
     "messages": {
@@ -488,7 +488,7 @@
         "empty": "There are no purchased items in the last {days} days."
       },
       "actions": {
-        "toBasket": "🧺 Move to basket",
+        "toBasket": "Move to basket",
         "return": "Move back"
       },
       "messages": {

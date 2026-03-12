@@ -6,6 +6,7 @@ import { useHouseworkTaskStore } from '@/stores/houseworkTaskStore'
 import type { HouseworkTaskModel } from '@/domain'
 import { toYmd, addDays } from '@/utils/dateUtils'
 import { TASK_STATUS } from '@/constants/code.constants'
+import { CheckSquare } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -51,7 +52,7 @@ const goMyTasks = () => {
     <header class="flex items-start justify-between gap-3">
       <div>
         <h3 class="text-sm font-semibold text-hwhub-heading flex items-center gap-2">
-          <span class="text-lg">✅</span>
+          <CheckSquare class="w-5 h-5" />
           <span>{{ t('pageTitles.myTasks') }}</span>
         </h3>
         <p class="mt-1 text-xs text-hwhub-muted">

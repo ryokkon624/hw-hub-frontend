@@ -13,9 +13,9 @@
       <div class="flex items-center gap-2">
         <!-- 簡易アイコン -->
         <div
-          class="flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-sm text-xs text-hwhub-heading"
+          class="flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-sm text-hwhub-heading"
         >
-          📷
+          <Camera class="w-5 h-5" />
         </div>
         <div class="flex flex-col">
           <span class="font-medium text-hwhub-heading">
@@ -80,6 +80,7 @@
 
 <script setup lang="ts">
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
+import { Camera } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
