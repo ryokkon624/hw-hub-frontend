@@ -77,7 +77,7 @@ const members = computed<HouseholdMember[]>(() => householdStore.currentMembers)
     <section class="rounded-xl border bg-white p-4 shadow-sm space-y-4">
       <div>
         <h2 class="text-sm font-semibold mb-1 text-hwhub-heading">
-          {{ t('housework.form.sections.basic.title') }}}
+          {{ t('housework.form.sections.basic.title') }}
         </h2>
         <p class="text-xs text-hwhub-muted">
           {{ t('housework.form.sections.basic.description') }}
@@ -94,7 +94,7 @@ const members = computed<HouseholdMember[]>(() => householdStore.currentMembers)
           <input
             v-bind="field"
             type="text"
-            class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           />
         </Field>
         <ErrorMessage name="name" v-slot="{ message }">
@@ -111,7 +111,7 @@ const members = computed<HouseholdMember[]>(() => householdStore.currentMembers)
           <textarea
             v-bind="field"
             rows="3"
-            class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           />
         </Field>
       </div>
@@ -124,7 +124,7 @@ const members = computed<HouseholdMember[]>(() => householdStore.currentMembers)
         <Field name="category" v-slot="{ field }">
           <select
             v-bind="field"
-            class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           >
             <option :value="null" disabled>
               {{ t('common.selectPlaceholder') }}
@@ -159,7 +159,7 @@ const members = computed<HouseholdMember[]>(() => householdStore.currentMembers)
         <Field name="recurrenceType" v-slot="{ field }">
           <select
             v-bind="field"
-            class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           >
             <option v-for="opt in recurrenceTypeOptions" :key="opt.value" :value="opt.value">
               {{ opt.label }}
@@ -186,9 +186,9 @@ const members = computed<HouseholdMember[]>(() => householdStore.currentMembers)
             v-slot="{ field }"
           >
             <label
-              class="inline-flex items-center gap-1 rounded-full border border-gray-300 px-2 py-0.5 text-xs text-hwhub-heading bg-hwhub-surface-subtle"
+              class="inline-flex items-center gap-1 rounded-full border border-hwhub-border px-2 py-0.5 text-xs text-hwhub-heading bg-hwhub-surface-subtle"
             >
-              <input type="checkbox" v-bind="field" class="rounded border-gray-300" />
+              <input type="checkbox" v-bind="field" class="rounded border-hwhub-border" />
               <span>{{ opt.label }}</span>
             </label>
           </Field>
@@ -206,7 +206,7 @@ const members = computed<HouseholdMember[]>(() => householdStore.currentMembers)
         <Field name="dayOfMonthOption" v-slot="{ field }">
           <select
             v-bind="field"
-            class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           >
             <option :value="null" disabled>
               {{ t('common.selectPlaceholder') }}
@@ -233,7 +233,7 @@ const members = computed<HouseholdMember[]>(() => householdStore.currentMembers)
           <Field name="nthWeek" v-slot="{ field }">
             <select
               v-bind="field"
-              class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+              class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
             >
               <option :value="null" disabled>
                 {{ t('common.selectPlaceholder') }}
@@ -255,7 +255,7 @@ const members = computed<HouseholdMember[]>(() => householdStore.currentMembers)
           <Field name="weekday" v-slot="{ field }">
             <select
               v-bind="field"
-              class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+              class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
             >
               <option :value="null" disabled>
                 {{ t('common.selectPlaceholder') }}
@@ -291,7 +291,7 @@ const members = computed<HouseholdMember[]>(() => householdStore.currentMembers)
         <Field name="defaultAssigneeUserId" v-slot="{ field }">
           <select
             v-bind="field"
-            class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           >
             <option value="">
               {{ t('housework.form.fields.defaultAssigneePlaceholder') }}
@@ -313,7 +313,7 @@ const members = computed<HouseholdMember[]>(() => householdStore.currentMembers)
             <input
               v-bind="field"
               type="date"
-              class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+              class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
             />
           </Field>
           <ErrorMessage name="startDate" v-slot="{ message }">
@@ -328,7 +328,7 @@ const members = computed<HouseholdMember[]>(() => householdStore.currentMembers)
             <input
               v-bind="field"
               type="date"
-              class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+              class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
             />
           </Field>
           <ErrorMessage name="endDate" v-slot="{ message }">
@@ -342,7 +342,7 @@ const members = computed<HouseholdMember[]>(() => householdStore.currentMembers)
     <div class="flex justify-end gap-2 pt-2">
       <button
         type="button"
-        class="px-4 py-2 rounded-md border border-gray-300 text-xs md:text-sm text-hwhub-muted hover:bg-hwhub-surface-subtle"
+        class="px-4 py-2 rounded-md border border-hwhub-border text-xs md:text-sm text-hwhub-muted hover:bg-hwhub-surface-subtle"
         @click="onCancel"
       >
         {{ t('common.cancel') }}

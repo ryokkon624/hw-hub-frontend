@@ -64,7 +64,7 @@ const goShopping = () => {
     <header class="flex items-start justify-between gap-3">
       <div>
         <h3 class="text-sm font-semibold text-hwhub-heading flex items-center gap-2">
-          <ShoppingCart class="w-5 h-5" />
+          <ShoppingCart class="w-5 h-5 text-blue-500" />
           <span>{{ t('home.shopping.title') }}</span>
         </h3>
         <p class="mt-1 text-xs text-hwhub-muted">
@@ -74,21 +74,21 @@ const goShopping = () => {
     </header>
 
     <div class="mt-2 grid grid-cols-3 gap-2 text-xs">
-      <div class="rounded-lg bg-hwhub-surface-subtle px-2 py-2 flex flex-col items-start">
+      <div class="rounded-lg bg-emerald-50 border border-emerald-200 px-2 py-2 flex flex-col items-start">
         <span class="text-hwhub-muted">{{ t('home.shopping.super') }}</span>
-        <span class="mt-1 text-base font-semibold text-hwhub-heading">
+        <span class="mt-1 text-base font-semibold text-emerald-700">
           {{ t('home.common.itemCount', { count: superCount }) }}
         </span>
       </div>
-      <div class="rounded-lg bg-hwhub-surface-subtle px-2 py-2 flex flex-col items-start">
+      <div class="rounded-lg bg-rose-50 border border-rose-200 px-2 py-2 flex flex-col items-start">
         <span class="text-hwhub-muted">{{ t('home.shopping.drug') }}</span>
-        <span class="mt-1 text-base font-semibold text-hwhub-heading">
+        <span class="mt-1 text-base font-semibold text-rose-700">
           {{ t('home.common.itemCount', { count: drugCount }) }}
         </span>
       </div>
-      <div class="rounded-lg bg-hwhub-surface-subtle px-2 py-2 flex flex-col items-start">
+      <div class="rounded-lg bg-sky-50 border border-sky-200 px-2 py-2 flex flex-col items-start">
         <span class="text-hwhub-muted">{{ t('home.shopping.online') }}</span>
-        <span class="mt-1 text-base font-semibold text-hwhub-heading">
+        <span class="mt-1 text-base font-semibold text-sky-700">
           {{ t('home.common.itemCount', { count: onlineCount }) }}
         </span>
       </div>

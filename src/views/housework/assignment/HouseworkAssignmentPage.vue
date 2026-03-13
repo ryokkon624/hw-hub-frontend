@@ -48,7 +48,7 @@
           :class="[
             s.member.userId === loginUserId
               ? 'bg-hwhub-primary-50 border-hwhub-primary'
-              : 'bg-white border-gray-200',
+              : 'bg-white border-hwhub-border',
             draggingOverTargetId === s.member.userId
               ? 'ring-2 ring-hwhub-primary ring-offset-1'
               : '',
@@ -59,7 +59,7 @@
           @drop.prevent="onDropToTarget(s.member.userId)"
         >
           <div
-            class="h-6 w-6 rounded-full bg-gray-100 flex items-center justify-center text-[11px] font-semibold text-gray-700 overflow-hidden"
+            class="h-6 w-6 rounded-full bg-hwhub-surface-subtle flex items-center justify-center text-[11px] font-semibold text-hwhub-muted overflow-hidden"
           >
             <img
               v-if="s.member.iconUrl"
@@ -192,7 +192,7 @@
             <!-- 担当あり：メンバーアイコン or 頭文字 -->
             <div
               v-else
-              class="h-9 w-9 flex items-center justify-center rounded-full bg-gray-100 text-[11px] font-semibold text-gray-700 overflow-hidden"
+              class="h-9 w-9 flex items-center justify-center rounded-full bg-hwhub-surface-subtle text-[11px] font-semibold text-hwhub-muted overflow-hidden"
             >
               <img
                 v-if="getMemberForTask(task)?.iconUrl"

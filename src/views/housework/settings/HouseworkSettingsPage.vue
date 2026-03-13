@@ -12,7 +12,8 @@ import ListPagination from '@/components/ui/ListPagination.vue'
 import { useHouseworkCodes } from '@/composables/useHouseworkCodes'
 import { usePagination } from '@/composables/usePagination'
 import { useSortable } from '@/composables/useSortable'
-import { RECURRENCE_TYPE } from '@/constants/code.constants'
+import { RECURRENCE_TYPE, CATEGORY } from '@/constants/code.constants'
+import { ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-vue-next'
 
 const { t, locale } = useI18n()
 const router = useRouter()
@@ -150,10 +151,9 @@ const {
   totalPages: spTotalPages,
 } = usePagination(filteredItems, 10)
 
-// ソートインジケータ
-const sortIcon = (key: keyof HouseworkViewItem) => {
-  if (sortKey.value !== key) return ''
-  return sortOrder.value === 'asc' ? '▲' : '▼'
+const getSortIcon = (key: keyof HouseworkViewItem) => {
+  if (sortKey.value !== key) return ArrowUpDown
+  return sortOrder.value === 'asc' ? ArrowUp : ArrowDown
 }
 
 const goEdit = (id: number) => {
@@ -162,6 +162,17 @@ const goEdit = (id: number) => {
 
 const goCreate = () => {
   router.push({ name: 'settings.housework.new' })
+}
+
+const categoryColorClass = (category: string | null | undefined): string => {
+  switch (category) {
+    case CATEGORY.CLEAN:   return 'bg-blue-50 text-blue-600'
+    case CATEGORY.KITCHEN: return 'bg-orange-50 text-orange-600'
+    case CATEGORY.GARDEN:  return 'bg-cyan-50 text-cyan-600'
+    case CATEGORY.GARBAGE: return 'bg-emerald-50 text-emerald-600'
+    case CATEGORY.PET:     return 'bg-purple-50 text-purple-600'
+    default:               return 'bg-hwhub-surface-subtle text-hwhub-muted'
+  }
 }
 </script>
 
@@ -214,7 +225,7 @@ const goCreate = () => {
           <span class="text-hwhub-muted">{{ t('housework.list.filter.categoryLabel') }}</span>
           <select
             v-model="filterCategory"
-            class="rounded-md border border-gray-300 px-2 py-1 text-xs bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+            class="rounded-md border border-hwhub-border px-2 py-1 text-xs bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           >
             <option value="ALL">{{ t('housework.list.filter.categoryAll') }}</option>
             <option v-for="opt in categoryOptions" :key="opt.value" :value="opt.value">
@@ -235,41 +246,71 @@ const goCreate = () => {
 
         <table class="min-w-full border-collapse text-sm">
           <thead>
-            <tr class="border-b border-gray-200 bg-hwhub-surface-subtle">
+            <tr class="border-b border-hwhub-border bg-hwhub-surface-subtle">
               <th
-                class="px-3 py-2 text-left text-xs font-medium text-hwhub-muted cursor-pointer select-none hover:text-hwhub-heading transition-colors"
+                class="px-3 py-2 text-left text-xs font-medium text-hwhub-muted cursor-pointer select-none group transition-colors hover:text-hwhub-heading hover:bg-hwhub-surface"
                 @click="toggleSort('name')"
               >
-                {{ t('housework.list.columns.name') }}
-                <span class="ml-0.5 text-[10px] text-hwhub-primary">{{ sortIcon('name') }}</span>
+                <div class="flex items-center gap-1">
+                  <span>{{ t('housework.list.columns.name') }}</span>
+                  <component
+                    :is="getSortIcon('name')"
+                    class="w-3 h-3 transition-colors"
+                    :class="sortKey === 'name' ? 'text-hwhub-primary' : 'text-hwhub-muted/40 group-hover:text-hwhub-muted'"
+                  />
+                </div>
               </th>
               <th
-                class="px-3 py-2 text-left text-xs font-medium text-hwhub-muted cursor-pointer select-none hover:text-hwhub-heading transition-colors"
+                class="px-3 py-2 text-left text-xs font-medium text-hwhub-muted cursor-pointer select-none group transition-colors hover:text-hwhub-heading hover:bg-hwhub-surface"
                 @click="toggleSort('categoryLabel')"
               >
-                {{ t('housework.list.columns.category') }}
-                <span class="ml-0.5 text-[10px] text-hwhub-primary">{{ sortIcon('categoryLabel') }}</span>
+                <div class="flex items-center gap-1">
+                  <span>{{ t('housework.list.columns.category') }}</span>
+                  <component
+                    :is="getSortIcon('categoryLabel')"
+                    class="w-3 h-3 transition-colors"
+                    :class="sortKey === 'categoryLabel' ? 'text-hwhub-primary' : 'text-hwhub-muted/40 group-hover:text-hwhub-muted'"
+                  />
+                </div>
               </th>
               <th
-                class="px-3 py-2 text-left text-xs font-medium text-hwhub-muted cursor-pointer select-none hover:text-hwhub-heading transition-colors"
+                class="px-3 py-2 text-left text-xs font-medium text-hwhub-muted cursor-pointer select-none group transition-colors hover:text-hwhub-heading hover:bg-hwhub-surface"
                 @click="toggleSort('recurrenceSummary')"
               >
-                {{ t('housework.list.columns.recurrenceType') }}
-                <span class="ml-0.5 text-[10px] text-hwhub-primary">{{ sortIcon('recurrenceSummary') }}</span>
+                <div class="flex items-center gap-1">
+                  <span>{{ t('housework.list.columns.recurrenceType') }}</span>
+                  <component
+                    :is="getSortIcon('recurrenceSummary')"
+                    class="w-3 h-3 transition-colors"
+                    :class="sortKey === 'recurrenceSummary' ? 'text-hwhub-primary' : 'text-hwhub-muted/40 group-hover:text-hwhub-muted'"
+                  />
+                </div>
               </th>
               <th
-                class="px-3 py-2 text-left text-xs font-medium text-hwhub-muted cursor-pointer select-none hover:text-hwhub-heading transition-colors"
+                class="px-3 py-2 text-left text-xs font-medium text-hwhub-muted cursor-pointer select-none group transition-colors hover:text-hwhub-heading hover:bg-hwhub-surface"
                 @click="toggleSort('defaultAssigneeLabel')"
               >
-                {{ t('housework.list.columns.defaultAssignee') }}
-                <span class="ml-0.5 text-[10px] text-hwhub-primary">{{ sortIcon('defaultAssigneeLabel') }}</span>
+                <div class="flex items-center gap-1">
+                  <span>{{ t('housework.list.columns.defaultAssignee') }}</span>
+                  <component
+                    :is="getSortIcon('defaultAssigneeLabel')"
+                    class="w-3 h-3 transition-colors"
+                    :class="sortKey === 'defaultAssigneeLabel' ? 'text-hwhub-primary' : 'text-hwhub-muted/40 group-hover:text-hwhub-muted'"
+                  />
+                </div>
               </th>
               <th
-                class="px-3 py-2 text-left text-xs font-medium text-hwhub-muted cursor-pointer select-none hover:text-hwhub-heading transition-colors"
+                class="px-3 py-2 text-left text-xs font-medium text-hwhub-muted cursor-pointer select-none group transition-colors hover:text-hwhub-heading hover:bg-hwhub-surface"
                 @click="toggleSort('startDate')"
               >
-                {{ t('housework.list.columns.activePeriod') }}
-                <span class="ml-0.5 text-[10px] text-hwhub-primary">{{ sortIcon('startDate') }}</span>
+                <div class="flex items-center gap-1">
+                  <span>{{ t('housework.list.columns.activePeriod') }}</span>
+                  <component
+                    :is="getSortIcon('startDate')"
+                    class="w-3 h-3 transition-colors"
+                    :class="sortKey === 'startDate' ? 'text-hwhub-primary' : 'text-hwhub-muted/40 group-hover:text-hwhub-muted'"
+                  />
+                </div>
               </th>
             </tr>
           </thead>
@@ -277,7 +318,7 @@ const goCreate = () => {
             <tr
               v-for="hw in pcPagedItems"
               :key="hw.houseworkId"
-              class="border-b border-gray-100 hover:bg-hwhub-surface-subtle cursor-pointer"
+              class="border-b border-hwhub-border hover:bg-hwhub-surface-subtle cursor-pointer"
               @click="goEdit(hw.houseworkId)"
             >
               <!-- 家事名 -->
@@ -293,7 +334,8 @@ const goCreate = () => {
               <td class="px-3 py-2 align-top">
                 <span
                   v-if="hw.categoryLabel"
-                  class="inline-flex items-center rounded-full bg-hwhub-surface-subtle px-2 py-0.5 text-[11px] text-hwhub-heading"
+                  class="inline-flex items-center rounded-full px-2 py-0.5 text-[11px]"
+                  :class="categoryColorClass(hw.category)"
                 >
                   {{ hw.categoryLabel }}
                 </span>
@@ -344,7 +386,7 @@ const goCreate = () => {
           v-for="hw in spPagedItems"
           :key="hw.houseworkId"
           type="button"
-          class="w-full text-left rounded-xl border border-gray-200 bg-white px-3 py-2 shadow-sm hover:bg-hwhub-surface-subtle active:bg-hwhub-surface-subtle transition"
+          class="w-full text-left rounded-xl border border-hwhub-border bg-white px-3 py-2 shadow-sm hover:bg-hwhub-surface-subtle active:bg-hwhub-surface-subtle transition"
           @click="goEdit(hw.houseworkId)"
         >
           <!-- 上段：名前 + カテゴリチップ -->
@@ -360,7 +402,8 @@ const goCreate = () => {
 
             <span
               v-if="hw.categoryLabel"
-              class="ml-2 inline-flex shrink-0 items-center rounded-full bg-hwhub-surface-subtle px-2 py-0.5 text-[11px] text-hwhub-heading"
+              class="ml-2 inline-flex shrink-0 items-center rounded-full px-2 py-0.5 text-[11px]"
+              :class="categoryColorClass(hw.category)"
             >
               {{ hw.categoryLabel }}
             </span>

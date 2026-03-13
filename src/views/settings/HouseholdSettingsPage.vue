@@ -60,7 +60,7 @@
             <button
               v-else
               type="button"
-              class="text-[11px] px-2 py-1 rounded-full border border-gray-300 text-hwhub-heading hover:bg-hwhub-surface-subtle"
+              class="text-[11px] px-2 py-1 rounded-full border border-hwhub-border text-hwhub-heading hover:bg-hwhub-surface-subtle"
               @click.stop="onChangeHousehold(h.householdId)"
             >
               {{ t('settings.household.list.selectButton') }}
@@ -73,7 +73,7 @@
       <div class="flex flex-col gap-2">
         <button
           type="button"
-          class="md:hidden mt-1 flex items-center justify-center rounded-lg border-2 border-dashed border-gray-300 px-3 py-3 text-sm text-hwhub-muted hover:bg-hwhub-surface-subtle"
+          class="md:hidden mt-1 flex items-center justify-center rounded-lg border-2 border-dashed border-hwhub-border px-3 py-3 text-sm text-hwhub-muted hover:bg-hwhub-surface-subtle"
           @click="onClickAddHousehold"
         >
           {{ t('settings.household.list.addButtonSp') }}
@@ -105,7 +105,7 @@
             <input
               v-model="householdName"
               type="text"
-              class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+              class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
               maxlength="100"
             />
           </div>
@@ -149,7 +149,7 @@
             <input
               v-model="myNickname"
               type="text"
-              class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+              class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
               maxlength="50"
             />
           </div>
@@ -234,7 +234,7 @@
               </span>
               <span
                 v-else
-                class="px-2 py-1 rounded-full bg-gray-50 text-gray-600 text-[11px] border border-gray-200"
+                class="px-2 py-1 rounded-full bg-hwhub-surface-subtle text-hwhub-muted text-[11px] border border-hwhub-border"
               >
                 {{ t('settings.household.members.table.roleMember') }}
               </span>

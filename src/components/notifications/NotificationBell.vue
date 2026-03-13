@@ -2,12 +2,12 @@
   <div class="relative" data-notif-root ref="rootEl">
     <button
       type="button"
-      class="relative rounded-full p-2 hover:bg-hwhub-surface-subtle active:bg-hwhub-surface-subtle/70 active:scale-[0.96] transition duration-150"
-      :class="store.shouldAnimateBell ? 'bell-shake' : ''"
+      class="relative rounded-full p-2 hover:bg-hwhub-surface-subtle active:bg-hwhub-surface-subtle/70 active:scale-[0.96]"
+      :class="store.shouldAnimateBell ? 'bell-shake' : 'transition duration-150'"
       :aria-label="t('notifications.bell.ariaLabel')"
       @click="toggle"
     >
-      <Bell class="w-5 h-5" />
+      <Bell class="w-5 h-5" :class="unreadCount > 0 ? 'text-amber-500' : 'text-hwhub-muted'" />
 
       <!-- 未読バッジ -->
       <span
@@ -140,32 +140,22 @@ const onClickItem = async (n: NotificationModel) => {
 </script>
 <style scoped>
 @keyframes bellShake {
-  0% {
-    transform: rotate(0deg);
-  }
-  15% {
-    transform: rotate(15deg);
-  }
-  30% {
-    transform: rotate(-12deg);
-  }
-  45% {
-    transform: rotate(10deg);
-  }
-  60% {
-    transform: rotate(-6deg);
-  }
-  75% {
-    transform: rotate(4deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
+  0%   { transform: rotate(0deg); }
+  5%   { transform: rotate(18deg); }
+  15%  { transform: rotate(-15deg); }
+  25%  { transform: rotate(14deg); }
+  35%  { transform: rotate(-11deg); }
+  45%  { transform: rotate(9deg); }
+  55%  { transform: rotate(-6deg); }
+  65%  { transform: rotate(4deg); }
+  75%  { transform: rotate(-2deg); }
+  85%  { transform: rotate(1deg); }
+  100% { transform: rotate(0deg); }
 }
 
 .bell-shake {
   transform-origin: 50% 15%;
-  animation: bellShake 0.7s ease-in-out;
+  animation: bellShake 1.4s ease-in-out;
 }
 
 button {

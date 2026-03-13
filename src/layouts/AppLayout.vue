@@ -1,44 +1,44 @@
 <template>
   <div class="min-h-screen flex bg-hwhub-surface">
     <!-- サイドバー（PC） -->
-    <aside class="hidden md:flex w-60 flex-col border-r bg-white">
-      <div class="h-16 flex items-center px-4 border-b">
-        <span class="font-bold text-lg text-hwhub-brand">Housework Hub</span>
+    <aside class="hidden md:flex w-60 flex-col bg-hwhub-sidebar">
+      <div class="h-16 flex items-center px-4 border-b border-hwhub-sidebar">
+        <span class="font-bold text-lg text-hwhub-sidebar-logo">Housework Hub</span>
       </div>
 
       <!-- 世帯ブロック -->
-      <div class="px-4 py-3 border-b">
-        <div class="text-xs font-semibold text-hwhub-muted mb-1">
+      <div class="px-4 py-3 border-b border-hwhub-sidebar">
+        <div class="text-xs font-semibold text-green-300 mb-1">
           {{ t('layout.sidebar.householdTitle') }}
         </div>
 
         <div
           v-if="currentHousehold"
-          class="mb-2 rounded-md border border-hwhub-primary bg-hwhub-surface-subtle px-3 py-2"
+          class="mb-2 rounded-md border border-hwhub-sidebar bg-hwhub-sidebar-active px-3 py-2"
         >
-          <div class="text-sm font-medium text-hwhub-heading truncate">
+          <div class="text-sm font-medium text-white truncate">
             {{ currentHousehold.name }}
           </div>
-          <div class="text-xs text-hwhub-muted">{{ currentHousehold.name }}</div>
+          <div class="text-xs text-green-300">{{ currentHousehold.name }}</div>
         </div>
-        <div v-else class="text-xs text-hwhub-muted">
+        <div v-else class="text-xs text-green-300">
           {{ t('layout.sidebar.noHouseholdSelected') }}
         </div>
 
         <!-- 切り替え候補（複数世帯がある場合） -->
         <div v-if="otherHouseholds.length > 0" class="mt-2 space-y-1">
-          <div class="text-xs text-hwhub-muted">{{ t('layout.sidebar.otherHouseholdsLabel') }}</div>
+          <div class="text-xs text-green-300">{{ t('layout.sidebar.otherHouseholdsLabel') }}</div>
           <button
             v-for="h in otherHouseholds"
             :key="h.householdId"
             type="button"
-            class="w-full text-left text-xs rounded-md px-2 py-1 hover:bg-hwhub-surface-subtle"
+            class="w-full text-left text-xs rounded-md px-2 py-1 hover:bg-hwhub-sidebar-hover text-hwhub-sidebar-nav"
             :disabled="isEditingHousework"
             @click="changeHousehold(h.householdId)"
           >
             {{ h.name }}
           </button>
-          <p v-if="isEditingHousework" class="mt-1 text-[11px] text-hwhub-muted">
+          <p v-if="isEditingHousework" class="mt-1 text-[11px] text-green-300">
             {{ t('layout.sidebar.editingWarning') }}
           </p>
         </div>
@@ -50,15 +50,19 @@
           v-for="item in mainNavItems"
           :key="item.name"
           type="button"
-          class="w-full flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition hover:bg-hwhub-surface-subtle"
+          class="w-full flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition hover:bg-hwhub-sidebar-hover"
           :class="
             isActive(item.name)
-              ? 'bg-hwhub-primary text-white hover:bg-hwhub-primary'
-              : 'text-hwhub-nav-inactive'
+              ? 'bg-hwhub-sidebar-active text-hwhub-sidebar-active hover:bg-hwhub-sidebar-hover'
+              : 'text-hwhub-sidebar-nav'
           "
           @click="navigate(item.name)"
         >
-          <component :is="item.icon" class="w-5 h-5" />
+          <component
+            :is="item.icon"
+            class="w-5 h-5"
+            :class="isActive(item.name) ? 'text-green-400' : 'text-green-600'"
+          />
           <span class="flex-1 text-left">{{ t(item.labelKey) }}</span>
         </button>
       </nav>
@@ -90,17 +94,10 @@
         <RouterView />
       </main>
 
-      <!-- SP用 ブランドバー + タブバー -->
+      <!-- SP用タブバー -->
       <div class="fixed bottom-0 inset-x-0 z-40 md:hidden">
-        <!-- ブランドバー -->
-        <div
-          class="h-6 flex items-center justify-center text-[11px] text-hwhub-muted bg-white/95 backdrop-blur border-t"
-        >
-          Housework Hub
-        </div>
-
         <!-- タブバー -->
-        <nav class="flex items-stretch justify-around bg-white/95 backdrop-blur text-xs border-t">
+        <nav class="flex items-stretch justify-around bg-[#1a2e1a] text-xs">
           <button
             v-for="item in mainNavItems"
             :key="item.name"
@@ -108,11 +105,12 @@
             class="flex-1 flex flex-col items-center justify-center py-1.5"
             :class="
               isActive(item.name)
-                ? 'text-hwhub-primary font-semibold'
-                : 'text-hwhub-nav-inactive-mobile'
+                ? 'text-green-400 font-semibold'
+                : 'text-hwhub-sidebar-nav'
             "
             @click="navigate(item.name)"
           >
+            <span class="block w-5 h-0.5 rounded-full mb-1 transition-all" :class="isActive(item.name) ? 'bg-green-400' : 'bg-transparent'" />
             <component :is="item.icon" class="w-5 h-5 mb-0.5" />
             <span class="leading-none">{{ t(item.labelKey) }}</span>
           </button>

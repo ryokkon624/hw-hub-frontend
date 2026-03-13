@@ -81,7 +81,7 @@
           <li
             v-for="item in filteredNotPurchasedItems"
             :key="item.shoppingItemId"
-            class="group rounded-xl border border-gray-300 bg-white px-3 py-2.5 flex items-start gap-3 hover:bg-hwhub-surface-subtle shadow-sm hover:shadow-md hover:-translate-y-px transition"
+            class="group rounded-xl border border-hwhub-border bg-white px-3 py-2.5 flex items-start gap-3 hover:bg-hwhub-surface-subtle shadow-sm hover:shadow-md hover:-translate-y-px transition"
             :class="storeTypeBorderClass(item.storeType)"
           >
             <!-- テキスト＆アクション -->
@@ -107,7 +107,7 @@
                   <span
                     class="inline-flex items-center justify-center h-5 w-5 rounded-full bg-hwhub-surface-subtle text-hwhub-muted"
                   >
-                    <Camera class="w-3 h-3" />
+                    <Camera class="w-3 h-3 text-hwhub-muted" />
                   </span>
                 </div>
 
@@ -122,13 +122,13 @@
                     @click.stop="toggleFavorite(item)"
                   >
                     <span v-if="item.favorite">★</span>
-                    <span v-else class="text-gray-300">☆</span>
+                    <span v-else class="text-slate-300">☆</span>
                   </button>
 
                   <!-- かごへボタン -->
                   <button
                     type="button"
-                    class="px-3 py-1 text-[11px] rounded-full border border-gray-300 text-hwhub-heading hover:bg-hwhub-surface-subtle active:scale-95"
+                    class="px-3 py-1 text-[11px] rounded-full border border-hwhub-border text-hwhub-heading hover:bg-hwhub-surface-subtle active:scale-95"
                     @click.stop="moveToBasket(item)"
                   >
                     {{ t('shopping.list.actions.toBasket') }}
@@ -154,7 +154,7 @@
             }}</span>
             <button
               type="button"
-              class="px-2 py-1 text-[11px] rounded-full border border-gray-300 text-hwhub-heading hover:bg-hwhub-surface-subtle"
+              class="px-2 py-1 text-[11px] rounded-full border border-hwhub-border text-hwhub-heading hover:bg-hwhub-surface-subtle"
               :disabled="inBasketItems.length === 0"
               @click="onClickCompletePurchase"
             >
@@ -176,7 +176,7 @@
           <li
             v-for="item in inBasketItems"
             :key="item.shoppingItemId"
-            class="group rounded-xl border border-gray-300 bg-white px-3 py-2.5 flex items-start gap-3 hover:bg-hwhub-surface-subtle shadow-sm hover:shadow-md hover:-translate-y-px transition"
+            class="group rounded-xl border border-hwhub-border bg-white px-3 py-2.5 flex items-start gap-3 hover:bg-hwhub-surface-subtle shadow-sm hover:shadow-md hover:-translate-y-px transition"
             :class="storeTypeBorderClass(item.storeType)"
           >
             <!-- テキスト＆アクション -->
@@ -202,7 +202,7 @@
                   <span
                     class="inline-flex items-center justify-center h-5 w-5 rounded-full bg-hwhub-surface-subtle text-hwhub-muted"
                   >
-                    <Camera class="w-3 h-3" />
+                    <Camera class="w-3 h-3 text-hwhub-muted" />
                   </span>
                 </div>
 
@@ -212,7 +212,7 @@
                 >
                   <button
                     type="button"
-                    class="px-3 py-1 text-[11px] rounded-full border border-gray-300 text-hwhub-heading hover:bg-hwhub-surface-subtle active:scale-95"
+                    class="px-3 py-1 text-[11px] rounded-full border border-hwhub-border text-hwhub-heading hover:bg-hwhub-surface-subtle active:scale-95"
                     @click.stop="moveToNotPurchased(item)"
                   >
                     {{ t('shopping.list.actions.return') }}
@@ -251,7 +251,7 @@
             <div
               v-for="group in completedGroups"
               :key="group.date"
-              class="rounded-lg border border-gray-200 bg-hwhub-surface-subtle p-2"
+              class="rounded-lg border border-hwhub-border bg-hwhub-surface-subtle p-2"
             >
               <!-- グループヘッダ（日付＋件数） -->
               <div class="flex items-center justify-between text-[11px] text-hwhub-muted mb-1">
@@ -275,7 +275,7 @@
                   <!-- 右側：購入場所バッジ（固定幅） -->
                   <span class="text-hwhub-muted shrink-0">
                     <span
-                      class="px-2 py-0.5 rounded-full bg-white border border-gray-200 text-gray-600 text-[10px]"
+                      class="px-2 py-0.5 rounded-full bg-hwhub-surface-subtle border border-hwhub-border text-hwhub-muted text-[10px]"
                     >
                       {{ storeTypeLabel(item.storeType) }}
                     </span>

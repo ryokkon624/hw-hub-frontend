@@ -200,7 +200,7 @@ const stackedChartOptions = computed<ChartOptions<'bar'>>(() => ({
     <header class="flex items-start justify-between gap-3">
       <div>
         <h3 class="text-sm font-semibold text-hwhub-heading flex items-center gap-2">
-          <Users class="w-5 h-5" />
+          <Users class="w-5 h-5 text-purple-400" />
           <span>{{ t('home.household.title') }}</span>
         </h3>
         <p class="mt-1 text-xs text-hwhub-muted">

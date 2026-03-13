@@ -15,7 +15,7 @@
         <div
           class="flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-sm text-hwhub-heading"
         >
-          <Camera class="w-5 h-5" />
+          <Camera class="w-5 h-5 text-hwhub-primary" />
         </div>
         <div class="flex flex-col">
           <span class="font-medium text-hwhub-heading">
