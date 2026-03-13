@@ -11,7 +11,9 @@
       >
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
-            <User class="w-5 h-5" />
+            <div class="rounded-lg p-2 bg-blue-100">
+              <User class="w-5 h-5 text-blue-600" />
+            </div>
             <div>
               <div class="font-medium text-sm text-hwhub-heading">
                 {{ t('settings.sections.account.title') }}
@@ -32,7 +34,9 @@
       >
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
-            <House class="w-5 h-5" />
+            <div class="rounded-lg p-2 bg-emerald-100">
+              <House class="w-5 h-5 text-emerald-600" />
+            </div>
             <div>
               <div class="font-medium text-sm text-hwhub-heading">
                 {{ t('settings.sections.household.title') }}
@@ -53,7 +57,9 @@
       >
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
-            <Brush class="w-5 h-5" />
+            <div class="rounded-lg p-2 bg-amber-100">
+              <Brush class="w-5 h-5 text-amber-600" />
+            </div>
             <div>
               <div class="font-medium text-sm text-hwhub-heading">
                 {{ t('settings.sections.housework.title') }}
@@ -74,7 +80,9 @@
       >
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
-            <Bell class="w-5 h-5" />
+            <div class="rounded-lg p-2 bg-rose-100">
+              <Bell class="w-5 h-5 text-rose-500" />
+            </div>
             <div>
               <div class="font-medium text-sm text-hwhub-heading">
                 {{ t('settings.sections.notifications.title') }}
@@ -95,7 +103,9 @@
       >
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
-            <Info class="w-5 h-5" />
+            <div class="rounded-lg p-2 bg-slate-100">
+              <Info class="w-5 h-5 text-slate-500" />
+            </div>
             <div>
               <div class="font-medium text-sm text-hwhub-heading">
                 {{ t('settings.sections.about.title') }}

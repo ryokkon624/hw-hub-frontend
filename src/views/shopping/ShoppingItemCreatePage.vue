@@ -56,7 +56,7 @@
           id="name"
           v-model="name"
           type="text"
-          class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+          class="w-full rounded-lg border border-hwhub-border px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           maxlength="100"
           required
         />
@@ -70,7 +70,7 @@
         <textarea
           id="memo"
           v-model="memo"
-          class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+          class="w-full rounded-lg border border-hwhub-border px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           rows="3"
           maxlength="255"
         />
@@ -84,7 +84,7 @@
         <select
           id="storeType"
           v-model="storeType"
-          class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+          class="w-full rounded-lg border border-hwhub-border px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           required
         >
           <option value="" disabled>{{ t('common.selectPlaceholder') }}</option>
@@ -101,7 +101,7 @@
           v-model="favorite"
           type="checkbox"
           :disabled="isFavoriteFixed"
-          class="h-4 w-4 rounded border-gray-300 text-hwhub-primary focus:ring-hwhub-primary focus:ring-offset-0 disabled:opacity-50"
+          class="h-4 w-4 rounded border-hwhub-border text-hwhub-primary focus:ring-hwhub-primary focus:ring-offset-0 disabled:opacity-50"
         />
         <label for="favorite" class="text-sm text-hwhub-heading" :class="{ 'opacity-50': isFavoriteFixed }">
           {{ t('shopping.create.fields.favorite') }}

@@ -48,7 +48,7 @@ const goAssign = () => {
     <header class="flex items-start justify-between gap-3">
       <div>
         <h3 class="text-sm font-semibold text-hwhub-heading flex items-center gap-2">
-          <ClipboardList class="w-5 h-5" />
+          <ClipboardList class="w-5 h-5 text-amber-500" />
           <span>
             <span>{{ t('home.unassigned.title') }}</span></span
           >

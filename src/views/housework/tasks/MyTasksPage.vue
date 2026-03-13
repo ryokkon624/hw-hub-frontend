@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
+import { AlertCircle } from 'lucide-vue-next'
 import { useAuthStore } from '@/stores/authStore'
 import { useUiStore } from '@/stores/uiStore'
 import { useHouseworkTaskStore } from '@/stores/houseworkTaskStore'
@@ -204,7 +205,9 @@ const bulkCompletePast = async () => {
     <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
       <div class="flex flex-wrap items-center justify-between gap-2">
         <div>
-          <h2 class="text-sm font-semibold text-hwhub-heading">{{ t('myTasks.past.title') }}</h2>
+          <h2 class="text-sm font-semibold text-hwhub-heading flex items-center gap-1">
+              <AlertCircle class="w-4 h-4 text-rose-600" />{{ t('myTasks.past.title') }}
+            </h2>
           <p class="text-xs text-hwhub-muted">
             {{ t('myTasks.past.description') }}
           </p>
@@ -236,11 +239,11 @@ const bulkCompletePast = async () => {
             <article
               v-for="task in group.tasks"
               :key="task.houseworkTaskId"
-              class="rounded-lg border bg-white p-3 shadow-sm flex flex-col gap-2"
+              class="rounded-lg border border-rose-200 bg-rose-50 p-3 shadow-sm flex flex-col gap-2"
             >
               <div class="flex items-center justify-between gap-2">
                 <div class="min-w-0">
-                  <h3 class="text-sm font-semibold text-hwhub-heading truncate">
+                  <h3 class="text-sm font-semibold text-rose-700 truncate">
                     {{ task.houseworkName }}
                   </h3>
                 </div>
@@ -332,7 +335,10 @@ const bulkCompletePast = async () => {
         <div v-for="group in futureGroups" :key="group.date" class="space-y-2">
           <!-- 日付ヘッダー -->
           <div class="flex items-center gap-2 text-xs text-hwhub-muted">
-            <span class="font-semibold text-hwhub-heading">{{ group.label }}</span>
+            <span
+              class="font-semibold"
+              :class="group.date === todayYmd ? 'text-hwhub-primary' : 'text-hwhub-heading'"
+            >{{ group.label }}</span>
             <span> {{ t('myTasks.future.groupCount', { count: group.tasks.length }) }}</span>
           </div>
 
@@ -341,7 +347,8 @@ const bulkCompletePast = async () => {
             <article
               v-for="task in group.tasks"
               :key="task.houseworkTaskId"
-              class="rounded-lg border bg-white p-3 shadow-sm flex flex-col gap-2"
+              class="rounded-lg border p-3 shadow-sm flex flex-col gap-2"
+              :class="task.targetDate === todayYmd ? 'bg-green-50 border-green-200' : 'bg-white'"
             >
               <div class="flex items-center justify-between gap-2">
                 <div class="min-w-0">

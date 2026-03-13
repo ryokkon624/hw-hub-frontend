@@ -52,7 +52,7 @@ const goMyTasks = () => {
     <header class="flex items-start justify-between gap-3">
       <div>
         <h3 class="text-sm font-semibold text-hwhub-heading flex items-center gap-2">
-          <CheckSquare class="w-5 h-5" />
+          <CheckSquare class="w-5 h-5 text-hwhub-primary" />
           <span>{{ t('pageTitles.myTasks') }}</span>
         </h3>
         <p class="mt-1 text-xs text-hwhub-muted">

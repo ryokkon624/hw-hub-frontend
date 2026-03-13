@@ -40,7 +40,7 @@
               <input
                 v-model="editableName"
                 type="text"
-                class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+                class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
                 maxlength="100"
               />
             </div>
@@ -52,7 +52,7 @@
               }}</label>
               <textarea
                 v-model="editableMemo"
-                class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+                class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
                 rows="3"
                 maxlength="255"
               />
@@ -65,7 +65,7 @@
               }}</label>
               <select
                 v-model="editableStoreType"
-                class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+                class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
               >
                 <option value="">{{ t('shopping.detail.fields.storeTypeUnset') }}</option>
                 <option v-for="opt in storeTypeOptions" :key="opt.value" :value="opt.value">
@@ -83,7 +83,7 @@
               @click="onToggleFavorite"
             >
               <span v-if="item?.favorite">★</span>
-              <span v-else class="text-gray-300">☆</span>
+              <span v-else class="text-slate-300">☆</span>
             </button>
             <p class="text-[11px] text-hwhub-muted">
               {{ t('shopping.detail.fields.favoriteLabel') }}
@@ -114,7 +114,7 @@
                       ? 'bg-emerald-500 text-white border-emerald-500'
                       : isStatusActive(idx)
                         ? 'bg-hwhub-primary text-white border-hwhub-primary'
-                        : 'bg-hwhub-surface-subtle text-hwhub-muted border-gray-200',
+                        : 'bg-hwhub-surface-subtle text-hwhub-muted border-hwhub-border',
                   ]"
                 >
                   <span v-if="isStatusDone(idx)">✓</span>
@@ -196,7 +196,7 @@
             :class="
               att.id === selectedAttachmentId
                 ? 'border-hwhub-primary'
-                : 'border-gray-200 hover:border-gray-400'
+                : 'border-hwhub-border hover:border-gray-400'
             "
             @click="onSelectThumbnail(att)"
           >

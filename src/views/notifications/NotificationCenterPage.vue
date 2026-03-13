@@ -19,8 +19,9 @@
       </div>
 
       <div v-else>
-        <div v-if="items.length === 0" class="p-4 text-sm text-hwhub-muted">
-          {{ t('notifications.center.empty') }}
+        <div v-if="items.length === 0" class="p-8 flex flex-col items-center gap-2 text-hwhub-muted">
+          <Bell class="w-8 h-8 opacity-30" />
+          <p class="text-sm">{{ t('notifications.center.empty') }}</p>
         </div>
 
         <NotificationListItem
@@ -36,6 +37,7 @@
 
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
+import { Bell } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { useNotificationStore } from '@/stores/notificationStore'

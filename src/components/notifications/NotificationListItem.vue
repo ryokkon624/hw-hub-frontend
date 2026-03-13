@@ -4,15 +4,15 @@
     class="group w-full text-left px-3 py-3 transition duration-150 border-b last:border-b-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-hwhub-primary/30 active:scale-[0.995] active:bg-hwhub-surface-subtle/80"
     :class="[
       notification.isRead
-        ? 'hover:bg-hwhub-surface-subtle'
-        : 'bg-hwhub-primary/5 hover:bg-hwhub-primary/10 border-l-4 border-l-hwhub-primary',
+        ? 'bg-white hover:bg-hwhub-surface-subtle'
+        : 'bg-amber-50 hover:bg-amber-100/70 border-l-4 border-l-hwhub-primary',
       clicked ? 'notif-click-flash' : '',
     ]"
     @click="handleClick"
   >
     <div class="flex items-start gap-2">
       <!-- unread dot -->
-      <span class="mt-1 text-sm" :class="notification.isRead ? 'opacity-20' : 'text-hwhub-primary'">
+      <span class="mt-1 text-sm" :class="notification.isRead ? 'opacity-10 text-hwhub-muted' : 'text-amber-500'">
         ●
       </span>
 

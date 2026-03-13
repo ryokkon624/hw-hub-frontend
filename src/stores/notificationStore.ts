@@ -87,7 +87,7 @@ export const useNotificationStore = defineStore('notification', {
         this.shouldAnimateBell = true
         window.setTimeout(() => {
           this.shouldAnimateBell = false
-        }, 800)
+        }, 1500)
       })
     },
 

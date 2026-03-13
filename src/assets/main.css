@@ -45,13 +45,39 @@ body {
 
   /* Surface */
   .bg-hwhub-surface {
-    @apply bg-slate-50;
+    background-color: #f7f8f6;
   }
   .bg-hwhub-surface-subtle {
-    @apply bg-slate-100;
+    @apply bg-green-50;
   }
   .bg-hwhub-surface-login {
     @apply bg-slate-200;
+  }
+  .bg-hwhub-sidebar {
+    background-color: #1a2e1a;
+  }
+  .text-hwhub-sidebar-logo {
+    @apply text-green-300;
+  }
+  .text-hwhub-sidebar-active {
+    @apply text-white;
+  }
+  .bg-hwhub-sidebar-active {
+    background-color: rgba(255, 255, 255, 0.12);
+  }
+  .hover\:bg-hwhub-sidebar-hover:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+  .text-hwhub-sidebar-nav {
+    @apply text-green-200;
+  }
+  .border-hwhub-sidebar {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Border */
+  .border-hwhub-border {
+    @apply border-slate-200;
   }
 
   /* Text */
@@ -91,10 +117,10 @@ body {
   }
 
   .bg-hwhub-info-soft {
-    @apply bg-slate-100;
+    @apply bg-blue-50;
   }
   .text-hwhub-info {
-    @apply text-slate-800;
+    @apply text-blue-700;
   }
 
   /* 買い物リスト系 */
