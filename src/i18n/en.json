@@ -133,7 +133,7 @@
     },
     "title": "Sign in",
     "subtitle": "Sign in with your registered email and password.",
-    "google": "Sign in with Google (Coming soon)",
+    "google": "Sign in with your Google account",
     "divider": "or",
     "email": "Email",
     "password": "Password",
@@ -1200,7 +1200,8 @@
     "yesterday": "Yesterday",
     "locales": {
       "ja": "Japanese",
-      "en": "English"
+      "en": "English",
+      "es": "Spanish"
     },
     "fileInput": {
       "buttonDefault": "Select image",

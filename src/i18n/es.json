@@ -1,33 +1,709 @@
 {
-  "housework": {
-    "list": {
-      "title": "Lista de Tareas del Hogar",
-      "columns": {
-        "id": "ID",
-        "name": "Nombre",
-        "category": "Categoría",
-        "recurrenceType": "Tipo de Recurrencia",
-        "startDate": "Fecha de Inicio",
-        "endDate": "Fecha de Finalización"
+  "errors": {
+    "common": {
+      "network": "Se produjo un error de red.",
+      "validation": "Por favor revisa tu entrada.",
+      "badRequest": "Solicitud no válida.",
+      "unauthorized": "Autenticación requerida.",
+      "forbidden": "Acceso denegado.",
+      "notFound": "No encontrado.",
+      "conflict": "Se produjo un error de integridad de datos.",
+      "tooManyRequests": "Demasiadas solicitudes. Por favor espera un momento.",
+      "failed": "El procesamiento falló."
+    },
+    "auth": {
+      "emailAlreadyUsed": "Esta dirección de correo electrónico ya está en uso.",
+      "emailNotVerified": "La dirección de correo electrónico no ha sido verificada.",
+      "passwordLoginNotAllowed": "El inicio de sesión con contraseña no está permitido para esta cuenta. Por favor usa el inicio de sesión con Google.",
+      "invalidCredentials": "El correo electrónico o la contraseña son incorrectos."
+    },
+    "emailVerify": {
+      "invalid": "El token es inválido o ha expirado.",
+      "cooldown": "Demasiadas solicitudes de reenvío. Por favor espera un momento.",
+      "limitExceeded": "Se superó el límite diario de solicitudes de reenvío.",
+      "alreadyVerified": "Ya verificado. Por favor inicia sesión."
+    },
+    "passwordReset": {
+      "disabled": "El restablecimiento de contraseña no está disponible actualmente.",
+      "invalid": "El token es inválido o ha expirado.",
+      "expired": "El token ha expirado.",
+      "cooldown": "Demasiadas solicitudes de reenvío.",
+      "limitExceeded": "Se superó el límite de solicitudes."
+    },
+    "passwordChange": {
+      "currentPasswordInvalid": "La contraseña actual es incorrecta.",
+      "sameAsOld": "La nueva contraseña es igual a la actual.",
+      "tooWeak": "La contraseña es demasiado débil. Por favor usa una contraseña más segura."
+    },
+    "oauth": {
+      "stateMismatch": "Error de estado de autenticación. Por favor intenta de nuevo.",
+      "idTokenInvalid": "El token de autenticación es inválido. Por favor intenta de nuevo.",
+      "emailNotVerified": "El correo electrónico de la cuenta de Google no está verificado.",
+      "emailAlreadyRegistered": "Esta dirección de correo electrónico ya está registrada. Para vincular con tu cuenta de Google, por favor inicia sesión y ve a Configuración de cuenta."
+    },
+    "google": {
+      "alreadyLinked": "Esta cuenta ya está vinculada con Google.",
+      "subAlreadyUsed": "Esta cuenta de Google ya está siendo utilizada por otra cuenta."
+    },
+    "unauthorized": "Autenticación requerida.",
+    "forbidden": "Acceso denegado.",
+    "validation": "Por favor revisa tu entrada.",
+    "network": "Se produjo un error de red.",
+    "server": "Se produjo un error del servidor.",
+    "unexpected": "Se produjo un error inesperado."
+  },
+  "passwordReset": {
+    "page": {
+      "title": "Restablecer contraseña",
+      "description": "Ingresa tu nueva contraseña.",
+      "missingToken": "Token no encontrado. Por favor revisa la URL."
+    },
+    "form": {
+      "newPassword": "Nueva contraseña",
+      "newPasswordPlaceholder": "8 caracteres o más",
+      "confirmPassword": "Confirmar nueva contraseña",
+      "confirmPasswordPlaceholder": "Ingresa de nuevo",
+      "submit": "Restablecer contraseña",
+      "submitting": "Enviando..."
+    },
+    "links": {
+      "requestNew": "Solicitar un nuevo enlace",
+      "backToLogin": "Volver al inicio de sesión"
+    },
+    "errors": {
+      "mismatch": "Las contraseñas no coinciden."
+    }
+  },
+  "passwordForgot": {
+    "title": "¿Olvidaste tu contraseña?",
+    "description": "Ingresa tu dirección de correo electrónico. Si existe una cuenta, te enviaremos un enlace para restablecer la contraseña.",
+    "email": "Correo electrónico",
+    "placeholder": "tu@ejemplo.com",
+    "submit": "Enviar enlace de restablecimiento",
+    "submitting": "Enviando...",
+    "backToLogin": "Volver al inicio de sesión"
+  },
+  "passwordResetSent": {
+    "title": "Revisa tu correo",
+    "description": "Si existe una cuenta, se ha enviado un enlace de restablecimiento.",
+    "checkSpam": "¿No recibiste el correo?",
+    "spamActions": {
+      "spamFolder": "Revisa tu carpeta de spam",
+      "settings": "Revisa tu configuración de recepción",
+      "wait": "Espera un momento e intenta reenviar"
+    },
+    "resend": "Reenviar correo",
+    "sending": "Enviando...",
+    "useDifferentEmail": "Usar un correo diferente",
+    "backToLogin": "Volver al inicio de sesión"
+  },
+  "pageTitles": {
+    "home": "Inicio",
+    "houseworkSettings": "Configuración de tareas del hogar",
+    "houseworkAssign": "Tablero de tareas del hogar",
+    "myTasks": "Mis tareas",
+    "shopping": "Lista de compras",
+    "shoppingCreate": "Nuevo artículo de compras",
+    "shoppingEdit": "Editar artículo de compras",
+    "settings": "Configuración",
+    "accountSettings": "Configuración de cuenta",
+    "householdSettings": "Configuración del hogar",
+    "houseworkCreate": "Nueva tarea del hogar",
+    "houseworkEdit": "Editar tarea del hogar",
+    "notifications": "Centro de notificaciones",
+    "app": "Información de la app",
+    "terms": "Términos de servicio",
+    "privacy": "Política de privacidad",
+    "authResult": "Resultado",
+    "oauthResult": "Resultado"
+  },
+  "login": {
+    "hero": {
+      "titleFirst": "Comparte las tareas del hogar y las compras,",
+      "title2nd": "con todos en casa.",
+      "description": {
+        "beforeHighlight": "Housework Hub es una app para",
+        "highlight": "hacer visibles las tareas del hogar y las compras para todos en casa",
+        "afterHighlight": ". Es tu puerta de acceso a las asignaciones de tareas y la página \u201cMis tareas\u201d."
+      },
+      "notes": {
+        "sameAccount": "・Puedes iniciar sesión con la misma cuenta que la versión de navegador.",
+        "sharedData": "・Tus datos se comparten entre PC y smartphone."
       }
     },
-    "create": { "title": "Nueva Tarea del Hogar" },
-    "edit": { "title": "Editar Tarea del Hogar" },
-    "form": {
+    "title": "Iniciar sesión",
+    "subtitle": "Inicia sesión con tu correo electrónico y contraseña registrados.",
+    "google": "Iniciar sesión con tu cuenta de Google",
+    "divider": "o",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "placeholderEmail": "tu{'@'}ejemplo.com",
+    "placeholderPassword": "••••••••",
+    "errorInvalid": "Correo electrónico o contraseña inválidos.",
+    "submit": {
+      "default": "Iniciar sesión",
+      "loading": "Iniciando sesión…"
+    },
+    "noAccount": "¿No tienes una cuenta?",
+    "goSignup": "Registrarse",
+    "goSignupSuffix": "",
+    "notice": {
+      "passwordResetSuccess": "Contraseña cambiada con éxito. Por favor inicia sesión con tu nueva contraseña.",
+      "emailVerified": "Dirección de correo electrónico verificada con éxito. Por favor inicia sesión.",
+      "googleLoginSuccess": "Sesión iniciada con Google.",
+      "googleLoginFailed": "Error al iniciar sesión con Google."
+    },
+    "toasts": {
+      "passwordChanged": "Contraseña cambiada. Por favor inicia sesión con tu nueva contraseña."
+    },
+    "errors": {
+      "emailNotVerified": "La dirección de correo electrónico no ha sido verificada."
+    },
+    "forgotPassword": "¿Olvidaste tu contraseña?"
+  },
+  "signup": {
+    "title": "Crear cuenta",
+    "subtitle": {
+      "line1": "¿Primera vez aquí?",
+      "line2": "Vamos a crear tu cuenta."
+    },
+    "description": {
+      "aboutSharing": "Comparte listas de compras y asignaciones de tareas del hogar con los miembros de tu hogar.",
+      "multiHousehold": "Puedes gestionar múltiples hogares con una sola cuenta.",
+      "noteChangeable": "※ El idioma y la foto de perfil se pueden cambiar después de crear la cuenta.",
+      "devNote": "Como esto está en desarrollo, la dirección de correo electrónico es solo para iniciar sesión. Puedes usar un correo no existente para el registro."
+    },
+    "fields": {
+      "email": "Correo electrónico",
+      "displayName": "Nombre para mostrar",
+      "password": "Contraseña",
+      "passwordConfirm": "Confirmar contraseña",
+      "passwordHint": "8 caracteres o más",
+      "locale": "Idioma preferido"
+    },
+    "placeholder": {
+      "email": "you{'@'}example.com",
+      "displayName": "ej. Papá / Mamá / Miguel"
+    },
+    "errors": {
+      "emailUsed": "Esta dirección de correo electrónico ya está registrada.",
+      "failed": "Error al crear la cuenta. Por favor intenta de nuevo más tarde."
+    },
+    "submit": {
+      "default": "Crear cuenta",
+      "loading": "Creando..."
+    },
+    "haveAccountPrefix": "¿Ya tienes una cuenta?",
+    "goLoginBottom": "¿Ya tienes una cuenta? ",
+    "goLogin": "Ir al inicio de sesión",
+    "bottom": {
+      "haveAccount": "¿Ya tienes una cuenta?",
+      "goLogin": "Ir al inicio de sesión",
+      "suffix": ""
+    },
+    "header": {
+      "haveAccountLink": "¿Ya tienes una cuenta?"
+    }
+  },
+  "emailVerify": {
+    "page": {
+      "title": "Verificación de correo electrónico",
+      "loading": "Verificando...",
+      "success": "Verificación completada. Por favor inicia sesión.",
+      "invalid": "El enlace es inválido o ha expirado. Por favor verifica de nuevo desde la página de registro.",
+      "toLogin": "Ir al inicio de sesión",
+      "toSignup": "Ir al registro"
+    },
+    "waitPage": {
+      "title": "Correo de verificación enviado",
+      "sentTo": "Se ha enviado un correo de confirmación a \"{email}\".",
+      "instruction": "Por favor haz clic en el enlace del correo para completar el registro.",
+      "spamNote": "Por favor también revisa tu carpeta de spam.",
+      "alertResent": "El correo de verificación ha sido reenviado.",
+      "resendButton": "Reenviar correo",
+      "resendCooldown": "Reenviar en {seconds}s"
+    },
+    "errors": {
+      "tokenInvalid": "El token es inválido o ha expirado.",
+      "cooldown": "Demasiadas solicitudes. Por favor espera un momento.",
+      "tooManyRequests": "Se superó el límite diario de solicitudes de verificación."
+    }
+  },
+  "authResult": {
+    "common": {
+      "title": "Resultado",
+      "message": "Por favor cierra esta pantalla e intenta de nuevo."
+    },
+    "actions": {
+      "toLogin": "Ir al inicio de sesión",
+      "retryPasswordReset": "Intentar solicitud de contraseña de nuevo",
+      "toSignup": "Ir al registro"
+    },
+    "emailVerify": {
+      "success": {
+        "title": "Verificación de correo completada",
+        "message": "Por favor inicia sesión para continuar."
+      },
+      "expired": {
+        "title": "El enlace ha expirado",
+        "message": "Por favor solicita un nuevo correo de verificación desde la página de registro."
+      },
+      "invalid": {
+        "title": "Enlace de verificación inválido",
+        "message": "El enlace es incorrecto o ya ha sido utilizado."
+      }
+    },
+    "passwordReset": {
+      "success": {
+        "title": "Contraseña cambiada",
+        "message": "Por favor inicia sesión con tu nueva contraseña."
+      },
+      "expired": {
+        "title": "El enlace ha expirado",
+        "message": "Por favor solicita un restablecimiento de contraseña de nuevo."
+      },
+      "invalid": {
+        "title": "Enlace de restablecimiento inválido",
+        "message": "El enlace es incorrecto o ya ha sido utilizado."
+      }
+    }
+  },
+  "invite": {
+    "page": {
+      "hero": {
+        "badge": "INVITACIÓN AL HOGAR",
+        "heading": "Has sido invitado a un hogar.",
+        "description": "Si aceptas esta invitación, te unirás al hogar y podrás compartir las tareas y listas de compras.",
+        "notice": "Si recibiste esta invitación por error, por favor elige \u201cRechazar\u201d a la derecha."
+      },
+      "loading": "Cargando información de la invitación…",
+      "error": {
+        "invalid": "Esta invitación es inválida o puede haber expirado.",
+        "acceptFailed": "Error al unirse al hogar. Por favor intenta de nuevo más tarde.",
+        "declineFailed": "Error al rechazar la invitación.",
+        "reloadButton": "Recargar"
+      },
+      "info": {
+        "householdTitle": "Hogar invitado",
+        "inviterLabel": "Invitante:",
+        "invitedEmailLabel": "Correo electrónico invitado:"
+      },
+      "warning": {
+        "emailMismatch": "La cuenta actualmente conectada ({currentEmail}) es diferente a la dirección de correo invitada ({invitedEmail}).\nPor favor asegúrate de unirte con la cuenta correcta."
+      },
+      "loginNeeded": {
+        "message": "Para unirte, necesitas iniciar sesión o crear una cuenta.",
+        "loginAndJoin": "Iniciar sesión y unirse",
+        "signupAndJoin": "Crear una nueva cuenta"
+      },
+      "loggedIn": {
+        "confirmMessage": "¿Deseas unirte al hogar \u201c{householdName}\u201d con esta cuenta?"
+      },
+      "actions": {
+        "accept": "Unirse",
+        "decline": "Rechazar"
+      }
+    }
+  },
+  "layout": {
+    "sidebar": {
+      "householdTitle": "Hogar",
+      "currentHouseholdLabel": "Hogar actual",
+      "noHouseholdSelected": "Ningún hogar seleccionado",
+      "otherHouseholdsLabel": "Otros hogares",
+      "editingWarning": "No puedes cambiar de hogar mientras estás editando.",
+      "mobileHouseholdPrefix": "Hogar: ",
+      "confirmChangeHousehold": "Tus cambios actuales pueden descartarse. ¿Deseas cambiar de hogar?"
+    }
+  },
+  "appHeader": {
+    "iconAlt": "Ícono de usuario"
+  },
+  "oauthResult": {
+    "processing": "Procesando...",
+    "status": "Iniciando sesión..."
+  },
+  "home": {
+    "intro": "Aquí puedes revisar rápidamente el estado general de las tareas del hogar y las compras. Para operaciones detalladas, usa cada página (Mis tareas / Asignación / Lista de compras).",
+    "onboarding": {
+      "title": "¡Bienvenido a Housework Hub!",
+      "subtitle": "Preparémonos para usar la app.",
+      "step1": {
+        "title": "Únete o crea un hogar",
+        "description": "Primero, crea una base de hogar o recibe una invitación de un familiar.",
+        "button": "Ir a Configuración del hogar"
+      },
+      "step2": {
+        "title": "Crea plantillas de tareas",
+        "description": "Registra tareas maestras como 'Limpieza' o 'Lavandería' para este hogar.",
+        "button": "Ir a Configuración de tareas"
+      }
+    },
+    "common": {
+      "taskCount": "{count} tareas",
+      "itemCount": "{count} artículos"
+    },
+    "myTasks": {
+      "summary": "Un resumen de las tareas del hogar asignadas a ti.",
+      "todayLabel": "Tareas de hoy",
+      "weekLabel": "Próximos 7 días",
+      "overdueLabel": "Vencidas",
+      "note": "※ Puedes actualizar los estados en la página \u201cMis tareas\u201d.",
+      "openButton": "Abrir Mis tareas"
+    },
+    "unassigned": {
+      "title": "Tareas sin asignar",
+      "summary": "Tareas del hogar que aún no tienen asignado. Intenta asignarlas con anticipación.",
+      "totalLabel": "Sin asignar",
+      "totalPeriod": "Todo el tiempo",
+      "soonLabel": "Hoy – en 3 días",
+      "soonDescription": "Tareas a asignar pronto",
+      "note": "※ Puedes cambiar los asignados en la página \u201cAsignación\u201d.",
+      "openButton": "Abrir asignación"
+    },
+    "shopping": {
+      "title": "Lista de compras",
+      "summary": "Número de artículos no comprados en este hogar. Muestra conteos por tienda y artículos añadidos recientemente.",
+      "super": "Supermercado",
+      "drug": "Farmacia",
+      "online": "En línea",
+      "recentLabel": "Artículos añadidos en los últimos 2 días",
+      "openButton": "Abrir lista de compras"
+    },
+    "household": {
+      "title": "Resumen del hogar",
+      "summary": "Número de tareas del hogar desde 6 días en el pasado hasta 6 días en el futuro. Los colores muestran cuántas tareas tiene cada persona (incluyendo sin asignar).",
+      "empty": "Aún no hay tareas para mostrar. Una vez que crees plantillas y asignes tareas, el resumen del hogar aparecerá aquí."
+    }
+  },
+  "assign": {
+    "intro": "Ajusta los asignados para las tareas del hogar en este hogar. Usa esta página para asignar tareas sin asignar y equilibrar la carga de trabajo.",
+    "summary": {
+      "heading": "Tareas pendientes por miembro",
+      "unassignedBadge": "Sin",
+      "unassignedLabel": "Sin asignar",
+      "tasksLabel": "Tareas pendientes: {total} (Sin asignar: {unassigned})"
+    },
+    "filter": {
+      "label": "Filtro",
+      "all": "Todos",
+      "unassignedOnly": "Solo sin asignar",
+      "mineAndUnassigned": "Míos + sin asignar"
+    },
+    "list": {
+      "empty": "No hay tareas del hogar que coincidan con los filtros actuales.",
+      "unassignedBadge": "Sin",
+      "executionDate": "Fecha: {date}",
+      "assignToMe": "Asignarme",
+      "selectUnassigned": "Sin asignar"
+    },
+    "messages": {
+      "fetchError": "Error al cargar las tareas del hogar.",
+      "assigneeUpdateSuccess": "El asignado ha sido actualizado.",
+      "assigneeUpdateError": "Error al actualizar el asignado."
+    },
+    "bulk": {
+      "pastUnassignedCount": "Sin asignar anteriores: {count}",
+      "skipButton": "⏭ Omitir anteriores sin asignar",
+      "confirmSkip": "Omitir todas las {count} tareas sin asignar anteriores a hoy. ¿Estás seguro?",
+      "skipSuccess": "Las tareas sin asignar anteriores han sido omitidas.",
+      "skipError": "Error al omitir tareas en bloque."
+    },
+    "avatarAlt": "Ícono de miembro"
+  },
+  "myTasks": {
+    "intro": "Esta es una lista de tareas del hogar asignadas a ti. Puedes marcarlas como completadas u omitidas aquí.",
+    "past": {
+      "title": "Tareas anteriores",
+      "description": "Tareas que estaban programadas antes de hoy y aún están pendientes.",
+      "bulkComplete": "Marcar todas como completadas",
+      "empty": "No hay tareas pendientes anteriores.",
+      "groupCount": "({count} tareas)"
+    },
+    "future": {
+      "title": "Tareas próximas",
+      "description": "Tareas programadas desde hoy en adelante. Puedes marcarlas como completadas u omitidas según sea necesario.",
+      "filterAll": "Todos",
+      "filterToday": "Hoy",
+      "filterWeek": "1 semana",
+      "pendingCount": "Pendientes: {count} tareas",
+      "empty": "No hay tareas próximas pendientes.",
+      "groupCount": "({count} tareas)"
+    },
+    "actions": {
+      "skip": "Omitir",
+      "complete": "Marcar como completada"
+    },
+    "messages": {
+      "fetchError": "Error al cargar las tareas del hogar.",
+      "doneSuccess": "La tarea ha sido marcada como completada.",
+      "doneError": "Error al marcar como completada.",
+      "skipPrompt": "Ingresa un motivo para omitir (opcional).",
+      "skipSuccess": "La tarea ha sido omitida.",
+      "skipError": "Error al marcar como omitida.",
+      "bulkConfirm": "Marcar las {count} tareas pendientes anteriores a hoy como completadas. ¿Estás seguro?",
+      "bulkSuccess": "Todas las tareas anteriores han sido marcadas como completadas.",
+      "bulkError": "Error al actualizar las tareas en bloque."
+    },
+    "date": {
+      "today": "Hoy",
+      "tomorrow": "Mañana",
+      "weekday": {
+        "0": "Dom",
+        "1": "Lun",
+        "2": "Mar",
+        "3": "Mié",
+        "4": "Jue",
+        "5": "Vie",
+        "6": "Sáb"
+      },
+      "label": "{day}/{month} ({weekday})"
+    }
+  },
+  "shopping": {
+    "list": {
+      "titleSr": "Lista de compras",
+      "intro": "Gestiona los artículos de compras de este hogar.",
+      "addButton": "+ Añadir artículo",
+      "filters": {
+        "all": "Todos"
+      },
+      "notPurchased": {
+        "title": "Para comprar (no comprado)",
+        "count": "{count} artículo(s)",
+        "countWithFilter": "{filtered} artículo(s) / total {total}",
+        "emptyAll": "Aún no hay artículos para comprar.",
+        "emptyFiltered": "No hay artículos que coincidan con el filtro actual."
+      },
+      "basket": {
+        "title": "Cesta",
+        "count": "{count} artículo(s)",
+        "empty": "No hay artículos en la cesta.",
+        "completeButton": "Marcar como comprado"
+      },
+      "completed": {
+        "title": "Comprado",
+        "count": "{count} artículo(s)",
+        "daysLabel": "Últimos {days} días",
+        "empty": "No hay artículos comprados en los últimos {days} días."
+      },
+      "actions": {
+        "toBasket": "Mover a la cesta",
+        "return": "Mover de vuelta"
+      },
+      "messages": {
+        "fetchError": "Error al cargar la lista de compras.",
+        "favoriteUpdateError": "Error al actualizar el estado de favorito.",
+        "statusUpdateError": "Error al actualizar el estado.",
+        "completeSuccess": "Artículos marcados como comprados.",
+        "completeError": "Error al marcar artículos como comprados."
+      }
+    },
+    "create": {
+      "titleSr": "Añadir artículo",
+      "intro": "Añade un nuevo artículo a la lista de compras de este hogar.",
+      "historyButton": "Elegir de compras anteriores",
+      "favoriteButton": "Elegir de favoritos",
       "fields": {
-        "name": "Nombre",
+        "name": "Nombre del artículo",
+        "memo": "Nota (opcional)",
+        "storeType": "Dónde comprar",
+        "favorite": "Marcar como favorito"
+      },
+      "image": {
+        "label": "Imagen (opcional)",
+        "description": "Puedes adjuntar una imagen. Se cargará después de añadir el artículo.",
+        "rightHint": "Hasta 5MB / 1 archivo"
+      },
+      "buttons": {
+        "submit": "Añadir artículo",
+        "cancel": "Cancelar"
+      },
+      "messages": {
+        "householdNotSelected": "No hay ningún hogar seleccionado.",
+        "invalidInput": "Por favor revisa tu entrada.",
+        "storeTypeRequired": "Por favor selecciona dónde comprar.",
+        "createSuccess": "El artículo ha sido añadido.",
+        "createError": "Error al añadir el artículo."
+      }
+    },
+    "detail": {
+      "titleSr": "Detalles del artículo",
+      "intro": "Ver y editar detalles de un artículo de compras de este hogar.",
+      "back": "Volver",
+      "fields": {
+        "name": "Nombre del artículo",
+        "memo": "Nota",
+        "storeType": "Dónde comprar",
+        "storeTypeUnset": "No establecido",
+        "favoriteLabel": "Favorito",
+        "status": "Estado"
+      },
+      "saveButton": "Guardar cambios",
+      "imageSection": {
+        "title": "Imágenes",
+        "none": "Aún no se han añadido imágenes.",
+        "addTitle": "Añadir imagen",
+        "description": "Las imágenes se añaden una por una. Se recomiendan archivos de hasta 2MB.",
+        "deleteButton": "Eliminar"
+      },
+      "statusHelp": {
+        "notPurchased": "El artículo aún no ha sido comprado. Muévelo a la cesta cuando planees comprarlo.",
+        "inBasket": "El artículo está en la cesta de compras. Márcalo como comprado cuando lo compres.",
+        "purchased": "El artículo ha sido comprado. Puedes moverlo de vuelta a \"No comprado\" si es necesario."
+      },
+      "messages": {
+        "fetchError": "Error al cargar los detalles del artículo.",
+        "updateSuccess": "La información del artículo ha sido actualizada.",
+        "updateError": "Error al actualizar la información del artículo.",
+        "statusUpdateError": "Error al actualizar el estado.",
+        "favoriteUpdateError": "Error al actualizar el estado de favorito.",
+        "imageAddSuccess": "La imagen ha sido añadida.",
+        "imageAddError": "Error al añadir la imagen.",
+        "imageDeleteConfirm": "¿Deseas eliminar esta imagen?",
+        "imageDeleteSuccess": "La imagen ha sido eliminada.",
+        "imageDeleteError": "Error al eliminar la imagen."
+      }
+    },
+    "historyModal": {
+      "title": "Seleccionar de compras anteriores",
+      "description": "Puedes reutilizar artículos que compraste recientemente.",
+      "reload": "Recargar",
+      "loading": "Cargando…",
+      "emptyAll": "Aún no hay historial de compras anteriores.",
+      "emptyFiltered": "Ningún historial coincide con los filtros actuales.",
+      "filters": {
+        "keywordPlaceholder": "Buscar por nombre de artículo",
+        "storeType": {
+          "all": "Todos",
+          "supermarket": "Supermercado",
+          "online": "En línea",
+          "drugstore": "Farmacia"
+        },
+        "period": {
+          "all": "Todo el período",
+          "d30": "Últimos 30 días",
+          "d90": "Últimos 90 días",
+          "d365": "Último año"
+        }
+      },
+      "item": {
+        "thumbnail": {
+          "hasImage": "IMG",
+          "noImage": "SIN IMG"
+        },
+        "storeTypeUnset": "No establecido",
+        "lastPurchasedPrefix": "Última:",
+        "purchaseCountSuffix": " veces",
+        "selectButton": "Añadir"
+      }
+    },
+    "favoriteModal": {
+      "title": "Seleccionar de favoritos",
+      "description": "Puedes seleccionar de artículos registrados como favoritos.",
+      "reload": "Recargar",
+      "loading": "Cargando…",
+      "emptyAll": "Aún no hay favoritos.",
+      "emptyFiltered": "Ningún artículo coincide con los filtros actuales.",
+      "filters": {
+        "keywordPlaceholder": "Buscar por nombre de artículo"
+      },
+      "item": {
+        "thumbnail": {
+          "hasImage": "IMG",
+          "noImage": "SIN IMG"
+        },
+        "storeTypeUnset": "No establecido",
+        "memoPrefix": " / ",
+        "selectButton": "Seleccionar"
+      }
+    }
+  },
+  "housework": {
+    "list": {
+      "title": "Configuración de tareas del hogar",
+      "description": "Gestiona las plantillas de tareas del hogar para este hogar. Cuando estableces la recurrencia y los asignados predeterminados, se reflejarán en Asignación y Mis tareas.",
+      "addButtonLabel": "+ Añadir tarea",
+      "totalPrefix": "Plantillas de tareas registradas:",
+      "totalUnit": "artículos",
+      "filter": {
+        "categoryLabel": "Categoría",
+        "categoryAll": "Todas"
+      },
+      "columns": {
+        "name": "Nombre de la tarea",
+        "category": "Categoría",
+        "recurrenceType": "Recurrencia",
+        "defaultAssignee": "Asignado predeterminado",
+        "activePeriod": "Período activo"
+      },
+      "empty": "Ninguna plantilla de tarea coincide con el filtro actual.",
+      "pagination": {
+        "showing": "{start}–{end} de {total}",
+        "prev": "Anterior",
+        "next": "Siguiente",
+        "ariaLabel": "Paginación"
+      },
+      "sp": {
+        "defaultAssigneeLabel": "Asignado predeterminado:",
+        "defaultAssigneeUnset": "No establecido",
+        "empty": "Ninguna plantilla de tarea coincide con el filtro actual."
+      }
+    },
+    "recurrence": {
+      "weekly": "Cada semana",
+      "weeklyWithDays": "Cada semana {days}",
+      "monthly": "Cada mes",
+      "monthlyLastDay": "Cada mes (último día)",
+      "monthlyWithDay": "Cada mes día {day}",
+      "nthWeekday": "Cada mes {nth} {weekday}",
+      "nthWeekdayPlain": "Cada mes (día de semana)"
+    },
+    "create": {
+      "title": "Añadir tarea del hogar",
+      "description": "Registra una nueva plantilla de tarea para este hogar. Cuando estableces la recurrencia y los asignados predeterminados, se reflejarán en Asignación y Mis tareas.",
+      "toast": {
+        "saveSuccess": "La tarea ha sido guardada.",
+        "saveFailed": "Error al guardar la tarea."
+      }
+    },
+    "edit": {
+      "title": "Editar tarea del hogar",
+      "description": "Edita una plantilla de tarea para este hogar. Actualizar la recurrencia o los asignados también actualizará los programas futuros de Asignación y Mis tareas.",
+      "toast": {
+        "saveSuccess": "La tarea ha sido guardada.",
+        "saveFailed": "Error al guardar la tarea."
+      }
+    },
+    "form": {
+      "sections": {
+        "basic": {
+          "title": "Información básica",
+          "description": "Establece el nombre, categoría y descripción de esta tarea. Este nombre se mostrará en Asignación y Mis tareas."
+        },
+        "recurrence": {
+          "title": "Configuración de recurrencia",
+          "description": "Configura con qué frecuencia se debe realizar esta tarea: semanal, mensual o por enésimo día de semana."
+        },
+        "assigneeAndPeriod": {
+          "title": "Asignado y período activo",
+          "description": "Establece el asignado predeterminado y el período activo de esta plantilla de tarea."
+        }
+      },
+      "fields": {
+        "name": "Nombre de la tarea",
         "description": "Descripción",
         "category": "Categoría",
-        "recurrenceType": "Tipo de Recurrencia",
-        "weeklyDays": "Días de la Semana",
-        "dayOfMonth": "Día del Mes",
-        "lastDayOfMonth": "Último Día del Mes",
-        "nthWeek": "Semana N",
-        "weekday": "Día de la Semana",
-        "defaultAssigneeUserId": "Asignado por Defecto",
-        "defaultAssigneePlaceholder": "Introduzca el nombre",
-        "startDate": "Fecha de Inicio",
-        "endDate": "Fecha de Finalización"
+        "recurrenceType": "Recurrencia",
+        "weeklyDays": "Días de la semana",
+        "dayOfMonth": "Día del mes",
+        "lastDayOfMonth": "Último día del mes",
+        "nthWeek": "Enésima semana",
+        "weekday": "Día de la semana",
+        "defaultAssigneeUserId": "Asignado predeterminado",
+        "defaultAssigneePlaceholder": "Dejar sin asignar (sin asignado predeterminado)",
+        "startDate": "Fecha de inicio",
+        "endDate": "Fecha de fin"
       },
       "errors": {
         "name": {
@@ -38,37 +714,501 @@
           "maxBytes": "La descripción debe tener hasta 500 bytes."
         },
         "category": {
-          "required": "Seleccione una categoría."
+          "required": "Por favor selecciona una categoría."
         },
         "recurrenceType": {
-          "required": "Seleccione un tipo de recurrencia."
+          "required": "Por favor selecciona un tipo de recurrencia."
         },
         "weeklyDays": {
-          "required": "Seleccione al menos un día."
+          "required": "Por favor selecciona al menos un día."
         },
         "dayOfMonth": {
-          "required": "Seleccione un día."
+          "required": "Por favor selecciona un día."
         },
         "nthWeek": {
-          "required": "Seleccione una semana."
+          "required": "Por favor selecciona una semana."
         },
         "weekday": {
-          "required": "Seleccione un día de la semana."
+          "required": "Por favor selecciona un día de la semana."
         },
         "startDate": {
           "required": "La fecha de inicio es obligatoria."
         },
         "endDate": {
-          "required": "La fecha de finalización es obligatoria.",
-          "afterStart": "La fecha de finalización debe ser posterior a la de inicio."
+          "required": "La fecha de fin es obligatoria.",
+          "afterStart": "La fecha de fin debe ser posterior a la de inicio."
         }
       }
     }
+  },
+  "household": {
+    "createDialog": {
+      "title": "Crear un nuevo hogar",
+      "description": "Añade un hogar para gestionar las tareas y listas de compras.",
+      "nameLabel": "Nombre del hogar",
+      "nameRequired": "Por favor ingresa un nombre de hogar.",
+      "namePlaceholder": "ej. Casa de los padres / Nuestro hogar / Familia García",
+      "note": "Serás añadido automáticamente como miembro de este hogar.",
+      "cancel": "Cancelar",
+      "submit": "Crear hogar",
+      "close": "Cerrar"
+    },
+    "switcher": {
+      "label": "Hogar",
+      "current": "Hogar actual",
+      "noneSelected": "Ningún hogar seleccionado",
+      "mobile": {
+        "title": "Seleccionar hogar",
+        "close": "Cerrar",
+        "description": "Se mostrarán las tareas y listas de compras del hogar seleccionado.",
+        "householdLabel": "Hogar",
+        "current": "Hogar actual"
+      }
+    }
+  },
+  "settings": {
+    "pageTitle": "Configuración",
+    "description": "Gestiona tu cuenta y configuración del hogar.",
+    "sections": {
+      "account": {
+        "title": "Configuración de cuenta",
+        "subtitle": "Nombre para mostrar, configuración de idioma, etc."
+      },
+      "household": {
+        "title": "Configuración del hogar",
+        "subtitle": "Nombre del hogar, apodos por hogar, invitaciones de miembros, etc."
+      },
+      "housework": {
+        "title": "Configuración de tareas del hogar",
+        "subtitle": "Gestionar plantillas de tareas"
+      },
+      "notifications": {
+        "title": "Centro de notificaciones",
+        "subtitle": "Revisar notificaciones"
+      },
+      "about": {
+        "title": "Acerca de esta app",
+        "subtitle": "Versión, términos de uso y más"
+      }
+    },
+    "account": {
+      "description": "Puedes configurar tu nombre para mostrar global y el idioma utilizado en esta app.",
+      "info": {
+        "title": "Información de la cuenta",
+        "emailLabel": "Correo electrónico",
+        "displayNameLabel": "Nombre para mostrar",
+        "note": "Puedes cambiar tu nombre para mostrar desde el formulario a continuación."
+      },
+      "profile": {
+        "title": "Configuración de perfil",
+        "description": "Cambia tu nombre para mostrar e idioma. Los cambios no se aplican hasta que presiones \"Guardar\"."
+      },
+      "displayName": {
+        "title": "Nombre para mostrar",
+        "description": "Este nombre para mostrar se usa en todo Housework Hub. Los apodos para cada hogar (ej. Mamá / Papá) se pueden cambiar desde \u201cConfiguración del hogar\u201d.",
+        "fieldLabel": "Nombre para mostrar"
+      },
+      "icon": {
+        "title": "Imagen de perfil",
+        "description": "Esta imagen se usa como ícono de tu cuenta. La carga comienza en cuanto seleccionas un archivo.",
+        "selectLabel": "Elegir imagen",
+        "note": "Se recomiendan imágenes de hasta 2MB."
+      },
+      "language": {
+        "title": "Idioma",
+        "description": "Selecciona el idioma utilizado para la interfaz. Esta configuración se guarda en tu cuenta.",
+        "fieldLabel": "Idioma"
+      },
+      "notifications": {
+        "title": "Configuración de notificaciones",
+        "description": "Activa/desactiva las notificaciones. Los cambios se aplican inmediatamente.",
+        "globalLabel": "Permitir notificaciones",
+        "globalHint": "Activa para recibir notificaciones.",
+        "groups": {
+          "household": "Hogar",
+          "taskAssignment": "Asignación de tareas"
+        },
+        "toasts": {
+          "enabled": "Notificaciones activadas",
+          "disabled": "Notificaciones desactivadas",
+          "failed": "Error al actualizar la configuración de notificaciones"
+        }
+      },
+      "toasts": {
+        "iconUpdated": "La imagen de perfil ha sido actualizada.",
+        "iconUpdateFailed": "Error al actualizar la imagen de perfil.",
+        "saveSuccess": "La configuración de cuenta ha sido guardada.",
+        "saveFailed": "Error al guardar la configuración de cuenta.",
+        "deleteSuccess": "Tu cuenta ha sido eliminada. Gracias por usar Housework Hub.",
+        "deleteFailed": "Error al eliminar la cuenta."
+      },
+      "delete": {
+        "title": "Eliminar cuenta",
+        "description": "Elimina tu cuenta permanentemente.\nTodos los datos de tu cuenta serán eliminados y no podrán recuperarse.\n\n* Si eres el PROPIETARIO de un hogar con otros miembros, debes transferir la propiedad antes de eliminar tu cuenta.",
+        "button": "Eliminar cuenta",
+        "confirm": "¿Estás seguro de que deseas eliminar tu cuenta?\nEsta acción no se puede deshacer.",
+        "validationError": "No puedes eliminar tu cuenta porque eres el PROPIETARIO de un hogar con otros miembros.\nPor favor transfiere la propiedad o elimina los miembros desde Configuración del hogar antes de eliminar tu cuenta."
+      },
+      "form": {
+        "errors": {
+          "displayName": {
+            "required": "El nombre para mostrar es obligatorio.",
+            "maxBytes": "El nombre para mostrar debe tener hasta 100 bytes."
+          },
+          "locale": {
+            "required": "Por favor selecciona un idioma."
+          },
+          "iconFile": {
+            "maxSize": "El tamaño del archivo debe ser menor a 5MB."
+          }
+        }
+      },
+      "google": {
+        "title": "Integración con Google",
+        "status": {
+          "linked": "Vinculado",
+          "notLinked": "No vinculado"
+        },
+        "description": {
+          "notLinked": "Vincula tu cuenta de Google para iniciar sesión con un clic.",
+          "linked": "Esta cuenta usa el inicio de sesión de Google.\nEl inicio de sesión con contraseña está desactivado."
+        },
+        "actions": {
+          "link": "Vincular cuenta de Google",
+          "linking": "Vinculando..."
+        },
+        "note": "El inicio de sesión con contraseña se desactivará después de vincular.",
+        "warning": {
+          "passwordDisabled": "El inicio de sesión con contraseña está desactivado porque estás vinculado con Google.\nPor favor inicia sesión usando el botón de Google."
+        },
+        "toasts": {
+          "failed": "Error al iniciar la integración con Google."
+        },
+        "linkedSuccess": "Cuenta de Google vinculada con éxito.",
+        "linkedFailed": "Error al vincular la cuenta de Google."
+      },
+      "password": {
+        "title": "Cambiar contraseña",
+        "description": "Cambia tu contraseña de inicio de sesión.",
+        "descriptionGoogleLinked": "Dado que esta cuenta está vinculada con Google, el cambio de contraseña no está disponible.",
+        "fields": {
+          "currentPassword": "Contraseña actual",
+          "newPassword": "Nueva contraseña",
+          "newPasswordConfirm": "Confirmar nueva contraseña"
+        },
+        "actions": {
+          "submit": "Cambiar",
+          "submitting": "Cambiando..."
+        },
+        "noteLogout": "* Cambiar tu contraseña cerrará tu sesión.",
+        "toasts": {
+          "success": "Contraseña cambiada.",
+          "failed": "Error al cambiar la contraseña."
+        },
+        "form": {
+          "errors": {
+            "currentPassword": {
+              "required": "La contraseña actual es obligatoria."
+            },
+            "newPassword": {
+              "required": "La nueva contraseña es obligatoria.",
+              "minLength": "Debe tener al menos 8 caracteres."
+            },
+            "newPasswordConfirm": {
+              "required": "Por favor confirma tu nueva contraseña.",
+              "mismatch": "Las contraseñas no coinciden."
+            }
+          }
+        }
+      }
+    },
+    "household": {
+      "title": "Configuración del hogar",
+      "description": "Gestiona los hogares a los que perteneces y tu apodo dentro de cada hogar.",
+      "list": {
+        "title": "Hogares a los que perteneces",
+        "addButtonPc": "+ Añadir hogar",
+        "empty": "Aún no perteneces a ningún hogar.",
+        "currentBadge": "Hogar actual",
+        "selectButton": "Seleccionar este hogar",
+        "addButtonSp": "+ Crear un nuevo hogar",
+        "householdId": "ID del hogar",
+        "note": "Los detalles a continuación se aplican al hogar actualmente seleccionado."
+      },
+      "info": {
+        "title": "Información del hogar",
+        "noCurrent": "Actualmente no hay ningún hogar seleccionado.",
+        "nameLabel": "Nombre del hogar",
+        "nameHelp": "Este nombre se usa en el selector de hogar y listas de tareas.",
+        "saveButton": "Guardar nombre del hogar"
+      },
+      "mySettings": {
+        "title": "Tu configuración en este hogar",
+        "description": "Establece cómo se te muestra dentro de este hogar. ej. Mamá / Papá / Hermana mayor / Miguel",
+        "nicknameLabel": "Tu apodo en este hogar",
+        "nicknameHelp": "Este apodo se guarda como el nombre que se muestra en este hogar y aparece en los nombres de asignados y encabezados.",
+        "saveButton": "Guardar apodo"
+      },
+      "members": {
+        "title": "Miembros",
+        "empty": "Cargando miembros, o aún no hay miembros.",
+        "table": {
+          "displayName": "Nombre para mostrar",
+          "nickname": "Apodo",
+          "status": "Estado",
+          "role": "Rol",
+          "actions": "Acciones",
+          "roleOwner": "PROPIETARIO",
+          "roleMember": "Miembro",
+          "you": "Tú",
+          "nicknameNone": "(Ninguno)"
+        },
+        "mobile": {
+          "nicknameLabel": "Apodo:",
+          "statusLabel": "Estado:"
+        },
+        "actions": {
+          "leave": "Abandonar este hogar",
+          "remove": "Eliminar del hogar",
+          "transferOwner": "Transferir rol de PROPIETARIO"
+        }
+      },
+      "invite": {
+        "title": "Invitar miembros",
+        "description": "Ingresa la dirección de correo electrónico de la persona que deseas invitar y crea un enlace de invitación. Comparte el enlace generado por correo electrónico o aplicaciones de mensajería.",
+        "emailPlaceholder": "tu{'@'}ejemplo.com",
+        "createButton": "Crear enlace de invitación",
+        "sentTitle": "Invitaciones enviadas",
+        "none": "Aún no se han creado invitaciones para este hogar.",
+        "joinedMemberLabel": "Miembro que se unió:",
+        "expiresLabel": "Expira el: {date}",
+        "copyButton": "Copiar enlace",
+        "revokeButton": "Revocar"
+      },
+      "toasts": {
+        "createSuccess": "Se ha creado un nuevo hogar.",
+        "createFailed": "Error al crear el hogar.",
+        "switchSuccess": "Hogar cambiado.",
+        "switchFailed": "Error al cambiar el hogar.",
+        "saveNameSuccess": "El nombre del hogar ha sido guardado.",
+        "saveNameFailed": "Error al guardar el nombre del hogar.",
+        "saveNicknameSuccess": "El apodo ha sido guardado.",
+        "saveNicknameFailed": "Error al guardar el apodo.",
+        "leaveSuccess": "Has abandonado este hogar.",
+        "leaveFailed": "Error al abandonar el hogar.",
+        "removeMemberSuccess": "El miembro ha sido eliminado del hogar.",
+        "removeMemberFailed": "Error al eliminar el miembro.",
+        "copyInviteSuccess": "El enlace de invitación ha sido copiado.",
+        "copyInviteFailed": "Error al copiar al portapapeles.",
+        "inviteCreateSuccess": "El enlace de invitación ha sido creado.",
+        "inviteCreateFailed": "Error al crear el enlace de invitación.",
+        "revokeInviteSuccess": "La invitación ha sido revocada.",
+        "revokeInviteFailed": "Error al revocar la invitación.",
+        "deleteSuccess": "Hogar eliminado",
+        "deleteFailed": "Error al eliminar el hogar",
+        "transferOwnerSuccess": "Propiedad transferida con éxito.",
+        "transferOwnerFailed": "Error al transferir la propiedad."
+      },
+      "confirms": {
+        "leaveHousehold": "¿Deseas abandonar este hogar?\nTambién serás eliminado de las asignaciones de tareas.",
+        "removeMember": "¿Deseas eliminar a \"{name}\" de este hogar?",
+        "revokeInvite": "¿Deseas revocar esta invitación?",
+        "transferOwner": "¿Deseas transferir el rol de PROPIETARIO a \"{name}\"?\nUna vez transferido, te convertirás en un miembro regular de este hogar.",
+        "deleteHousehold": "¿Estás seguro de que deseas eliminar este hogar?\nUna vez eliminado, no se puede recuperar.\n\n[Los siguientes datos también serán eliminados]\n- Artículos de compras no comprados: {shoppingCount}\n- Plantillas de tareas activas: {houseworkCount}"
+      },
+      "danger": {
+        "title": "Eliminar hogar",
+        "deleteButton": "Eliminar este hogar",
+        "note": "Eliminar un hogar eliminará todos los datos incluyendo tareas y listas de compras. Esta acción no se puede deshacer.\nTampoco puedes eliminar un hogar si hay otros miembros activos además de ti.",
+        "errorHasMembers": "No se puede eliminar el hogar porque hay otros miembros activos. Por favor elimínalos primero."
+      }
+    }
+  },
+  "notifications": {
+    "bell": {
+      "ariaLabel": "Campana de notificaciones",
+      "title": "Centro de notificaciones",
+      "viewAll": "Ver todo",
+      "empty": "Sin notificaciones",
+      "openHint": "Abrir"
+    },
+    "center": {
+      "title": "Centro de notificaciones",
+      "subtitle": "Últimas notificaciones",
+      "reload": "Recargar",
+      "empty": "Sin notificaciones"
+    },
+    "messages": {
+      "acceptInvitation": {
+        "title": "Un miembro invitado se ha unido al hogar.",
+        "body": "{memberName} se ha unido al hogar [{householdName}]."
+      },
+      "declineInvitation": {
+        "title": "Invitación rechazada.",
+        "body": "{memberName} ha rechazado la invitación al hogar [{householdName}]."
+      },
+      "removedFromHousehold": {
+        "title": "Eliminado del hogar.",
+        "body": "Has sido eliminado del hogar [{householdName}]."
+      },
+      "leftHousehold": {
+        "title": "Un miembro ha abandonado el hogar.",
+        "body": "{memberName} ha abandonado el hogar [{householdName}]. Las tareas asignadas a {memberName} han sido actualizadas a sin asignar."
+      },
+      "assigned2Owner": {
+        "title": "Establecido como PROPIETARIO del hogar.",
+        "body": "Has sido establecido como PROPIETARIO del hogar [{householdName}]."
+      },
+      "taskAssigned": {
+        "title": "Tarea asignada",
+        "body": "Una tarea ha sido asignada por {actorName}. Hogar: {household}, Fecha: {date}, Tareas: {count}"
+      },
+      "beDumpedTasks": {
+        "title": "Tarea solicitada por otro miembro",
+        "body": "Una tarea ha sido solicitada por {actorName}. Hogar: {household}, Fecha: {date}, Tareas: {count}"
+      },
+      "yourTaskWasTaken": {
+        "title": "Otro miembro tomó tu tarea",
+        "body": "{actorName} tomó tu tarea. Hogar: {household}, Fecha: {date}, Tareas: {count}"
+      },
+      "generic": {
+        "title": "Tarea asignada",
+        "body": "Una tarea ha sido asignada. Hogar: {household}, Fecha: {date}, Tareas: {count}"
+      }
+    }
+  },
+  "appInfo": {
+    "title": "Acerca de esta app",
+    "description": "Aquí puedes ver la versión de Housework Hub y leer los términos de uso e información de privacidad.",
+    "version": {
+      "sectionTitle": "Versión",
+      "frontend": "Interfaz",
+      "api": "API",
+      "loading": "Cargando...",
+      "unknown": "Error al obtener la versión"
+    },
+    "legal": {
+      "sectionTitle": "Términos y política de privacidad",
+      "description": "Esta sección explica las condiciones para usar Housework Hub y cómo manejamos tus datos personales.",
+      "termsLinkLabel": "Términos de uso",
+      "privacyLinkLabel": "Política de privacidad"
+    },
+    "privacyOverview": {
+      "sectionTitle": "Resumen de datos y privacidad",
+      "items": {
+        "householdVisibility": "Las tareas y listas de compras son visibles solo para los miembros del mismo hogar.",
+        "analyticsUsage": "Podemos usar análisis anonimizados para mejorar el servicio.",
+        "noSelling": "No vendemos ni compartimos tus datos personales con terceros, excepto cuando lo exija la ley."
+      },
+      "note": "Para más detalles, por favor lee la Política de privacidad."
+    },
+    "developer": {
+      "sectionTitle": "Desarrollador / Operador",
+      "appNameLabel": "Nombre de la app: Housework Hub",
+      "operatorLabel": "Desarrollador / Operador: (por actualizar)",
+      "contactLabel": "Contacto:",
+      "contactEmail": "ejemplo{'@'}ejemplo.com"
+    },
+    "oss": {
+      "sectionTitle": "Licencias de código abierto",
+      "body": "Esta app usa software de código abierto como Vue.js, Vite y Tailwind CSS. Una lista completa de licencias se publicará más adelante."
+    }
+  },
+  "terms": {
+    "title": "Términos de uso",
+    "intro": "Estos Términos de uso establecen las condiciones para usar Housework Hub (el \"Servicio\"). Al usar el Servicio, aceptas estos Términos.",
+    "article1": {
+      "title": "Artículo 1 (Aplicación)",
+      "body": "Estos Términos definen los derechos y obligaciones entre el Servicio y los usuarios en relación con la provisión y uso del Servicio."
+    },
+    "article2": {
+      "title": "Artículo 2 (Cuentas)",
+      "items": {
+        "accurateInfo": "Los usuarios deben registrar información precisa al crear una cuenta.",
+        "accountResponsibility": "Los usuarios son responsables de gestionar la información de su propia cuenta.",
+        "illegalUseNotice": "Si se descubre el uso no autorizado por un tercero, los usuarios deben notificar al operador de inmediato."
+      }
+    },
+    "article3": {
+      "title": "Artículo 3 (Conducta prohibida)",
+      "items": {
+        "lawAndOrder": "Actos que violen las leyes o el orden público y la moral",
+        "impersonation": "Hacerse pasar por otros usuarios",
+        "serviceDisruption": "Interferir con la operación del Servicio",
+        "reverseEngineering": "Realizar ingeniería inversa o analizar el sistema de otro modo"
+      }
+    },
+    "article4": {
+      "title": "Artículo 4 (Cambios y suspensión del Servicio)",
+      "body": "El operador puede cambiar, suspender o terminar el Servicio sin previo aviso."
+    },
+    "article5": {
+      "title": "Artículo 5 (Descargo de responsabilidad)",
+      "body": "Salvo en casos de dolo o negligencia grave, el operador no será responsable de los daños derivados del uso del Servicio."
+    },
+    "article6": {
+      "title": "Artículo 6 (Cambios en los Términos)",
+      "body": "El operador puede modificar estos Términos según sea necesario. Los Términos revisados entrarán en vigencia cuando se publiquen o anuncien dentro del Servicio."
+    },
+    "note": "Por favor considera que estos Términos sean revisados por un profesional legal antes del lanzamiento público."
+  },
+  "privacy": {
+    "title": "Política de privacidad",
+    "intro": "Housework Hub (el \"Servicio\") establece la siguiente Política de privacidad para manejar adecuadamente la información personal de los usuarios.",
+    "section1": {
+      "title": "1. Información que recopilamos",
+      "items": {
+        "accountInfo": "Información de cuenta como dirección de correo electrónico y nombre para mostrar",
+        "usageData": "Información del hogar, plantillas de tareas, listas de compras y otros datos de uso",
+        "logInfo": "Información de registro como hora de acceso, dirección IP e información del navegador"
+      }
+    },
+    "section2": {
+      "title": "2. Propósitos de uso",
+      "items": {
+        "serviceProvision": "Para proporcionar, mantener y mejorar el Servicio",
+        "troubleshooting": "Para investigar y resolver errores y fallos",
+        "analytics": "Para analizar tendencias de uso en forma agregada y no identificable"
+      }
+    },
+    "section3": {
+      "title": "3. Provisión a terceros",
+      "body": "No proporcionamos información personal a terceros sin el consentimiento del usuario, excepto cuando lo exija la ley."
+    },
+    "section4": {
+      "title": "4. Medidas de seguridad",
+      "body": "Implementamos medidas de seguridad como control de acceso para prevenir el acceso no autorizado, filtración, alteración o pérdida de información."
+    },
+    "section5": {
+      "title": "5. Período de retención",
+      "body": "Retenemos los datos mientras la cuenta esté activa y sea necesario para proporcionar el Servicio. Cuando una cuenta es eliminada o se solicita la eliminación, eliminaremos los datos dentro de un período razonable."
+    },
+    "section6": {
+      "title": "6. Contacto",
+      "body": "Si tienes alguna pregunta sobre esta política o nuestro manejo de información personal, por favor contáctanos a través de la dirección indicada en la página Acerca de."
+    },
+    "note": "Antes de publicar esta política, recomendamos ajustarla a las leyes y políticas de tienda aplicables y que sea revisada por un profesional legal."
   },
   "common": {
     "cancel": "Cancelar",
     "save": "Guardar",
     "loading": "Cargando...",
-    "selectPlaceholder": "Seleccione"
+    "selectPlaceholder": "Por favor selecciona",
+    "logout": "Cerrar sesión",
+    "itemCount": "{count} artículo(s)",
+    "notSet": "(No establecido)",
+    "today": "Hoy",
+    "yesterday": "Ayer",
+    "locales": {
+      "ja": "Japonés",
+      "en": "Inglés",
+      "es": "Español"
+    },
+    "fileInput": {
+      "buttonDefault": "Seleccionar imagen",
+      "rightHintDefault": "JPEG / PNG, etc.",
+      "noFileSelected": "Ningún archivo seleccionado",
+      "fileSizeError": "El tamaño del archivo supera el límite."
+    }
   }
 }

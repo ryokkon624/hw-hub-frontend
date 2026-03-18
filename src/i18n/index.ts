@@ -3,8 +3,9 @@ import { createI18n } from 'vue-i18n'
 
 import ja from './ja.json'
 import en from './en.json'
+import es from './es.json'
 
-export const SUPPORT_LOCALES = ['ja', 'en'] as const
+export const SUPPORT_LOCALES = ['ja', 'en', 'es'] as const
 export type Locale = (typeof SUPPORT_LOCALES)[number]
 
 function detectInitialLocale(): Locale {
@@ -13,6 +14,7 @@ function detectInitialLocale(): Locale {
 
   const browser = navigator.language.toLowerCase()
   if (browser.startsWith('ja')) return 'ja'
+  if (browser.startsWith('es')) return 'es'
   return 'en'
 }
 
@@ -23,6 +25,7 @@ export const i18n = createI18n({
   messages: {
     ja,
     en,
+    es,
   },
 })
 
