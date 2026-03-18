@@ -133,7 +133,7 @@
     },
     "title": "ログイン",
     "subtitle": "登録済みのメールアドレスとパスワードでログインします。",
-    "google": "Google でログイン（準備中）",
+    "google": "Google アカウントでログイン",
     "divider": "または",
     "email": "メールアドレス",
     "password": "パスワード",
@@ -1225,7 +1225,8 @@
     "yesterday": "昨日",
     "locales": {
       "ja": "日本語",
-      "en": "English"
+      "en": "英語",
+      "es": "スペイン語"
     },
     "fileInput": {
       "buttonDefault": "画像を選択",

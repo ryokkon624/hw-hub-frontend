@@ -24,6 +24,7 @@ const uiStore = useUiStore()
 const locales = computed(() => [
   { value: 'ja', label: t('common.locales.ja') },
   { value: 'en', label: t('common.locales.en') },
+  { value: 'es', label: t('common.locales.es') },
 ])
 
 const canSubmit = computed(() => {

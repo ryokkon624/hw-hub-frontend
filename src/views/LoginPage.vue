@@ -191,7 +191,7 @@ const onClickGoogle = async () => {
                 class="h-5 w-5"
               />
 
-              <span class="tracking-tight"> Google アカウントでログイン </span>
+              <span class="tracking-tight"> {{ t('login.google') }} </span>
             </button>
 
             <!-- Divider -->
