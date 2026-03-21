@@ -17,6 +17,9 @@ export const CODE_TYPE = {
   FAVORITE_FLAG: '0013', // FavoriteFlag (お気に入りフラグ)
   NOTIFICATION_LINK_TYPE: '0019', // NotificationLinkType (通知リンク種別)
   NOTIFICATION_GROUP: '0020', // NotificationGroup (通知グループ)
+  INQUIRY_CATEGORY: '0021', // InquiryCategory (問い合わせカテゴリ)
+  INQUIRY_STATUS: '0022', // InquiryStatus (問い合わせステータス)
+  INQUIRY_SENDER_TYPE: '0023', // InquirySenderType (送信者タイプ)
 } as const
 
 /**
@@ -167,6 +170,7 @@ export const NOTIFICATION_LINK_TYPE = {
   HOUSEHOLD: 'Household',
   INVITATION: 'Invite',
   SETTINGS: 'Settings',
+  INQUIRY: 'Inquiry',
 } as const
 export type NotificationLinkTypeCode =
   (typeof NOTIFICATION_LINK_TYPE)[keyof typeof NOTIFICATION_LINK_TYPE]
@@ -177,5 +181,41 @@ export type NotificationLinkTypeCode =
 export const NOTIFICATION_GROUP = {
   HOUSEHOLD: '100',
   TASK_ASSIGNMENT: '200',
+  INQUIRY: '900',
 } as const
 export type NotificationGroupCode = (typeof NOTIFICATION_GROUP)[keyof typeof NOTIFICATION_GROUP]
+
+/**
+ * 0021: 問い合わせカテゴリ (InquiryCategory)
+ */
+export const INQUIRY_CATEGORY = {
+  GENERAL: '10',
+  HOUSEWORK: '20',
+  SHOPPING: '21',
+  ACCOUNT: '30',
+  BUG: '40',
+  OTHER: '90',
+} as const
+export type InquiryCategoryCode = (typeof INQUIRY_CATEGORY)[keyof typeof INQUIRY_CATEGORY]
+
+/**
+ * 0022: 問い合わせステータス (InquiryStatus)
+ */
+export const INQUIRY_STATUS = {
+  OPEN: '00',
+  AI_ANSWERED: '10',
+  PENDING_STAFF: '20',
+  STAFF_ANSWERED: '25',
+  CLOSED: '90',
+} as const
+export type InquiryStatusCode = (typeof INQUIRY_STATUS)[keyof typeof INQUIRY_STATUS]
+
+/**
+ * 0023: 送信者タイプ (InquirySenderType)
+ */
+export const INQUIRY_SENDER_TYPE = {
+  USER: 'USER',
+  AI: 'AI',
+  STAFF: 'STAFF',
+} as const
+export type InquirySenderTypeCode = (typeof INQUIRY_SENDER_TYPE)[keyof typeof INQUIRY_SENDER_TYPE]

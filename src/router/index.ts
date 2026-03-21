@@ -217,6 +217,26 @@ const routes: RouteRecordRaw[] = [
         component: NotificationCenterPage,
         meta: { titleKey: 'pageTitles.notifications' },
       },
+
+      // ---- Inquiry ----
+      {
+        path: 'settings/inquiry',
+        name: 'settings.inquiry',
+        component: () => import('@/views/settings/inquiry/InquiryListPage.vue'),
+        meta: { titleKey: 'pageTitles.inquiry' },
+      },
+      {
+        path: 'settings/inquiry/new',
+        name: 'settings.inquiry.new',
+        component: () => import('@/views/settings/inquiry/InquiryCreatePage.vue'),
+        meta: { titleKey: 'pageTitles.inquiryCreate' },
+      },
+      {
+        path: 'settings/inquiry/:inquiryId',
+        name: 'settings.inquiry.detail',
+        component: () => import('@/views/settings/inquiry/InquiryDetailPage.vue'),
+        meta: { titleKey: 'pageTitles.inquiryDetail' },
+      },
     ],
   },
 ]
