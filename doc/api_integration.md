@@ -99,3 +99,14 @@
 | API ファイル | メソッド | API エンドポイント | 機能概要 | 備考 |
 | :--- | :--- | :--- | :--- | :--- |
 | **codeApi** | GET | `/api/codes` | コードマスタ全件取得 | アプリ起動時に取得・キャッシュされる |
+
+## 7. 問い合わせ
+
+| 画面名 | メソッド | API エンドポイント | 機能概要 | 関連コンポーネント |
+| :--- | :--- | :--- | :--- | :--- |
+| **問い合わせ一覧** | GET | `/api/inquiries` | 自分の問い合わせ一覧取得 | `inquiryStore` (`inquiryApi`) |
+| **問い合わせ詳細** | GET | `/api/inquiries/{inquiryId}` | 問い合わせ詳細（メッセージ含む）取得 | `inquiryStore` (`inquiryApi`) |
+| **問い合わせ新規作成** | POST | `/api/inquiries` | 新規問い合わせ送信 | `inquiryStore` (`inquiryApi`) |
+| **問い合わせ詳細** | POST | `/api/inquiries/{inquiryId}/messages` | 追加メッセージ送信 | `inquiryStore` (`inquiryApi`) |
+| **問い合わせ詳細** | POST | `/api/inquiries/{inquiryId}/close` | 解決済みにする | `inquiryStore` (`inquiryApi`) |
+| **問い合わせ詳細** | POST | `/api/inquiries/{inquiryId}/escalate` | スタッフ対応依頼 | `inquiryStore` (`inquiryApi`) |
