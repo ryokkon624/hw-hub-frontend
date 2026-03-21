@@ -15,6 +15,7 @@ export default mergeConfig(
         reportsDirectory: './coverage',
         exclude: [
           'node_modules/',
+          'src/views/**',
           'src/main.ts',
           'src/router/**',
           'src/**/__tests__/**',
