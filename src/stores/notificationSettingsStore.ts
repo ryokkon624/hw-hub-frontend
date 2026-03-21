@@ -13,6 +13,7 @@ type GroupSettings = Record<NotificationGroupCode, boolean>
 const defaultGroups = (): GroupSettings => ({
   [NOTIFICATION_GROUP.HOUSEHOLD]: true,
   [NOTIFICATION_GROUP.TASK_ASSIGNMENT]: true,
+  [NOTIFICATION_GROUP.INQUIRY]: true,
 })
 
 export const useNotificationSettingsStore = defineStore('notificationSettings', {
