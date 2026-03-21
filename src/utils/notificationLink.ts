@@ -23,6 +23,12 @@ export async function navigateByNotification(router: Router, n: NotificationMode
       await router.push({ name: 'settings.household' }).catch(() => {})
       return
 
+    case NOTIFICATION_LINK_TYPE.INQUIRY:
+      await router
+        .push({ name: 'settings.inquiry.detail', params: { inquiryId: String(n.linkId) } })
+        .catch(() => {})
+      return
+
     default:
       return
   }

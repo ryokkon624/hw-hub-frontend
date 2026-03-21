@@ -115,7 +115,10 @@
     "terms": "Terms of service",
     "privacy": "Privacy policy",
     "authResult": "Result",
-    "oauthResult": "Result"
+    "oauthResult": "Result",
+    "inquiry": "Inquiries",
+    "inquiryCreate": "New Inquiry",
+    "inquiryDetail": "Inquiry Detail"
   },
   "login": {
     "hero": {
@@ -786,6 +789,10 @@
         "title": "Notification Center",
         "subtitle": "Check notifications"
       },
+      "inquiry": {
+        "title": "Inquiries",
+        "subtitle": "Questions and bug reports"
+      },
       "about": {
         "title": "About This App",
         "subtitle": "Version, terms of use, and more"
@@ -1024,6 +1031,57 @@
       }
     }
   },
+  "inquiry": {
+    "list": {
+      "title": "Inquiries",
+      "description": "View your past inquiries.",
+      "addButtonLabel": "New Inquiry",
+      "empty": "No inquiries found."
+    },
+    "create": {
+      "title": "New Inquiry",
+      "description": "Feel free to send us your questions or requests.",
+      "categoryLabel": "Category",
+      "titleLabel": "Subject",
+      "bodyLabel": "Message",
+      "submitButton": "Submit",
+      "cancelButton": "Cancel",
+      "toast": {
+        "success": "Your inquiry has been submitted.",
+        "error": "Failed to submit. Please try again."
+      },
+      "validation": {
+        "category": { "required": "Please select a category" },
+        "title": {
+          "required": "Please enter a title",
+          "maxLength": "Title must be 200 characters or less"
+        },
+        "body": { "required": "Please enter your inquiry" }
+      }
+    },
+    "detail": {
+      "title": "Inquiry Detail",
+      "replyPlaceholder": "Type your reply...",
+      "sendReplyButton": "Send",
+      "resolvedButton": "Mark as resolved",
+      "escalateButton": "Not resolved (Contact staff)",
+      "closeConfirm": "Close this inquiry?",
+      "escalateConfirm": "Request staff escalation?",
+      "statusDescription": {
+        "00": "Your inquiry has been received. Please wait a moment for a reply.",
+        "10": "AI has replied. Please review and close if resolved.",
+        "20": "A staff member is handling your inquiry. Please wait for a reply.",
+        "25": "Staff has replied. Please review and close if resolved.",
+        "90": "This inquiry has been closed."
+      },
+      "toast": {
+        "replySent": "Reply sent.",
+        "closed": "Inquiry closed.",
+        "escalated": "Escalated to staff.",
+        "error": "Operation failed."
+      }
+    }
+  },
   "notifications": {
     "bell": {
       "ariaLabel": "Notification bell",
@@ -1074,6 +1132,10 @@
       "generic": {
         "title": "Task assigned",
         "body": "A task has been assigned. Household: {household}, Date: {date}, Tasks: {count}"
+      },
+      "inquiryReplied": {
+        "title": "A reply has been received for your inquiry",
+        "body": "Reply received for #{inquiryId} \"{title}\". Please check the details."
       }
     }
   },

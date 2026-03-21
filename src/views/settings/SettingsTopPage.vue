@@ -96,6 +96,29 @@
         </div>
       </RouterLink>
 
+      <!-- 問い合わせ -->
+      <RouterLink
+        :to="{ name: 'settings.inquiry' }"
+        class="block rounded-xl border bg-white p-4 shadow-sm hover:bg-hwhub-surface-subtle transition"
+      >
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="rounded-lg p-2 bg-violet-100">
+              <MessageCircleQuestion class="w-5 h-5 text-violet-600" />
+            </div>
+            <div>
+              <div class="font-medium text-sm text-hwhub-heading">
+                {{ t('settings.sections.inquiry.title') }}
+              </div>
+              <div class="text-xs text-hwhub-muted">
+                {{ t('settings.sections.inquiry.subtitle') }}
+              </div>
+            </div>
+          </div>
+          <span class="text-hwhub-muted">›</span>
+        </div>
+      </RouterLink>
+
       <!-- アプリ情報 -->
       <RouterLink
         to="/settings/app"
@@ -124,7 +147,7 @@
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import { User, House, Brush, Bell, Info } from 'lucide-vue-next'
+import { User, House, Brush, Bell, Info, MessageCircleQuestion } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 </script>

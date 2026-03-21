@@ -23,6 +23,9 @@
 | **買い物アイテム作成** | `/shopping/new` | **必須** | ・新しい買い物アイテムの登録 |
 | **買い物アイテム詳細** | `/shopping/items/:itemId` | **必須** | ・アイテム情報の編集<br>・画像追加/削除<br>・お気に入り登録 |
 | **設定トップ** | `/settings` | **必須** | ・各設定メニューへのナビゲーション |
+| **問い合わせ一覧** | `/settings/inquiry` | **必須** | ・問い合わせ一覧表示（カテゴリ・ステータス表示）<br>・新規問い合わせ画面へ遷移 |
+| **問い合わせ新規作成** | `/settings/inquiry/new` | **必須** | ・カテゴリ・件名・本文を入力して送信 |
+| **問い合わせ詳細** | `/settings/inquiry/:inquiryId` | **必須** | ・メッセージスレッド表示<br>・返信送信<br>・解決済み・スタッフ対応依頼 |
 | **アカウント設定** | `/settings/account` | **必須** | ・プロフィール変更（表示名/アイコン/言語）<br>・パスワード変更<br>・アカウント削除 |
 | **世帯設定** | `/settings/household` | **必須** | ・世帯切り替え/新規作成<br>・世帯名変更<br>・メンバー一覧/招待/削除/権限譲渡<br>・世帯削除 |
 | **アプリ情報** | `/settings/app` | **必須** | ・アプリ情報の表示 |
@@ -78,6 +81,9 @@ stateDiagram-v2
     state "家事編集" as HwEdit
     state "家事作成" as HwNew
     state "通知センター" as Notifications
+    state "問い合わせ一覧" as InquiryList
+    state "問い合わせ新規作成" as InquiryNew
+    state "問い合わせ詳細" as InquiryDetail
 
     [*] --> Home : 認証済み
 
@@ -110,4 +116,11 @@ stateDiagram-v2
     
     %% アカウント
     AccSettings --> Login : ログアウト/削除
+
+    %% 問い合わせ
+    Settings --> InquiryList
+    InquiryList --> InquiryNew : "新規ボタン"
+    InquiryList --> InquiryDetail : 選択
+    InquiryNew --> InquiryList : "送信/戻る"
+    InquiryDetail --> InquiryList : "戻る"
 ```

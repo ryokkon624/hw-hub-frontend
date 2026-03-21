@@ -115,7 +115,10 @@
     "terms": "Términos de servicio",
     "privacy": "Política de privacidad",
     "authResult": "Resultado",
-    "oauthResult": "Resultado"
+    "oauthResult": "Resultado",
+    "inquiry": "Consultas",
+    "inquiryCreate": "Nueva consulta",
+    "inquiryDetail": "Detalle de consulta"
   },
   "login": {
     "hero": {
@@ -786,6 +789,10 @@
         "title": "Centro de notificaciones",
         "subtitle": "Revisar notificaciones"
       },
+      "inquiry": {
+        "title": "Consultas",
+        "subtitle": "Preguntas e informes de errores"
+      },
       "about": {
         "title": "Acerca de esta app",
         "subtitle": "Versión, términos de uso y más"
@@ -1024,6 +1031,57 @@
       }
     }
   },
+  "inquiry": {
+    "list": {
+      "title": "Consultas",
+      "description": "Consulta tus solicitudes anteriores.",
+      "addButtonLabel": "Nueva consulta",
+      "empty": "No hay consultas."
+    },
+    "create": {
+      "title": "Nueva consulta",
+      "description": "Envíanos tus preguntas o solicitudes sin problema.",
+      "categoryLabel": "Categoría",
+      "titleLabel": "Asunto",
+      "bodyLabel": "Mensaje",
+      "submitButton": "Enviar",
+      "cancelButton": "Cancelar",
+      "toast": {
+        "success": "Tu consulta ha sido enviada.",
+        "error": "Error al enviar. Inténtalo de nuevo."
+      },
+      "validation": {
+        "category": { "required": "Por favor seleccione una categoría" },
+        "title": {
+          "required": "Por favor ingrese un título",
+          "maxLength": "El título debe tener 200 caracteres o menos"
+        },
+        "body": { "required": "Por favor ingrese su consulta" }
+      }
+    },
+    "detail": {
+      "title": "Detalle de consulta",
+      "replyPlaceholder": "Escribe tu respuesta...",
+      "sendReplyButton": "Enviar",
+      "resolvedButton": "Marcar como resuelto",
+      "escalateButton": "No resuelto (Contactar personal)",
+      "closeConfirm": "¿Cerrar esta consulta?",
+      "escalateConfirm": "¿Solicitar escalación al personal?",
+      "statusDescription": {
+        "00": "Su consulta ha sido recibida. Por favor espere un momento hasta recibir una respuesta.",
+        "10": "La IA ha respondido. Por favor revise y cierre si está resuelto.",
+        "20": "Un miembro del personal está atendiendo su consulta. Por favor espere.",
+        "25": "El personal ha respondido. Por favor revise y cierre si está resuelto.",
+        "90": "Esta consulta ha sido cerrada."
+      },
+      "toast": {
+        "replySent": "Respuesta enviada.",
+        "closed": "Consulta cerrada.",
+        "escalated": "Escalado al personal.",
+        "error": "La operación falló."
+      }
+    }
+  },
   "notifications": {
     "bell": {
       "ariaLabel": "Campana de notificaciones",
@@ -1074,6 +1132,10 @@
       "generic": {
         "title": "Tarea asignada",
         "body": "Una tarea ha sido asignada. Hogar: {household}, Fecha: {date}, Tareas: {count}"
+      },
+      "inquiryReplied": {
+        "title": "Se ha recibido una respuesta a tu consulta",
+        "body": "Se recibió una respuesta para #{inquiryId} \"{title}\". Por favor revise los detalles."
       }
     }
   },

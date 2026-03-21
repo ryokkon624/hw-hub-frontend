@@ -115,7 +115,10 @@
     "terms": "利用規約",
     "privacy": "プライバシーポリシー",
     "authResult": "結果",
-    "oauthResult": "結果"
+    "oauthResult": "結果",
+    "inquiry": "問い合わせ",
+    "inquiryCreate": "問い合わせを送る",
+    "inquiryDetail": "問い合わせ詳細"
   },
   "login": {
     "hero": {
@@ -803,6 +806,10 @@
         "title": "通知センター",
         "subtitle": "通知の確認"
       },
+      "inquiry": {
+        "title": "問い合わせ",
+        "subtitle": "ご質問・不具合はこちら"
+      },
       "about": {
         "title": "アプリ情報",
         "subtitle": "バージョン・利用規約など"
@@ -1049,6 +1056,57 @@
       }
     }
   },
+  "inquiry": {
+    "list": {
+      "title": "問い合わせ一覧",
+      "description": "過去の問い合わせを確認できます。",
+      "addButtonLabel": "新規問い合わせ",
+      "empty": "問い合わせはありません。"
+    },
+    "create": {
+      "title": "問い合わせを送る",
+      "description": "お気軽にご質問・ご要望をお送りください。",
+      "categoryLabel": "カテゴリ",
+      "titleLabel": "件名",
+      "bodyLabel": "お問い合わせ内容",
+      "submitButton": "送信する",
+      "cancelButton": "キャンセル",
+      "toast": {
+        "success": "問い合わせを送信しました。",
+        "error": "送信に失敗しました。"
+      },
+      "validation": {
+        "category": { "required": "カテゴリを選択してください" },
+        "title": {
+          "required": "件名を入力してください",
+          "maxLength": "件名は200文字以内で入力してください"
+        },
+        "body": { "required": "お問い合わせ内容を入力してください" }
+      }
+    },
+    "detail": {
+      "title": "問い合わせ詳細",
+      "replyPlaceholder": "返信を入力...",
+      "sendReplyButton": "送信",
+      "resolvedButton": "解決した",
+      "escalateButton": "解決しなかった（スタッフに相談）",
+      "closeConfirm": "この問い合わせをクローズしますか？",
+      "escalateConfirm": "スタッフへのエスカレーションを依頼しますか？",
+      "statusDescription": {
+        "00": "お問い合わせを受け付けました。返信までしばらくお待ちください。",
+        "10": "AIが返信しました。内容をご確認のうえ、解決した場合はクローズしてください。",
+        "20": "スタッフが対応中です。返信をお待ちください。",
+        "25": "スタッフが返信しました。内容をご確認のうえ、解決した場合はクローズしてください。",
+        "90": "この問い合わせはクローズされています。"
+      },
+      "toast": {
+        "replySent": "返信を送信しました。",
+        "closed": "クローズしました。",
+        "escalated": "スタッフへ引き継ぎました。",
+        "error": "操作に失敗しました。"
+      }
+    }
+  },
   "notifications": {
     "bell": {
       "ariaLabel": "通知ベル",
@@ -1099,6 +1157,10 @@
       "generic": {
         "title": "タスクが割り当てられました",
         "body": "タスクが割り当てられました。おうち: {household}, 日付: {date}, 件数: {count}件"
+      },
+      "inquiryReplied": {
+        "title": "問い合わせに返信が届きました",
+        "body": "#{inquiryId}「{title}」に返信が届いています。内容をご確認ください。"
       }
     }
   },
