@@ -35,9 +35,17 @@ import AppInfoPage from '@/views/settings/AppInfoPage.vue'
 import TermsPage from '@/views/settings/TermsPage.vue'
 import PrivacyPolicyPage from '@/views/settings/PrivacyPolicyPage.vue'
 import NotificationCenterPage from '@/views/notifications/NotificationCenterPage.vue'
+// Inquiry
+import InquiryListPage from '@/views/settings/inquiry/InquiryListPage.vue'
+import InquiryCreatePage from '@/views/settings/inquiry/InquiryCreatePage.vue'
+import InquiryDetailPage from '@/views/settings/inquiry/InquiryDetailPage.vue'
+// Admin
+import AdminTopPage from '@/views/admin/AdminTopPage.vue'
+import AdminRolesPage from '@/views/admin/AdminRolesPage.vue'
 
 import { useAuthStore } from '@/stores/authStore'
 import { useNotificationStore } from '@/stores/notificationStore'
+import { useRoleStore } from '@/stores/roleStore'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -218,23 +226,43 @@ const routes: RouteRecordRaw[] = [
         meta: { titleKey: 'pageTitles.notifications' },
       },
 
+      // ---- Admin ----
+      {
+        path: 'admin',
+        meta: { requiresAdmin: true },
+        children: [
+          {
+            path: '',
+            name: 'admin',
+            component: AdminTopPage,
+            meta: { titleKey: 'pageTitles.admin', requiresAdmin: true },
+          },
+          {
+            path: 'roles',
+            name: 'admin.roles',
+            component: AdminRolesPage,
+            meta: { titleKey: 'pageTitles.adminRoles', requiresAdmin: true },
+          },
+        ],
+      },
+
       // ---- Inquiry ----
       {
         path: 'settings/inquiry',
         name: 'settings.inquiry',
-        component: () => import('@/views/settings/inquiry/InquiryListPage.vue'),
+        component: InquiryListPage,
         meta: { titleKey: 'pageTitles.inquiry' },
       },
       {
         path: 'settings/inquiry/new',
         name: 'settings.inquiry.new',
-        component: () => import('@/views/settings/inquiry/InquiryCreatePage.vue'),
+        component: InquiryCreatePage,
         meta: { titleKey: 'pageTitles.inquiryCreate' },
       },
       {
         path: 'settings/inquiry/:inquiryId',
         name: 'settings.inquiry.detail',
-        component: () => import('@/views/settings/inquiry/InquiryDetailPage.vue'),
+        component: InquiryDetailPage,
         meta: { titleKey: 'pageTitles.inquiryDetail' },
       },
     ],
@@ -255,6 +283,13 @@ router.beforeEach((to) => {
   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
     uiStore.setRedirectAfterLogin(to.fullPath)
     return { name: 'login' }
+  }
+
+  if (to.meta.requiresAdmin) {
+    const roleStore = useRoleStore()
+    if (!roleStore.hasAnyRole) {
+      return { name: 'home' }
+    }
   }
 
   if (to.name === 'login' && authStore.isAuthenticated) {

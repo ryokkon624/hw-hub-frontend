@@ -7,6 +7,7 @@ import { useCodeStore } from '@/stores/codeStore'
 import { HOUSEHOLD_MEMBER_STATUS } from '@/constants/code.constants'
 import { nextTick } from 'vue'
 import { useNotificationStore } from './notificationStore'
+import { useRoleStore } from './roleStore'
 
 interface AuthState {
   accessToken: string | null
@@ -90,6 +91,9 @@ export const useAuthStore = defineStore('auth', {
 
       const codeStore = useCodeStore()
       codeStore.loadAllIfNeeded()
+
+      const roleStore = useRoleStore()
+      await roleStore.fetchMyRoles()
     },
 
     beginAuthTransition() {
@@ -128,6 +132,9 @@ export const useAuthStore = defineStore('auth', {
       const codeStore = useCodeStore()
       codeStore.loadAllIfNeeded()
 
+      const roleStore = useRoleStore()
+      await roleStore.fetchMyRoles()
+
       return result
     },
 
@@ -159,6 +166,8 @@ export const useAuthStore = defineStore('auth', {
 
         const codeStore = useCodeStore()
         codeStore.loadAllIfNeeded()
+        const roleStore = useRoleStore()
+        await roleStore.fetchMyRoles()
       } finally {
         this.isBootstrapping = false
         const notificationStore = useNotificationStore()
@@ -181,6 +190,9 @@ export const useAuthStore = defineStore('auth', {
 
       const householdStore = useHouseholdStore()
       householdStore.reset()
+
+      const roleStore = useRoleStore()
+      roleStore.clear()
     },
 
     /**

@@ -65,6 +65,25 @@
           />
           <span class="flex-1 text-left">{{ t(item.labelKey) }}</span>
         </button>
+
+        <!-- 管理画面（ロールあり時のみ表示） -->
+        <button
+          v-if="canAccessAdmin"
+          type="button"
+          class="w-full flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition hover:bg-hwhub-sidebar-hover"
+          :class="
+            isActive('admin')
+              ? 'bg-hwhub-sidebar-active text-hwhub-sidebar-active hover:bg-hwhub-sidebar-hover'
+              : 'text-hwhub-sidebar-nav'
+          "
+          @click="navigate('admin')"
+        >
+          <ShieldCheck
+            class="w-5 h-5"
+            :class="isActive('admin') ? 'text-green-400' : 'text-green-600'"
+          />
+          <span class="flex-1 text-left">{{ t('nav.admin') }}</span>
+        </button>
       </nav>
     </aside>
 
@@ -114,6 +133,19 @@
             <component :is="item.icon" class="w-5 h-5 mb-0.5" />
             <span class="leading-none">{{ t(item.labelKey) }}</span>
           </button>
+
+          <!-- 管理ボタン（ロールあり時のみ） -->
+          <button
+            v-if="canAccessAdmin"
+            type="button"
+            class="flex-1 flex flex-col items-center justify-center py-1.5"
+            :class="isActive('admin') ? 'text-green-400 font-semibold' : 'text-hwhub-sidebar-nav'"
+            @click="navigate('admin')"
+          >
+            <span class="block w-5 h-0.5 rounded-full mb-1 transition-all" :class="isActive('admin') ? 'bg-green-400' : 'bg-transparent'" />
+            <ShieldCheck class="w-5 h-5 mb-0.5" />
+            <span class="leading-none">{{ t('nav.admin') }}</span>
+          </button>
         </nav>
       </div>
     </div>
@@ -129,16 +161,18 @@ import { useRoute, useRouter, RouterView } from 'vue-router'
 import { computed } from 'vue'
 import type { Component } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { House, ClipboardList, CheckSquare, ShoppingCart, Settings } from 'lucide-vue-next'
+import { House, ClipboardList, CheckSquare, ShoppingCart, Settings, ShieldCheck } from 'lucide-vue-next'
 import AppHeader from '@/components/AppHeader.vue'
 import AppToastContainer from '@/components/AppToastContainer.vue'
 import LoadingOverlay from '@/components/LoadingOverlay.vue'
 import { useHouseholdStore } from '@/stores/householdStore'
+import { useRole } from '@/composables/useRole'
 
 const route = useRoute()
 const router = useRouter()
 const householdStore = useHouseholdStore()
 const { t } = useI18n()
+const { canAccessAdmin } = useRole()
 
 type MainNavItem = {
   name: string

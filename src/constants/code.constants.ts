@@ -20,6 +20,8 @@ export const CODE_TYPE = {
   INQUIRY_CATEGORY: '0021', // InquiryCategory (問い合わせカテゴリ)
   INQUIRY_STATUS: '0022', // InquiryStatus (問い合わせステータス)
   INQUIRY_SENDER_TYPE: '0023', // InquirySenderType (送信者タイプ)
+  USER_ROLE: '0024', // UserRole (ユーザロール)
+  PERMISSION: '0025', // Permission (パーミッション)
 } as const
 
 /**
@@ -219,3 +221,22 @@ export const INQUIRY_SENDER_TYPE = {
   STAFF: 'STAFF',
 } as const
 export type InquirySenderTypeCode = (typeof INQUIRY_SENDER_TYPE)[keyof typeof INQUIRY_SENDER_TYPE]
+
+/**
+ * 0024: ユーザーロール (UserRole)
+ */
+export const USER_ROLE = {
+  ADMIN: 'ADMIN',
+  SUPPORT: 'SPPRT',
+} as const
+export type UserRoleCode = (typeof USER_ROLE)[keyof typeof USER_ROLE]
+
+/**
+ * 0025: パーミッション (Permission)
+ */
+export const PERMISSION = {
+  INQUIRY_REPLY: '20',
+  USER_LIST_VIEW: '10',
+  ROLE_MANAGE: '11',
+} as const
+export type PermissionCode = (typeof PERMISSION)[keyof typeof PERMISSION]

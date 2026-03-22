@@ -118,7 +118,36 @@
     "oauthResult": "結果",
     "inquiry": "問い合わせ",
     "inquiryCreate": "問い合わせを送る",
-    "inquiryDetail": "問い合わせ詳細"
+    "inquiryDetail": "問い合わせ詳細",
+    "admin": "管理画面",
+    "adminRoles": "ロール管理"
+  },
+  "nav": {
+    "admin": "管理"
+  },
+  "admin": {
+    "pageTitle": "管理画面",
+    "description": "管理機能を提供します。",
+    "sections": {
+      "roles": {
+        "title": "ロール管理",
+        "subtitle": "ユーザーへのロール付与・削除"
+      }
+    },
+    "roles": {
+      "searchLabel": "メールアドレスで検索",
+      "searchPlaceholder": "example@example.com",
+      "searchButton": "検索",
+      "empty": "該当するユーザーが見つかりません。",
+      "assignButton": "付与",
+      "removeButton": "削除",
+      "removeConfirm": "このロールを削除しますか？",
+      "toast": {
+        "assigned": "ロールを付与しました。",
+        "removed": "ロールを削除しました。",
+        "error": "操作に失敗しました。"
+      }
+    }
   },
   "login": {
     "hero": {

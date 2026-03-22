@@ -118,7 +118,36 @@
     "oauthResult": "Result",
     "inquiry": "Inquiries",
     "inquiryCreate": "New Inquiry",
-    "inquiryDetail": "Inquiry Detail"
+    "inquiryDetail": "Inquiry Detail",
+    "admin": "Admin",
+    "adminRoles": "Role Management"
+  },
+  "nav": {
+    "admin": "Admin"
+  },
+  "admin": {
+    "pageTitle": "Admin",
+    "description": "Administration features.",
+    "sections": {
+      "roles": {
+        "title": "Role Management",
+        "subtitle": "Assign or remove user roles"
+      }
+    },
+    "roles": {
+      "searchLabel": "Search by email",
+      "searchPlaceholder": "example@example.com",
+      "searchButton": "Search",
+      "empty": "No users found.",
+      "assignButton": "Assign",
+      "removeButton": "Remove",
+      "removeConfirm": "Remove this role?",
+      "toast": {
+        "assigned": "Role assigned.",
+        "removed": "Role removed.",
+        "error": "Operation failed."
+      }
+    }
   },
   "login": {
     "hero": {

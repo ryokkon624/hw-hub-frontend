@@ -1,3 +1,5 @@
+import type { UserRoleCode, PermissionCode } from '@/constants/code.constants'
+
 /**
  * ログインユーザDomain Model
  */
@@ -34,3 +36,23 @@ export type RegisterResult =
       kind: 'VERIFICATION_REQUIRED'
       verificationExpiresAt?: string | null
     }
+
+/**
+ * ユーザのロール情報Domain Model
+ */
+export interface MyRolesModel {
+  roles: UserRoleCode[]
+  permissions: PermissionCode[]
+}
+
+/**
+ * 管理ユーザDomain Model
+ */
+export interface AdminUserModel {
+  userId: number
+  email: string
+  displayName: string
+  locale: string
+  isActive: boolean
+  roles: UserRoleCode[]
+}

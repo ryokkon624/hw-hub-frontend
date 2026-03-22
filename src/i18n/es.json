@@ -118,7 +118,36 @@
     "oauthResult": "Resultado",
     "inquiry": "Consultas",
     "inquiryCreate": "Nueva consulta",
-    "inquiryDetail": "Detalle de consulta"
+    "inquiryDetail": "Detalle de consulta",
+    "admin": "Administración",
+    "adminRoles": "Gestión de roles"
+  },
+  "nav": {
+    "admin": "Admin"
+  },
+  "admin": {
+    "pageTitle": "Administración",
+    "description": "Funciones de administración.",
+    "sections": {
+      "roles": {
+        "title": "Gestión de roles",
+        "subtitle": "Asignar o eliminar roles de usuario"
+      }
+    },
+    "roles": {
+      "searchLabel": "Buscar por correo",
+      "searchPlaceholder": "ejemplo@ejemplo.com",
+      "searchButton": "Buscar",
+      "empty": "No se encontraron usuarios.",
+      "assignButton": "Asignar",
+      "removeButton": "Eliminar",
+      "removeConfirm": "¿Eliminar este rol?",
+      "toast": {
+        "assigned": "Rol asignado.",
+        "removed": "Rol eliminado.",
+        "error": "La operación falló."
+      }
+    }
   },
   "login": {
     "hero": {
