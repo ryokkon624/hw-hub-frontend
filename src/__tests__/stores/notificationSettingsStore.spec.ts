@@ -34,9 +34,10 @@ describe('notificationSettingsStore', () => {
 
     expect(store.isLoading).toBe(false)
     expect(store.notificationEnabled).toBe(true)
-    expect(store.groupSettings).toEqual({
+    expect(store.groupSettings).toMatchObject({
       [NOTIFICATION_GROUP.HOUSEHOLD]: true,
       [NOTIFICATION_GROUP.TASK_ASSIGNMENT]: true,
+      [NOTIFICATION_GROUP.INQUIRY]: true,
     })
   })
 

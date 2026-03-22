@@ -70,6 +70,18 @@ describe('notificationLink', () => {
     expect(router.push).toHaveBeenCalledWith({ name: 'settings.household' })
   })
 
+  it('INQUIRYのときはsettings.inquiry.detailに遷移する', async () => {
+    const router = createMockRouter()
+    const notification = { ...createNotification(NOTIFICATION_LINK_TYPE.INQUIRY), linkId: 42 }
+
+    await navigateByNotification(router, notification)
+
+    expect(router.push).toHaveBeenCalledWith({
+      name: 'settings.inquiry.detail',
+      params: { inquiryId: '42' },
+    })
+  })
+
   it('未知のLinkTypeのときはどこにも遷移しない', async () => {
     const router = createMockRouter()
     const notification = createNotification('UNKNOWN_LINK_TYPE')
