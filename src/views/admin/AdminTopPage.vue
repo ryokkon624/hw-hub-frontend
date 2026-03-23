@@ -26,13 +26,36 @@
           <span class="text-hwhub-muted">›</span>
         </div>
       </RouterLink>
+
+      <!-- 問い合わせ管理カード -->
+      <RouterLink
+        :to="{ name: 'admin.inquiries' }"
+        class="block rounded-xl border bg-white p-4 shadow-sm hover:bg-hwhub-surface-subtle transition"
+      >
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="rounded-lg p-2 bg-violet-100">
+              <MessageCircleQuestion class="w-5 h-5 text-violet-600" />
+            </div>
+            <div>
+              <div class="font-medium text-sm text-hwhub-heading">
+                {{ t('admin.sections.inquiries.title') }}
+              </div>
+              <div class="text-xs text-hwhub-muted">
+                {{ t('admin.sections.inquiries.subtitle') }}
+              </div>
+            </div>
+          </div>
+          <span class="text-hwhub-muted">›</span>
+        </div>
+      </RouterLink>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import { ShieldCheck } from 'lucide-vue-next'
+import { ShieldCheck, MessageCircleQuestion } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 </script>

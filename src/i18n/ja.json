@@ -120,7 +120,9 @@
     "inquiryCreate": "問い合わせを送る",
     "inquiryDetail": "問い合わせ詳細",
     "admin": "管理画面",
-    "adminRoles": "ロール管理"
+    "adminRoles": "ロール管理",
+    "adminInquiries": "問い合わせ管理",
+    "adminInquiryDetail": "問い合わせ詳細（管理）"
   },
   "nav": {
     "admin": "管理"
@@ -132,6 +134,54 @@
       "roles": {
         "title": "ロール管理",
         "subtitle": "ユーザーへのロール付与・削除"
+      },
+      "inquiries": {
+        "title": "問い合わせ管理",
+        "subtitle": "ユーザーからの問い合わせへの対応"
+      }
+    },
+    "inquiries": {
+      "tabs": {
+        "pending": "対応待ち",
+        "search": "全件検索"
+      },
+      "pending": {
+        "empty": "対応待ちの問い合わせはありません。"
+      },
+      "search": {
+        "createdAtFrom": "作成日（開始）",
+        "createdAtTo": "作成日（終了）",
+        "updatedAtFrom": "更新日（開始）",
+        "updatedAtTo": "更新日（終了）",
+        "userId": "ユーザーID",
+        "status": "ステータス",
+        "searchButton": "検索",
+        "empty": "該当する問い合わせが見つかりません。"
+      },
+      "columns": {
+        "id": "#ID / 件名",
+        "user": "ユーザー",
+        "category": "カテゴリ",
+        "status": "ステータス",
+        "messages": "メッセージ",
+        "createdAt": "作成日時",
+        "updatedAt": "更新日時",
+        "actions": "操作"
+      },
+      "pagination": {
+        "showing": "{start}〜{end}件 / {total}件"
+      },
+      "card": {
+        "messages": "メッセージ",
+        "detailButton": "詳細"
+      },
+      "detail": {
+        "replyPlaceholder": "返信を入力...",
+        "replyButton": "送信",
+        "toast": {
+          "sent": "返信しました。",
+          "error": "送信に失敗しました。"
+        }
       }
     },
     "roles": {

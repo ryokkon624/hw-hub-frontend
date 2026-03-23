@@ -123,7 +123,7 @@ const toInquirySummary = (dto: InquirySummaryDto): InquirySummary => ({
   createdAt: new Date(dto.createdAt),
 })
 
-const toInquiryDetail = (dto: InquiryDetailDto): InquiryDetail => ({
+export const toInquiryDetail = (dto: InquiryDetailDto): InquiryDetail => ({
   inquiryId: dto.inquiryId,
   category: dto.category as InquiryCategoryCode,
   status: dto.status as InquiryStatusCode,

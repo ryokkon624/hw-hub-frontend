@@ -39,3 +39,31 @@ export interface InquiryCreateInput {
   title: string
   body: string
 }
+
+/** 管理用問い合わせ一覧用 */
+export interface AdminInquiryModel {
+  inquiryId: number
+  userId: number
+  userEmail: string
+  userDisplayName: string
+  category: string
+  status: string
+  title: string
+  createdAt: Date
+  updatedAt: Date
+  totalMessageCount: number
+  userMessageCount: number
+  aiMessageCount: number
+  staffMessageCount: number
+}
+
+/** 管理用問い合わせ検索条件 */
+export interface AdminInquirySearchParams {
+  createdAtFrom?: string
+  createdAtTo?: string
+  updatedAtFrom?: string
+  updatedAtTo?: string
+  userId?: number
+  category?: string
+  status?: string
+}

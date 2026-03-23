@@ -120,7 +120,9 @@
     "inquiryCreate": "Nueva consulta",
     "inquiryDetail": "Detalle de consulta",
     "admin": "Administración",
-    "adminRoles": "Gestión de roles"
+    "adminRoles": "Gestión de roles",
+    "adminInquiries": "Gestión de consultas",
+    "adminInquiryDetail": "Detalle de consulta (Admin)"
   },
   "nav": {
     "admin": "Admin"
@@ -132,6 +134,54 @@
       "roles": {
         "title": "Gestión de roles",
         "subtitle": "Asignar o eliminar roles de usuario"
+      },
+      "inquiries": {
+        "title": "Gestión de consultas",
+        "subtitle": "Gestionar consultas de usuarios"
+      }
+    },
+    "inquiries": {
+      "tabs": {
+        "pending": "Pendientes",
+        "search": "Buscar todo"
+      },
+      "pending": {
+        "empty": "No hay consultas pendientes."
+      },
+      "search": {
+        "createdAtFrom": "Creado desde",
+        "createdAtTo": "Creado hasta",
+        "updatedAtFrom": "Actualizado desde",
+        "updatedAtTo": "Actualizado hasta",
+        "userId": "ID de usuario",
+        "status": "Estado",
+        "searchButton": "Buscar",
+        "empty": "No se encontraron consultas."
+      },
+      "columns": {
+        "id": "# ID / Título",
+        "user": "Usuario",
+        "category": "Categoría",
+        "status": "Estado",
+        "messages": "Mensajes",
+        "createdAt": "Creado",
+        "updatedAt": "Actualizado",
+        "actions": "Acciones"
+      },
+      "pagination": {
+        "showing": "{start}–{end} de {total}"
+      },
+      "card": {
+        "messages": "Mensajes",
+        "detailButton": "Detalle"
+      },
+      "detail": {
+        "replyPlaceholder": "Ingrese respuesta...",
+        "replyButton": "Enviar",
+        "toast": {
+          "sent": "Respuesta enviada.",
+          "error": "Error al enviar."
+        }
       }
     },
     "roles": {

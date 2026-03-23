@@ -39,6 +39,8 @@ import NotificationCenterPage from '@/views/notifications/NotificationCenterPage
 import InquiryListPage from '@/views/settings/inquiry/InquiryListPage.vue'
 import InquiryCreatePage from '@/views/settings/inquiry/InquiryCreatePage.vue'
 import InquiryDetailPage from '@/views/settings/inquiry/InquiryDetailPage.vue'
+import AdminInquiryListPage from '@/views/admin/AdminInquiriesPage.vue'
+import AdminInquiryDetailPage from '@/views/admin/AdminInquiryDetailPage.vue'
 // Admin
 import AdminTopPage from '@/views/admin/AdminTopPage.vue'
 import AdminRolesPage from '@/views/admin/AdminRolesPage.vue'
@@ -242,6 +244,18 @@ const routes: RouteRecordRaw[] = [
             name: 'admin.roles',
             component: AdminRolesPage,
             meta: { titleKey: 'pageTitles.adminRoles', requiresAdmin: true },
+          },
+          {
+            path: 'inquiries',
+            name: 'admin.inquiries',
+            component: AdminInquiryListPage,
+            meta: { titleKey: 'pageTitles.adminInquiries', requiresAdmin: true },
+          },
+          {
+            path: 'inquiries/:inquiryId',
+            name: 'admin.inquiries.detail',
+            component: AdminInquiryDetailPage,
+            meta: { titleKey: 'pageTitles.adminInquiryDetail', requiresAdmin: true },
           },
         ],
       },

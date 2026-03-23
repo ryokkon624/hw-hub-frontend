@@ -120,7 +120,9 @@
     "inquiryCreate": "New Inquiry",
     "inquiryDetail": "Inquiry Detail",
     "admin": "Admin",
-    "adminRoles": "Role Management"
+    "adminRoles": "Role Management",
+    "adminInquiries": "Inquiry Management",
+    "adminInquiryDetail": "Inquiry Detail (Admin)"
   },
   "nav": {
     "admin": "Admin"
@@ -132,6 +134,54 @@
       "roles": {
         "title": "Role Management",
         "subtitle": "Assign or remove user roles"
+      },
+      "inquiries": {
+        "title": "Inquiry Management",
+        "subtitle": "Handle user inquiries"
+      }
+    },
+    "inquiries": {
+      "tabs": {
+        "pending": "Pending",
+        "search": "Search All"
+      },
+      "pending": {
+        "empty": "No pending inquiries."
+      },
+      "search": {
+        "createdAtFrom": "Created from",
+        "createdAtTo": "Created to",
+        "updatedAtFrom": "Updated from",
+        "updatedAtTo": "Updated to",
+        "userId": "User ID",
+        "status": "Status",
+        "searchButton": "Search",
+        "empty": "No inquiries found."
+      },
+      "columns": {
+        "id": "# ID / Title",
+        "user": "User",
+        "category": "Category",
+        "status": "Status",
+        "messages": "Messages",
+        "createdAt": "Created",
+        "updatedAt": "Updated",
+        "actions": "Actions"
+      },
+      "pagination": {
+        "showing": "{start}–{end} of {total}"
+      },
+      "card": {
+        "messages": "Messages",
+        "detailButton": "Detail"
+      },
+      "detail": {
+        "replyPlaceholder": "Enter reply...",
+        "replyButton": "Send",
+        "toast": {
+          "sent": "Reply sent.",
+          "error": "Failed to send."
+        }
       }
     },
     "roles": {
