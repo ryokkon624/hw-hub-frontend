@@ -78,7 +78,7 @@
     "title": "¿Olvidaste tu contraseña?",
     "description": "Ingresa tu dirección de correo electrónico. Si existe una cuenta, te enviaremos un enlace para restablecer la contraseña.",
     "email": "Correo electrónico",
-    "placeholder": "tu@ejemplo.com",
+    "placeholder": "tu{'@'}ejemplo.com",
     "submit": "Enviar enlace de restablecimiento",
     "submitting": "Enviando...",
     "backToLogin": "Volver al inicio de sesión"
@@ -122,7 +122,8 @@
     "admin": "Administración",
     "adminRoles": "Gestión de roles",
     "adminInquiries": "Gestión de consultas",
-    "adminInquiryDetail": "Detalle de consulta (Admin)"
+    "adminInquiryDetail": "Detalle de consulta (Admin)",
+    "adminUsers": "Gestión de usuarios"
   },
   "nav": {
     "admin": "Admin"
@@ -131,6 +132,10 @@
     "pageTitle": "Administración",
     "description": "Funciones de administración.",
     "sections": {
+      "users": {
+        "title": "Gestión de usuarios",
+        "subtitle": "Registrar y editar usuarios"
+      },
       "roles": {
         "title": "Gestión de roles",
         "subtitle": "Asignar o eliminar roles de usuario"
@@ -139,6 +144,49 @@
         "title": "Gestión de consultas",
         "subtitle": "Gestionar consultas de usuarios"
       }
+    },
+    "users": {
+      "search": {
+        "email": "Correo",
+        "isActive": "Estado",
+        "isActiveAll": "Todos",
+        "isActiveActive": "Activo",
+        "isActiveInactive": "Inactivo",
+        "locale": "Idioma",
+        "localeAll": "Todos",
+        "searchButton": "Buscar"
+      },
+      "description": "Registre, edite y busque usuarios.",
+      "createButton": "+ Crear usuario",
+      "editButton": "Editar",
+      "columns": {
+        "userId": "ID",
+        "email": "Correo",
+        "authProvider": "Auth",
+        "displayName": "Nombre",
+        "locale": "Idioma",
+        "notificationEnabled": "Notif.",
+        "isActive": "Estado",
+        "createdAt": "Creado",
+        "updatedAt": "Actualizado",
+        "actions": "Acciones"
+      },
+      "form": {
+        "create": { "title": "Crear usuario" },
+        "edit": { "title": "Editar usuario" },
+        "email": "Correo",
+        "password": "Contraseña",
+        "passwordHint": "Dejar en blanco para no cambiar",
+        "displayName": "Nombre",
+        "locale": "Idioma",
+        "isActive": "Activo"
+      },
+      "toast": {
+        "created": "Usuario creado.",
+        "updated": "Usuario actualizado.",
+        "error": "La operación falló."
+      },
+      "empty": "No se encontraron usuarios."
     },
     "inquiries": {
       "tabs": {
@@ -186,7 +234,7 @@
     },
     "roles": {
       "searchLabel": "Buscar por correo",
-      "searchPlaceholder": "ejemplo@ejemplo.com",
+      "searchPlaceholder": "ejemplo{'@'}ejemplo.com",
       "searchButton": "Buscar",
       "empty": "No se encontraron usuarios.",
       "assignButton": "Asignar",

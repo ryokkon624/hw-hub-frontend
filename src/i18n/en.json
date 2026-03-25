@@ -78,7 +78,7 @@
     "title": "Forgot your password?",
     "description": "Enter your email address. If an account exists, we’ll send a password reset link.",
     "email": "Email",
-    "placeholder": "you@example.com",
+    "placeholder": "you{'@'}example.com",
     "submit": "Send reset link",
     "submitting": "Sending...",
     "backToLogin": "Back to login"
@@ -122,7 +122,8 @@
     "admin": "Admin",
     "adminRoles": "Role Management",
     "adminInquiries": "Inquiry Management",
-    "adminInquiryDetail": "Inquiry Detail (Admin)"
+    "adminInquiryDetail": "Inquiry Detail (Admin)",
+    "adminUsers": "User Management"
   },
   "nav": {
     "admin": "Admin"
@@ -131,6 +132,10 @@
     "pageTitle": "Admin",
     "description": "Administration features.",
     "sections": {
+      "users": {
+        "title": "User Management",
+        "subtitle": "Register and edit users"
+      },
       "roles": {
         "title": "Role Management",
         "subtitle": "Assign or remove user roles"
@@ -139,6 +144,49 @@
         "title": "Inquiry Management",
         "subtitle": "Handle user inquiries"
       }
+    },
+    "users": {
+      "search": {
+        "email": "Email",
+        "isActive": "Status",
+        "isActiveAll": "All",
+        "isActiveActive": "Active",
+        "isActiveInactive": "Inactive",
+        "locale": "Locale",
+        "localeAll": "All",
+        "searchButton": "Search"
+      },
+      "description": "Register, edit, and search users.",
+      "createButton": "+ Create User",
+      "editButton": "Edit",
+      "columns": {
+        "userId": "ID",
+        "email": "Email",
+        "authProvider": "Auth",
+        "displayName": "Display Name",
+        "locale": "Locale",
+        "notificationEnabled": "Notification",
+        "isActive": "Status",
+        "createdAt": "Created",
+        "updatedAt": "Updated",
+        "actions": "Actions"
+      },
+      "form": {
+        "create": { "title": "Create User" },
+        "edit": { "title": "Edit User" },
+        "email": "Email",
+        "password": "Password",
+        "passwordHint": "Leave blank to keep current",
+        "displayName": "Display Name",
+        "locale": "Locale",
+        "isActive": "Active"
+      },
+      "toast": {
+        "created": "User created.",
+        "updated": "User updated.",
+        "error": "Operation failed."
+      },
+      "empty": "No users found."
     },
     "inquiries": {
       "tabs": {
@@ -186,7 +234,7 @@
     },
     "roles": {
       "searchLabel": "Search by email",
-      "searchPlaceholder": "example@example.com",
+      "searchPlaceholder": "example{'@'}example.com",
       "searchButton": "Search",
       "empty": "No users found.",
       "assignButton": "Assign",

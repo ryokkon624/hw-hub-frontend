@@ -78,7 +78,7 @@
     "title": "パスワードをお忘れですか？",
     "description": "メールアドレスを入力してください。アカウントが存在すれば、パスワード再設定用のリンクを送信します。",
     "email": "メールアドレス",
-    "placeholder": "you@example.com",
+    "placeholder": "you{'@'}example.com",
     "submit": "再設定リンクを送信",
     "submitting": "送信中...",
     "backToLogin": "ログインへ戻る"
@@ -122,7 +122,8 @@
     "admin": "管理画面",
     "adminRoles": "ロール管理",
     "adminInquiries": "問い合わせ管理",
-    "adminInquiryDetail": "問い合わせ詳細（管理）"
+    "adminInquiryDetail": "問い合わせ詳細（管理）",
+    "adminUsers": "ユーザー管理"
   },
   "nav": {
     "admin": "管理"
@@ -131,6 +132,10 @@
     "pageTitle": "管理画面",
     "description": "管理機能を提供します。",
     "sections": {
+      "users": {
+        "title": "ユーザー管理",
+        "subtitle": "ユーザーの登録・編集"
+      },
       "roles": {
         "title": "ロール管理",
         "subtitle": "ユーザーへのロール付与・削除"
@@ -139,6 +144,49 @@
         "title": "問い合わせ管理",
         "subtitle": "ユーザーからの問い合わせへの対応"
       }
+    },
+    "users": {
+      "search": {
+        "email": "メールアドレス",
+        "isActive": "ステータス",
+        "isActiveAll": "すべて",
+        "isActiveActive": "有効",
+        "isActiveInactive": "無効",
+        "locale": "言語",
+        "localeAll": "すべて",
+        "searchButton": "検索"
+      },
+      "description": "ユーザーの登録・編集・検索ができます。",
+      "createButton": "＋ 新規登録",
+      "editButton": "編集",
+      "columns": {
+        "userId": "ID",
+        "email": "メールアドレス",
+        "authProvider": "認証",
+        "displayName": "表示名",
+        "locale": "言語",
+        "notificationEnabled": "通知",
+        "isActive": "ステータス",
+        "createdAt": "作成日時",
+        "updatedAt": "更新日時",
+        "actions": "操作"
+      },
+      "form": {
+        "create": { "title": "ユーザー新規登録" },
+        "edit": { "title": "ユーザー編集" },
+        "email": "メールアドレス",
+        "password": "パスワード",
+        "passwordHint": "変更する場合のみ入力",
+        "displayName": "表示名",
+        "locale": "言語",
+        "isActive": "有効"
+      },
+      "toast": {
+        "created": "ユーザーを登録しました。",
+        "updated": "ユーザー情報を更新しました。",
+        "error": "操作に失敗しました。"
+      },
+      "empty": "該当するユーザーが見つかりません。"
     },
     "inquiries": {
       "tabs": {
@@ -186,7 +234,7 @@
     },
     "roles": {
       "searchLabel": "メールアドレスで検索",
-      "searchPlaceholder": "example@example.com",
+      "searchPlaceholder": "example{'@'}example.com",
       "searchButton": "検索",
       "empty": "該当するユーザーが見つかりません。",
       "assignButton": "付与",

@@ -1,7 +1,7 @@
 import { apiClient } from './client'
 import { toInquiryDetail } from './inquiryApi'
 import type { UserRoleCode } from '@/constants/code.constants'
-import type { AdminUserModel, AdminInquiryModel, AdminInquirySearchParams, InquiryDetail } from '@/domain'
+import type { AdminUserModel, AdminInquiryModel, AdminInquirySearchParams, InquiryDetail, AdminUserDetailModel } from '@/domain'
 
 // ---- API クライアント --------------------------------------------
 
@@ -46,9 +46,63 @@ export const adminApi = {
   async replyToInquiry(inquiryId: number, body: string): Promise<void> {
     await apiClient.post(`/api/admin/inquiries/${inquiryId}/reply`, { body })
   },
+
+  // ---- ユーザー管理 ------------------------------------------------
+
+  /** 管理者: ユーザー一覧検索 */
+  async searchAdminUsers(params: AdminUserSearchParams): Promise<AdminUserDetailModel[]> {
+    const res = await apiClient.get<AdminUserDetailDto[]>('/api/admin/users/search', { params })
+    return res.data.map(toAdminUserDetailModel)
+  },
+
+  /** 管理者: ユーザー登録 */
+  async createAdminUser(params: AdminCreateUserParams): Promise<AdminUserDetailModel> {
+    const res = await apiClient.post<AdminUserDetailDto>('/api/admin/users', params)
+    return toAdminUserDetailModel(res.data)
+  },
+
+  /** 管理者: ユーザー更新 */
+  async updateAdminUser(userId: number, params: AdminUpdateUserParams): Promise<AdminUserDetailModel> {
+    const res = await apiClient.put<AdminUserDetailDto>(`/api/admin/users/${userId}`, params)
+    return toAdminUserDetailModel(res.data)
+  },
 }
 
 // ---- Response DTO ------------------------------------------------
+
+interface AdminUserDetailDto {
+  userId: number
+  email: string
+  authProvider: string
+  displayName: string
+  locale: string
+  notificationEnabled: boolean
+  isActive: boolean
+  iconUrl: string | null
+  createdAt: string
+  updatedAt: string
+}
+
+export interface AdminUserSearchParams {
+  email?: string
+  isActive?: boolean
+  locale?: string
+}
+
+export interface AdminCreateUserParams {
+  email: string
+  password: string
+  displayName: string
+  locale: string
+}
+
+export interface AdminUpdateUserParams {
+  displayName: string
+  locale: string
+  password?: string
+  isActive?: boolean
+}
+
 interface AdminUserDto {
   userId: number
   email: string
@@ -85,6 +139,12 @@ const toAdminUserModel = (dto: AdminUserDto): AdminUserModel => ({
 })
 
 const toAdminInquiryModel = (dto: AdminInquiryDto): AdminInquiryModel => ({
+  ...dto,
+  createdAt: new Date(dto.createdAt),
+  updatedAt: new Date(dto.updatedAt),
+})
+
+const toAdminUserDetailModel = (dto: AdminUserDetailDto): AdminUserDetailModel => ({
   ...dto,
   createdAt: new Date(dto.createdAt),
   updatedAt: new Date(dto.updatedAt),

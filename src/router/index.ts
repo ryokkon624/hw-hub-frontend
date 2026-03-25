@@ -1,5 +1,17 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import { useUiStore } from '@/stores/uiStore'
+import { PERMISSION, type PermissionCode } from '@/constants/code.constants'
+
+declare module 'vue-router' {
+  interface RouteMeta {
+    requiresAuth?: boolean
+    requiresAdmin?: boolean
+    requiresPermission?: PermissionCode
+    titleKey?: string
+    title?: string
+    public?: boolean
+  }
+}
 
 // 認証
 import LoginPage from '@/views/LoginPage.vue'
@@ -44,6 +56,7 @@ import AdminInquiryDetailPage from '@/views/admin/AdminInquiryDetailPage.vue'
 // Admin
 import AdminTopPage from '@/views/admin/AdminTopPage.vue'
 import AdminRolesPage from '@/views/admin/AdminRolesPage.vue'
+import AdminUsersPage from '@/views/admin/AdminUsersPage.vue'
 
 import { useAuthStore } from '@/stores/authStore'
 import { useNotificationStore } from '@/stores/notificationStore'
@@ -237,25 +250,31 @@ const routes: RouteRecordRaw[] = [
             path: '',
             name: 'admin',
             component: AdminTopPage,
-            meta: { titleKey: 'pageTitles.admin', requiresAdmin: true },
+            meta: { titleKey: 'pageTitles.admin', requiresAuth: true, requiresAdmin: true },
+          },
+          {
+            path: 'users',
+            name: 'admin.users',
+            component: AdminUsersPage,
+            meta: { titleKey: 'pageTitles.adminUsers', requiresAuth: true, requiresPermission: PERMISSION.USER_LIST_VIEW },
           },
           {
             path: 'roles',
             name: 'admin.roles',
             component: AdminRolesPage,
-            meta: { titleKey: 'pageTitles.adminRoles', requiresAdmin: true },
+            meta: { titleKey: 'pageTitles.adminRoles', requiresAuth: true, requiresPermission: PERMISSION.ROLE_MANAGE },
           },
           {
             path: 'inquiries',
             name: 'admin.inquiries',
             component: AdminInquiryListPage,
-            meta: { titleKey: 'pageTitles.adminInquiries', requiresAdmin: true },
+            meta: { titleKey: 'pageTitles.adminInquiries', requiresAuth: true, requiresPermission: PERMISSION.INQUIRY_REPLY },
           },
           {
             path: 'inquiries/:inquiryId',
             name: 'admin.inquiries.detail',
             component: AdminInquiryDetailPage,
-            meta: { titleKey: 'pageTitles.adminInquiryDetail', requiresAdmin: true },
+            meta: { titleKey: 'pageTitles.adminInquiryDetail', requiresAuth: true, requiresPermission: PERMISSION.INQUIRY_REPLY },
           },
         ],
       },
@@ -302,6 +321,14 @@ router.beforeEach((to) => {
   if (to.meta.requiresAdmin) {
     const roleStore = useRoleStore()
     if (!roleStore.hasAnyRole) {
+      return { name: 'home' }
+    }
+  }
+
+  if (to.meta.requiresPermission) {
+    const roleStore = useRoleStore()
+    const permission = to.meta.requiresPermission
+    if (!roleStore.permissions.includes(permission)) {
       return { name: 'home' }
     }
   }

@@ -4,58 +4,45 @@
     <p class="text-sm text-hwhub-muted">{{ t('admin.description') }}</p>
 
     <div class="mt-4 space-y-3">
-      <!-- ロール管理カード -->
-      <RouterLink
-        :to="{ name: 'admin.roles' }"
-        class="block rounded-xl border bg-white p-4 shadow-sm hover:bg-hwhub-surface-subtle transition"
-      >
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <div class="rounded-lg p-2 bg-rose-100">
-              <ShieldCheck class="w-5 h-5 text-rose-600" />
-            </div>
-            <div>
-              <div class="font-medium text-sm text-hwhub-heading">
-                {{ t('admin.sections.roles.title') }}
-              </div>
-              <div class="text-xs text-hwhub-muted">
-                {{ t('admin.sections.roles.subtitle') }}
-              </div>
-            </div>
-          </div>
-          <span class="text-hwhub-muted">›</span>
-        </div>
-      </RouterLink>
+      <AdminCard
+        :can-access="canManageUser"
+        :to="'/admin/users'"
+        :icon="Users"
+        icon-bg-class="bg-blue-100"
+        icon-color-class="text-blue-600"
+        :title="t('admin.sections.users.title')"
+        :subtitle="t('admin.sections.users.subtitle')"
+      />
 
-      <!-- 問い合わせ管理カード -->
-      <RouterLink
+      <AdminCard
+        :can-access="canManageRole"
+        :to="{ name: 'admin.roles' }"
+        :icon="ShieldCheck"
+        icon-bg-class="bg-rose-100"
+        icon-color-class="text-rose-600"
+        :title="t('admin.sections.roles.title')"
+        :subtitle="t('admin.sections.roles.subtitle')"
+      />
+
+      <AdminCard
+        :can-access="canReplyInquiry"
         :to="{ name: 'admin.inquiries' }"
-        class="block rounded-xl border bg-white p-4 shadow-sm hover:bg-hwhub-surface-subtle transition"
-      >
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <div class="rounded-lg p-2 bg-violet-100">
-              <MessageCircleQuestion class="w-5 h-5 text-violet-600" />
-            </div>
-            <div>
-              <div class="font-medium text-sm text-hwhub-heading">
-                {{ t('admin.sections.inquiries.title') }}
-              </div>
-              <div class="text-xs text-hwhub-muted">
-                {{ t('admin.sections.inquiries.subtitle') }}
-              </div>
-            </div>
-          </div>
-          <span class="text-hwhub-muted">›</span>
-        </div>
-      </RouterLink>
+        :icon="MessageCircleQuestion"
+        icon-bg-class="bg-violet-100"
+        icon-color-class="text-violet-600"
+        :title="t('admin.sections.inquiries.title')"
+        :subtitle="t('admin.sections.inquiries.subtitle')"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
-import { ShieldCheck, MessageCircleQuestion } from 'lucide-vue-next'
+import { ShieldCheck, MessageCircleQuestion, Users } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
+import { useRole } from '@/composables/useRole'
+import AdminCard from '@/components/admin/AdminCard.vue'
+
 const { t } = useI18n()
+const { canManageUser, canManageRole, canReplyInquiry } = useRole()
 </script>

@@ -19,9 +19,12 @@ export function useRole() {
 
   /** 管理画面にアクセスできるか */
   const canAccessAdmin = computed(() => hasAnyRole([USER_ROLE.ADMIN, USER_ROLE.SUPPORT]))
-
   /** 問い合わせ返信ができるか */
   const canReplyInquiry = computed(() => hasPermission(PERMISSION.INQUIRY_REPLY))
+  /** ロール管理ができるか */
+  const canManageRole = computed(() => hasPermission(PERMISSION.ROLE_MANAGE))
+  /** ユーザ管理ができるか */
+  const canManageUser = computed(() => hasPermission(PERMISSION.USER_LIST_VIEW))
 
   return {
     hasRole,
@@ -31,5 +34,7 @@ export function useRole() {
     isSupport,
     canAccessAdmin,
     canReplyInquiry,
+    canManageRole,
+    canManageUser,
   }
 }

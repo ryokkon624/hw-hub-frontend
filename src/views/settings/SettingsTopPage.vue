@@ -4,150 +4,67 @@
     <p class="text-sm text-hwhub-muted">{{ t('settings.description') }}</p>
 
     <div class="mt-4 space-y-3">
-      <!-- アカウント設定 -->
-      <RouterLink
+      <SettingsCard
         to="/settings/account"
-        class="block rounded-xl border bg-white p-4 shadow-sm hover:bg-hwhub-surface-subtle transition"
-      >
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <div class="rounded-lg p-2 bg-blue-100">
-              <User class="w-5 h-5 text-blue-600" />
-            </div>
-            <div>
-              <div class="font-medium text-sm text-hwhub-heading">
-                {{ t('settings.sections.account.title') }}
-              </div>
-              <div class="text-xs text-hwhub-muted">
-                {{ t('settings.sections.account.subtitle') }}
-              </div>
-            </div>
-          </div>
-          <span class="text-hwhub-muted">›</span>
-        </div>
-      </RouterLink>
+        :icon="User"
+        icon-bg-class="bg-blue-100"
+        icon-color-class="text-blue-600"
+        :title="t('settings.sections.account.title')"
+        :subtitle="t('settings.sections.account.subtitle')"
+      />
 
-      <!-- 世帯設定 -->
-      <RouterLink
+      <SettingsCard
         to="/settings/household"
-        class="block rounded-xl border bg-white p-4 shadow-sm hover:bg-hwhub-surface-subtle transition"
-      >
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <div class="rounded-lg p-2 bg-emerald-100">
-              <House class="w-5 h-5 text-emerald-600" />
-            </div>
-            <div>
-              <div class="font-medium text-sm text-hwhub-heading">
-                {{ t('settings.sections.household.title') }}
-              </div>
-              <div class="text-xs text-hwhub-muted">
-                {{ t('settings.sections.household.subtitle') }}
-              </div>
-            </div>
-          </div>
-          <span class="text-hwhub-muted">›</span>
-        </div>
-      </RouterLink>
+        :icon="House"
+        icon-bg-class="bg-emerald-100"
+        icon-color-class="text-emerald-600"
+        :title="t('settings.sections.household.title')"
+        :subtitle="t('settings.sections.household.subtitle')"
+      />
 
-      <!-- 家事設定 -->
-      <RouterLink
+      <SettingsCard
         to="/settings/housework"
-        class="block rounded-xl border bg-white p-4 shadow-sm hover:bg-hwhub-surface-subtle transition"
-      >
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <div class="rounded-lg p-2 bg-amber-100">
-              <Brush class="w-5 h-5 text-amber-600" />
-            </div>
-            <div>
-              <div class="font-medium text-sm text-hwhub-heading">
-                {{ t('settings.sections.housework.title') }}
-              </div>
-              <div class="text-xs text-hwhub-muted">
-                {{ t('settings.sections.housework.subtitle') }}
-              </div>
-            </div>
-          </div>
-          <span class="text-hwhub-muted">›</span>
-        </div>
-      </RouterLink>
+        :icon="Brush"
+        icon-bg-class="bg-amber-100"
+        icon-color-class="text-amber-600"
+        :title="t('settings.sections.housework.title')"
+        :subtitle="t('settings.sections.housework.subtitle')"
+      />
 
-      <!-- 通知センター -->
-      <RouterLink
+      <SettingsCard
         to="/notifications"
-        class="block rounded-xl border bg-white p-4 shadow-sm hover:bg-hwhub-surface-subtle transition"
-      >
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <div class="rounded-lg p-2 bg-rose-100">
-              <Bell class="w-5 h-5 text-rose-500" />
-            </div>
-            <div>
-              <div class="font-medium text-sm text-hwhub-heading">
-                {{ t('settings.sections.notifications.title') }}
-              </div>
-              <div class="text-xs text-hwhub-muted">
-                {{ t('settings.sections.notifications.subtitle') }}
-              </div>
-            </div>
-          </div>
-          <span class="text-hwhub-muted">›</span>
-        </div>
-      </RouterLink>
+        :icon="Bell"
+        icon-bg-class="bg-rose-100"
+        icon-color-class="text-rose-500"
+        :title="t('settings.sections.notifications.title')"
+        :subtitle="t('settings.sections.notifications.subtitle')"
+      />
 
-      <!-- 問い合わせ -->
-      <RouterLink
+      <SettingsCard
         :to="{ name: 'settings.inquiry' }"
-        class="block rounded-xl border bg-white p-4 shadow-sm hover:bg-hwhub-surface-subtle transition"
-      >
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <div class="rounded-lg p-2 bg-violet-100">
-              <MessageCircleQuestion class="w-5 h-5 text-violet-600" />
-            </div>
-            <div>
-              <div class="font-medium text-sm text-hwhub-heading">
-                {{ t('settings.sections.inquiry.title') }}
-              </div>
-              <div class="text-xs text-hwhub-muted">
-                {{ t('settings.sections.inquiry.subtitle') }}
-              </div>
-            </div>
-          </div>
-          <span class="text-hwhub-muted">›</span>
-        </div>
-      </RouterLink>
+        :icon="MessageCircleQuestion"
+        icon-bg-class="bg-violet-100"
+        icon-color-class="text-violet-600"
+        :title="t('settings.sections.inquiry.title')"
+        :subtitle="t('settings.sections.inquiry.subtitle')"
+      />
 
-      <!-- アプリ情報 -->
-      <RouterLink
+      <SettingsCard
         to="/settings/app"
-        class="block rounded-xl border bg-white p-4 shadow-sm hover:bg-hwhub-surface-subtle transition"
-      >
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <div class="rounded-lg p-2 bg-slate-100">
-              <Info class="w-5 h-5 text-slate-500" />
-            </div>
-            <div>
-              <div class="font-medium text-sm text-hwhub-heading">
-                {{ t('settings.sections.about.title') }}
-              </div>
-              <div class="text-xs text-hwhub-muted">
-                {{ t('settings.sections.about.subtitle') }}
-              </div>
-            </div>
-          </div>
-          <span class="text-hwhub-muted">›</span>
-        </div>
-      </RouterLink>
+        :icon="Info"
+        icon-bg-class="bg-slate-100"
+        icon-color-class="text-slate-500"
+        :title="t('settings.sections.about.title')"
+        :subtitle="t('settings.sections.about.subtitle')"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
 import { User, House, Brush, Bell, Info, MessageCircleQuestion } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
+import SettingsCard from '@/components/settings/SettingsCard.vue'
+
 const { t } = useI18n()
 </script>

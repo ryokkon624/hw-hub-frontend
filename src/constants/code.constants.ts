@@ -15,6 +15,7 @@ export const CODE_TYPE = {
   NOTIFICATION_STATUS: '0011', // NotificationStatus (お知らせステータス)
   PROGRAM_TYPE: '0012', // ProgramType (プログラム種別)
   FAVORITE_FLAG: '0013', // FavoriteFlag (お気に入りフラグ)
+  AUTH_PROVIDER: '0015', // AuthProvider (認証プロバイダ)
   NOTIFICATION_LINK_TYPE: '0019', // NotificationLinkType (通知リンク種別)
   NOTIFICATION_GROUP: '0020', // NotificationGroup (通知グループ)
   INQUIRY_CATEGORY: '0021', // InquiryCategory (問い合わせカテゴリ)
@@ -162,6 +163,15 @@ export const FAVORITE_FLAG = {
   NORMAL: '0', // 通常
   FAVORITE: '1', // お気に入り
 } as const
+
+/**
+ * 0015: 認証プロバイダ (AuthProvider)
+ */
+export const AUTH_PROVIDER = {
+  GOOGLE: 'GOOGLE',
+  LOCAL: 'LOCAL',
+} as const
+export type AuthProviderCode = (typeof AUTH_PROVIDER)[keyof typeof AUTH_PROVIDER]
 
 /**
  * 0019: 通知リンク種別 (NotificationLinkType)
