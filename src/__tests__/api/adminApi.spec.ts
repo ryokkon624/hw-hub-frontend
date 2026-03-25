@@ -8,11 +8,13 @@ vi.mock('@/api/client', () => ({
   apiClient: {
     get: vi.fn(),
     post: vi.fn(),
+    put: vi.fn(),
     delete: vi.fn(),
   },
   default: {
     get: vi.fn(),
     post: vi.fn(),
+    put: vi.fn(),
     delete: vi.fn(),
   },
 }))
@@ -269,6 +271,98 @@ describe('adminApi', () => {
       expect(mockedApiClient.post).toHaveBeenCalledWith('/api/admin/inquiries/100/reply', {
         body: '返信内容です',
       })
+    })
+  })
+
+  // ---- searchAdminUsers ----------------------------------------
+
+  describe('searchAdminUsers', () => {
+    it('検索条件をクエリパラメータに渡してGETリクエストを送る', async () => {
+      mockedApiClient.get.mockResolvedValue({ data: [] })
+      const params = { email: 'test@example.com', isActive: true, locale: 'ja' }
+
+      await adminApi.searchAdminUsers(params)
+
+      expect(mockedApiClient.get).toHaveBeenCalledWith('/api/admin/users/search', {
+        params,
+      })
+    })
+
+    it('DTOをAdminUserDetailModelに変換し、日付型に変換して返す', async () => {
+      const dto = {
+        userId: 1,
+        email: 'user@example.com',
+        authProvider: 'google',
+        displayName: 'テスト名',
+        locale: 'ja',
+        notificationEnabled: true,
+        isActive: true,
+        iconUrl: 'http://example.com/icon.png',
+        createdAt: '2025-01-01T00:00:00Z',
+        updatedAt: '2025-01-02T00:00:00Z',
+      }
+      mockedApiClient.get.mockResolvedValue({ data: [dto] })
+
+      const result = await adminApi.searchAdminUsers({})
+
+      expect(result).toHaveLength(1)
+      expect(result[0]!.userId).toBe(1)
+      expect(result[0]!.createdAt).toEqual(new Date('2025-01-01T00:00:00Z'))
+      expect(result[0]!.updatedAt).toEqual(new Date('2025-01-02T00:00:00Z'))
+    })
+  })
+
+  // ---- createAdminUser -----------------------------------------
+
+  describe('createAdminUser', () => {
+    it('パラメータをリクエストボディに含めてPOSTリクエストを送る', async () => {
+      const dto = {
+        userId: 1,
+        email: 'new@example.com',
+        authProvider: 'password',
+        displayName: '新規',
+        locale: 'ja',
+        notificationEnabled: false,
+        isActive: true,
+        iconUrl: null,
+        createdAt: '2025-01-01T00:00:00Z',
+        updatedAt: '2025-01-01T00:00:00Z',
+      }
+      mockedApiClient.post.mockResolvedValue({ data: dto })
+      const params = { email: 'new@example.com', password: 'password', displayName: '新規', locale: 'ja' }
+
+      const result = await adminApi.createAdminUser(params)
+
+      expect(mockedApiClient.post).toHaveBeenCalledWith('/api/admin/users', params)
+      expect(result.userId).toBe(1)
+      expect(result.createdAt).toEqual(new Date('2025-01-01T00:00:00Z'))
+    })
+  })
+
+  // ---- updateAdminUser -----------------------------------------
+
+  describe('updateAdminUser', () => {
+    it('userIdをパスに含めてPUTリクエストを送る', async () => {
+      const dto = {
+        userId: 99,
+        email: 'up@example.com',
+        authProvider: 'password',
+        displayName: '更新済',
+        locale: 'en',
+        notificationEnabled: true,
+        isActive: false,
+        iconUrl: null,
+        createdAt: '2025-01-01T00:00:00Z',
+        updatedAt: '2025-02-01T00:00:00Z',
+      }
+      mockedApiClient.put.mockResolvedValue({ data: dto })
+      const params = { displayName: '更新済', locale: 'en', isActive: false }
+
+      const result = await adminApi.updateAdminUser(99, params)
+
+      expect(mockedApiClient.put).toHaveBeenCalledWith('/api/admin/users/99', params)
+      expect(result.userId).toBe(99)
+      expect(result.updatedAt).toEqual(new Date('2025-02-01T00:00:00Z'))
     })
   })
 })
