@@ -15,11 +15,14 @@ export const CODE_TYPE = {
   NOTIFICATION_STATUS: '0011', // NotificationStatus (お知らせステータス)
   PROGRAM_TYPE: '0012', // ProgramType (プログラム種別)
   FAVORITE_FLAG: '0013', // FavoriteFlag (お気に入りフラグ)
+  AUTH_PROVIDER: '0015', // AuthProvider (認証プロバイダ)
   NOTIFICATION_LINK_TYPE: '0019', // NotificationLinkType (通知リンク種別)
   NOTIFICATION_GROUP: '0020', // NotificationGroup (通知グループ)
   INQUIRY_CATEGORY: '0021', // InquiryCategory (問い合わせカテゴリ)
   INQUIRY_STATUS: '0022', // InquiryStatus (問い合わせステータス)
   INQUIRY_SENDER_TYPE: '0023', // InquirySenderType (送信者タイプ)
+  USER_ROLE: '0024', // UserRole (ユーザロール)
+  PERMISSION: '0025', // Permission (パーミッション)
 } as const
 
 /**
@@ -162,6 +165,15 @@ export const FAVORITE_FLAG = {
 } as const
 
 /**
+ * 0015: 認証プロバイダ (AuthProvider)
+ */
+export const AUTH_PROVIDER = {
+  GOOGLE: 'GOOGLE',
+  LOCAL: 'LOCAL',
+} as const
+export type AuthProviderCode = (typeof AUTH_PROVIDER)[keyof typeof AUTH_PROVIDER]
+
+/**
  * 0019: 通知リンク種別 (NotificationLinkType)
  */
 export const NOTIFICATION_LINK_TYPE = {
@@ -219,3 +231,22 @@ export const INQUIRY_SENDER_TYPE = {
   STAFF: 'STAFF',
 } as const
 export type InquirySenderTypeCode = (typeof INQUIRY_SENDER_TYPE)[keyof typeof INQUIRY_SENDER_TYPE]
+
+/**
+ * 0024: ユーザーロール (UserRole)
+ */
+export const USER_ROLE = {
+  ADMIN: 'ADMIN',
+  SUPPORT: 'SPPRT',
+} as const
+export type UserRoleCode = (typeof USER_ROLE)[keyof typeof USER_ROLE]
+
+/**
+ * 0025: パーミッション (Permission)
+ */
+export const PERMISSION = {
+  INQUIRY_REPLY: '20',
+  USER_LIST_VIEW: '10',
+  ROLE_MANAGE: '11',
+} as const
+export type PermissionCode = (typeof PERMISSION)[keyof typeof PERMISSION]

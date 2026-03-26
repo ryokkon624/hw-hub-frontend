@@ -1,5 +1,17 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import { useUiStore } from '@/stores/uiStore'
+import { PERMISSION, type PermissionCode } from '@/constants/code.constants'
+
+declare module 'vue-router' {
+  interface RouteMeta {
+    requiresAuth?: boolean
+    requiresAdmin?: boolean
+    requiresPermission?: PermissionCode
+    titleKey?: string
+    title?: string
+    public?: boolean
+  }
+}
 
 // 認証
 import LoginPage from '@/views/LoginPage.vue'
@@ -35,9 +47,20 @@ import AppInfoPage from '@/views/settings/AppInfoPage.vue'
 import TermsPage from '@/views/settings/TermsPage.vue'
 import PrivacyPolicyPage from '@/views/settings/PrivacyPolicyPage.vue'
 import NotificationCenterPage from '@/views/notifications/NotificationCenterPage.vue'
+// Inquiry
+import InquiryListPage from '@/views/settings/inquiry/InquiryListPage.vue'
+import InquiryCreatePage from '@/views/settings/inquiry/InquiryCreatePage.vue'
+import InquiryDetailPage from '@/views/settings/inquiry/InquiryDetailPage.vue'
+import AdminInquiryListPage from '@/views/admin/AdminInquiriesPage.vue'
+import AdminInquiryDetailPage from '@/views/admin/AdminInquiryDetailPage.vue'
+// Admin
+import AdminTopPage from '@/views/admin/AdminTopPage.vue'
+import AdminRolesPage from '@/views/admin/AdminRolesPage.vue'
+import AdminUsersPage from '@/views/admin/AdminUsersPage.vue'
 
 import { useAuthStore } from '@/stores/authStore'
 import { useNotificationStore } from '@/stores/notificationStore'
+import { useRoleStore } from '@/stores/roleStore'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -218,23 +241,61 @@ const routes: RouteRecordRaw[] = [
         meta: { titleKey: 'pageTitles.notifications' },
       },
 
+      // ---- Admin ----
+      {
+        path: 'admin',
+        meta: { requiresAdmin: true },
+        children: [
+          {
+            path: '',
+            name: 'admin',
+            component: AdminTopPage,
+            meta: { titleKey: 'pageTitles.admin', requiresAuth: true, requiresAdmin: true },
+          },
+          {
+            path: 'users',
+            name: 'admin.users',
+            component: AdminUsersPage,
+            meta: { titleKey: 'pageTitles.adminUsers', requiresAuth: true, requiresPermission: PERMISSION.USER_LIST_VIEW },
+          },
+          {
+            path: 'roles',
+            name: 'admin.roles',
+            component: AdminRolesPage,
+            meta: { titleKey: 'pageTitles.adminRoles', requiresAuth: true, requiresPermission: PERMISSION.ROLE_MANAGE },
+          },
+          {
+            path: 'inquiries',
+            name: 'admin.inquiries',
+            component: AdminInquiryListPage,
+            meta: { titleKey: 'pageTitles.adminInquiries', requiresAuth: true, requiresPermission: PERMISSION.INQUIRY_REPLY },
+          },
+          {
+            path: 'inquiries/:inquiryId',
+            name: 'admin.inquiries.detail',
+            component: AdminInquiryDetailPage,
+            meta: { titleKey: 'pageTitles.adminInquiryDetail', requiresAuth: true, requiresPermission: PERMISSION.INQUIRY_REPLY },
+          },
+        ],
+      },
+
       // ---- Inquiry ----
       {
         path: 'settings/inquiry',
         name: 'settings.inquiry',
-        component: () => import('@/views/settings/inquiry/InquiryListPage.vue'),
+        component: InquiryListPage,
         meta: { titleKey: 'pageTitles.inquiry' },
       },
       {
         path: 'settings/inquiry/new',
         name: 'settings.inquiry.new',
-        component: () => import('@/views/settings/inquiry/InquiryCreatePage.vue'),
+        component: InquiryCreatePage,
         meta: { titleKey: 'pageTitles.inquiryCreate' },
       },
       {
         path: 'settings/inquiry/:inquiryId',
         name: 'settings.inquiry.detail',
-        component: () => import('@/views/settings/inquiry/InquiryDetailPage.vue'),
+        component: InquiryDetailPage,
         meta: { titleKey: 'pageTitles.inquiryDetail' },
       },
     ],
@@ -255,6 +316,21 @@ router.beforeEach((to) => {
   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
     uiStore.setRedirectAfterLogin(to.fullPath)
     return { name: 'login' }
+  }
+
+  if (to.meta.requiresAdmin) {
+    const roleStore = useRoleStore()
+    if (!roleStore.hasAnyRole) {
+      return { name: 'home' }
+    }
+  }
+
+  if (to.meta.requiresPermission) {
+    const roleStore = useRoleStore()
+    const permission = to.meta.requiresPermission
+    if (!roleStore.permissions.includes(permission)) {
+      return { name: 'home' }
+    }
   }
 
   if (to.name === 'login' && authStore.isAuthenticated) {

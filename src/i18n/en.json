@@ -78,7 +78,7 @@
     "title": "Forgot your password?",
     "description": "Enter your email address. If an account exists, we’ll send a password reset link.",
     "email": "Email",
-    "placeholder": "you@example.com",
+    "placeholder": "you{'@'}example.com",
     "submit": "Send reset link",
     "submitting": "Sending...",
     "backToLogin": "Back to login"
@@ -118,7 +118,134 @@
     "oauthResult": "Result",
     "inquiry": "Inquiries",
     "inquiryCreate": "New Inquiry",
-    "inquiryDetail": "Inquiry Detail"
+    "inquiryDetail": "Inquiry Detail",
+    "admin": "Admin",
+    "adminRoles": "Role Management",
+    "adminInquiries": "Inquiry Management",
+    "adminInquiryDetail": "Inquiry Detail (Admin)",
+    "adminUsers": "User Management"
+  },
+  "nav": {
+    "admin": "Admin"
+  },
+  "admin": {
+    "pageTitle": "Admin",
+    "description": "Administration features.",
+    "sections": {
+      "users": {
+        "title": "User Management",
+        "subtitle": "Register and edit users"
+      },
+      "roles": {
+        "title": "Role Management",
+        "subtitle": "Assign or remove user roles"
+      },
+      "inquiries": {
+        "title": "Inquiry Management",
+        "subtitle": "Handle user inquiries"
+      }
+    },
+    "users": {
+      "search": {
+        "email": "Email",
+        "isActive": "Status",
+        "isActiveAll": "All",
+        "isActiveActive": "Active",
+        "isActiveInactive": "Inactive",
+        "locale": "Locale",
+        "localeAll": "All",
+        "searchButton": "Search"
+      },
+      "description": "Register, edit, and search users.",
+      "createButton": "+ Create User",
+      "editButton": "Edit",
+      "columns": {
+        "userId": "ID",
+        "email": "Email",
+        "authProvider": "Auth",
+        "displayName": "Display Name",
+        "locale": "Locale",
+        "notificationEnabled": "Notification",
+        "isActive": "Status",
+        "createdAt": "Created",
+        "updatedAt": "Updated",
+        "actions": "Actions"
+      },
+      "form": {
+        "create": { "title": "Create User" },
+        "edit": { "title": "Edit User" },
+        "email": "Email",
+        "password": "Password",
+        "passwordHint": "Leave blank to keep current",
+        "displayName": "Display Name",
+        "locale": "Locale",
+        "isActive": "Active"
+      },
+      "toast": {
+        "created": "User created.",
+        "updated": "User updated.",
+        "error": "Operation failed."
+      },
+      "empty": "No users found."
+    },
+    "inquiries": {
+      "tabs": {
+        "pending": "Pending",
+        "search": "Search All"
+      },
+      "pending": {
+        "empty": "No pending inquiries."
+      },
+      "search": {
+        "createdAtFrom": "Created from",
+        "createdAtTo": "Created to",
+        "updatedAtFrom": "Updated from",
+        "updatedAtTo": "Updated to",
+        "userId": "User ID",
+        "status": "Status",
+        "searchButton": "Search",
+        "empty": "No inquiries found."
+      },
+      "columns": {
+        "id": "# ID / Title",
+        "user": "User",
+        "category": "Category",
+        "status": "Status",
+        "messages": "Messages",
+        "createdAt": "Created",
+        "updatedAt": "Updated",
+        "actions": "Actions"
+      },
+      "pagination": {
+        "showing": "{start}–{end} of {total}"
+      },
+      "card": {
+        "messages": "Messages",
+        "detailButton": "Detail"
+      },
+      "detail": {
+        "replyPlaceholder": "Enter reply...",
+        "replyButton": "Send",
+        "toast": {
+          "sent": "Reply sent.",
+          "error": "Failed to send."
+        }
+      }
+    },
+    "roles": {
+      "searchLabel": "Search by email",
+      "searchPlaceholder": "example{'@'}example.com",
+      "searchButton": "Search",
+      "empty": "No users found.",
+      "assignButton": "Assign",
+      "removeButton": "Remove",
+      "removeConfirm": "Remove this role?",
+      "toast": {
+        "assigned": "Role assigned.",
+        "removed": "Role removed.",
+        "error": "Operation failed."
+      }
+    }
   },
   "login": {
     "hero": {

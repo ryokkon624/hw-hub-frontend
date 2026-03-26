@@ -17,7 +17,7 @@
 | **ログイン** | POST | `/api/auth/login` | メールアドレス・パスワードでのログイン認証 | `authStore` (`authApi`) |
 | **サインアップ** | POST | `/api/auth/register` | 新規アカウント登録 | `authStore` (`authApi`) |
 | **メール認証** | POST | `/api/auth/email-verification/verify` | トークンを用いたメール有効化処理 | `authStore` (`authApi`) |
-| **認証メール待機** | POST | `/api/auth/email-verification/resend` | 認証メールの再送処理（機能がある場合） | `authStore` (`authApi`) |
+| **認証メール待機** | POST | `/api/auth/email-verification/resend` | 認証メールの再送処理 | `authStore` (`authApi`) |
 | **パスワード忘れ** | POST | `/api/auth/password-reset/request` | パスワードリセットメールの送信要求 | `passwordResetStore` (`passwordResetApi`) |
 | **パスワード再設定** | POST | `/api/auth/password-reset/confirm` | 新しいパスワードの設定 | `passwordResetStore` (`passwordResetApi`) |
 | **招待受け取り** | GET | `/api/household-invitations/{token}` | 招待情報の取得（世帯名などの確認） | `householdInvitationApi` |
@@ -94,13 +94,14 @@
 | **（全画面共通）** | GET | `/api/notifications/unread-count` | 未読通知件数の取得 | `notificationStore` (`notificationApi`) |
 | **通知センター** | GET | `/api/notifications` | 通知一覧の取得 | `notificationStore` (`notificationApi`) |
 
-## 6. その他API
+## 6. その他 API
 
 | API ファイル | メソッド | API エンドポイント | 機能概要 | 備考 |
 | :--- | :--- | :--- | :--- | :--- |
 | **codeApi** | GET | `/api/codes` | コードマスタ全件取得 | アプリ起動時に取得・キャッシュされる |
+| **roleApi** | GET | `/api/users/me/roles` | ログインユーザーのロール・パーミッション取得 | ログイン後に自動取得・`roleStore` にキャッシュ |
 
-## 7. 問い合わせ
+## 7. 問い合わせ（ユーザー）
 
 | 画面名 | メソッド | API エンドポイント | 機能概要 | 関連コンポーネント |
 | :--- | :--- | :--- | :--- | :--- |
@@ -110,3 +111,31 @@
 | **問い合わせ詳細** | POST | `/api/inquiries/{inquiryId}/messages` | 追加メッセージ送信 | `inquiryStore` (`inquiryApi`) |
 | **問い合わせ詳細** | POST | `/api/inquiries/{inquiryId}/close` | 解決済みにする | `inquiryStore` (`inquiryApi`) |
 | **問い合わせ詳細** | POST | `/api/inquiries/{inquiryId}/escalate` | スタッフ対応依頼 | `inquiryStore` (`inquiryApi`) |
+
+## 8. 管理画面（要ロール・パーミッション）
+
+### 8-1. ユーザー管理（USER_LIST_VIEW）
+
+| 画面名 | メソッド | API エンドポイント | 機能概要 | 関連コンポーネント |
+| :--- | :--- | :--- | :--- | :--- |
+| **ユーザー管理** | GET | `/api/admin/users/search` | ユーザー検索（email/isActive/locale 絞り込み） | `adminUserStore` (`adminApi`) |
+| | POST | `/api/admin/users` | ユーザー新規登録（認証スキップ・即時active） | `adminUserStore` (`adminApi`) |
+| | PUT | `/api/admin/users/{userId}` | ユーザー情報更新（表示名/言語/パスワード/isActive） | `adminUserStore` (`adminApi`) |
+
+### 8-2. ロール管理（ROLE_MANAGE）
+
+| 画面名 | メソッド | API エンドポイント | 機能概要 | 関連コンポーネント |
+| :--- | :--- | :--- | :--- | :--- |
+| **ロール管理** | GET | `/api/admin/users` | ユーザー検索（email 部分一致） | `adminRoleStore` (`adminApi`) |
+| | GET | `/api/users/me/roles` | ロール・パーミッション取得 | `roleStore` (`roleApi`) |
+| | POST | `/api/admin/roles/{userId}` | ユーザーへのロール付与 | `adminRoleStore` (`adminApi`) |
+| | DELETE | `/api/admin/roles/{userId}/{role}` | ユーザーからのロール削除 | `adminRoleStore` (`adminApi`) |
+
+### 8-3. 問い合わせ管理（INQUIRY_REPLY）
+
+| 画面名 | メソッド | API エンドポイント | 機能概要 | 関連コンポーネント |
+| :--- | :--- | :--- | :--- | :--- |
+| **問い合わせ管理（対応待ち）** | GET | `/api/admin/inquiries` | PENDING_STAFF 一覧取得（created_at ASC） | `adminInquiryStore` (`adminApi`) |
+| **問い合わせ管理（全件検索）** | GET | `/api/admin/inquiries/search` | 全件検索（日付範囲/userId/カテゴリ/ステータス） | `adminInquiryStore` (`adminApi`) |
+| **問い合わせ詳細（管理）** | GET | `/api/admin/inquiries/{inquiryId}` | 問い合わせ詳細取得（userId チェックなし） | `adminInquiryStore` (`adminApi`) |
+| | POST | `/api/admin/inquiries/{inquiryId}/reply` | スタッフとして返信 | `adminInquiryStore` (`adminApi`) |

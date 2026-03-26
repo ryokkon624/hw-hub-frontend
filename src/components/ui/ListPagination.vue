@@ -89,7 +89,7 @@ const goNext = () => { if (!isLast.value) go(props.currentPage + 1) }
       <button
         v-else
         type="button"
-        class="min-w-[28px] rounded-md px-1.5 py-1 text-xs font-medium transition"
+        class="min-w-7 rounded-md px-1.5 py-1 text-xs font-medium transition"
         :class="
           page === currentPage
             ? 'bg-hwhub-primary text-white shadow-sm'
