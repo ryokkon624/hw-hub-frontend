@@ -65,7 +65,9 @@ export const userApi = {
    * @returns 通知設定Response用のDTO
    */
   async getNotificationSettings(): Promise<NotificationSettingsResponse> {
-    const res = await apiClient.get<NotificationSettingsResponse>('/api/users/me/notification-settings')
+    const res = await apiClient.get<NotificationSettingsResponse>(
+      '/api/users/me/notification-settings',
+    )
     return res.data
   },
 
@@ -74,7 +76,9 @@ export const userApi = {
    * @param req 通知設定
    * @returns 通知設定Response用のDTO
    */
-  async updateNotificationSettings(req: UpdateNotificationSettingsRequest): Promise<NotificationSettingsResponse> {
+  async updateNotificationSettings(
+    req: UpdateNotificationSettingsRequest,
+  ): Promise<NotificationSettingsResponse> {
     const res = await apiClient.put('/api/users/me/notification-settings', req)
     return res.data
   },

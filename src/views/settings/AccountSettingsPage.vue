@@ -160,8 +160,7 @@
 
         <button
           type="button"
-          class="relative inline-flex h-7 w-12 items-center rounded-full transition
-                focus:outline-none focus-visible:ring-2 focus-visible:ring-hwhub-primary/30"
+          class="relative inline-flex h-7 w-12 items-center rounded-full transition focus:outline-none focus-visible:ring-2 focus-visible:ring-hwhub-primary/30"
           :class="notifEnabled ? 'bg-hwhub-primary' : 'bg-slate-300'"
           :disabled="notifLoading"
           @click="onToggleGlobal"
@@ -175,16 +174,17 @@
 
       <div class="pt-2 border-t space-y-3">
         <!-- 世帯 -->
-        <div class="flex items-center justify-between gap-4"
-            :class="notifEnabled ? '' : 'opacity-50'">
+        <div
+          class="flex items-center justify-between gap-4"
+          :class="notifEnabled ? '' : 'opacity-50'"
+        >
           <div class="text-sm text-hwhub-heading">
             {{ t('settings.account.notifications.groups.household') }}
           </div>
 
           <button
             type="button"
-            class="relative inline-flex h-7 w-12 items-center rounded-full transition
-                  focus:outline-none focus-visible:ring-2 focus-visible:ring-hwhub-primary/30"
+            class="relative inline-flex h-7 w-12 items-center rounded-full transition focus:outline-none focus-visible:ring-2 focus-visible:ring-hwhub-primary/30"
             :class="groupHousehold ? 'bg-hwhub-primary' : 'bg-slate-300'"
             :disabled="notifLoading || !notifEnabled"
             @click="onToggleGroupHousehold"
@@ -197,16 +197,17 @@
         </div>
 
         <!-- タスク割当 -->
-        <div class="flex items-center justify-between gap-4"
-            :class="notifEnabled ? '' : 'opacity-50'">
+        <div
+          class="flex items-center justify-between gap-4"
+          :class="notifEnabled ? '' : 'opacity-50'"
+        >
           <div class="text-sm text-hwhub-heading">
             {{ t('settings.account.notifications.groups.taskAssignment') }}
           </div>
 
           <button
             type="button"
-            class="relative inline-flex h-7 w-12 items-center rounded-full transition
-                  focus:outline-none focus-visible:ring-2 focus-visible:ring-hwhub-primary/30"
+            class="relative inline-flex h-7 w-12 items-center rounded-full transition focus:outline-none focus-visible:ring-2 focus-visible:ring-hwhub-primary/30"
             :class="groupTask ? 'bg-hwhub-primary' : 'bg-slate-300'"
             :disabled="notifLoading || !notifEnabled"
             @click="onToggleGroupTask"
@@ -397,12 +398,8 @@ const shouldShowGoogleLinkSection = computed(() => {
 
 const notifLoading = computed(() => notifStore.isLoading)
 const notifEnabled = computed(() => notifStore.notificationEnabled)
-const groupHousehold = computed(() =>
-  notifStore.groupSettings[NOTIFICATION_GROUP.HOUSEHOLD],
-)
-const groupTask = computed(() =>
-  notifStore.groupSettings[NOTIFICATION_GROUP.TASK_ASSIGNMENT],
-)
+const groupHousehold = computed(() => notifStore.groupSettings[NOTIFICATION_GROUP.HOUSEHOLD])
+const groupTask = computed(() => notifStore.groupSettings[NOTIFICATION_GROUP.TASK_ASSIGNMENT])
 
 onMounted(async () => {
   const user = authStore.currentUser as {
@@ -485,10 +482,7 @@ const onToggleGlobal = async () => {
 const onToggleGroupHousehold = async () => {
   try {
     await uiStore.withLoading(async () => {
-      await notifStore.setGroupEnabled(
-        NOTIFICATION_GROUP.HOUSEHOLD,
-        !groupHousehold.value,
-      )
+      await notifStore.setGroupEnabled(NOTIFICATION_GROUP.HOUSEHOLD, !groupHousehold.value)
     })
     uiStore.showToast(
       'success',
@@ -502,14 +496,10 @@ const onToggleGroupHousehold = async () => {
   }
 }
 
-
 const onToggleGroupTask = async () => {
   try {
     await uiStore.withLoading(async () => {
-      await notifStore.setGroupEnabled(
-        NOTIFICATION_GROUP.TASK_ASSIGNMENT,
-        !groupTask.value  ,
-      )
+      await notifStore.setGroupEnabled(NOTIFICATION_GROUP.TASK_ASSIGNMENT, !groupTask.value)
     })
     uiStore.showToast(
       'success',

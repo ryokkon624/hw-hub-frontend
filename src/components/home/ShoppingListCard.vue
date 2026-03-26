@@ -74,7 +74,9 @@ const goShopping = () => {
     </header>
 
     <div class="mt-2 grid grid-cols-3 gap-2 text-xs">
-      <div class="rounded-lg bg-emerald-50 border border-emerald-200 px-2 py-2 flex flex-col items-start">
+      <div
+        class="rounded-lg bg-emerald-50 border border-emerald-200 px-2 py-2 flex flex-col items-start"
+      >
         <span class="text-hwhub-muted">{{ t('home.shopping.super') }}</span>
         <span class="mt-1 text-base font-semibold text-emerald-700">
           {{ t('home.common.itemCount', { count: superCount }) }}

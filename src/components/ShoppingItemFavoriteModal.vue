@@ -51,7 +51,9 @@
         <div
           class="flex items-center justify-center h-8 w-8 rounded bg-hwhub-surface-subtle text-[10px] text-hwhub-muted shrink-0"
         >
-          <span v-if="item.hasImage">{{ t('shopping.favoriteModal.item.thumbnail.hasImage') }}</span>
+          <span v-if="item.hasImage">{{
+            t('shopping.favoriteModal.item.thumbnail.hasImage')
+          }}</span>
           <span v-else>{{ t('shopping.favoriteModal.item.thumbnail.noImage') }}</span>
         </div>
 
@@ -59,7 +61,9 @@
           <p class="font-medium truncate text-sm text-hwhub-heading">{{ item.name }}</p>
           <p class="text-[11px] text-hwhub-muted truncate">
             {{ storeTypeLabel(item.storeType) || t('shopping.favoriteModal.item.storeTypeUnset') }}
-            <span v-if="item.memo">{{ t('shopping.favoriteModal.item.memoPrefix') }}{{ item.memo }}</span>
+            <span v-if="item.memo"
+              >{{ t('shopping.favoriteModal.item.memoPrefix') }}{{ item.memo }}</span
+            >
           </p>
         </div>
 

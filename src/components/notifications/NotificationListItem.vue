@@ -12,7 +12,10 @@
   >
     <div class="flex items-start gap-2">
       <!-- unread dot -->
-      <span class="mt-1 text-sm" :class="notification.isRead ? 'opacity-10 text-hwhub-muted' : 'text-amber-500'">
+      <span
+        class="mt-1 text-sm"
+        :class="notification.isRead ? 'opacity-10 text-hwhub-muted' : 'text-amber-500'"
+      >
         ●
       </span>
 

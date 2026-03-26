@@ -31,7 +31,6 @@ export const inquiryApi = {
    */
   async createInquiry(input: InquiryCreateInput): Promise<{ inquiryId: number }> {
     const payload: InquiryCreateRequestDto = {
-      householdId: input.householdId,
       category: input.category,
       title: input.title,
       body: input.body,
@@ -103,7 +102,6 @@ interface InquiryCreateResponse {
 }
 
 interface InquiryCreateRequestDto {
-  householdId: number
   category: string
   title: string
   body: string

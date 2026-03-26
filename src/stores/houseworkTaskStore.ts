@@ -135,7 +135,11 @@ export const useHouseworkTaskStore = defineStore('houseworkTask', {
      * @param status ステータス
      * @param skippedReason スキップ理由
      */
-    async bulkUpdateStatus(taskIds: number[], status: TaskStatusCode, skippedReason: string | null) {
+    async bulkUpdateStatus(
+      taskIds: number[],
+      status: TaskStatusCode,
+      skippedReason: string | null,
+    ) {
       await houseworkTaskApi.bulkUpdateStatus(taskIds, status, skippedReason)
 
       for (const id of taskIds) {

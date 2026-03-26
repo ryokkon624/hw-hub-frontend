@@ -28,9 +28,7 @@ export function usePagination<T>(source: Ref<T[]>, perPage: number = 10) {
   const startIndex = computed(() =>
     source.value.length === 0 ? 0 : (currentPage.value - 1) * perPage + 1,
   )
-  const endIndex = computed(() =>
-    Math.min(currentPage.value * perPage, source.value.length),
-  )
+  const endIndex = computed(() => Math.min(currentPage.value * perPage, source.value.length))
   const totalCount = computed(() => source.value.length)
 
   const goToPage = (page: number) => {

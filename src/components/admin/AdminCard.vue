@@ -3,9 +3,11 @@
     :is="canAccess ? RouterLink : 'div'"
     v-bind="canAccess ? { to } : {}"
     class="block rounded-xl border p-4 shadow-sm transition"
-    :class="canAccess
-      ? 'bg-white hover:bg-hwhub-surface-subtle cursor-pointer'
-      : 'bg-hwhub-surface cursor-not-allowed opacity-60'"
+    :class="
+      canAccess
+        ? 'bg-white hover:bg-hwhub-surface-subtle cursor-pointer'
+        : 'bg-hwhub-surface cursor-not-allowed opacity-60'
+    "
   >
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-3">

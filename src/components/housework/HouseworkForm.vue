@@ -354,6 +354,5 @@ const members = computed<HouseholdMember[]>(() => householdStore.currentMembers)
         {{ t('common.save') }}
       </button>
     </div>
-
-</form>
+  </form>
 </template>

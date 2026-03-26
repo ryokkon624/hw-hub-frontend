@@ -76,7 +76,12 @@ describe('adminUserStore', () => {
       const newUser: AdminUserDetailModel = { ...dummyUser, userId: 2, email: 'user2@example.com' }
       vi.mocked(adminApi.createAdminUser).mockResolvedValue(newUser)
 
-      const promise = store.createUser({ email: 'user2', password: 'pw', displayName: 'U2', locale: 'ja' })
+      const promise = store.createUser({
+        email: 'user2',
+        password: 'pw',
+        displayName: 'U2',
+        locale: 'ja',
+      })
       expect(store.isSubmitting).toBe(true)
 
       await promise
@@ -115,7 +120,11 @@ describe('adminUserStore', () => {
     it('一覧に存在しないユーザーの更新時は何もしないこと', async () => {
       const store = useAdminUserStore()
       store.searchResults = [dummyUser]
-      const updatedUser: AdminUserDetailModel = { ...dummyUser, userId: 99, displayName: 'NonExistent' }
+      const updatedUser: AdminUserDetailModel = {
+        ...dummyUser,
+        userId: 99,
+        displayName: 'NonExistent',
+      }
       vi.mocked(adminApi.updateAdminUser).mockResolvedValue(updatedUser)
 
       await store.updateUser(99, { displayName: 'NonExistent', locale: 'ja' })

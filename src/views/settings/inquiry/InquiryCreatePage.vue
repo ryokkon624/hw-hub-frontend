@@ -19,11 +19,7 @@
             class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           >
             <option value="">{{ t('common.selectPlaceholder') }}</option>
-            <option
-              v-for="option in categoryOptions"
-              :key="option.value"
-              :value="option.value"
-            >
+            <option v-for="option in categoryOptions" :key="option.value" :value="option.value">
               {{ option.label }}
             </option>
           </select>
@@ -96,7 +92,6 @@ import { useI18n } from 'vue-i18n'
 import { useForm, Field, ErrorMessage } from 'vee-validate'
 import { inquiryFormTypedSchema } from '@/domain/inquiry/inquiryForm.validation'
 import { useInquiryStore } from '@/stores/inquiryStore'
-import { useHouseholdStore } from '@/stores/householdStore'
 import { useUiStore } from '@/stores/uiStore'
 import { useCodeStore } from '@/stores/codeStore'
 import { useInquiryCodes } from '@/composables/useInquiryCodes'
@@ -105,7 +100,6 @@ import type { InquiryCategoryCode } from '@/constants/code.constants'
 const { t } = useI18n()
 const router = useRouter()
 const inquiryStore = useInquiryStore()
-const householdStore = useHouseholdStore()
 const uiStore = useUiStore()
 const codeStore = useCodeStore()
 const { categoryOptions } = useInquiryCodes()
@@ -120,13 +114,9 @@ const { handleSubmit } = useForm({
 })
 
 const onSubmit = handleSubmit(async (values) => {
-  const householdId = householdStore.currentHouseholdId
-  if (!householdId) return
-
   try {
     await uiStore.withLoading(async () => {
       const inquiryId = await inquiryStore.create({
-        householdId,
         category: values.category as InquiryCategoryCode,
         title: values.title,
         body: values.body,

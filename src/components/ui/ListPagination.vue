@@ -52,8 +52,12 @@ const isFirst = computed(() => props.currentPage <= 1)
 const isLast = computed(() => props.currentPage >= props.totalPages)
 
 const go = (page: number) => emit('update:currentPage', page)
-const goPrev = () => { if (!isFirst.value) go(props.currentPage - 1) }
-const goNext = () => { if (!isLast.value) go(props.currentPage + 1) }
+const goPrev = () => {
+  if (!isFirst.value) go(props.currentPage - 1)
+}
+const goNext = () => {
+  if (!isLast.value) go(props.currentPage + 1)
+}
 </script>
 
 <template>
@@ -80,12 +84,7 @@ const goNext = () => { if (!isLast.value) go(props.currentPage + 1) }
 
     <!-- ページ番号 -->
     <template v-for="(page, idx) in pageNumbers" :key="idx">
-      <span
-        v-if="page === '...'"
-        class="px-1 text-xs text-gray-400 select-none"
-      >
-        …
-      </span>
+      <span v-if="page === '...'" class="px-1 text-xs text-gray-400 select-none"> … </span>
       <button
         v-else
         type="button"

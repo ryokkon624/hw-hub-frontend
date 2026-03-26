@@ -67,22 +67,16 @@ const handleSearch = async () => {
 }
 
 // ---- ソート + ページング ----
-const viewItems = computed<AdminUserViewItem[]>(() =>
-  adminUserStore.searchResults.map(toViewItem),
+const viewItems = computed<AdminUserViewItem[]>(() => adminUserStore.searchResults.map(toViewItem))
+
+const { sortKey, sortOrder, sortedItems, toggleSort } = useSortable<AdminUserViewItem>(
+  viewItems,
+  'createdAt',
+  'desc',
 )
 
-const { sortKey, sortOrder, sortedItems, toggleSort } =
-  useSortable<AdminUserViewItem>(viewItems, 'createdAt', 'desc')
-
-const {
-  pagedItems,
-  currentPage,
-  totalPages,
-  startIndex,
-  endIndex,
-  totalCount,
-  goToPage,
-} = usePagination(sortedItems, 20)
+const { pagedItems, currentPage, totalPages, startIndex, endIndex, totalCount, goToPage } =
+  usePagination(sortedItems, 20)
 
 const getSortIcon = (key: keyof AdminUserViewItem) => {
   if (sortKey.value !== key) return ArrowUpDown
@@ -124,8 +118,13 @@ const openEditDialog = (user: AdminUserViewItem) => {
   showEditDialog.value = true
 }
 
-const closeCreate = () => { showCreateDialog.value = false }
-const closeEdit = () => { showEditDialog.value = false; selectedUser.value = null }
+const closeCreate = () => {
+  showCreateDialog.value = false
+}
+const closeEdit = () => {
+  showEditDialog.value = false
+  selectedUser.value = null
+}
 
 const errorKey = ref<string | null>(null)
 
@@ -164,9 +163,7 @@ const handleUpdate = async () => {
 
 // ---- ソートアイコンのカラークラス ----
 const sortIconClass = (key: keyof AdminUserViewItem) =>
-  sortKey.value === key
-    ? 'text-hwhub-primary'
-    : 'text-hwhub-muted/40 group-hover:text-hwhub-muted'
+  sortKey.value === key ? 'text-hwhub-primary' : 'text-hwhub-muted/40 group-hover:text-hwhub-muted'
 
 // ---- onMounted: 全件ロード ----
 onMounted(async () => {
@@ -276,7 +273,10 @@ onMounted(async () => {
       </p>
 
       <!-- 結果なし -->
-      <p v-if="adminUserStore.searchResults.length === 0" class="py-6 text-center text-xs text-hwhub-muted">
+      <p
+        v-if="adminUserStore.searchResults.length === 0"
+        class="py-6 text-center text-xs text-hwhub-muted"
+      >
         {{ t('admin.users.empty') }}
       </p>
 
@@ -286,7 +286,17 @@ onMounted(async () => {
           <thead>
             <tr class="border-b border-hwhub-border bg-hwhub-surface-subtle">
               <th
-                v-for="col in (['userId', 'email', 'authProvider', 'displayName', 'locale', 'notificationEnabled', 'isActive', 'createdAt', 'updatedAt'] as const)"
+                v-for="col in [
+                  'userId',
+                  'email',
+                  'authProvider',
+                  'displayName',
+                  'locale',
+                  'notificationEnabled',
+                  'isActive',
+                  'createdAt',
+                  'updatedAt',
+                ] as const"
                 :key="col"
                 class="px-3 py-2 text-left text-xs font-medium text-hwhub-muted cursor-pointer select-none group transition-colors hover:text-hwhub-heading hover:bg-hwhub-surface"
                 @click="toggleSort(col)"
@@ -322,13 +332,19 @@ onMounted(async () => {
               <td class="px-3 py-2">
                 <span
                   class="inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium"
-                  :class="user.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'"
+                  :class="
+                    user.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'
+                  "
                 >
                   {{ user.isActiveLabel }}
                 </span>
               </td>
-              <td class="px-3 py-2 text-xs text-hwhub-heading whitespace-nowrap">{{ user.createdAtFormatted }}</td>
-              <td class="px-3 py-2 text-xs text-hwhub-heading whitespace-nowrap">{{ user.updatedAtFormatted }}</td>
+              <td class="px-3 py-2 text-xs text-hwhub-heading whitespace-nowrap">
+                {{ user.createdAtFormatted }}
+              </td>
+              <td class="px-3 py-2 text-xs text-hwhub-heading whitespace-nowrap">
+                {{ user.updatedAtFormatted }}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -390,10 +406,14 @@ onMounted(async () => {
         @click.self="closeCreate"
       >
         <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl mx-4">
-          <h3 class="mb-4 font-semibold text-hwhub-heading">{{ t('admin.users.form.create.title') }}</h3>
+          <h3 class="mb-4 font-semibold text-hwhub-heading">
+            {{ t('admin.users.form.create.title') }}
+          </h3>
           <form class="space-y-3" @submit.prevent="handleCreate">
             <div>
-              <label class="block text-xs font-medium text-hwhub-muted mb-1">{{ t('admin.users.form.email') }}</label>
+              <label class="block text-xs font-medium text-hwhub-muted mb-1">{{
+                t('admin.users.form.email')
+              }}</label>
               <input
                 v-model="createForm.email"
                 type="email"
@@ -402,7 +422,9 @@ onMounted(async () => {
               />
             </div>
             <div>
-              <label class="block text-xs font-medium text-hwhub-muted mb-1">{{ t('admin.users.form.password') }}</label>
+              <label class="block text-xs font-medium text-hwhub-muted mb-1">{{
+                t('admin.users.form.password')
+              }}</label>
               <input
                 v-model="createForm.password"
                 type="password"
@@ -412,7 +434,9 @@ onMounted(async () => {
               />
             </div>
             <div>
-              <label class="block text-xs font-medium text-hwhub-muted mb-1">{{ t('admin.users.form.displayName') }}</label>
+              <label class="block text-xs font-medium text-hwhub-muted mb-1">{{
+                t('admin.users.form.displayName')
+              }}</label>
               <input
                 v-model="createForm.displayName"
                 type="text"
@@ -421,7 +445,9 @@ onMounted(async () => {
               />
             </div>
             <div>
-              <label class="block text-xs font-medium text-hwhub-muted mb-1">{{ t('admin.users.form.locale') }}</label>
+              <label class="block text-xs font-medium text-hwhub-muted mb-1">{{
+                t('admin.users.form.locale')
+              }}</label>
               <select
                 v-model="createForm.locale"
                 class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
@@ -461,10 +487,14 @@ onMounted(async () => {
         @click.self="closeEdit"
       >
         <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl mx-4">
-          <h3 class="mb-4 font-semibold text-hwhub-heading">{{ t('admin.users.form.edit.title') }}</h3>
+          <h3 class="mb-4 font-semibold text-hwhub-heading">
+            {{ t('admin.users.form.edit.title') }}
+          </h3>
           <form class="space-y-3" @submit.prevent="handleUpdate">
             <div>
-              <label class="block text-xs font-medium text-hwhub-muted mb-1">{{ t('admin.users.form.displayName') }}</label>
+              <label class="block text-xs font-medium text-hwhub-muted mb-1">{{
+                t('admin.users.form.displayName')
+              }}</label>
               <input
                 v-model="editForm.displayName"
                 type="text"
@@ -473,7 +503,9 @@ onMounted(async () => {
               />
             </div>
             <div>
-              <label class="block text-xs font-medium text-hwhub-muted mb-1">{{ t('admin.users.form.locale') }}</label>
+              <label class="block text-xs font-medium text-hwhub-muted mb-1">{{
+                t('admin.users.form.locale')
+              }}</label>
               <select
                 v-model="editForm.locale"
                 class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
@@ -486,7 +518,9 @@ onMounted(async () => {
             <div v-if="selectedUser?.authProvider === AUTH_PROVIDER.LOCAL">
               <label class="block text-xs font-medium text-hwhub-muted mb-1">
                 {{ t('admin.users.form.password') }}
-                <span class="font-normal text-hwhub-muted ml-1">（{{ t('admin.users.form.passwordHint') }}）</span>
+                <span class="font-normal text-hwhub-muted ml-1"
+                  >（{{ t('admin.users.form.passwordHint') }}）</span
+                >
               </label>
               <input
                 v-model="editForm.password"

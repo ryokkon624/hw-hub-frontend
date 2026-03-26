@@ -122,14 +122,13 @@
             :key="item.name"
             type="button"
             class="flex-1 flex flex-col items-center justify-center py-1.5"
-            :class="
-              isActive(item.name)
-                ? 'text-green-400 font-semibold'
-                : 'text-hwhub-sidebar-nav'
-            "
+            :class="isActive(item.name) ? 'text-green-400 font-semibold' : 'text-hwhub-sidebar-nav'"
             @click="navigate(item.name)"
           >
-            <span class="block w-5 h-0.5 rounded-full mb-1 transition-all" :class="isActive(item.name) ? 'bg-green-400' : 'bg-transparent'" />
+            <span
+              class="block w-5 h-0.5 rounded-full mb-1 transition-all"
+              :class="isActive(item.name) ? 'bg-green-400' : 'bg-transparent'"
+            />
             <component :is="item.icon" class="w-5 h-5 mb-0.5" />
             <span class="leading-none">{{ t(item.labelKey) }}</span>
           </button>
@@ -142,7 +141,10 @@
             :class="isActive('admin') ? 'text-green-400 font-semibold' : 'text-hwhub-sidebar-nav'"
             @click="navigate('admin')"
           >
-            <span class="block w-5 h-0.5 rounded-full mb-1 transition-all" :class="isActive('admin') ? 'bg-green-400' : 'bg-transparent'" />
+            <span
+              class="block w-5 h-0.5 rounded-full mb-1 transition-all"
+              :class="isActive('admin') ? 'bg-green-400' : 'bg-transparent'"
+            />
             <ShieldCheck class="w-5 h-5 mb-0.5" />
             <span class="leading-none">{{ t('nav.admin') }}</span>
           </button>
@@ -161,7 +163,14 @@ import { useRoute, useRouter, RouterView } from 'vue-router'
 import { computed } from 'vue'
 import type { Component } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { House, ClipboardList, CheckSquare, ShoppingCart, Settings, ShieldCheck } from 'lucide-vue-next'
+import {
+  House,
+  ClipboardList,
+  CheckSquare,
+  ShoppingCart,
+  Settings,
+  ShieldCheck,
+} from 'lucide-vue-next'
 import AppHeader from '@/components/AppHeader.vue'
 import AppToastContainer from '@/components/AppToastContainer.vue'
 import LoadingOverlay from '@/components/LoadingOverlay.vue'

@@ -14,7 +14,9 @@
         >
           ‹ {{ t('common.cancel') }}
         </button>
-        <h1 class="font-semibold text-sm text-hwhub-heading">#{{ detail.inquiryId }}: {{ detail.title }}</h1>
+        <h1 class="font-semibold text-sm text-hwhub-heading">
+          #{{ detail.inquiryId }}: {{ detail.title }}
+        </h1>
         <div class="flex items-center justify-between">
           <span
             class="inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium"
@@ -54,10 +56,7 @@
       </div>
 
       <!-- ステータス説明文（スレッド下・返信フォーム直上） -->
-      <div
-        v-if="statusDescription"
-        class="border-t border-hwhub-border pt-3 mt-3"
-      >
+      <div v-if="statusDescription" class="border-t border-hwhub-border pt-3 mt-3">
         <p class="text-xs text-hwhub-muted">{{ statusDescription }}</p>
       </div>
 
@@ -85,7 +84,10 @@
 
       <!-- アクションボタン（AI_ANSWERED: 「解決した」+「解決しなかった」/ STAFF_ANSWERED: 「解決した」のみ） -->
       <div
-        v-if="detail.status === INQUIRY_STATUS.AI_ANSWERED || detail.status === INQUIRY_STATUS.STAFF_ANSWERED"
+        v-if="
+          detail.status === INQUIRY_STATUS.AI_ANSWERED ||
+          detail.status === INQUIRY_STATUS.STAFF_ANSWERED
+        "
         class="flex flex-col sm:flex-row gap-2"
       >
         <button

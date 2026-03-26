@@ -206,8 +206,8 @@ const bulkCompletePast = async () => {
       <div class="flex flex-wrap items-center justify-between gap-2">
         <div>
           <h2 class="text-sm font-semibold text-hwhub-heading flex items-center gap-1">
-              <AlertCircle class="w-4 h-4 text-rose-600" />{{ t('myTasks.past.title') }}
-            </h2>
+            <AlertCircle class="w-4 h-4 text-rose-600" />{{ t('myTasks.past.title') }}
+          </h2>
           <p class="text-xs text-hwhub-muted">
             {{ t('myTasks.past.description') }}
           </p>
@@ -338,7 +338,8 @@ const bulkCompletePast = async () => {
             <span
               class="font-semibold"
               :class="group.date === todayYmd ? 'text-hwhub-primary' : 'text-hwhub-heading'"
-            >{{ group.label }}</span>
+              >{{ group.label }}</span
+            >
             <span> {{ t('myTasks.future.groupCount', { count: group.tasks.length }) }}</span>
           </div>
 

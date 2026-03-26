@@ -329,7 +329,12 @@ describe('adminApi', () => {
         updatedAt: '2025-01-01T00:00:00Z',
       }
       mockedApiClient.post.mockResolvedValue({ data: dto })
-      const params = { email: 'new@example.com', password: 'password', displayName: '新規', locale: 'ja' }
+      const params = {
+        email: 'new@example.com',
+        password: 'password',
+        displayName: '新規',
+        locale: 'ja',
+      }
 
       const result = await adminApi.createAdminUser(params)
 

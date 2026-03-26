@@ -601,18 +601,12 @@ const goDetail = (inquiryId: number) => {
       </div>
 
       <!-- 検索結果 -->
-      <div
-        v-if="adminInquiryStore.isSearching"
-        class="text-sm text-hwhub-muted text-center py-8"
-      >
+      <div v-if="adminInquiryStore.isSearching" class="text-sm text-hwhub-muted text-center py-8">
         {{ t('common.loading') }}
       </div>
 
       <template v-else-if="hasSearched">
-        <p
-          v-if="searchViewItems.length === 0"
-          class="text-sm text-hwhub-muted text-center py-8"
-        >
+        <p v-if="searchViewItems.length === 0" class="text-sm text-hwhub-muted text-center py-8">
           {{ t('admin.inquiries.search.empty') }}
         </p>
 
