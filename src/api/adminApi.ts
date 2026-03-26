@@ -1,7 +1,13 @@
 import { apiClient } from './client'
 import { toInquiryDetail } from './inquiryApi'
 import type { UserRoleCode } from '@/constants/code.constants'
-import type { AdminUserModel, AdminInquiryModel, AdminInquirySearchParams, InquiryDetail, AdminUserDetailModel } from '@/domain'
+import type {
+  AdminUserModel,
+  AdminInquiryModel,
+  AdminInquirySearchParams,
+  InquiryDetail,
+  AdminUserDetailModel,
+} from '@/domain'
 
 // ---- API クライアント --------------------------------------------
 
@@ -62,7 +68,10 @@ export const adminApi = {
   },
 
   /** 管理者: ユーザー更新 */
-  async updateAdminUser(userId: number, params: AdminUpdateUserParams): Promise<AdminUserDetailModel> {
+  async updateAdminUser(
+    userId: number,
+    params: AdminUpdateUserParams,
+  ): Promise<AdminUserDetailModel> {
     const res = await apiClient.put<AdminUserDetailDto>(`/api/admin/users/${userId}`, params)
     return toAdminUserDetailModel(res.data)
   },

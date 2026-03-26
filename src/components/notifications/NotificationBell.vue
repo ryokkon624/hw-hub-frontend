@@ -140,17 +140,39 @@ const onClickItem = async (n: NotificationModel) => {
 </script>
 <style scoped>
 @keyframes bellShake {
-  0%   { transform: rotate(0deg); }
-  5%   { transform: rotate(18deg); }
-  15%  { transform: rotate(-15deg); }
-  25%  { transform: rotate(14deg); }
-  35%  { transform: rotate(-11deg); }
-  45%  { transform: rotate(9deg); }
-  55%  { transform: rotate(-6deg); }
-  65%  { transform: rotate(4deg); }
-  75%  { transform: rotate(-2deg); }
-  85%  { transform: rotate(1deg); }
-  100% { transform: rotate(0deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  5% {
+    transform: rotate(18deg);
+  }
+  15% {
+    transform: rotate(-15deg);
+  }
+  25% {
+    transform: rotate(14deg);
+  }
+  35% {
+    transform: rotate(-11deg);
+  }
+  45% {
+    transform: rotate(9deg);
+  }
+  55% {
+    transform: rotate(-6deg);
+  }
+  65% {
+    transform: rotate(4deg);
+  }
+  75% {
+    transform: rotate(-2deg);
+  }
+  85% {
+    transform: rotate(1deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 .bell-shake {

@@ -152,14 +152,12 @@ describe('inquiryApi', () => {
       mockedClient.post.mockResolvedValue({ data: { inquiryId: 10 } })
 
       const result = await inquiryApi.createInquiry({
-        householdId: 1,
         category: INQUIRY_CATEGORY.GENERAL,
         title: 'テストタイトル',
         body: '問い合わせ内容',
       })
 
       expect(mockedClient.post).toHaveBeenCalledWith('/api/inquiries', {
-        householdId: 1,
         category: INQUIRY_CATEGORY.GENERAL,
         title: 'テストタイトル',
         body: '問い合わせ内容',
@@ -171,14 +169,12 @@ describe('inquiryApi', () => {
       mockedClient.post.mockResolvedValue({ data: { inquiryId: 20 } })
 
       await inquiryApi.createInquiry({
-        householdId: 2,
         category: INQUIRY_CATEGORY.SHOPPING,
         title: '買い物について',
         body: '内容',
       })
 
       expect(mockedClient.post).toHaveBeenCalledWith('/api/inquiries', {
-        householdId: 2,
         category: INQUIRY_CATEGORY.SHOPPING,
         title: '買い物について',
         body: '内容',

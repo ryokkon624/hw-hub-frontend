@@ -166,12 +166,18 @@ const goCreate = () => {
 
 const categoryColorClass = (category: string | null | undefined): string => {
   switch (category) {
-    case CATEGORY.CLEAN:   return 'bg-blue-50 text-blue-600'
-    case CATEGORY.KITCHEN: return 'bg-orange-50 text-orange-600'
-    case CATEGORY.GARDEN:  return 'bg-cyan-50 text-cyan-600'
-    case CATEGORY.GARBAGE: return 'bg-emerald-50 text-emerald-600'
-    case CATEGORY.PET:     return 'bg-purple-50 text-purple-600'
-    default:               return 'bg-hwhub-surface-subtle text-hwhub-muted'
+    case CATEGORY.CLEAN:
+      return 'bg-blue-50 text-blue-600'
+    case CATEGORY.KITCHEN:
+      return 'bg-orange-50 text-orange-600'
+    case CATEGORY.GARDEN:
+      return 'bg-cyan-50 text-cyan-600'
+    case CATEGORY.GARBAGE:
+      return 'bg-emerald-50 text-emerald-600'
+    case CATEGORY.PET:
+      return 'bg-purple-50 text-purple-600'
+    default:
+      return 'bg-hwhub-surface-subtle text-hwhub-muted'
   }
 }
 </script>
@@ -241,7 +247,13 @@ const categoryColorClass = (category: string | null | undefined): string => {
       <div class="mt-2 overflow-x-auto hidden md:block">
         <!-- 表示件数 -->
         <p v-if="filteredItems.length > 0" class="mb-2 text-[11px] text-hwhub-muted">
-          {{ t('housework.list.pagination.showing', { start: pcStartIndex, end: pcEndIndex, total: filteredItems.length }) }}
+          {{
+            t('housework.list.pagination.showing', {
+              start: pcStartIndex,
+              end: pcEndIndex,
+              total: filteredItems.length,
+            })
+          }}
         </p>
 
         <table class="min-w-full border-collapse text-sm">
@@ -256,7 +268,11 @@ const categoryColorClass = (category: string | null | undefined): string => {
                   <component
                     :is="getSortIcon('name')"
                     class="w-3 h-3 transition-colors"
-                    :class="sortKey === 'name' ? 'text-hwhub-primary' : 'text-hwhub-muted/40 group-hover:text-hwhub-muted'"
+                    :class="
+                      sortKey === 'name'
+                        ? 'text-hwhub-primary'
+                        : 'text-hwhub-muted/40 group-hover:text-hwhub-muted'
+                    "
                   />
                 </div>
               </th>
@@ -269,7 +285,11 @@ const categoryColorClass = (category: string | null | undefined): string => {
                   <component
                     :is="getSortIcon('categoryLabel')"
                     class="w-3 h-3 transition-colors"
-                    :class="sortKey === 'categoryLabel' ? 'text-hwhub-primary' : 'text-hwhub-muted/40 group-hover:text-hwhub-muted'"
+                    :class="
+                      sortKey === 'categoryLabel'
+                        ? 'text-hwhub-primary'
+                        : 'text-hwhub-muted/40 group-hover:text-hwhub-muted'
+                    "
                   />
                 </div>
               </th>
@@ -282,7 +302,11 @@ const categoryColorClass = (category: string | null | undefined): string => {
                   <component
                     :is="getSortIcon('recurrenceSummary')"
                     class="w-3 h-3 transition-colors"
-                    :class="sortKey === 'recurrenceSummary' ? 'text-hwhub-primary' : 'text-hwhub-muted/40 group-hover:text-hwhub-muted'"
+                    :class="
+                      sortKey === 'recurrenceSummary'
+                        ? 'text-hwhub-primary'
+                        : 'text-hwhub-muted/40 group-hover:text-hwhub-muted'
+                    "
                   />
                 </div>
               </th>
@@ -295,7 +319,11 @@ const categoryColorClass = (category: string | null | undefined): string => {
                   <component
                     :is="getSortIcon('defaultAssigneeLabel')"
                     class="w-3 h-3 transition-colors"
-                    :class="sortKey === 'defaultAssigneeLabel' ? 'text-hwhub-primary' : 'text-hwhub-muted/40 group-hover:text-hwhub-muted'"
+                    :class="
+                      sortKey === 'defaultAssigneeLabel'
+                        ? 'text-hwhub-primary'
+                        : 'text-hwhub-muted/40 group-hover:text-hwhub-muted'
+                    "
                   />
                 </div>
               </th>
@@ -308,7 +336,11 @@ const categoryColorClass = (category: string | null | undefined): string => {
                   <component
                     :is="getSortIcon('startDate')"
                     class="w-3 h-3 transition-colors"
-                    :class="sortKey === 'startDate' ? 'text-hwhub-primary' : 'text-hwhub-muted/40 group-hover:text-hwhub-muted'"
+                    :class="
+                      sortKey === 'startDate'
+                        ? 'text-hwhub-primary'
+                        : 'text-hwhub-muted/40 group-hover:text-hwhub-muted'
+                    "
                   />
                 </div>
               </th>
@@ -372,10 +404,7 @@ const categoryColorClass = (category: string | null | undefined): string => {
         </table>
 
         <!-- ページネーション（PC版） -->
-        <ListPagination
-          v-model:current-page="pcCurrentPage"
-          :total-pages="pcTotalPages"
-        />
+        <ListPagination v-model:current-page="pcCurrentPage" :total-pages="pcTotalPages" />
       </div>
 
       <!-- ============================================================
@@ -431,10 +460,7 @@ const categoryColorClass = (category: string | null | undefined): string => {
         </p>
 
         <!-- ページネーション（SP版） -->
-        <ListPagination
-          v-model:current-page="spCurrentPage"
-          :total-pages="spTotalPages"
-        />
+        <ListPagination v-model:current-page="spCurrentPage" :total-pages="spTotalPages" />
       </div>
     </section>
   </div>

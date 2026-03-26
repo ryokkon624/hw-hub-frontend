@@ -5,9 +5,7 @@ import type { NotificationModel } from '@/domain'
 import type { Router } from 'vue-router'
 
 describe('notificationLink', () => {
-  const createNotification = (
-    linkType: NotificationLinkTypeCode | string,
-  ): NotificationModel => ({
+  const createNotification = (linkType: NotificationLinkTypeCode | string): NotificationModel => ({
     notificationId: 1,
     isRead: false,
     occurredAt: new Date(),

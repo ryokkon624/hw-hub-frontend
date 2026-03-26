@@ -106,7 +106,6 @@ describe('inquiryStore', () => {
 
       const store = useInquiryStore()
       const inquiryId = await store.create({
-        householdId: 1,
         category: INQUIRY_CATEGORY.GENERAL,
         title: 'テスト',
         body: '内容',
@@ -124,7 +123,6 @@ describe('inquiryStore', () => {
 
       await expect(
         store.create({
-          householdId: 1,
           category: INQUIRY_CATEGORY.GENERAL,
           title: 'テスト',
           body: '内容',
@@ -140,7 +138,6 @@ describe('inquiryStore', () => {
       const store = useInquiryStore()
       await expect(
         store.create({
-          householdId: 1,
           category: INQUIRY_CATEGORY.GENERAL,
           title: 'テスト',
           body: '内容',

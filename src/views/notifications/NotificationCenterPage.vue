@@ -19,7 +19,10 @@
       </div>
 
       <div v-else>
-        <div v-if="items.length === 0" class="p-8 flex flex-col items-center gap-2 text-hwhub-muted">
+        <div
+          v-if="items.length === 0"
+          class="p-8 flex flex-col items-center gap-2 text-hwhub-muted"
+        >
           <Bell class="w-8 h-8 opacity-30" />
           <p class="text-sm">{{ t('notifications.center.empty') }}</p>
         </div>

@@ -21,7 +21,9 @@
           #{{ detail.inquiryId }}: {{ detail.title }}
         </h1>
         <!-- 投稿者情報 -->
-        <div class="rounded-lg bg-hwhub-surface-subtle px-3 py-2 text-xs text-hwhub-muted space-y-0.5">
+        <div
+          class="rounded-lg bg-hwhub-surface-subtle px-3 py-2 text-xs text-hwhub-muted space-y-0.5"
+        >
           <p>
             <span class="font-medium text-hwhub-heading">{{ posterInfo?.userDisplayName }}</span>
             （{{ posterInfo?.userEmail }}）
@@ -67,10 +69,7 @@
       </div>
 
       <!-- ステータス説明文 -->
-      <div
-        v-if="statusDescription"
-        class="border-t border-hwhub-border pt-3 mt-3"
-      >
+      <div v-if="statusDescription" class="border-t border-hwhub-border pt-3 mt-3">
         <p class="text-xs text-hwhub-muted">{{ statusDescription }}</p>
       </div>
 

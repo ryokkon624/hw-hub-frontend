@@ -29,10 +29,7 @@ export const useShoppingFavoriteStore = defineStore('shoppingFavorite', {
      * @param householdId 世帯ID
      * @param options
      */
-    async fetchFavorites(
-      householdId: number,
-      options?: { force?: boolean },
-    ) {
+    async fetchFavorites(householdId: number, options?: { force?: boolean }) {
       if (!householdId) return
 
       const already = this.favoritesByHouseholdId[householdId]

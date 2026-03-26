@@ -29,4 +29,3 @@ interface AppInfoResponse {
 const toAppInfoModel = (dto: AppInfoResponse): AppInfoModel => ({
   apiVersion: dto.app.version,
 })
-

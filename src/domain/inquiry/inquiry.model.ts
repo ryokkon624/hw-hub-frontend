@@ -34,7 +34,6 @@ export interface InquiryMessage {
 
 /** 新規作成の入力値 */
 export interface InquiryCreateInput {
-  householdId: number
   category: InquiryCategoryCode
   title: string
   body: string

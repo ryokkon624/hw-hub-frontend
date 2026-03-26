@@ -103,7 +103,11 @@
           :disabled="isFavoriteFixed"
           class="h-4 w-4 rounded border-hwhub-border text-hwhub-primary focus:ring-hwhub-primary focus:ring-offset-0 disabled:opacity-50"
         />
-        <label for="favorite" class="text-sm text-hwhub-heading" :class="{ 'opacity-50': isFavoriteFixed }">
+        <label
+          for="favorite"
+          class="text-sm text-hwhub-heading"
+          :class="{ 'opacity-50': isFavoriteFixed }"
+        >
           {{ t('shopping.create.fields.favorite') }}
         </label>
       </div>
@@ -162,7 +166,11 @@ import { useUiStore } from '@/stores/uiStore'
 import { useCodeStore } from '@/stores/codeStore' // 購入場所（0010）用
 import { useShoppingItemAttachmentStore } from '@/stores/shoppingItemAttachmentStore'
 import { useShoppingHistoryStore } from '@/stores/shoppingHistoryStore'
-import type { ShoppingItemHistorySuggestionModel, ShoppingItemCreateInput, ShoppingItemModel } from '@/domain'
+import type {
+  ShoppingItemHistorySuggestionModel,
+  ShoppingItemCreateInput,
+  ShoppingItemModel,
+} from '@/domain'
 import ShoppingItemHistoryModal from '@/components/ShoppingItemHistoryModal.vue'
 import ShoppingItemFavoriteModal from '@/components/ShoppingItemFavoriteModal.vue'
 import ImageFileInput from '@/components/inputs/ImageFileInput.vue'

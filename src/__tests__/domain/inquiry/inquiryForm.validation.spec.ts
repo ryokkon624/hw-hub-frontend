@@ -14,10 +14,7 @@ describe('inquiryForm.validation', () => {
   const validate = (data: Partial<InquiryFormSchemaType>) =>
     inquiryFormSchema.validate(data, { abortEarly: false })
 
-  const expectErrors = async (
-    data: Partial<InquiryFormSchemaType>,
-    expectedMessages: string[],
-  ) => {
+  const expectErrors = async (data: Partial<InquiryFormSchemaType>, expectedMessages: string[]) => {
     await expect(validate(data)).rejects.toMatchObject({
       errors: expect.arrayContaining(expectedMessages),
     })
@@ -47,9 +44,7 @@ describe('inquiryForm.validation', () => {
 
   describe('title', () => {
     it('未入力の場合はエラーになる', async () => {
-      await expectErrors({ ...baseValid, title: '' }, [
-        'inquiry.create.validation.title.required',
-      ])
+      await expectErrors({ ...baseValid, title: '' }, ['inquiry.create.validation.title.required'])
     })
 
     it('undefinedの場合もエラーになる', async () => {
@@ -71,9 +66,7 @@ describe('inquiryForm.validation', () => {
 
   describe('body', () => {
     it('未入力の場合はエラーになる', async () => {
-      await expectErrors({ ...baseValid, body: '' }, [
-        'inquiry.create.validation.body.required',
-      ])
+      await expectErrors({ ...baseValid, body: '' }, ['inquiry.create.validation.body.required'])
     })
 
     it('undefinedの場合もエラーになる', async () => {
@@ -83,18 +76,17 @@ describe('inquiryForm.validation', () => {
     })
 
     it('値が入力されている場合はバリデーションが通る', async () => {
-      await expect(validate({ ...baseValid, body: '詳しい内容を記述します。' })).resolves.toBeTruthy()
+      await expect(
+        validate({ ...baseValid, body: '詳しい内容を記述します。' }),
+      ).resolves.toBeTruthy()
     })
   })
 
   it('全フィールド未入力時はそれぞれのエラーが全て返る', async () => {
-    await expectErrors(
-      { category: '', title: '', body: '' },
-      [
-        'inquiry.create.validation.category.required',
-        'inquiry.create.validation.title.required',
-        'inquiry.create.validation.body.required',
-      ],
-    )
+    await expectErrors({ category: '', title: '', body: '' }, [
+      'inquiry.create.validation.category.required',
+      'inquiry.create.validation.title.required',
+      'inquiry.create.validation.body.required',
+    ])
   })
 })

@@ -26,10 +26,7 @@
 
     <!-- 一覧 -->
     <ul v-else class="space-y-3">
-      <li
-        v-for="summary in inquiryStore.summaries"
-        :key="summary.inquiryId"
-      >
+      <li v-for="summary in inquiryStore.summaries" :key="summary.inquiryId">
         <button
           class="w-full text-left rounded-xl border bg-white px-4 py-3 shadow-sm hover:bg-hwhub-surface-subtle transition flex items-center justify-between gap-3"
           @click="goDetail(summary.inquiryId)"
@@ -37,7 +34,9 @@
           <!-- 左側：コンテンツ -->
           <div class="flex-1 min-w-0">
             <!-- 件名 -->
-            <p class="text-sm font-medium text-hwhub-heading truncate">#{{ summary.inquiryId }}: {{ summary.title }}</p>
+            <p class="text-sm font-medium text-hwhub-heading truncate">
+              #{{ summary.inquiryId }}: {{ summary.title }}
+            </p>
             <!-- カテゴリ（左） + ステータス（右端） -->
             <div class="flex items-center justify-between mt-1">
               <span
