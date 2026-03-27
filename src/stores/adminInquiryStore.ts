@@ -1,6 +1,13 @@
 import { defineStore } from 'pinia'
 import { adminApi } from '@/api/adminApi'
-import type { AdminInquiryModel, AdminInquirySearchParams, InquiryDetail } from '@/domain'
+import type {
+  AdminInquiryModel,
+  AdminInquirySearchParams,
+  InquiryDetail,
+  DailyInquiryStatusModel,
+  DailyInquiryMessageModel,
+  InquiryStatusSummaryModel,
+} from '@/domain'
 
 interface AdminInquiryState {
   pendingItems: AdminInquiryModel[]
@@ -12,6 +19,12 @@ interface AdminInquiryState {
   isSubmitting: boolean
   activeTab: 'pending' | 'search'
   lastSearchParams: AdminInquirySearchParams | null
+  statusSummary: InquiryStatusSummaryModel | null
+  dailyStats: DailyInquiryStatusModel[]
+  messageDailyStats: DailyInquiryMessageModel[]
+  isLoadingStatusSummary: boolean
+  isLoadingDailyStats: boolean
+  isLoadingMessageDailyStats: boolean
 }
 
 export const useAdminInquiryStore = defineStore('adminInquiry', {
@@ -25,6 +38,12 @@ export const useAdminInquiryStore = defineStore('adminInquiry', {
     isSubmitting: false,
     activeTab: 'pending',
     lastSearchParams: null,
+    statusSummary: null,
+    dailyStats: [],
+    messageDailyStats: [],
+    isLoadingStatusSummary: false,
+    isLoadingDailyStats: false,
+    isLoadingMessageDailyStats: false,
   }),
 
   actions: {
@@ -79,6 +98,36 @@ export const useAdminInquiryStore = defineStore('adminInquiry', {
 
     saveSearchParams(params: AdminInquirySearchParams) {
       this.lastSearchParams = { ...params }
+    },
+
+    async loadStatusSummary(): Promise<void> {
+      if (this.isLoadingStatusSummary) return
+      this.isLoadingStatusSummary = true
+      try {
+        this.statusSummary = await adminApi.fetchInquiryStatusSummary()
+      } finally {
+        this.isLoadingStatusSummary = false
+      }
+    },
+
+    async loadDailyStats(days: number): Promise<void> {
+      if (this.isLoadingDailyStats) return
+      this.isLoadingDailyStats = true
+      try {
+        this.dailyStats = await adminApi.fetchInquiryStats(days)
+      } finally {
+        this.isLoadingDailyStats = false
+      }
+    },
+
+    async loadMessageDailyStats(days: number): Promise<void> {
+      if (this.isLoadingMessageDailyStats) return
+      this.isLoadingMessageDailyStats = true
+      try {
+        this.messageDailyStats = await adminApi.fetchInquiryMessageStats(days)
+      } finally {
+        this.isLoadingMessageDailyStats = false
+      }
     },
 
     clear() {

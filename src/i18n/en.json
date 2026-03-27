@@ -131,6 +131,24 @@
   "admin": {
     "pageTitle": "Admin",
     "description": "Administration features.",
+    "dashboard": {
+      "status": {
+        "title": "Inquiry Status",
+        "subtitle": "Current count by status",
+        "recentUnclosedLabel": "Unclosed for 3+ days",
+        "unit": ""
+      },
+      "inquiryStats": {
+        "title": "Inquiry Trends",
+        "subtitle": "Inquiries in the past 30 days by status",
+        "empty": "No data to display."
+      },
+      "messageStats": {
+        "title": "Message Trends",
+        "subtitle": "Messages in the past 10 days by sender",
+        "empty": "No data to display."
+      }
+    },
     "sections": {
       "users": {
         "title": "User Management",

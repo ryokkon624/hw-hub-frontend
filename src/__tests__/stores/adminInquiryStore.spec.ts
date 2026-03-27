@@ -10,6 +10,9 @@ vi.mock('@/api/adminApi', () => ({
     searchInquiries: vi.fn(),
     fetchAdminInquiryDetail: vi.fn(),
     replyToInquiry: vi.fn(),
+    fetchInquiryStats: vi.fn(),
+    fetchInquiryMessageStats: vi.fn(),
+    fetchInquiryStatusSummary: vi.fn(),
   },
 }))
 
@@ -20,6 +23,9 @@ const mockedAdminApi = adminApi as unknown as {
   searchInquiries: ReturnType<typeof vi.fn>
   fetchAdminInquiryDetail: ReturnType<typeof vi.fn>
   replyToInquiry: ReturnType<typeof vi.fn>
+  fetchInquiryStats: ReturnType<typeof vi.fn>
+  fetchInquiryMessageStats: ReturnType<typeof vi.fn>
+  fetchInquiryStatusSummary: ReturnType<typeof vi.fn>
 }
 
 // テスト用データファクトリ
@@ -386,6 +392,108 @@ describe('adminInquiryStore', () => {
       expect(store.isSearching).toBe(false)
       expect(store.isLoadingDetail).toBe(false)
       expect(store.isSubmitting).toBe(false)
+    })
+  })
+
+  // ---- loadStatusSummary -----------------------------------------
+
+  describe('loadStatusSummary', () => {
+    it('APIからステータスサマリーを取得してstatusSummaryに格納する', async () => {
+      const summary = {
+        open: 1,
+        aiAnswered: 2,
+        pendingStaff: 3,
+        staffAnswered: 4,
+        recentUnclosed: 5,
+      }
+      mockedAdminApi.fetchInquiryStatusSummary.mockResolvedValue(summary)
+      const store = useAdminInquiryStore()
+
+      await store.loadStatusSummary()
+
+      expect(mockedAdminApi.fetchInquiryStatusSummary).toHaveBeenCalledOnce()
+      expect(store.statusSummary).toEqual(summary)
+    })
+
+    it('ロード中はisLoadingStatusSummaryがtrueになり、完了後falseに戻る', async () => {
+      mockedAdminApi.fetchInquiryStatusSummary.mockReturnValue(new Promise(() => {}))
+      const store = useAdminInquiryStore()
+
+      store.loadStatusSummary()
+      expect(store.isLoadingStatusSummary).toBe(true)
+    })
+
+    it('既にロード中の場合は二重呼び出しをスキップする', async () => {
+      const store = useAdminInquiryStore()
+      store.isLoadingStatusSummary = true
+
+      await store.loadStatusSummary()
+
+      expect(mockedAdminApi.fetchInquiryStatusSummary).not.toHaveBeenCalled()
+    })
+  })
+
+  // ---- loadDailyStats --------------------------------------------
+
+  describe('loadDailyStats', () => {
+    it('日数を指定してAPIを呼び出し、結果をdailyStatsに格納する', async () => {
+      const stats = [{ date: '2025-01-01', open: 1, aiAnswered: 0, pendingStaff: 0, staffAnswered: 0, closed: 0 }]
+      mockedAdminApi.fetchInquiryStats.mockResolvedValue(stats)
+      const store = useAdminInquiryStore()
+
+      await store.loadDailyStats(15)
+
+      expect(mockedAdminApi.fetchInquiryStats).toHaveBeenCalledWith(15)
+      expect(store.dailyStats).toEqual(stats)
+    })
+
+    it('ロード中はisLoadingDailyStatsがtrueになり、完了後falseに戻る', async () => {
+      mockedAdminApi.fetchInquiryStats.mockReturnValue(new Promise(() => {}))
+      const store = useAdminInquiryStore()
+
+      store.loadDailyStats(30)
+      expect(store.isLoadingDailyStats).toBe(true)
+    })
+
+    it('既にロード中の場合は二重呼び出しをスキップする', async () => {
+      const store = useAdminInquiryStore()
+      store.isLoadingDailyStats = true
+
+      await store.loadDailyStats(30)
+
+      expect(mockedAdminApi.fetchInquiryStats).not.toHaveBeenCalled()
+    })
+  })
+
+  // ---- loadMessageDailyStats -------------------------------------
+
+  describe('loadMessageDailyStats', () => {
+    it('日数を指定してAPIを呼び出し、結果をmessageDailyStatsに格納する', async () => {
+      const stats = [{ date: '2025-01-01', user: 10, ai: 5, staff: 2 }]
+      mockedAdminApi.fetchInquiryMessageStats.mockResolvedValue(stats)
+      const store = useAdminInquiryStore()
+
+      await store.loadMessageDailyStats(7)
+
+      expect(mockedAdminApi.fetchInquiryMessageStats).toHaveBeenCalledWith(7)
+      expect(store.messageDailyStats).toEqual(stats)
+    })
+
+    it('ロード中はisLoadingMessageDailyStatsがtrueになり、完了後falseに戻る', async () => {
+      mockedAdminApi.fetchInquiryMessageStats.mockReturnValue(new Promise(() => {}))
+      const store = useAdminInquiryStore()
+
+      store.loadMessageDailyStats(10)
+      expect(store.isLoadingMessageDailyStats).toBe(true)
+    })
+
+    it('既にロード中の場合は二重呼び出しをスキップする', async () => {
+      const store = useAdminInquiryStore()
+      store.isLoadingMessageDailyStats = true
+
+      await store.loadMessageDailyStats(10)
+
+      expect(mockedAdminApi.fetchInquiryMessageStats).not.toHaveBeenCalled()
     })
   })
 })
