@@ -370,4 +370,136 @@ describe('adminApi', () => {
       expect(result.updatedAt).toEqual(new Date('2025-02-01T00:00:00Z'))
     })
   })
+
+  // ---- fetchInquiryStats ---------------------------------------
+
+  describe('fetchInquiryStats', () => {
+    it('日数をクエリパラメータに渡してGETリクエストを送る', async () => {
+      mockedApiClient.get.mockResolvedValue({ data: [] })
+
+      await adminApi.fetchInquiryStats(15)
+
+      expect(mockedApiClient.get).toHaveBeenCalledWith('/api/admin/inquiries/stats', {
+        params: { days: 15 },
+      })
+    })
+
+    it('デフォルト値が30であることを確認', async () => {
+      mockedApiClient.get.mockResolvedValue({ data: [] })
+
+      await adminApi.fetchInquiryStats()
+
+      expect(mockedApiClient.get).toHaveBeenCalledWith('/api/admin/inquiries/stats', {
+        params: { days: 30 },
+      })
+    })
+
+    it('DTOをDailyInquiryStatusModelにマッピングする', async () => {
+      const dto = {
+        date: '2025-01-01',
+        open: 1,
+        aiAnswered: 2,
+        pendingStaff: 3,
+        staffAnswered: 4,
+        closed: 5,
+      }
+      mockedApiClient.get.mockResolvedValue({ data: [dto] })
+
+      const result = await adminApi.fetchInquiryStats(7)
+
+      expect(result).toHaveLength(1)
+      expect(result[0]).toEqual({
+        date: '2025-01-01',
+        open: 1,
+        aiAnswered: 2,
+        pendingStaff: 3,
+        staffAnswered: 4,
+        closed: 5,
+      })
+    })
+  })
+
+  // ---- fetchInquiryMessageStats --------------------------------
+
+  describe('fetchInquiryMessageStats', () => {
+    it('日数をクエリパラメータに渡してGETリクエストを送る', async () => {
+      mockedApiClient.get.mockResolvedValue({ data: [] })
+
+      await adminApi.fetchInquiryMessageStats(5)
+
+      expect(mockedApiClient.get).toHaveBeenCalledWith('/api/admin/inquiries/message-stats', {
+        params: { days: 5 },
+      })
+    })
+
+    it('デフォルト値が10であることを確認', async () => {
+      mockedApiClient.get.mockResolvedValue({ data: [] })
+
+      await adminApi.fetchInquiryMessageStats()
+
+      expect(mockedApiClient.get).toHaveBeenCalledWith('/api/admin/inquiries/message-stats', {
+        params: { days: 10 },
+      })
+    })
+
+    it('DTOをDailyInquiryMessageModelにマッピングする', async () => {
+      const dto = {
+        date: '2025-01-01',
+        user: 10,
+        ai: 5,
+        staff: 2,
+      }
+      mockedApiClient.get.mockResolvedValue({ data: [dto] })
+
+      const result = await adminApi.fetchInquiryMessageStats()
+
+      expect(result).toHaveLength(1)
+      expect(result[0]).toEqual({
+        date: '2025-01-01',
+        user: 10,
+        ai: 5,
+        staff: 2,
+      })
+    })
+  })
+
+  // ---- fetchInquiryStatusSummary -------------------------------
+
+  describe('fetchInquiryStatusSummary', () => {
+    it('サマリーエンドポイントにGETリクエストを送る', async () => {
+      const dto = {
+        open: 1,
+        aiAnswered: 2,
+        pendingStaff: 3,
+        staffAnswered: 4,
+        recentUnclosed: 5,
+      }
+      mockedApiClient.get.mockResolvedValue({ data: dto })
+
+      await adminApi.fetchInquiryStatusSummary()
+
+      expect(mockedApiClient.get).toHaveBeenCalledWith('/api/admin/inquiries/status-summary')
+    })
+
+    it('DTOをInquiryStatusSummaryModelにマッピングする', async () => {
+      const dto = {
+        open: 10,
+        aiAnswered: 5,
+        pendingStaff: 2,
+        staffAnswered: 8,
+        recentUnclosed: 12,
+      }
+      mockedApiClient.get.mockResolvedValue({ data: dto })
+
+      const result = await adminApi.fetchInquiryStatusSummary()
+
+      expect(result).toEqual({
+        open: 10,
+        aiAnswered: 5,
+        pendingStaff: 2,
+        staffAnswered: 8,
+        recentUnclosed: 12,
+      })
+    })
+  })
 })

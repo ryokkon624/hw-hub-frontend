@@ -131,6 +131,24 @@
   "admin": {
     "pageTitle": "管理画面",
     "description": "管理機能を提供します。",
+    "dashboard": {
+      "status": {
+        "title": "問い合わせ状況",
+        "subtitle": "現在のステータス別件数",
+        "recentUnclosedLabel": "3日以上前の未クローズ件数",
+        "unit": "件"
+      },
+      "inquiryStats": {
+        "title": "問い合わせ推移",
+        "subtitle": "過去30日間の問い合わせ件数（作成日・ステータス別）",
+        "empty": "表示するデータがありません。"
+      },
+      "messageStats": {
+        "title": "メッセージ送信推移",
+        "subtitle": "過去10日間の送信者別メッセージ件数",
+        "empty": "表示するデータがありません。"
+      }
+    },
     "sections": {
       "users": {
         "title": "ユーザー管理",

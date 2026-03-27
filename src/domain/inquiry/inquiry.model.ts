@@ -66,3 +66,30 @@ export interface AdminInquirySearchParams {
   category?: string
   status?: string
 }
+
+/** 問い合わせ状況 */
+export interface InquiryStatusSummaryModel {
+  open: number
+  aiAnswered: number
+  pendingStaff: number
+  staffAnswered: number
+  recentUnclosed: number
+}
+
+/** 問い合わせメッセージ日次集計 */
+export interface DailyInquiryMessageModel {
+  date: string
+  user: number
+  ai: number
+  staff: number
+}
+
+/** 問い合わせ日次集計 */
+export interface DailyInquiryStatusModel {
+  date: string
+  open: number
+  aiAnswered: number
+  pendingStaff: number
+  staffAnswered: number
+  closed: number
+}

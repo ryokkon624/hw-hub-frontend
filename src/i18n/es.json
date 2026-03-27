@@ -131,6 +131,24 @@
   "admin": {
     "pageTitle": "Administración",
     "description": "Funciones de administración.",
+    "dashboard": {
+      "status": {
+        "title": "Estado de consultas",
+        "subtitle": "Conteo actual por estado",
+        "recentUnclosedLabel": "Sin cerrar por 3+ días",
+        "unit": ""
+      },
+      "inquiryStats": {
+        "title": "Tendencias de consultas",
+        "subtitle": "Consultas en los últimos 30 días por estado",
+        "empty": "No hay datos para mostrar."
+      },
+      "messageStats": {
+        "title": "Tendencias de mensajes",
+        "subtitle": "Mensajes en los últimos 10 días por remitente",
+        "empty": "No hay datos para mostrar."
+      }
+    },
     "sections": {
       "users": {
         "title": "Gestión de usuarios",

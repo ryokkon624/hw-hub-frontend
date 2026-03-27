@@ -3,6 +3,10 @@
     <h2 class="sr-only">{{ t('admin.pageTitle') }}</h2>
     <p class="text-sm text-hwhub-muted">{{ t('admin.description') }}</p>
 
+    <InquiryStatusSummaryCard />
+    <DailyInquiryStatusCard />
+    <DailyInquiryMessageCard />
+
     <div class="mt-4 space-y-3">
       <AdminCard
         :can-access="canManageUser"
@@ -42,6 +46,9 @@ import { ShieldCheck, MessageCircleQuestion, Users } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 import { useRole } from '@/composables/useRole'
 import AdminCard from '@/components/admin/AdminCard.vue'
+import InquiryStatusSummaryCard from '@/components/admin/InquiryStatusSummaryCard.vue'
+import DailyInquiryStatusCard from '@/components/admin/DailyInquiryStatusCard.vue'
+import DailyInquiryMessageCard from '@/components/admin/DailyInquiryMessageCard.vue'
 
 const { t } = useI18n()
 const { canManageUser, canManageRole, canReplyInquiry } = useRole()

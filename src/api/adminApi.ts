@@ -7,6 +7,9 @@ import type {
   AdminInquirySearchParams,
   InquiryDetail,
   AdminUserDetailModel,
+  InquiryStatusSummaryModel,
+  DailyInquiryMessageModel,
+  DailyInquiryStatusModel,
 } from '@/domain'
 
 // ---- API クライアント --------------------------------------------
@@ -53,6 +56,29 @@ export const adminApi = {
     await apiClient.post(`/api/admin/inquiries/${inquiryId}/reply`, { body })
   },
 
+  /** 日別・ステータス別問い合わせ件数（ダッシュボード用） */
+  async fetchInquiryStats(days = 30): Promise<DailyInquiryStatusModel[]> {
+    const res = await apiClient.get<DailyInquiryStatusDto[]>('/api/admin/inquiries/stats', {
+      params: { days },
+    })
+    return res.data.map(toInquiryDailyStatsModel)
+  },
+
+  /** 日別・送信者タイプ別メッセージ件数（ダッシュボード用） */
+  async fetchInquiryMessageStats(days = 10): Promise<DailyInquiryMessageModel[]> {
+    const res = await apiClient.get<DailyInquiryMessageDto[]>(
+      '/api/admin/inquiries/message-stats',
+      { params: { days } },
+    )
+    return res.data.map(toInquiryMessageDailyStatsModel)
+  },
+
+  /** ステータス別件数サマリー（ダッシュボード用） */
+  async fetchInquiryStatusSummary(): Promise<InquiryStatusSummaryModel> {
+    const res = await apiClient.get<InquiryStatusSummaryDto>('/api/admin/inquiries/status-summary')
+    return toInquiryStatusSummaryModel(res.data)
+  },
+
   // ---- ユーザー管理 ------------------------------------------------
 
   /** 管理者: ユーザー一覧検索 */
@@ -78,6 +104,29 @@ export const adminApi = {
 }
 
 // ---- Response DTO ------------------------------------------------
+
+interface InquiryStatusSummaryDto {
+  open: number
+  aiAnswered: number
+  pendingStaff: number
+  staffAnswered: number
+  recentUnclosed: number
+}
+interface DailyInquiryMessageDto {
+  date: string
+  user: number
+  ai: number
+  staff: number
+}
+
+interface DailyInquiryStatusDto {
+  date: string
+  open: number
+  aiAnswered: number
+  pendingStaff: number
+  staffAnswered: number
+  closed: number
+}
 
 interface AdminUserDetailDto {
   userId: number
@@ -157,4 +206,30 @@ const toAdminUserDetailModel = (dto: AdminUserDetailDto): AdminUserDetailModel =
   ...dto,
   createdAt: new Date(dto.createdAt),
   updatedAt: new Date(dto.updatedAt),
+})
+
+const toInquiryDailyStatsModel = (dto: DailyInquiryStatusDto): DailyInquiryStatusModel => ({
+  date: dto.date,
+  open: dto.open,
+  aiAnswered: dto.aiAnswered,
+  pendingStaff: dto.pendingStaff,
+  staffAnswered: dto.staffAnswered,
+  closed: dto.closed,
+})
+
+const toInquiryMessageDailyStatsModel = (
+  dto: DailyInquiryMessageDto,
+): DailyInquiryMessageModel => ({
+  date: dto.date,
+  user: dto.user,
+  ai: dto.ai,
+  staff: dto.staff,
+})
+
+const toInquiryStatusSummaryModel = (dto: InquiryStatusSummaryDto): InquiryStatusSummaryModel => ({
+  open: dto.open,
+  aiAnswered: dto.aiAnswered,
+  pendingStaff: dto.pendingStaff,
+  staffAnswered: dto.staffAnswered,
+  recentUnclosed: dto.recentUnclosed,
 })
