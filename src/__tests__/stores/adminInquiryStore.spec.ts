@@ -437,7 +437,16 @@ describe('adminInquiryStore', () => {
 
   describe('loadDailyStats', () => {
     it('日数を指定してAPIを呼び出し、結果をdailyStatsに格納する', async () => {
-      const stats = [{ date: '2025-01-01', open: 1, aiAnswered: 0, pendingStaff: 0, staffAnswered: 0, closed: 0 }]
+      const stats = [
+        {
+          date: '2025-01-01',
+          open: 1,
+          aiAnswered: 0,
+          pendingStaff: 0,
+          staffAnswered: 0,
+          closed: 0,
+        },
+      ]
       mockedAdminApi.fetchInquiryStats.mockResolvedValue(stats)
       const store = useAdminInquiryStore()
 

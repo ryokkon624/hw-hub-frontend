@@ -15,6 +15,7 @@ export * from './household/householdMember.model.ts'
 export * from './invitation/householdInvitation.model.ts'
 // housework
 export * from './housework/housework.model'
+export * from './housework/houseworkTemplate.model'
 export * from './housework/houseworkForm.mapper'
 export * from './housework/houseworkForm.model'
 export * from './housework/houseworkForm.validation'

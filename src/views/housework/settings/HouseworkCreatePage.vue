@@ -13,7 +13,7 @@
     </header>
 
     <!-- フォームカード -->
-    <HouseworkForm v-model="form" @submit="handleSubmit" @cancel="goBack" />
+    <HouseworkForm v-model="form" :isCreate="true" @submit="handleSubmit" @cancel="goBack" />
   </div>
 </template>
 

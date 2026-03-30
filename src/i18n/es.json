@@ -853,6 +853,12 @@
         "startDate": "Fecha de inicio",
         "endDate": "Fecha de fin"
       },
+      "templateSelectButton": "Seleccionar plantilla del sistema",
+      "templateModal": {
+        "title": "Seleccionar plantilla de tareas",
+        "filterAll": "Todos",
+        "empty": "No se encontraron plantillas."
+      },
       "errors": {
         "name": {
           "required": "El nombre es obligatorio.",

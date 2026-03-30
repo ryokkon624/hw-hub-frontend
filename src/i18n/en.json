@@ -853,6 +853,12 @@
         "startDate": "Start date",
         "endDate": "End date"
       },
+      "templateSelectButton": "Select from system template",
+      "templateModal": {
+        "title": "Select Housework Template",
+        "filterAll": "All",
+        "empty": "No templates found."
+      },
       "errors": {
         "name": {
           "required": "Name is required.",

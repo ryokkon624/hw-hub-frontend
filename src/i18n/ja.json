@@ -870,6 +870,12 @@
         "startDate": "開始日",
         "endDate": "終了日"
       },
+      "templateSelectButton": "システムテンプレートから選択",
+      "templateModal": {
+        "title": "家事テンプレートを選択",
+        "filterAll": "すべて",
+        "empty": "該当するテンプレートがありません。"
+      },
       "errors": {
         "name": {
           "required": "家事名は必須です。",
