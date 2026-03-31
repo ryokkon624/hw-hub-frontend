@@ -123,7 +123,10 @@
     "adminRoles": "ロール管理",
     "adminInquiries": "問い合わせ管理",
     "adminInquiryDetail": "問い合わせ詳細（管理）",
-    "adminUsers": "ユーザー管理"
+    "adminUsers": "ユーザー管理",
+    "adminHouseworkTemplates": "家事テンプレート管理",
+    "adminHouseworkTemplateNew": "テンプレートの追加",
+    "adminHouseworkTemplateEdit": "テンプレートの編集"
   },
   "nav": {
     "admin": "管理"
@@ -161,6 +164,10 @@
       "inquiries": {
         "title": "問い合わせ管理",
         "subtitle": "ユーザーからの問い合わせへの対応"
+      },
+      "houseworkTemplate": {
+        "title": "家事テンプレート管理",
+        "subtitle": "システム家事テンプレートの登録・編集"
       }
     },
     "users": {
@@ -263,6 +270,40 @@
         "removed": "ロールを削除しました。",
         "error": "操作に失敗しました。"
       }
+    },
+    "houseworkTemplate": {
+      "createButton": "テンプレートを追加",
+      "columns": {
+        "nameJa": "家事名（日）",
+        "recommendation": "おすすめ"
+      },
+      "form": {
+        "nameJa": "家事名（日本語）",
+        "nameEn": "家事名（英語）",
+        "nameEs": "家事名（スペイン語）",
+        "descriptionJa": "説明（日本語）",
+        "descriptionEn": "説明（英語）",
+        "descriptionEs": "説明（スペイン語）",
+        "recommendationSection": "おすすめコメント",
+        "recommendationJa": "おすすめ（日本語）",
+        "recommendationEn": "おすすめ（英語）",
+        "recommendationEs": "おすすめ（スペイン語）"
+      },
+      "toast": {
+        "created": "テンプレートを登録しました。",
+        "updated": "テンプレートを更新しました。",
+        "deleted": "テンプレートを削除しました。",
+        "error": "入力内容を確認してください。"
+      },
+      "validation": {
+        "descriptionAllOrNone": "説明は日本語・英語・スペイン語すべて入力するか、すべて空にしてください。",
+        "recommendationAllOrNone": "おすすめコメントは日本語・英語・スペイン語すべて入力するか、すべて空にしてください。",
+        "weeklyDaysRequired": "実施する曜日を1つ以上選択してください。",
+        "dayOfMonthRequired": "実施日を入力してください。",
+        "nthWeekRequired": "第何週かを選択してください。",
+        "weekdayRequired": "曜日を選択してください。"
+      },
+      "deleteConfirm": "このテンプレートを削除しますか？"
     }
   },
   "login": {
@@ -1430,6 +1471,7 @@
   "common": {
     "cancel": "キャンセル",
     "save": "保存",
+    "delete": "削除",
     "loading": "読み込み中...",
     "selectPlaceholder": "選択してください",
     "logout": "ログアウト",

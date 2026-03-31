@@ -6,9 +6,11 @@
 import { onMounted, watch } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import { useHouseholdStore } from '@/stores/householdStore'
+import { useRoleStore } from './stores/roleStore'
 
 const authStore = useAuthStore()
 const householdStore = useHouseholdStore()
+const roleStore = useRoleStore()
 
 onMounted(async () => {
   // ローカルストレージにログイン情報があれば復元
@@ -26,6 +28,9 @@ watch(
 
     if (householdStore.households.length === 0) {
       await householdStore.fetchMyHouseholds()
+    }
+    if (roleStore.roles.length === 0) {
+      await roleStore.fetchMyRoles()
     }
   },
   { immediate: true },

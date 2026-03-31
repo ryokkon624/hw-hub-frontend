@@ -151,6 +151,8 @@ export const useHouseworkStore = defineStore('houseworkStore', {
     clear() {
       this.items = []
       this.current = null
+      this.itemsByHouseholdId = {}
+      this.lastFetchedAtByHouseholdId = {}
     },
   },
 })

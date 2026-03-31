@@ -10,6 +10,7 @@ import type {
   InquiryStatusSummaryModel,
   DailyInquiryMessageModel,
   DailyInquiryStatusModel,
+  AdminHouseworkTemplateModel,
 } from '@/domain'
 
 // ---- API クライアント --------------------------------------------
@@ -101,6 +102,34 @@ export const adminApi = {
     const res = await apiClient.put<AdminUserDetailDto>(`/api/admin/users/${userId}`, params)
     return toAdminUserDetailModel(res.data)
   },
+
+  // ---- 家事テンプレート管理 ----------------------------------------
+
+  async fetchAdminHouseworkTemplates(): Promise<AdminHouseworkTemplateModel[]> {
+    const res = await apiClient.get<AdminHouseworkTemplateDto[]>('/api/admin/housework-templates')
+    return res.data.map(toAdminHouseworkTemplateModel)
+  },
+
+  async createAdminHouseworkTemplate(
+    req: AdminHouseworkTemplateRequest,
+  ): Promise<AdminHouseworkTemplateModel> {
+    const res = await apiClient.post<AdminHouseworkTemplateDto>(
+      '/api/admin/housework-templates',
+      req,
+    )
+    return toAdminHouseworkTemplateModel(res.data)
+  },
+
+  async updateAdminHouseworkTemplate(
+    id: number,
+    req: AdminHouseworkTemplateRequest,
+  ): Promise<void> {
+    await apiClient.put(`/api/admin/housework-templates/${id}`, req)
+  },
+
+  async deleteAdminHouseworkTemplate(id: number): Promise<void> {
+    await apiClient.delete(`/api/admin/housework-templates/${id}`)
+  },
 }
 
 // ---- Response DTO ------------------------------------------------
@@ -186,6 +215,43 @@ interface AdminInquiryDto {
   staffMessageCount: number
 }
 
+interface AdminHouseworkTemplateDto {
+  houseworkTemplateId: number
+  nameJa: string
+  nameEn: string
+  nameEs: string
+  descriptionJa: string | null
+  descriptionEn: string | null
+  descriptionEs: string | null
+  recommendationJa: string | null
+  recommendationEn: string | null
+  recommendationEs: string | null
+  category: string
+  recurrenceType: string
+  weeklyDays: number | null
+  dayOfMonth: number | null
+  nthWeek: string | null
+  weekday: string | null
+}
+
+export interface AdminHouseworkTemplateRequest {
+  nameJa: string
+  nameEn: string
+  nameEs: string
+  descriptionJa: string | null
+  descriptionEn: string | null
+  descriptionEs: string | null
+  recommendationJa: string | null
+  recommendationEn: string | null
+  recommendationEs: string | null
+  category: string
+  recurrenceType: string
+  weeklyDays: number | null
+  dayOfMonth: number | null
+  nthWeek: string | null
+  weekday: string | null
+}
+
 // ---- Mapper ------------------------------------------------------
 const toAdminUserModel = (dto: AdminUserDto): AdminUserModel => ({
   userId: dto.userId,
@@ -232,4 +298,25 @@ const toInquiryStatusSummaryModel = (dto: InquiryStatusSummaryDto): InquiryStatu
   pendingStaff: dto.pendingStaff,
   staffAnswered: dto.staffAnswered,
   recentUnclosed: dto.recentUnclosed,
+})
+
+const toAdminHouseworkTemplateModel = (
+  dto: AdminHouseworkTemplateDto,
+): AdminHouseworkTemplateModel => ({
+  houseworkTemplateId: dto.houseworkTemplateId,
+  nameJa: dto.nameJa,
+  nameEn: dto.nameEn,
+  nameEs: dto.nameEs,
+  descriptionJa: dto.descriptionJa,
+  descriptionEn: dto.descriptionEn,
+  descriptionEs: dto.descriptionEs,
+  recommendationJa: dto.recommendationJa,
+  recommendationEn: dto.recommendationEn,
+  recommendationEs: dto.recommendationEs,
+  category: dto.category,
+  recurrenceType: dto.recurrenceType,
+  weeklyDays: dto.weeklyDays,
+  dayOfMonth: dto.dayOfMonth,
+  nthWeek: dto.nthWeek,
+  weekday: dto.weekday,
 })
