@@ -502,4 +502,109 @@ describe('adminApi', () => {
       })
     })
   })
+
+  // ---- housework templates -------------------------------------
+
+  describe('fetchAdminHouseworkTemplates', () => {
+    it('家事テンプレート一覧エンドポイントにGETリクエストを送る', async () => {
+      mockedApiClient.get.mockResolvedValue({ data: [] })
+
+      await adminApi.fetchAdminHouseworkTemplates()
+
+      expect(mockedApiClient.get).toHaveBeenCalledWith('/api/admin/housework-templates')
+    })
+
+    it('DTOをAdminHouseworkTemplateModelにマッピングする', async () => {
+      const dto = {
+        houseworkTemplateId: 1,
+        nameJa: '名前',
+        nameEn: 'Name',
+        nameEs: 'Nombre',
+        descriptionJa: '説明',
+        descriptionEn: 'Desc',
+        descriptionEs: 'Desc',
+        recommendationJa: '推奨',
+        recommendationEn: 'Rec',
+        recommendationEs: 'Rec',
+        category: 'cat1',
+        recurrenceType: 'weekly',
+        weeklyDays: 1,
+        dayOfMonth: null,
+        nthWeek: null,
+        weekday: null,
+      }
+      mockedApiClient.get.mockResolvedValue({ data: [dto] })
+
+      const result = await adminApi.fetchAdminHouseworkTemplates()
+
+      expect(result).toHaveLength(1)
+      expect(result[0]).toEqual(dto)
+    })
+  })
+
+  describe('createAdminHouseworkTemplate', () => {
+    it('家事テンプレートをPOSTリクエストで作成する', async () => {
+      const req = {
+        nameJa: '新規',
+        nameEn: 'New',
+        nameEs: 'Nuevo',
+        descriptionJa: '説明',
+        descriptionEn: null,
+        descriptionEs: null,
+        recommendationJa: null,
+        recommendationEn: null,
+        recommendationEs: null,
+        category: 'cat1',
+        recurrenceType: 'daily',
+        weeklyDays: null,
+        dayOfMonth: null,
+        nthWeek: null,
+        weekday: null,
+      }
+      const resDto = { ...req, houseworkTemplateId: 10 }
+      mockedApiClient.post.mockResolvedValue({ data: resDto })
+
+      const result = await adminApi.createAdminHouseworkTemplate(req)
+
+      expect(mockedApiClient.post).toHaveBeenCalledWith('/api/admin/housework-templates', req)
+      expect(result).toEqual(resDto)
+    })
+  })
+
+  describe('updateAdminHouseworkTemplate', () => {
+    it('家事テンプレートをPUTリクエストで更新する', async () => {
+      const req = {
+        nameJa: '更新',
+        nameEn: 'Update',
+        nameEs: 'Actualizar',
+        descriptionJa: '説明',
+        descriptionEn: null,
+        descriptionEs: null,
+        recommendationJa: null,
+        recommendationEn: null,
+        recommendationEs: null,
+        category: 'cat1',
+        recurrenceType: 'daily',
+        weeklyDays: null,
+        dayOfMonth: null,
+        nthWeek: null,
+        weekday: null,
+      }
+      mockedApiClient.put.mockResolvedValue({})
+
+      await adminApi.updateAdminHouseworkTemplate(10, req)
+
+      expect(mockedApiClient.put).toHaveBeenCalledWith('/api/admin/housework-templates/10', req)
+    })
+  })
+
+  describe('deleteAdminHouseworkTemplate', () => {
+    it('家事テンプレートをDELETEリクエストで削除する', async () => {
+      mockedApiClient.delete.mockResolvedValue({})
+
+      await adminApi.deleteAdminHouseworkTemplate(20)
+
+      expect(mockedApiClient.delete).toHaveBeenCalledWith('/api/admin/housework-templates/20')
+    })
+  })
 })
