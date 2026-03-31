@@ -73,7 +73,10 @@ export interface InquiryStatusSummaryModel {
   aiAnswered: number
   pendingStaff: number
   staffAnswered: number
-  recentUnclosed: number
+  staleUnclosedOpen: number
+  staleUnclosedAiAnswered: number
+  staleUnclosedPendingStaff: number
+  staleUnclosedStaffAnswered: number
 }
 
 /** 問い合わせメッセージ日次集計 */

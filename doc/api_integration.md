@@ -42,6 +42,7 @@
 | **家事設定一覧** | GET | `/api/houseworks` | 家事マスタ一覧の取得 | `houseworkStore` (`houseworkApi`) |
 | | DELETE | `/api/houseworks/{id}` | 家事マスタの削除 | `houseworkStore` (`houseworkApi`) |
 | **家事新規作成** | POST | `/api/houseworks` | 新しい家事マスタの登録 | `houseworkStore` (`houseworkApi`) |
+| | GET | `/api/housework-templates` | システムテンプレート全件取得（モーダル表示用） | `houseworkTemplateStore` (`houseworkTemplateApi`) |
 | **家事編集** | GET | `/api/houseworks/{id}` | 家事マスタ詳細の取得 | `houseworkStore` (`houseworkApi`) |
 | | PUT | `/api/houseworks/{id}` | 家事マスタ情報の更新 | `houseworkStore` (`houseworkApi`) |
 
@@ -118,9 +119,9 @@
 
 | 画面名 | メソッド | API エンドポイント | 機能概要 | 関連コンポーネント |
 | :--- | :--- | :--- | :--- | :--- |
-| **ユーザー管理** | GET | `/api/admin/users/search` | ユーザー検索（email/isActive/locale 絞り込み） | `adminUserStore` (`adminApi`) |
-| | POST | `/api/admin/users` | ユーザー新規登録（認証スキップ・即時active） | `adminUserStore` (`adminApi`) |
-| | PUT | `/api/admin/users/{userId}` | ユーザー情報更新（表示名/言語/パスワード/isActive） | `adminUserStore` (`adminApi`) |
+| **ユーザー管理** | GET | `/api/users/admin/search` | ユーザー検索（email/isActive/locale 絞り込み） | `adminUserStore` (`adminApi`) |
+| | POST | `/api/users/admin` | ユーザー新規登録（認証スキップ・即時active） | `adminUserStore` (`adminApi`) |
+| | PUT | `/api/users/admin/{userId}` | ユーザー情報更新（表示名/言語/パスワード/isActive） | `adminUserStore` (`adminApi`) |
 
 ### 8-2. ロール管理（ROLE_MANAGE）
 
@@ -139,3 +140,12 @@
 | **問い合わせ管理（全件検索）** | GET | `/api/admin/inquiries/search` | 全件検索（日付範囲/userId/カテゴリ/ステータス） | `adminInquiryStore` (`adminApi`) |
 | **問い合わせ詳細（管理）** | GET | `/api/admin/inquiries/{inquiryId}` | 問い合わせ詳細取得（userId チェックなし） | `adminInquiryStore` (`adminApi`) |
 | | POST | `/api/admin/inquiries/{inquiryId}/reply` | スタッフとして返信 | `adminInquiryStore` (`adminApi`) |
+
+### 8-4. 家事テンプレート管理（SYS_TEMPLATE_MNG）
+
+| 画面名 | メソッド | API エンドポイント | 機能概要 | 関連コンポーネント |
+| :--- | :--- | :--- | :--- | :--- |
+| **テンプレート管理（一覧）** | GET | `/api/admin/housework-templates` | テンプレート全件取得 | `adminHouseworkTemplateStore` (`adminApi`) |
+| **テンプレート新規作成** | POST | `/api/admin/housework-templates` | テンプレート登録（3言語/周期設定） | `adminHouseworkTemplateStore` (`adminApi`) |
+| **テンプレート編集** | PUT | `/api/admin/housework-templates/{id}` | テンプレート更新 | `adminHouseworkTemplateStore` (`adminApi`) |
+| **テンプレート削除** | DELETE | `/api/admin/housework-templates/{id}` | テンプレート削除（物理削除） | `adminHouseworkTemplateStore` (`adminApi`) |

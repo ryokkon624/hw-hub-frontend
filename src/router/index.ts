@@ -57,6 +57,8 @@ import AdminInquiryDetailPage from '@/views/admin/AdminInquiryDetailPage.vue'
 import AdminTopPage from '@/views/admin/AdminTopPage.vue'
 import AdminRolesPage from '@/views/admin/AdminRolesPage.vue'
 import AdminUsersPage from '@/views/admin/AdminUsersPage.vue'
+import AdminHouseworkTemplatesPage from '@/views/admin/AdminHouseworkTemplatesPage.vue'
+import AdminHouseworkTemplateFormPage from '@/views/admin/AdminHouseworkTemplateFormPage.vue'
 
 import { useAuthStore } from '@/stores/authStore'
 import { useNotificationStore } from '@/stores/notificationStore'
@@ -290,6 +292,37 @@ const routes: RouteRecordRaw[] = [
               titleKey: 'pageTitles.adminInquiryDetail',
               requiresAuth: true,
               requiresPermission: PERMISSION.INQUIRY_REPLY,
+            },
+          },
+          {
+            path: 'housework-templates',
+            name: 'admin.houseworkTemplates',
+            component: AdminHouseworkTemplatesPage,
+            meta: {
+              titleKey: 'pageTitles.adminHouseworkTemplates',
+              requiresAuth: true,
+              requiresPermission: PERMISSION.SYS_TEMPLATE_MNG,
+            },
+          },
+          {
+            path: 'housework-templates/new',
+            name: 'admin.houseworkTemplates.new',
+            component: AdminHouseworkTemplateFormPage,
+            meta: {
+              titleKey: 'pageTitles.adminHouseworkTemplateNew',
+              requiresAuth: true,
+              requiresPermission: PERMISSION.SYS_TEMPLATE_MNG,
+            },
+          },
+          {
+            path: 'housework-templates/:id/edit',
+            name: 'admin.houseworkTemplates.edit',
+            component: AdminHouseworkTemplateFormPage,
+            props: (route) => ({ id: Number(route.params.id) }),
+            meta: {
+              titleKey: 'pageTitles.adminHouseworkTemplateEdit',
+              requiresAuth: true,
+              requiresPermission: PERMISSION.SYS_TEMPLATE_MNG,
             },
           },
         ],

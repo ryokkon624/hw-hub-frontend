@@ -190,5 +190,10 @@ export const useShoppingStore = defineStore('shopping', {
 
       item.favorite = next === FAVORITE_FLAG.FAVORITE
     },
+
+    clear() {
+      this.itemsByHouseholdId = {}
+      this.lastFetchedAtByHouseholdId = {}
+    },
   },
 })

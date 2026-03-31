@@ -1,16 +1,23 @@
 <script setup lang="ts">
-import { computed, onMounted, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useForm, Field, ErrorMessage } from 'vee-validate'
 import type { HouseworkFormModel } from '@/domain'
 import type { HouseholdMember } from '@/domain'
-import { houseworkFormTypedSchema } from '@/domain'
+import { houseworkFormTypedSchema, weeklyDaysMaskToCodes } from '@/domain'
 import { useHouseholdStore } from '@/stores/householdStore'
 import { useHouseworkCodes } from '@/composables/useHouseworkCodes'
-import { RECURRENCE_TYPE } from '@/constants/code.constants'
+import { RECURRENCE_TYPE, CATEGORY } from '@/constants/code.constants'
+import type { CategoryCode, RecurrenceTypeCode } from '@/constants/code.constants'
+import { weeklyDaysMaskToLabel } from '@/utils/weeklyDaysLabel'
+import { useHouseworkTemplateStore } from '@/stores/houseworkTemplateStore'
+import type { HouseworkTemplateModel } from '@/domain'
+import { useHouseworkTemplate } from '@/composables/useHouseworkTemplate'
+import { LayoutTemplate, X } from 'lucide-vue-next'
 
 const props = defineProps<{
   modelValue: HouseworkFormModel
+  isCreate?: boolean
 }>()
 
 const emits = defineEmits<{
@@ -19,10 +26,20 @@ const emits = defineEmits<{
   (e: 'cancel'): void
 }>()
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const householdStore = useHouseholdStore()
-const { recurrenceTypeOptions, categoryOptions, weekdayOptions, nthWeekOptions } =
-  useHouseworkCodes()
+const {
+  recurrenceTypeOptions,
+  categoryOptions,
+  weekdayOptions,
+  nthWeekOptions,
+  categoryLabel,
+  recurrenceTypeLabel,
+  weekdayLabel,
+  nthWeekLabel,
+} = useHouseworkCodes()
+const { getLocalizedName, getLocalizedDescription, getLocalizedRecommendation } =
+  useHouseworkTemplate()
 
 onMounted(async () => {
   if (householdStore.currentHouseholdId) {
@@ -30,8 +47,25 @@ onMounted(async () => {
   }
 })
 
+const templateStore = useHouseworkTemplateStore()
+const showTemplateModal = ref(false)
+const selectedRecommendation = ref<string | null>(null)
+const templateFilterCategory = ref<string>('ALL')
+
+const filteredTemplates = computed(() => {
+  if (templateFilterCategory.value === 'ALL') return templateStore.templates
+  return templateStore.templates.filter(
+    (t: HouseworkTemplateModel) => t.category === templateFilterCategory.value,
+  )
+})
+
+const closeTemplateModal = () => {
+  showTemplateModal.value = false
+  templateFilterCategory.value = 'ALL'
+}
+
 // useForm でフォーム状態＋バリデーションを管理
-const { handleSubmit, values, setValues } = useForm<HouseworkFormModel>({
+const { handleSubmit, values, setValues, setFieldValue } = useForm<HouseworkFormModel>({
   validationSchema: houseworkFormTypedSchema,
   initialValues: props.modelValue,
 })
@@ -54,6 +88,29 @@ watch(
   { deep: true },
 )
 
+// テンプレートモーダルを開く
+const openTemplateModal = async () => {
+  await templateStore.loadAllIfNeeded()
+  showTemplateModal.value = true
+}
+
+// テンプレート選択時の処理
+const applyTemplate = (template: HouseworkTemplateModel) => {
+  setFieldValue('name', getLocalizedName(template))
+  setFieldValue('description', getLocalizedDescription(template) ?? '')
+
+  setFieldValue('category', template.category as CategoryCode)
+  setFieldValue('recurrenceType', template.recurrenceType as RecurrenceTypeCode)
+  setFieldValue('weeklyDays', weeklyDaysMaskToCodes(template.weeklyDays ?? 0))
+  setFieldValue('dayOfMonthOption', template.dayOfMonth)
+  setFieldValue('nthWeek', template.nthWeek)
+  setFieldValue('weekday', template.weekday)
+
+  selectedRecommendation.value = getLocalizedRecommendation(template)
+
+  closeTemplateModal()
+}
+
 // 周期タイプで表示制御
 const isWeekly = computed(() => values.recurrenceType === RECURRENCE_TYPE.WEEKLY)
 const isMonthly = computed(() => values.recurrenceType === RECURRENCE_TYPE.MONTHLY)
@@ -69,10 +126,79 @@ const onCancel = () => {
 }
 
 const members = computed<HouseholdMember[]>(() => householdStore.currentMembers)
+
+const categoryColorClass = (category: string | null | undefined): string => {
+  switch (category) {
+    case CATEGORY.CLEAN:
+      return 'bg-blue-50 text-blue-600'
+    case CATEGORY.KITCHEN:
+      return 'bg-orange-50 text-orange-600'
+    case CATEGORY.GARDEN:
+      return 'bg-cyan-50 text-cyan-600'
+    case CATEGORY.GARBAGE:
+      return 'bg-emerald-50 text-emerald-600'
+    case CATEGORY.PET:
+      return 'bg-purple-50 text-purple-600'
+    default:
+      return 'bg-hwhub-surface-subtle text-hwhub-muted'
+  }
+}
+
+const buildTemplateSummary = (tmpl: HouseworkTemplateModel): string => {
+  const type = tmpl.recurrenceType
+
+  if (type === RECURRENCE_TYPE.WEEKLY) {
+    const days = tmpl.weeklyDays != null ? weeklyDaysMaskToLabel(tmpl.weeklyDays, locale.value) : ''
+    if (!days) return t('housework.recurrence.weekly')
+    return t('housework.recurrence.weeklyWithDays', { days })
+  }
+
+  if (type === RECURRENCE_TYPE.MONTHLY) {
+    if (tmpl.dayOfMonth === 31) return t('housework.recurrence.monthlyLastDay')
+    if (tmpl.dayOfMonth != null)
+      return t('housework.recurrence.monthlyWithDay', { day: tmpl.dayOfMonth })
+    return t('housework.recurrence.monthly')
+  }
+
+  if (type === RECURRENCE_TYPE.NTH_WEEKDAY) {
+    const nth = nthWeekLabel(tmpl.nthWeek)
+    const wd = weekdayLabel(tmpl.weekday)
+    if (nth && wd) return t('housework.recurrence.nthWeekday', { nth, weekday: wd })
+    return t('housework.recurrence.nthWeekdayPlain')
+  }
+
+  return recurrenceTypeLabel(type)
+}
 </script>
 
 <template>
   <form class="space-y-4" @submit.prevent="onSubmitInternal">
+    <!-- テンプレート選択ボタン（新規作成時のみ） -->
+    <template v-if="props.isCreate">
+      <!-- PC版 -->
+      <div class="hidden sm:flex justify-end">
+        <button
+          type="button"
+          class="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-hwhub-primary px-4 py-1.5 text-sm font-semibold text-white hover:opacity-90 transition"
+          @click="openTemplateModal"
+        >
+          <LayoutTemplate class="w-3.5 h-3.5" />
+          {{ t('housework.form.templateSelectButton') }}
+        </button>
+      </div>
+      <!-- SP版 -->
+      <div class="sm:hidden">
+        <button
+          type="button"
+          class="w-full inline-flex items-center justify-center gap-1.5 rounded-full bg-hwhub-primary px-4 py-2 text-sm font-semibold text-white hover:opacity-90 transition"
+          @click="openTemplateModal"
+        >
+          <LayoutTemplate class="w-3.5 h-3.5" />
+          {{ t('housework.form.templateSelectButton') }}
+        </button>
+      </div>
+    </template>
+
     <!-- ① 基本情報カード -->
     <section class="rounded-xl border bg-white p-4 shadow-sm space-y-4">
       <div>
@@ -139,6 +265,24 @@ const members = computed<HouseholdMember[]>(() => householdStore.currentMembers)
         </ErrorMessage>
       </div>
     </section>
+
+    <!-- recommendation バナー（テンプレート選択後に表示） -->
+    <div
+      v-if="selectedRecommendation"
+      class="rounded-lg bg-amber-50 border border-amber-200 px-3 py-2 flex items-start justify-between gap-2"
+    >
+      <div class="flex items-start gap-2">
+        <span class="text-amber-500 text-xs mt-0.5">💡</span>
+        <p class="text-xs text-amber-700">{{ selectedRecommendation }}</p>
+      </div>
+      <button
+        type="button"
+        class="text-amber-400 hover:text-amber-600 shrink-0"
+        @click="selectedRecommendation = null"
+      >
+        <X class="w-3.5 h-3.5" />
+      </button>
+    </div>
 
     <!-- ② 周期設定カード -->
     <section class="rounded-xl border bg-white p-4 shadow-sm space-y-4">
@@ -355,4 +499,107 @@ const members = computed<HouseholdMember[]>(() => householdStore.currentMembers)
       </button>
     </div>
   </form>
+
+  <!-- テンプレート選択モーダル -->
+  <Teleport to="body">
+    <div
+      v-if="showTemplateModal"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+      @click.self="closeTemplateModal"
+    >
+      <div
+        class="bg-white rounded-xl shadow-xl w-full max-w-md max-h-[70vh] flex flex-col overflow-hidden"
+      >
+        <!-- ヘッダー -->
+        <div class="flex items-center justify-between px-4 py-3 border-b border-hwhub-border">
+          <h3 class="text-sm font-semibold text-hwhub-heading">
+            {{ t('housework.form.templateModal.title') }}
+          </h3>
+          <button type="button" @click="closeTemplateModal">
+            <X class="w-4 h-4 text-hwhub-muted" />
+          </button>
+        </div>
+
+        <!-- カテゴリフィルター -->
+        <div class="px-4 py-2 border-b border-hwhub-border bg-hwhub-surface-subtle">
+          <div class="flex flex-wrap gap-1.5">
+            <button
+              type="button"
+              class="rounded-full px-2.5 py-0.5 text-[11px] font-medium transition"
+              :class="
+                templateFilterCategory === 'ALL'
+                  ? 'bg-hwhub-primary text-white'
+                  : 'bg-white border border-hwhub-border text-hwhub-muted hover:bg-hwhub-surface'
+              "
+              @click="templateFilterCategory = 'ALL'"
+            >
+              {{ t('housework.form.templateModal.filterAll') }}
+            </button>
+            <button
+              v-for="opt in categoryOptions"
+              :key="opt.value"
+              type="button"
+              class="rounded-full px-2.5 py-0.5 text-[11px] font-medium transition"
+              :class="
+                templateFilterCategory === opt.value
+                  ? 'bg-hwhub-primary text-white'
+                  : 'bg-white border border-hwhub-border text-hwhub-muted hover:bg-hwhub-surface'
+              "
+              @click="templateFilterCategory = opt.value"
+            >
+              {{ opt.label }}
+            </button>
+          </div>
+        </div>
+
+        <!-- ローディング -->
+        <div v-if="templateStore.isLoading" class="p-6 text-center text-xs text-hwhub-muted">
+          {{ t('common.loading') }}
+        </div>
+
+        <!-- テンプレート一覧 -->
+        <ul v-else class="overflow-y-auto divide-y divide-hwhub-border">
+          <li
+            v-if="filteredTemplates.length === 0"
+            class="px-4 py-6 text-center text-xs text-hwhub-muted"
+          >
+            {{ t('housework.form.templateModal.empty') }}
+          </li>
+          <li
+            v-for="tmpl in filteredTemplates"
+            :key="tmpl.houseworkTemplateId"
+            class="px-4 py-3 hover:bg-hwhub-surface-subtle cursor-pointer transition"
+            @click="applyTemplate(tmpl)"
+          >
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-hwhub-heading truncate">
+                  {{ getLocalizedName(tmpl) }}
+                </p>
+                <!-- recurrence サマリー -->
+                <p class="mt-0.5 text-xs text-hwhub-muted">
+                  {{ buildTemplateSummary(tmpl) }}
+                </p>
+                <!-- recommendation プレビュー -->
+                <p
+                  v-if="getLocalizedRecommendation(tmpl)"
+                  class="mt-1 text-xs text-amber-600 flex items-center gap-1"
+                >
+                  <span>💡</span>
+                  <span class="line-clamp-1">{{ getLocalizedRecommendation(tmpl) }}</span>
+                </p>
+              </div>
+              <!-- カテゴリバッジ -->
+              <span
+                class="shrink-0 text-[10px] rounded-full px-2 py-0.5"
+                :class="categoryColorClass(tmpl.category)"
+              >
+                {{ categoryLabel(tmpl.category) }}
+              </span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </Teleport>
 </template>

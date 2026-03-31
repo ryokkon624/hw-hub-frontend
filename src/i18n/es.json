@@ -123,7 +123,10 @@
     "adminRoles": "Gestión de roles",
     "adminInquiries": "Gestión de consultas",
     "adminInquiryDetail": "Detalle de consulta (Admin)",
-    "adminUsers": "Gestión de usuarios"
+    "adminUsers": "Gestión de usuarios",
+    "adminHouseworkTemplates": "Plantillas de tareas",
+    "adminHouseworkTemplateNew": "Agregar plantilla",
+    "adminHouseworkTemplateEdit": "Editar plantilla"
   },
   "nav": {
     "admin": "Admin"
@@ -135,7 +138,10 @@
       "status": {
         "title": "Estado de consultas",
         "subtitle": "Conteo actual por estado",
-        "recentUnclosedLabel": "Sin cerrar por 3+ días",
+        "unclosedSection": "Sin cerrar",
+        "totalUnclosed": "Total sin cerrar",
+        "staleSection": "Sin cerrar por 3+ días",
+        "totalStaleUnclosed": "Total antiguo sin cerrar",
         "unit": ""
       },
       "inquiryStats": {
@@ -161,6 +167,10 @@
       "inquiries": {
         "title": "Gestión de consultas",
         "subtitle": "Gestionar consultas de usuarios"
+      },
+      "houseworkTemplate": {
+        "title": "Plantillas de tareas",
+        "subtitle": "Gestionar plantillas del sistema"
       }
     },
     "users": {
@@ -263,6 +273,40 @@
         "removed": "Rol eliminado.",
         "error": "La operación falló."
       }
+    },
+    "houseworkTemplate": {
+      "createButton": "Agregar plantilla",
+      "columns": {
+        "nameJa": "Nombre (JA)",
+        "recommendation": "Consejo"
+      },
+      "form": {
+        "nameJa": "Nombre (japonés)",
+        "nameEn": "Nombre (inglés)",
+        "nameEs": "Nombre (español)",
+        "descriptionJa": "Descripción (japonés)",
+        "descriptionEn": "Descripción (inglés)",
+        "descriptionEs": "Descripción (español)",
+        "recommendationSection": "Recomendación",
+        "recommendationJa": "Recomendación (japonés)",
+        "recommendationEn": "Recomendación (inglés)",
+        "recommendationEs": "Recomendación (español)"
+      },
+      "toast": {
+        "created": "Plantilla creada.",
+        "updated": "Plantilla actualizada.",
+        "deleted": "Plantilla eliminada.",
+        "error": "Por favor revise su entrada."
+      },
+      "validation": {
+        "descriptionAllOrNone": "Complete los tres idiomas de descripción o déjelos todos en blanco.",
+        "recommendationAllOrNone": "Complete los tres idiomas de recomendación o déjelos todos en blanco.",
+        "weeklyDaysRequired": "Por favor seleccione al menos un día de la semana.",
+        "dayOfMonthRequired": "Por favor ingrese el día del mes.",
+        "nthWeekRequired": "Por favor seleccione qué semana.",
+        "weekdayRequired": "Por favor seleccione un día de la semana."
+      },
+      "deleteConfirm": "¿Eliminar esta plantilla?"
     }
   },
   "login": {
@@ -853,6 +897,12 @@
         "startDate": "Fecha de inicio",
         "endDate": "Fecha de fin"
       },
+      "templateSelectButton": "Seleccionar plantilla del sistema",
+      "templateModal": {
+        "title": "Seleccionar plantilla de tareas",
+        "filterAll": "Todos",
+        "empty": "No se encontraron plantillas."
+      },
       "errors": {
         "name": {
           "required": "El nombre es obligatorio.",
@@ -1399,6 +1449,7 @@
   "common": {
     "cancel": "Cancelar",
     "save": "Guardar",
+    "delete": "Eliminar",
     "loading": "Cargando...",
     "selectPlaceholder": "Por favor selecciona",
     "logout": "Cerrar sesión",

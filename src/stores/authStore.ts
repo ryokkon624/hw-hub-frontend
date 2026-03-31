@@ -8,6 +8,9 @@ import { HOUSEHOLD_MEMBER_STATUS } from '@/constants/code.constants'
 import { nextTick } from 'vue'
 import { useNotificationStore } from './notificationStore'
 import { useRoleStore } from './roleStore'
+import { useAdminHouseworkTemplateStore } from './adminHouseworkTemplateStore'
+import { useHouseworkStore } from './houseworkStore'
+import { useShoppingStore } from './shoppingStore'
 
 interface AuthState {
   accessToken: string | null
@@ -193,6 +196,18 @@ export const useAuthStore = defineStore('auth', {
 
       const roleStore = useRoleStore()
       roleStore.clear()
+
+      const houseworkTemplateStore = useAdminHouseworkTemplateStore()
+      houseworkTemplateStore.clear()
+
+      const notificationStore = useNotificationStore()
+      notificationStore.clear()
+
+      const houseworkStore = useHouseworkStore()
+      houseworkStore.clear()
+
+      const shoppingStore = useShoppingStore()
+      shoppingStore.clear()
     },
 
     /**

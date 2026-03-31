@@ -123,7 +123,10 @@
     "adminRoles": "Role Management",
     "adminInquiries": "Inquiry Management",
     "adminInquiryDetail": "Inquiry Detail (Admin)",
-    "adminUsers": "User Management"
+    "adminUsers": "User Management",
+    "adminHouseworkTemplates": "Housework Templates",
+    "adminHouseworkTemplateNew": "Add Template",
+    "adminHouseworkTemplateEdit": "Edit Template"
   },
   "nav": {
     "admin": "Admin"
@@ -135,7 +138,10 @@
       "status": {
         "title": "Inquiry Status",
         "subtitle": "Current count by status",
-        "recentUnclosedLabel": "Unclosed for 3+ days",
+        "unclosedSection": "Unclosed",
+        "totalUnclosed": "Total Unclosed",
+        "staleSection": "Unclosed for 3+ days",
+        "totalStaleUnclosed": "Total Stale Unclosed",
         "unit": ""
       },
       "inquiryStats": {
@@ -161,6 +167,10 @@
       "inquiries": {
         "title": "Inquiry Management",
         "subtitle": "Handle user inquiries"
+      },
+      "houseworkTemplate": {
+        "title": "Housework Template",
+        "subtitle": "Manage system housework templates"
       }
     },
     "users": {
@@ -263,6 +273,40 @@
         "removed": "Role removed.",
         "error": "Operation failed."
       }
+    },
+    "houseworkTemplate": {
+      "createButton": "Add Template",
+      "columns": {
+        "nameJa": "Name (JA)",
+        "recommendation": "Tip"
+      },
+      "form": {
+        "nameJa": "Name (Japanese)",
+        "nameEn": "Name (English)",
+        "nameEs": "Name (Spanish)",
+        "descriptionJa": "Description (Japanese)",
+        "descriptionEn": "Description (English)",
+        "descriptionEs": "Description (Spanish)",
+        "recommendationSection": "Recommendation",
+        "recommendationJa": "Recommendation (Japanese)",
+        "recommendationEn": "Recommendation (English)",
+        "recommendationEs": "Recommendation (Spanish)"
+      },
+      "toast": {
+        "created": "Template created.",
+        "updated": "Template updated.",
+        "deleted": "Template deleted.",
+        "error": "Please check your input."
+      },
+      "validation": {
+        "descriptionAllOrNone": "Please fill in all three languages for description, or leave all blank.",
+        "recommendationAllOrNone": "Please fill in all three languages for recommendation, or leave all blank.",
+        "weeklyDaysRequired": "Please select at least one day of the week.",
+        "dayOfMonthRequired": "Please enter the day of month.",
+        "nthWeekRequired": "Please select which week.",
+        "weekdayRequired": "Please select a day of the week."
+      },
+      "deleteConfirm": "Delete this template?"
     }
   },
   "login": {
@@ -853,6 +897,12 @@
         "startDate": "Start date",
         "endDate": "End date"
       },
+      "templateSelectButton": "Select from system template",
+      "templateModal": {
+        "title": "Select Housework Template",
+        "filterAll": "All",
+        "empty": "No templates found."
+      },
       "errors": {
         "name": {
           "required": "Name is required.",
@@ -1399,6 +1449,7 @@
   "common": {
     "cancel": "Cancel",
     "save": "Save",
+    "delete": "Delete",
     "loading": "Loading...",
     "selectPlaceholder": "Please select",
     "logout": "Log out",

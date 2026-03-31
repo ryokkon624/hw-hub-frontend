@@ -9,6 +9,7 @@
 - **INQUIRY_REPLY**: パーミッション `INQUIRY_REPLY`（問い合わせ返信）が必要
 - **USER_LIST_VIEW**: パーミッション `USER_LIST_VIEW`（ユーザー管理）が必要
 - **ROLE_MANAGE**: パーミッション `ROLE_MANAGE`（ロール管理）が必要
+- **SYS_TEMPLATE_MNG**: パーミッション `SYS_TEMPLATE_MNG`（家事テンプレート管理）が必要
 
 ---
 
@@ -50,7 +51,7 @@
 | **アカウント設定** | `/settings/account` | 認証必須 | ・プロフィール変更（表示名/アイコン/言語）<br>・パスワード変更<br>・アカウント削除 |
 | **世帯設定** | `/settings/household` | 認証必須 | ・世帯切り替え/新規作成<br>・世帯名変更<br>・メンバー一覧/招待/削除/権限譲渡<br>・世帯削除 |
 | **家事設定一覧** | `/settings/housework` | 認証必須 | ・登録済み家事マスタの一覧表示<br>・カテゴリフィルタ・ソート・ページング<br>・新規作成/編集画面へ遷移 |
-| **家事新規作成** | `/settings/housework/new` | 認証必須 | ・新しい家事マスタの登録 |
+| **家事新規作成** | `/settings/housework/new` | 認証必須 | ・新しい家事マスタの登録<br>・システムテンプレートから選択可（モーダル） |
 | **家事編集** | `/settings/housework/:houseworkId/edit` | 認証必須 | ・家事マスタの編集・削除 |
 | **問い合わせ一覧** | `/settings/inquiry` | 認証必須 | ・問い合わせ一覧表示（カテゴリ・ステータス・ID表示）<br>・新規問い合わせ画面へ遷移 |
 | **問い合わせ新規作成** | `/settings/inquiry/new` | 認証必須 | ・カテゴリ・件名・本文を入力して送信 |
@@ -70,6 +71,9 @@
 | **ロール管理** | `/admin/roles` | ROLE_MANAGE | ・メールアドレスでユーザー検索<br>・ロール（ADMIN/SUPPORT）の付与・削除 |
 | **問い合わせ管理** | `/admin/inquiries` | INQUIRY_REPLY | ・対応待ち一覧（PENDING_STAFF・作成日時昇順）<br>・全件検索（日付範囲/userId/カテゴリ/ステータス）<br>・ソート・ページング<br>・タブ状態・検索条件の復元 |
 | **問い合わせ詳細（管理）** | `/admin/inquiries/:inquiryId` | INQUIRY_REPLY | ・メッセージスレッド表示<br>・スタッフとして返信 |
+| **家事テンプレート管理（一覧）** | `/admin/housework-templates` | SYS_TEMPLATE_MNG | ・テンプレート一覧表示<br>・カテゴリフィルタ・ソート・ページング<br>・recommendation バッジ表示<br>・新規作成/編集画面へ遷移 |
+| **家事テンプレート新規作成** | `/admin/housework-templates/new` | SYS_TEMPLATE_MNG | ・3言語（JA/EN/ES）の家事名・説明・おすすめコメント入力<br>・カテゴリ・周期設定 |
+| **家事テンプレート編集** | `/admin/housework-templates/:id/edit` | SYS_TEMPLATE_MNG | ・テンプレートの編集・削除 |
 
 ---
 
@@ -77,8 +81,8 @@
 
 | ロール | code_value | 保有パーミッション |
 | :--- | :--- | :--- |
-| **ADMIN** | `ADMIN` | USER_LIST_VIEW / ROLE_MANAGE / INQUIRY_REPLY（全て） |
-| **SUPPORT** | `SPPRT` | INQUIRY_REPLY のみ |
+| **ADMIN** | `ADMIN` | USER_LIST_VIEW / ROLE_MANAGE / INQUIRY_REPLY / SYS_TEMPLATE_MNG（全て） |
+| **SUPPORT** | `SPPRT` | INQUIRY_REPLY / SYS_TEMPLATE_MNG |
 
 ---
 
@@ -173,13 +177,19 @@ stateDiagram-v2
     state "ロール管理" as AdminRoles
     state "問い合わせ管理" as AdminInquiries
     state "問い合わせ詳細(管理)" as AdminInquiryDetail
+    state "テンプレート管理" as AdminTemplates
+    state "テンプレート新規/編集" as AdminTemplateForm
 
     Home --> Admin : ナビゲーション(anyRole)
 
     Admin --> AdminUsers : USER_LIST_VIEW
     Admin --> AdminRoles : ROLE_MANAGE
     Admin --> AdminInquiries : INQUIRY_REPLY
+    Admin --> AdminTemplates : SYS_TEMPLATE_MNG
 
     AdminInquiries --> AdminInquiryDetail : 行クリック
     AdminInquiryDetail --> AdminInquiries : "キャンセル/戻る"
+
+    AdminTemplates --> AdminTemplateForm : 選択 / 追加ボタン
+    AdminTemplateForm --> AdminTemplates : "保存/削除/戻る"
 ```

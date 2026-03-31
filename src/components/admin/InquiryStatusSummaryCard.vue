@@ -12,6 +12,22 @@ const store = useAdminInquiryStore()
 const summary = computed(() => store.statusSummary)
 const isLoading = computed(() => store.isLoadingStatusSummary)
 
+const totalUnclosed = computed(
+  () =>
+    (summary.value?.open ?? 0) +
+    (summary.value?.aiAnswered ?? 0) +
+    (summary.value?.pendingStaff ?? 0) +
+    (summary.value?.staffAnswered ?? 0),
+)
+
+const totalStaleUnclosed = computed(
+  () =>
+    (summary.value?.staleUnclosedOpen ?? 0) +
+    (summary.value?.staleUnclosedAiAnswered ?? 0) +
+    (summary.value?.staleUnclosedPendingStaff ?? 0) +
+    (summary.value?.staleUnclosedStaffAnswered ?? 0),
+)
+
 onMounted(() => store.loadStatusSummary())
 </script>
 
@@ -34,7 +50,11 @@ onMounted(() => store.loadStatusSummary())
     </div>
 
     <template v-else>
-      <div class="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+      <!-- 上段: 未クローズ件数 -->
+      <p class="text-xs font-medium text-hwhub-muted mb-2">
+        {{ t('admin.dashboard.status.unclosedSection') }}
+      </p>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
         <div class="rounded-lg bg-emerald-50 border border-emerald-200 px-2 py-2 flex flex-col">
           <span class="text-hwhub-muted">{{ statusLabel(INQUIRY_STATUS.OPEN) }}</span>
           <span class="mt-1 text-base font-semibold text-emerald-700">
@@ -60,13 +80,56 @@ onMounted(() => store.loadStatusSummary())
           </span>
         </div>
       </div>
+      <div
+        class="mt-2 rounded-lg bg-emerald-50 border border-emerald-200 px-3 py-2 text-xs flex items-center justify-between"
+      >
+        <span class="text-emerald-700">{{ t('admin.dashboard.status.totalUnclosed') }}</span>
+        <span class="text-base font-semibold text-emerald-700">
+          {{ totalUnclosed }}{{ t('admin.dashboard.status.unit') }}
+        </span>
+      </div>
 
+      <hr class="border-hwhub-border my-2" />
+
+      <!-- 下段: 3日以上前の未クローズ -->
+      <p class="text-xs font-medium text-rose-500 mb-2">
+        {{ t('admin.dashboard.status.staleSection') }}
+      </p>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+        <div class="rounded-lg bg-emerald-50 border border-emerald-200 px-2 py-2 flex flex-col">
+          <span class="text-hwhub-muted">{{ statusLabel(INQUIRY_STATUS.OPEN) }}</span>
+          <span class="mt-1 text-base font-semibold text-emerald-700">
+            {{ summary?.staleUnclosedOpen ?? 0 }}{{ t('admin.dashboard.status.unit') }}
+          </span>
+        </div>
+        <div class="rounded-lg bg-blue-50 border border-blue-200 px-2 py-2 flex flex-col">
+          <span class="text-hwhub-muted">{{ statusLabel(INQUIRY_STATUS.AI_ANSWERED) }}</span>
+          <span class="mt-1 text-base font-semibold text-blue-700">
+            {{ summary?.staleUnclosedAiAnswered ?? 0 }}{{ t('admin.dashboard.status.unit') }}
+          </span>
+        </div>
+        <div class="rounded-lg bg-amber-50 border border-amber-200 px-2 py-2 flex flex-col">
+          <span class="text-hwhub-muted">{{ statusLabel(INQUIRY_STATUS.PENDING_STAFF) }}</span>
+          <span class="mt-1 text-base font-semibold text-amber-700">
+            {{ summary?.staleUnclosedPendingStaff ?? 0 }}{{ t('admin.dashboard.status.unit') }}
+          </span>
+        </div>
+        <div class="rounded-lg bg-violet-50 border border-violet-200 px-2 py-2 flex flex-col">
+          <span class="text-hwhub-muted">{{ statusLabel(INQUIRY_STATUS.STAFF_ANSWERED) }}</span>
+          <span class="mt-1 text-base font-semibold text-violet-700">
+            {{ summary?.staleUnclosedStaffAnswered ?? 0 }}{{ t('admin.dashboard.status.unit') }}
+          </span>
+        </div>
+      </div>
       <div
         class="mt-2 rounded-lg bg-rose-50 border border-rose-200 px-3 py-2 text-xs flex items-center justify-between"
       >
-        <span class="text-rose-600">{{ t('admin.dashboard.status.recentUnclosedLabel') }}</span>
-        <span class="text-base font-semibold text-rose-600">
-          {{ summary?.recentUnclosed ?? 0 }}{{ t('admin.dashboard.status.unit') }}
+        <span class="text-rose-600">{{ t('admin.dashboard.status.totalStaleUnclosed') }}</span>
+        <span
+          class="text-base text-rose-600"
+          :class="totalStaleUnclosed > 0 ? 'font-bold' : 'font-semibold'"
+        >
+          {{ totalStaleUnclosed }}{{ t('admin.dashboard.status.unit') }}
         </span>
       </div>
     </template>
