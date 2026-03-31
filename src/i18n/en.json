@@ -138,7 +138,10 @@
       "status": {
         "title": "Inquiry Status",
         "subtitle": "Current count by status",
-        "recentUnclosedLabel": "Unclosed for 3+ days",
+        "unclosedSection": "Unclosed",
+        "totalUnclosed": "Total Unclosed",
+        "staleSection": "Unclosed for 3+ days",
+        "totalStaleUnclosed": "Total Stale Unclosed",
         "unit": ""
       },
       "inquiryStats": {

@@ -139,7 +139,10 @@ interface InquiryStatusSummaryDto {
   aiAnswered: number
   pendingStaff: number
   staffAnswered: number
-  recentUnclosed: number
+  staleUnclosedOpen: number
+  staleUnclosedAiAnswered: number
+  staleUnclosedPendingStaff: number
+  staleUnclosedStaffAnswered: number
 }
 interface DailyInquiryMessageDto {
   date: string
@@ -297,7 +300,10 @@ const toInquiryStatusSummaryModel = (dto: InquiryStatusSummaryDto): InquiryStatu
   aiAnswered: dto.aiAnswered,
   pendingStaff: dto.pendingStaff,
   staffAnswered: dto.staffAnswered,
-  recentUnclosed: dto.recentUnclosed,
+  staleUnclosedOpen: dto.staleUnclosedOpen,
+  staleUnclosedAiAnswered: dto.staleUnclosedAiAnswered,
+  staleUnclosedPendingStaff: dto.staleUnclosedPendingStaff,
+  staleUnclosedStaffAnswered: dto.staleUnclosedStaffAnswered,
 })
 
 const toAdminHouseworkTemplateModel = (

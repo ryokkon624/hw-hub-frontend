@@ -472,7 +472,10 @@ describe('adminApi', () => {
         aiAnswered: 2,
         pendingStaff: 3,
         staffAnswered: 4,
-        recentUnclosed: 5,
+        staleUnclosedOpen: 1,
+        staleUnclosedAiAnswered: 0,
+        staleUnclosedPendingStaff: 2,
+        staleUnclosedStaffAnswered: 1,
       }
       mockedApiClient.get.mockResolvedValue({ data: dto })
 
@@ -487,7 +490,10 @@ describe('adminApi', () => {
         aiAnswered: 5,
         pendingStaff: 2,
         staffAnswered: 8,
-        recentUnclosed: 12,
+        staleUnclosedOpen: 3,
+        staleUnclosedAiAnswered: 1,
+        staleUnclosedPendingStaff: 0,
+        staleUnclosedStaffAnswered: 2,
       }
       mockedApiClient.get.mockResolvedValue({ data: dto })
 
@@ -498,7 +504,10 @@ describe('adminApi', () => {
         aiAnswered: 5,
         pendingStaff: 2,
         staffAnswered: 8,
-        recentUnclosed: 12,
+        staleUnclosedOpen: 3,
+        staleUnclosedAiAnswered: 1,
+        staleUnclosedPendingStaff: 0,
+        staleUnclosedStaffAnswered: 2,
       })
     })
   })

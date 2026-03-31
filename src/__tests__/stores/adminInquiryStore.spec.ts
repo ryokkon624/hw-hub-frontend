@@ -1,7 +1,12 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { useAdminInquiryStore } from '@/stores/adminInquiryStore'
-import type { AdminInquiryModel, AdminInquirySearchParams, InquiryDetail } from '@/domain'
+import type {
+  AdminInquiryModel,
+  AdminInquirySearchParams,
+  InquiryDetail,
+  InquiryStatusSummaryModel,
+} from '@/domain'
 
 // adminApi をモック化
 vi.mock('@/api/adminApi', () => ({
@@ -404,9 +409,14 @@ describe('adminInquiryStore', () => {
         aiAnswered: 2,
         pendingStaff: 3,
         staffAnswered: 4,
-        recentUnclosed: 5,
+        staleUnclosedOpen: 1,
+        staleUnclosedAiAnswered: 0,
+        staleUnclosedPendingStaff: 2,
+        staleUnclosedStaffAnswered: 1,
       }
-      mockedAdminApi.fetchInquiryStatusSummary.mockResolvedValue(summary)
+      mockedAdminApi.fetchInquiryStatusSummary.mockResolvedValue(
+        summary as InquiryStatusSummaryModel,
+      )
       const store = useAdminInquiryStore()
 
       await store.loadStatusSummary()

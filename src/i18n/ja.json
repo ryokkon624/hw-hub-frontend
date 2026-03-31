@@ -138,7 +138,10 @@
       "status": {
         "title": "問い合わせ状況",
         "subtitle": "現在のステータス別件数",
-        "recentUnclosedLabel": "3日以上前の未クローズ件数",
+        "unclosedSection": "未クローズ件数",
+        "totalUnclosed": "未クローズ合計",
+        "staleSection": "3日以上前の未クローズ",
+        "totalStaleUnclosed": "3日以上前の未クローズ合計",
         "unit": "件"
       },
       "inquiryStats": {

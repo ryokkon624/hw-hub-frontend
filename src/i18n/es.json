@@ -138,7 +138,10 @@
       "status": {
         "title": "Estado de consultas",
         "subtitle": "Conteo actual por estado",
-        "recentUnclosedLabel": "Sin cerrar por 3+ días",
+        "unclosedSection": "Sin cerrar",
+        "totalUnclosed": "Total sin cerrar",
+        "staleSection": "Sin cerrar por 3+ días",
+        "totalStaleUnclosed": "Total antiguo sin cerrar",
         "unit": ""
       },
       "inquiryStats": {
