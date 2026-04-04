@@ -9,7 +9,6 @@ export const codeApi = {
   async fetchAllCodes(): Promise<CodeModel[]> {
     const res = await apiClient.get<CodesResponse>('/api/codes')
 
-    // 期待する形：{ codes: [...] }
     if (Array.isArray(res.data.codes)) {
       return res.data.codes.map(toModel)
     }

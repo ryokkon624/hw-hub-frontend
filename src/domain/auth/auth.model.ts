@@ -24,8 +24,8 @@ export interface AuthSession {
 /**
  * アカウント登録結果 Domain Model
  *
- * - local/stg（メール認証OFF）: kind='LOGGED_IN' で AuthSession が返る
- * - prod（メール認証ON）: kind='VERIFICATION_REQUIRED' でメール確認待ちになる
+ * - メール認証OFF: kind='LOGGED_IN' で AuthSession が返る
+ * - メール認証ON: kind='VERIFICATION_REQUIRED' でメール確認待ちになる
  */
 export type RegisterResult =
   | {

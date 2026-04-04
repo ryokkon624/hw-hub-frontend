@@ -696,8 +696,6 @@ const onSaveNickname = async () => {
   try {
     await uiStore.withLoading(async () => {
       await householdMemberApi.updateMyNickname(householdId, myNickname.value.trim())
-      // （任意）householdStore 側にも反映したければここで更新
-      // 例：householdStore.updateMyNickname(currentHousehold.value.id, myNickname.value.trim())
     })
     await householdStore.fetchMembers(householdId, { force: true })
     uiStore.showToast('success', t('settings.household.toasts.saveNicknameSuccess'))
@@ -848,7 +846,7 @@ const onClickDeleteHousehold = async () => {
   const householdId = currentHouseholdId.value
   if (!householdId) return
 
-  // 1. 他の有効メンバーチェック
+  // 他の有効メンバーチェック
   // 自分(active)を含めて1人 = 自分だけ
   const activeMembers = householdStore.currentMembers
   if (activeMembers.length > 1) {
@@ -856,7 +854,7 @@ const onClickDeleteHousehold = async () => {
     return
   }
 
-  // 2. 関連データの件数確認 (家事、買い物)
+  // 関連データの件数確認 (家事、買い物)
   let houseworkCount = 0
   let shoppingCount = 0
 
@@ -875,7 +873,7 @@ const onClickDeleteHousehold = async () => {
     shoppingCount = shoppings.filter((i) => i.status !== SHOPPING_ITEM_STATUS.PURCHASED).length
   })
 
-  // 3. 確認メッセージ
+  // 確認メッセージ
   const message = t('settings.household.confirms.deleteHousehold', {
     houseworkCount,
     shoppingCount,
@@ -883,7 +881,7 @@ const onClickDeleteHousehold = async () => {
 
   if (!confirm(message)) return
 
-  // 4. 実行
+  // 実行
   try {
     await uiStore.withLoading(async () => {
       await householdStore.deleteHousehold(householdId)

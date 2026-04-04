@@ -25,7 +25,7 @@ const futureFilter = ref<'ALL' | 'TODAY' | 'WEEK'>('ALL')
 // 日付 → 'YYYY-MM-DD'
 const todayYmd = computed(() => toYmd(new Date()))
 
-// すべてのタスク（この store は「現在の世帯のタスク」だけを持っている想定）
+// すべてのタスク
 const allTasks = computed<HouseworkTaskModel[]>(() => allOpenTasks.value)
 
 // 自分担当 & 未対応のみ

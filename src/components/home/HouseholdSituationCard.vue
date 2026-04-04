@@ -43,7 +43,7 @@ const chartDays = computed<ChartDay[]>(() => {
     const day = d.getDate()
     const ymd = d.toISOString().substring(0, 10)
 
-    // ラベルは "M/D" くらいの軽い表示で
+    // ラベルは "M/D"表示
     const label = `${m}/${day}`
     result.push({ ymd, label })
   }

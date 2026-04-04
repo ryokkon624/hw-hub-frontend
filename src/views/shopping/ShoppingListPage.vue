@@ -439,7 +439,6 @@ type CompletedGroup = {
 }
 
 const formatDateLabel = (dateStr: string): string => {
-  // dateStr は 'YYYY-MM-DD' 想定
   const ymd = dateStr.substring(0, 10)
   const parts = ymd.split('-')
 

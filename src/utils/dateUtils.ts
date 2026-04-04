@@ -65,7 +65,6 @@ export const isWithinDays = (dateStr: string | null | undefined, days: number): 
 
   const diffMs = toUtcMidnight(now) - toUtcMidnight(d)
 
-  // 未来日は「今から◯日以内」には含めない想定ならここで弾く
   if (diffMs < 0) return false
 
   const diffDays = diffMs / (24 * 60 * 60 * 1000)
