@@ -1,4 +1,3 @@
-// src/i18n/index.ts
 import { createI18n } from 'vue-i18n'
 
 import ja from './ja.json'

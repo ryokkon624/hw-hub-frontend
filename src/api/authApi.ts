@@ -17,8 +17,8 @@ export const authApi = {
 
   /**
    * アカウント登録を行う。
-   * - メール認証OFF（local/stg）: LOGGED_IN を返す（=即ログイン可能）
-   * - メール認証ON（prod）: VERIFICATION_REQUIRED を返す（=メール確認待ち）
+   * - メール認証OFF: LOGGED_IN を返す（=即ログイン可能）
+   * - メール認証ON: VERIFICATION_REQUIRED を返す（=メール確認待ち）
    *
    * @param body アカウント登録時に入力値
    * @returns RegisterResult
@@ -38,7 +38,7 @@ export const authApi = {
   },
 
   /**
-   * S3への画像をPUTする。
+   * S3へ画像をPUTする。
    * @param uploadUrl presignedUrl
    * @param file Uploadするファイル
    */
