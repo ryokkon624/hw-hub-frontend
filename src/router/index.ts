@@ -13,6 +13,8 @@ declare module 'vue-router' {
   }
 }
 
+// Landing Page
+import LandingPage from '@/views/LandingPage.vue'
 // 認証
 import LoginPage from '@/views/LoginPage.vue'
 import SignupPage from '@/views/SignupPage.vue'
@@ -65,6 +67,13 @@ import { useNotificationStore } from '@/stores/notificationStore'
 import { useRoleStore } from '@/stores/roleStore'
 
 const routes: RouteRecordRaw[] = [
+  // Landing Page (AC6: 認証不要)
+  {
+    path: '/landing',
+    name: 'landing',
+    component: LandingPage,
+    meta: { title: 'HwHub - 家族みんなで家事を分担', public: true },
+  },
   {
     path: '/login',
     name: 'login',
@@ -227,13 +236,15 @@ const routes: RouteRecordRaw[] = [
         path: 'settings/app/terms',
         name: 'settings.app.terms',
         component: TermsPage,
-        meta: { titleKey: 'pageTitles.terms' },
+        // requiresAuth: false で親の requiresAuth: true をオーバーライド（Landing Pageフッターから認証不要アクセスを許可）
+        meta: { titleKey: 'pageTitles.terms', requiresAuth: false },
       },
       {
         path: 'settings/app/privacy',
         name: 'settings.app.privacy',
         component: PrivacyPolicyPage,
-        meta: { titleKey: 'pageTitles.privacy' },
+        // requiresAuth: false で親の requiresAuth: true をオーバーライド（Landing Pageフッターから認証不要アクセスを許可）
+        meta: { titleKey: 'pageTitles.privacy', requiresAuth: false },
       },
       // ---- Notifications ----
       {
