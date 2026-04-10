@@ -133,7 +133,14 @@ const routes: RouteRecordRaw[] = [
     component: AppLayout,
     meta: { requiresAuth: true },
     children: [
-      { path: '', redirect: { name: 'home' } },
+      {
+        path: '',
+        redirect: () => {
+          const authStore = useAuthStore()
+          if (!authStore.accessToken) authStore.initFromStorage()
+          return authStore.isAuthenticated ? { name: 'home' } : { name: 'landing' }
+        },
+      },
 
       // ---- OAuth Result ----
       {
