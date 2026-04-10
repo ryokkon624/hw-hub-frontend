@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import {
   Users,
   ClipboardList,
@@ -10,52 +12,55 @@ import {
   Home,
   Building2,
 } from 'lucide-vue-next'
+import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 
-const features = [
+const { t } = useI18n()
+
+const features = computed(() => [
   {
     icon: Users,
-    title: '家族・シェアメンバーで家事を分担',
-    desc: '複数メンバーで家事タスクを共有・管理。誰が何を担当するか一目でわかります。',
+    title: t('landing.features.items.share.title'),
+    desc: t('landing.features.items.share.desc'),
   },
   {
     icon: ClipboardList,
-    title: 'テンプレート・定期実行・担当割当',
-    desc: 'よく使う家事はテンプレート化。定期スケジュールと担当者を設定して自動化できます。',
+    title: t('landing.features.items.template.title'),
+    desc: t('landing.features.items.template.desc'),
   },
   {
     icon: ShoppingCart,
-    title: '買い物リストの共有',
-    desc: '家族やルームメイトと買い物リストをリアルタイムで共有。買い忘れゼロへ。',
+    title: t('landing.features.items.shopping.title'),
+    desc: t('landing.features.items.shopping.desc'),
   },
   {
     icon: Sparkles,
-    title: 'AIによるサポート',
-    desc: 'お困りのことはAIが一次対応。すばやく問い合わせのサポートを受けられます。',
+    title: t('landing.features.items.ai.title'),
+    desc: t('landing.features.items.ai.desc'),
   },
   {
     icon: Monitor,
-    title: 'PCでもスマホでもブラウザで利用',
-    desc: 'インストール不要、ブラウザからいつでもどこでもアクセス可能。アプリ化も予定しています。',
+    title: t('landing.features.items.browser.title'),
+    desc: t('landing.features.items.browser.desc'),
   },
-]
+])
 
-const targets = [
+const targets = computed(() => [
   {
     icon: Heart,
-    title: '共働き夫婦',
-    desc: '家事の分担が見える化されるから、「やった・やってない」の言い合いがなくなります。',
+    title: t('landing.targets.items.couple.title'),
+    desc: t('landing.targets.items.couple.desc'),
   },
   {
     icon: Home,
-    title: 'シェアハウス住民',
-    desc: 'メンバー全員でタスクを共有。掃除当番やゴミ出しの管理がスムーズになります。',
+    title: t('landing.targets.items.sharehouse.title'),
+    desc: t('landing.targets.items.sharehouse.desc'),
   },
   {
     icon: Building2,
-    title: 'シェアハウス運営者',
-    desc: '複数世帯・複数ハウスをまとめて管理。現場の状況を一元把握できます。',
+    title: t('landing.targets.items.operator.title'),
+    desc: t('landing.targets.items.operator.desc'),
   },
-]
+])
 </script>
 
 <template>
@@ -66,23 +71,25 @@ const targets = [
         <span class="font-bold text-xl text-green-300 tracking-tight">HwHub</span>
 
         <nav class="hidden md:flex items-center gap-6 text-sm text-green-200">
-          <a href="#features" class="hover:text-white transition">機能</a>
-          <a href="#targets" class="hover:text-white transition">こんな方に</a>
+          <a href="#features" class="hover:text-white transition">{{ t('landing.nav.features') }}</a>
+          <a href="#targets" class="hover:text-white transition">{{ t('landing.nav.targets') }}</a>
         </nav>
 
-        <!-- ログイン・サインアップ (AC1, AC8) -->
+        <!-- LanguageSwitcher + ログイン・サインアップ (AC1, AC8) -->
         <div class="flex items-center gap-2">
+          <!-- PBI-003: LanguageSwitcher（ログインボタンの左） -->
+          <LanguageSwitcher />
           <RouterLink
             to="/login"
             class="text-sm text-green-200 hover:text-white transition px-3 py-1.5 rounded-full"
           >
-            ログイン
+            {{ t('landing.header.login') }}
           </RouterLink>
           <RouterLink
             to="/signup"
             class="text-sm font-semibold bg-hwhub-primary text-white rounded-full px-4 py-1.5 transition hover:opacity-90"
           >
-            サインアップ
+            {{ t('landing.header.signup') }}
           </RouterLink>
         </div>
       </div>
@@ -94,14 +101,13 @@ const targets = [
         <div
           class="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 px-4 py-1.5 text-sm text-green-300"
         >
-          家事シェアアプリ
+          {{ t('landing.hero.badge') }}
         </div>
         <h1 class="text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
-          家事を、チームで。
+          {{ t('landing.hero.title') }}
         </h1>
         <p class="text-lg text-green-200 leading-relaxed">
-          役割分担からタスク管理まで、<br class="hidden sm:inline" />
-          家族やルームメイトと一緒にスマートに暮らす。
+          {{ t('landing.hero.description') }}
         </p>
         <div class="flex flex-col sm:flex-row gap-3 justify-center pt-2">
           <!-- サインアップ CTA (AC2, AC8) -->
@@ -109,13 +115,13 @@ const targets = [
             to="/signup"
             class="inline-flex items-center justify-center gap-2 bg-hwhub-primary text-white font-semibold rounded-full px-8 py-3 text-base transition hover:opacity-90 shadow-lg"
           >
-            無料で始める →
+            {{ t('landing.hero.ctaStart') }}
           </RouterLink>
           <RouterLink
             to="/login"
             class="inline-flex items-center justify-center gap-2 border border-white/30 text-green-200 hover:bg-white/10 font-medium rounded-full px-6 py-3 text-base transition"
           >
-            ログインはこちら
+            {{ t('landing.hero.ctaLogin') }}
           </RouterLink>
         </div>
       </div>
@@ -125,8 +131,8 @@ const targets = [
     <section id="features" class="py-20 px-4 bg-hwhub-surface">
       <div class="max-w-6xl mx-auto">
         <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold text-hwhub-heading">HwHub でできること</h2>
-          <p class="text-hwhub-muted mt-2">チームの家事を、もっとスマートに。</p>
+          <h2 class="text-3xl font-bold text-hwhub-heading">{{ t('landing.features.title') }}</h2>
+          <p class="text-hwhub-muted mt-2">{{ t('landing.features.subtitle') }}</p>
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <div
@@ -150,8 +156,8 @@ const targets = [
     <section id="targets" class="py-20 px-4 bg-white">
       <div class="max-w-6xl mx-auto">
         <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold text-hwhub-heading">こんな方におすすめ</h2>
-          <p class="text-hwhub-muted mt-2">あなたの暮らしのスタイルに合わせて使えます。</p>
+          <h2 class="text-3xl font-bold text-hwhub-heading">{{ t('landing.targets.title') }}</h2>
+          <p class="text-hwhub-muted mt-2">{{ t('landing.targets.subtitle') }}</p>
         </div>
         <div class="grid md:grid-cols-3 gap-8">
           <div
@@ -174,14 +180,14 @@ const targets = [
     <!-- CTA Section -->
     <section class="py-20 px-4 bg-[#1a2e1a] text-center">
       <div class="max-w-2xl mx-auto space-y-4">
-        <h2 class="text-3xl font-bold text-white">今すぐ始めよう</h2>
-        <p class="text-green-200">アカウント登録は無料です。</p>
+        <h2 class="text-3xl font-bold text-white">{{ t('landing.cta.title') }}</h2>
+        <p class="text-green-200">{{ t('landing.cta.subtitle') }}</p>
         <div class="pt-2">
           <RouterLink
             to="/signup"
             class="inline-flex items-center justify-center gap-2 bg-hwhub-primary text-white font-semibold rounded-full px-8 py-3 text-base transition hover:opacity-90 shadow-lg"
           >
-            無料で始める →
+            {{ t('landing.cta.button') }}
           </RouterLink>
         </div>
       </div>
@@ -195,16 +201,16 @@ const targets = [
         <span class="font-bold text-green-300">HwHub</span>
         <div class="flex items-center gap-6">
           <RouterLink to="/settings/app/terms" class="text-green-300 hover:text-white transition">
-            利用規約
+            {{ t('landing.footer.terms') }}
           </RouterLink>
           <RouterLink
             to="/settings/app/privacy"
             class="text-green-300 hover:text-white transition"
           >
-            プライバシーポリシー
+            {{ t('landing.footer.privacy') }}
           </RouterLink>
         </div>
-        <span class="text-xs text-green-500">© 2026 HwHub</span>
+        <span class="text-xs text-green-500">{{ t('landing.footer.copyright') }}</span>
       </div>
     </footer>
   </div>

@@ -1468,5 +1468,76 @@
       "noFileSelected": "Ningún archivo seleccionado",
       "fileSizeError": "El tamaño del archivo supera el límite."
     }
+  },
+  "landing": {
+    "nav": {
+      "features": "Funciones",
+      "targets": "Para ti"
+    },
+    "header": {
+      "login": "Iniciar sesión",
+      "signup": "Registrarse"
+    },
+    "hero": {
+      "badge": "App para compartir tareas del hogar",
+      "title": "Las tareas del hogar, en equipo.",
+      "description": "Desde la asignación de tareas hasta la gestión del hogar, vive de forma más inteligente con tu familia o compañeros.",
+      "ctaStart": "Empieza gratis →",
+      "ctaLogin": "Iniciar sesión"
+    },
+    "features": {
+      "title": "Qué puedes hacer con HwHub",
+      "subtitle": "Haz las tareas del hogar más inteligentes.",
+      "items": {
+        "share": {
+          "title": "Comparte tareas con familia y compañeros",
+          "desc": "Comparte y gestiona tareas del hogar con varios miembros. Ve de un vistazo quién es responsable de qué."
+        },
+        "template": {
+          "title": "Plantillas, horarios y asignaciones",
+          "desc": "Convierte las tareas recurrentes en plantillas. Configura horarios y responsables para automatizar tu rutina."
+        },
+        "shopping": {
+          "title": "Listas de compras compartidas",
+          "desc": "Comparte listas de compras en tiempo real con familia o compañeros. Nunca más olvides un artículo."
+        },
+        "ai": {
+          "title": "Soporte impulsado por IA",
+          "desc": "La IA maneja las consultas de primera línea para que puedas obtener ayuda rápidamente."
+        },
+        "browser": {
+          "title": "Úsalo en cualquier dispositivo, sin instalación",
+          "desc": "Accede desde tu navegador en cualquier momento y lugar. App móvil próximamente."
+        }
+      }
+    },
+    "targets": {
+      "title": "Perfecto para ti si...",
+      "subtitle": "Úsalo a tu manera, independientemente de tu situación de vida.",
+      "items": {
+        "couple": {
+          "title": "Parejas con doble ingreso",
+          "desc": "Las tareas del hogar se hacen visibles, así que no más disputas sobre quién hizo qué."
+        },
+        "sharehouse": {
+          "title": "Residentes de piso compartido",
+          "desc": "Comparte tareas con todos los miembros. Gestionar los turnos de limpieza y la basura se vuelve fácil."
+        },
+        "operator": {
+          "title": "Operadores de piso compartido",
+          "desc": "Gestiona múltiples hogares y casas juntos. Obtén una vista unificada de la situación."
+        }
+      }
+    },
+    "cta": {
+      "title": "Empieza hoy",
+      "subtitle": "Crear una cuenta es gratis.",
+      "button": "Empieza gratis →"
+    },
+    "footer": {
+      "terms": "Términos de servicio",
+      "privacy": "Política de privacidad",
+      "copyright": "© 2026 HwHub"
+    }
   }
 }
