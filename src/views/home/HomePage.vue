@@ -40,11 +40,11 @@ const fetchHomeData = async (options?: { force?: boolean }) => {
         force: true,
       }),
 
-      // タスク: スキップ以外のもう一種類（ここでは '1'）
+      // タスク: 完了（1）
       taskStore.fetchTasks({
         householdId: hid,
         status: TASK_STATUS.DONE,
-        force,
+        force: true,
       }),
 
       shoppingStore.fetchItems(hid, { force: true }),
