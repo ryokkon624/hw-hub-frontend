@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
+import { useHouseholdStore } from '@/stores/householdStore'
 import { useHouseworkTaskStore } from '@/stores/houseworkTaskStore'
 import type { HouseworkTaskModel } from '@/domain'
 import { toYmd, addDays } from '@/utils/dateUtils'
@@ -16,11 +17,17 @@ const weekEndYmd = addDays(today, 7)
 
 const router = useRouter()
 const authStore = useAuthStore()
+const householdStore = useHouseholdStore()
 const taskStore = useHouseworkTaskStore()
 
+const currentHouseholdId = computed(() => householdStore.currentHouseholdId ?? null)
 const loginUserId = computed(() => authStore.currentUser?.userId ?? null)
 
-const allTasks = computed<HouseworkTaskModel[]>(() => taskStore.items ?? [])
+const allTasks = computed<HouseworkTaskModel[]>(() => {
+  if (!currentHouseholdId.value) return []
+  const key = taskStore.getCacheKey(currentHouseholdId.value, TASK_STATUS.NOT_DONE)
+  return (taskStore.cacheByKey?.[key] ?? []) as HouseworkTaskModel[]
+})
 
 // 自分担当 & 未対応
 const myOpenTasks = computed(() =>

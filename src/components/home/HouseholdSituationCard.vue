@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { useHouseholdStore } from '@/stores/householdStore'
 import { useHouseworkTaskStore } from '@/stores/houseworkTaskStore'
+import { TASK_STATUS } from '@/constants/code.constants'
 import { Bar } from 'vue-chartjs'
 import {
   Chart,
@@ -57,11 +58,11 @@ const tasksForChart = computed<HouseworkTaskModel[]>(() => {
   const validDates = new Set(chartDays.value.map((d) => d.ymd))
   const hid = currentHouseholdId.value
 
-  const key0 = `${hid}__0` // 未対応
-  const key1 = `${hid}__1` // 完了
+  const openKey = taskStore.getCacheKey(hid, TASK_STATUS.NOT_DONE)
+  const doneKey = taskStore.getCacheKey(hid, TASK_STATUS.DONE)
 
-  const open = (taskStore.cacheByKey?.[key0] ?? []) as HouseworkTaskModel[]
-  const done = (taskStore.cacheByKey?.[key1] ?? []) as HouseworkTaskModel[]
+  const open = (taskStore.cacheByKey?.[openKey] ?? []) as HouseworkTaskModel[]
+  const done = (taskStore.cacheByKey?.[doneKey] ?? []) as HouseworkTaskModel[]
 
   return [...open, ...done].filter((t) => validDates.has(t.targetDate))
 })
