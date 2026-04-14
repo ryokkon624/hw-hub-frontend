@@ -71,7 +71,9 @@ const targets = computed(() => [
         <span class="font-bold text-xl text-green-300 tracking-tight">HwHub</span>
 
         <nav class="hidden md:flex items-center gap-6 text-sm text-green-200">
-          <a href="#features" class="hover:text-white transition">{{ t('landing.nav.features') }}</a>
+          <a href="#features" class="hover:text-white transition">{{
+            t('landing.nav.features')
+          }}</a>
           <a href="#targets" class="hover:text-white transition">{{ t('landing.nav.targets') }}</a>
         </nav>
 
@@ -203,10 +205,7 @@ const targets = computed(() => [
           <RouterLink to="/settings/app/terms" class="text-green-300 hover:text-white transition">
             {{ t('landing.footer.terms') }}
           </RouterLink>
-          <RouterLink
-            to="/settings/app/privacy"
-            class="text-green-300 hover:text-white transition"
-          >
+          <RouterLink to="/settings/app/privacy" class="text-green-300 hover:text-white transition">
             {{ t('landing.footer.privacy') }}
           </RouterLink>
         </div>

@@ -255,4 +255,36 @@ describe('houseworkTaskStore', () => {
     expect(cachedUpdated1.status).toBe(TASK_STATUS.SKIPPED)
     expect(cachedUpdated1.skippedReason).toBe('bulk update')
   })
+
+  describe('getCacheKey', () => {
+    it('householdId と status を "__" で結合したキーを返す', () => {
+      const store = useHouseworkTaskStore()
+      expect(store.getCacheKey(1, TASK_STATUS.NOT_DONE)).toBe(`1__${TASK_STATUS.NOT_DONE}`)
+    })
+
+    it('householdId が異なれば異なるキーを返す', () => {
+      const store = useHouseworkTaskStore()
+      const key1 = store.getCacheKey(1, TASK_STATUS.NOT_DONE)
+      const key2 = store.getCacheKey(2, TASK_STATUS.NOT_DONE)
+      expect(key1).not.toBe(key2)
+    })
+
+    it('status が異なれば異なるキーを返す', () => {
+      const store = useHouseworkTaskStore()
+      const keyNotDone = store.getCacheKey(1, TASK_STATUS.NOT_DONE)
+      const keyDone = store.getCacheKey(1, TASK_STATUS.DONE)
+      expect(keyNotDone).not.toBe(keyDone)
+    })
+
+    it('fetchTasks が内部で使うキーと一致する', async () => {
+      const store = useHouseworkTaskStore()
+      const task = makeTask()
+      mockedApi.fetchTasks.mockResolvedValue([task])
+
+      await store.fetchTasks({ householdId: 1 })
+
+      const key = store.getCacheKey(1, TASK_STATUS.NOT_DONE)
+      expect(store.cacheByKey[key]).toEqual([task])
+    })
+  })
 })

@@ -10,7 +10,8 @@ type FetchParams = {
   force?: boolean
 }
 type TaskCacheKey = string
-const makeCacheKey = (householdId: number, status: string) => `${householdId}__${status}`
+const makeCacheKey = (householdId: number, status: string): TaskCacheKey =>
+  `${householdId}__${status}`
 
 export const useHouseworkTaskStore = defineStore('houseworkTask', {
   state: () => ({
@@ -111,6 +112,16 @@ export const useHouseworkTaskStore = defineStore('houseworkTask', {
         assigneeUserId,
         assignReasonType,
       }))
+    },
+
+    /**
+     * キャッシュキーを取得する。
+     * @param householdId 世帯ID
+     * @param status ステータス
+     * @returns キャッシュキー
+     */
+    getCacheKey(householdId: number, status: string): TaskCacheKey {
+      return makeCacheKey(householdId, status)
     },
 
     /**
