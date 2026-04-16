@@ -1510,7 +1510,7 @@
       "ctaLogin": "ログインはこちら"
     },
     "features": {
-      "title": "HwHub でできること",
+      "title": "Housework Hub でできること",
       "subtitle": "チームの家事を、もっとスマートに。",
       "items": {
         "share": {
@@ -1561,7 +1561,7 @@
     "footer": {
       "terms": "利用規約",
       "privacy": "プライバシーポリシー",
-      "copyright": "© 2026 HwHub"
+      "copyright": "© 2026 Housework Hub"
     }
   }
 }

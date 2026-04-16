@@ -1486,7 +1486,7 @@
       "ctaLogin": "Iniciar sesión"
     },
     "features": {
-      "title": "Qué puedes hacer con HwHub",
+      "title": "Qué puedes hacer con Housework Hub",
       "subtitle": "Haz las tareas del hogar más inteligentes.",
       "items": {
         "share": {
@@ -1537,7 +1537,7 @@
     "footer": {
       "terms": "Términos de servicio",
       "privacy": "Política de privacidad",
-      "copyright": "© 2026 HwHub"
+      "copyright": "© 2026 Housework Hub"
     }
   }
 }
