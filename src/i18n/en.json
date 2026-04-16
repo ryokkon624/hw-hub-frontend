@@ -1485,7 +1485,7 @@
       "ctaLogin": "Already have an account"
     },
     "features": {
-      "title": "What you can do with HwHub",
+      "title": "What you can do with Housework Hub",
       "subtitle": "Make your household chores smarter.",
       "items": {
         "share": {
@@ -1536,7 +1536,7 @@
     "footer": {
       "terms": "Terms of Service",
       "privacy": "Privacy Policy",
-      "copyright": "© 2026 HwHub"
+      "copyright": "© 2026 Housework Hub"
     }
   }
 }

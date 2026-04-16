@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import {
@@ -12,6 +12,7 @@ import {
   Home,
   Building2,
   ChevronRight,
+  ChevronLeft,
 } from 'lucide-vue-next'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 
@@ -70,6 +71,33 @@ const targets = computed(() => [
     image: '/images/target_operator.png',
   },
 ])
+
+const featuresContainer = ref<HTMLElement | null>(null)
+const activeIndex = ref(0)
+
+const handleScroll = (e: Event) => {
+  const target = e.target as HTMLElement
+  const maxScroll = Math.max(0, target.scrollWidth - target.clientWidth)
+  if (maxScroll <= 0) {
+    activeIndex.value = 0
+    return
+  }
+  const snapDistance = maxScroll / (features.value.length - 1)
+  activeIndex.value = Math.max(0, Math.min(Math.round(target.scrollLeft / snapDistance), features.value.length - 1))
+}
+
+const scrollToFeature = (idx: number) => {
+  if (!featuresContainer.value) return
+  const target = featuresContainer.value
+  const maxScroll = Math.max(0, target.scrollWidth - target.clientWidth)
+  const snapDistance = maxScroll / (features.value.length - 1)
+  target.scrollTo({ left: snapDistance * idx, behavior: 'smooth' })
+}
+
+const scrollFeatures = (direction: 'left' | 'right') => {
+  const nextIdx = direction === 'left' ? activeIndex.value - 1 : activeIndex.value + 1
+  scrollToFeature(Math.max(0, Math.min(nextIdx, features.value.length - 1)))
+}
 </script>
 
 <template>
@@ -80,8 +108,8 @@ const targets = computed(() => [
     >
       <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         <span
-          class="font-extrabold text-2xl text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-green-200 tracking-tight"
-          >HwHub</span
+          class="font-extrabold text-2xl text-transparent bg-clip-text bg-linear-to-r from-emerald-400 to-green-200 tracking-tight"
+          >Housework Hub</span
         >
 
         <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-green-100">
@@ -129,7 +157,7 @@ const targets = computed(() => [
 
       <!-- Gradient Overlays -->
       <div
-        class="absolute inset-0 bg-gradient-to-b from-[#1a2e1a]/95 via-[#1a2e1a]/80 to-[#1a2e1a]/90 backdrop-blur-[2px]"
+        class="absolute inset-0 bg-linear-to-b from-[#1a2e1a]/92 via-[#1a2e1a]/70 to-[#1a2e1a]/87 backdrop-blur-[2px]"
       ></div>
 
       <div class="relative max-w-4xl mx-auto space-y-8 z-10">
@@ -176,14 +204,14 @@ const targets = computed(() => [
 
       <!-- Decorative bottom curve -->
       <div
-        class="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-hwhub-surface to-transparent"
+        class="absolute bottom-0 inset-x-0 h-24 bg-linear-to-t from-hwhub-surface to-transparent"
       ></div>
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="py-24 px-4 bg-hwhub-surface relative">
-      <div class="max-w-7xl mx-auto">
-        <div class="text-center mb-16 space-y-4">
+    <section id="features" class="py-24 bg-hwhub-surface relative overflow-hidden">
+      <div class="w-full">
+        <div class="text-center mb-16 space-y-4 px-4">
           <h2 class="text-4xl md:text-5xl font-extrabold text-slate-800 tracking-tight">
             {{ t('landing.features.title') }}
           </h2>
@@ -192,36 +220,61 @@ const targets = computed(() => [
           </p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div
-            v-for="(feature, idx) in features"
-            :key="feature.title"
-            class="group flex flex-col bg-white rounded-[2rem] border border-slate-100/80 shadow-lg shadow-slate-200/40 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden relative"
-          >
-            <div class="p-8 flex-grow">
-              <div
-                class="w-14 h-14 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 group-hover:bg-emerald-500 transition-all duration-500"
-              >
-                <component
-                  :is="feature.icon"
-                  class="w-7 h-7 text-emerald-600 group-hover:text-white transition-colors duration-500"
-                />
-              </div>
-              <h3 class="text-xl font-bold text-slate-800 mb-3">{{ feature.title }}</h3>
-              <p class="text-slate-500 leading-relaxed">{{ feature.desc }}</p>
-            </div>
+        <div class="relative w-full group/carousel">
+          <!-- PC arrows -->
+          <button @click="scrollFeatures('left')" class="hidden md:flex absolute left-4 lg:left-8 top-[45%] -translate-y-1/2 w-16 h-16 bg-white/95 backdrop-blur-md rounded-full shadow-2xl border border-slate-100 items-center justify-center text-slate-500 hover:text-emerald-600 hover:scale-110 opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 z-20">
+            <ChevronLeft class="w-8 h-8" />
+          </button>
+          <button @click="scrollFeatures('right')" class="hidden md:flex absolute right-4 lg:right-8 top-[45%] -translate-y-1/2 w-16 h-16 bg-white/95 backdrop-blur-md rounded-full shadow-2xl border border-slate-100 items-center justify-center text-slate-500 hover:text-emerald-600 hover:scale-110 opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 z-20">
+            <ChevronRight class="w-8 h-8" />
+          </button>
 
-            <div class="px-8 pt-6 pb-0 mt-auto bg-gradient-to-t from-slate-50 to-white/0">
-              <div
-                class="rounded-t-2xl border border-slate-200 shadow-xl overflow-hidden transform origin-bottom group-hover:scale-[1.03] transition-transform duration-700 ease-out"
-              >
-                <img
-                  :src="feature.image"
-                  :alt="feature.title"
-                  class="w-full h-48 md:h-56 object-cover object-top border-b border-white"
-                />
+          <!-- Carousel Container -->
+          <div ref="featuresContainer" @scroll="handleScroll" class="flex gap-6 overflow-x-auto snap-x snap-mandatory px-4 md:px-12 lg:px-24 xl:px-32 pb-12 pt-4 hide-scrollbar">
+            <div
+              v-for="feature in features"
+              :key="feature.title"
+              class="snap-center shrink-0 w-[85vw] sm:w-[65vw] md:w-[70vw] lg:w-[750px] xl:w-[850px] max-h-[600px] lg:max-h-[650px] group flex flex-col bg-slate-50/50 rounded-5xl md:rounded-6xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden relative"
+            >
+              <!-- Text Content -->
+              <div class="p-8 md:p-10 pb-4 md:pb-6 flex-none z-10">
+                <div
+                  class="w-14 h-14 rounded-2xl bg-white border border-slate-100 shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500"
+                >
+                  <component
+                    :is="feature.icon"
+                    class="w-7 h-7 text-emerald-600"
+                  />
+                </div>
+                <h3 class="text-3xl lg:text-4xl font-extrabold text-slate-800 mb-4 tracking-tight">{{ feature.title }}</h3>
+                <p class="text-slate-500 text-lg leading-relaxed">{{ feature.desc }}</p>
+              </div>
+
+              <!-- Image Container -->
+              <div class="flex-1 flex flex-col justify-end px-4 md:px-12 relative z-0">
+                <div
+                  class="w-full h-70 sm:h-80 md:h-100 lg:h-[450px] rounded-t-4xl shadow-2xl overflow-hidden transform origin-bottom transition-all duration-700 ease-out border border-slate-200 border-b-0 bg-white"
+                >
+                  <img
+                    :src="feature.image"
+                    :alt="feature.title"
+                    class="w-full h-full object-contain object-top"
+                  />
+                </div>
               </div>
             </div>
+          </div>
+
+          <!-- Pagination Dots -->
+          <div class="flex justify-center items-center gap-3 mt-4">
+            <button
+              v-for="(_, idx) in features"
+              :key="idx"
+              class="w-3 h-3 rounded-full transition-all duration-300 border border-slate-200"
+              :class="activeIndex === idx ? 'bg-emerald-500 w-10 shadow-sm' : 'bg-slate-200 hover:bg-emerald-300'"
+              @click="scrollToFeature(idx)"
+              :aria-label="`Go to slide ${idx + 1}`"
+            ></button>
           </div>
         </div>
       </div>
@@ -243,7 +296,7 @@ const targets = computed(() => [
           <div
             v-for="target in targets"
             :key="target.title"
-            class="group rounded-[2rem] overflow-hidden shadow-xl border border-slate-100 bg-white hover:shadow-2xl hover:-translate-y-2 transition-all duration-500"
+            class="group rounded-4xl overflow-hidden shadow-xl border border-slate-100 bg-white hover:shadow-2xl hover:-translate-y-2 transition-all duration-500"
           >
             <div class="h-64 overflow-hidden relative">
               <img
@@ -252,7 +305,7 @@ const targets = computed(() => [
                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
               />
               <div
-                class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"
+                class="absolute inset-0 bg-linear-to-t from-slate-900/80 via-slate-900/20 to-transparent"
               ></div>
 
               <div class="absolute bottom-6 left-6 right-6 flex items-end gap-4">
@@ -280,7 +333,7 @@ const targets = computed(() => [
         class="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style="background-image: url('/images/hero_bg.png')"
       ></div>
-      <div class="absolute inset-0 bg-[#1a2e1a]/95 backdrop-blur-sm"></div>
+      <div class="absolute inset-0 bg-[#1a2e1a]/75 backdrop-blur-sm"></div>
 
       <div class="relative max-w-3xl mx-auto space-y-8 z-10">
         <Sparkles class="w-12 h-12 text-emerald-400 mx-auto" />
@@ -355,5 +408,13 @@ const targets = computed(() => [
   to {
     transform: scale(1.1);
   }
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 </style>
