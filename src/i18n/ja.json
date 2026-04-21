@@ -749,6 +749,7 @@
         "status": "ステータス"
       },
       "saveButton": "保存する",
+      "deleteButton": "このアイテムを削除",
       "imageSection": {
         "title": "画像",
         "none": "まだ画像が登録されていません。",
@@ -771,7 +772,10 @@
         "imageAddError": "画像追加に失敗しました",
         "imageDeleteConfirm": "この画像を削除しますか？",
         "imageDeleteSuccess": "画像を削除しました",
-        "imageDeleteError": "画像削除に失敗しました"
+        "imageDeleteError": "画像削除に失敗しました",
+        "deleteConfirm": "このアイテムを削除しますか？\n削除すると復元できません。",
+        "deleteSuccess": "アイテムを削除しました",
+        "deleteError": "アイテムの削除に失敗しました"
       }
     },
     "historyModal": {

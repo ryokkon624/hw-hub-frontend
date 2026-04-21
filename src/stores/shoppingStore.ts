@@ -181,6 +181,15 @@ export const useShoppingStore = defineStore('shopping', {
      * @param shoppingItemId 買い物アイテムID
      * @returns 買い物アイテムDomain Model
      */
+    async deleteItem(householdId: number, shoppingItemId: number) {
+      await shoppingItemApi.deleteItem(shoppingItemId)
+
+      const current = this.itemsByHouseholdId[householdId] ?? []
+      this.itemsByHouseholdId[householdId] = current.filter(
+        (i) => i.shoppingItemId !== shoppingItemId,
+      )
+    },
+
     async toggleFavorite(householdId: number, shoppingItemId: number) {
       const item = this.findItem(householdId, shoppingItemId)
       if (!item) return
