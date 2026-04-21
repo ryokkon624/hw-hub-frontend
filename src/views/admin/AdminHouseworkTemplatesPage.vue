@@ -326,7 +326,9 @@ const categoryColorClass = (category: string | null | undefined): string => {
         >
           <div class="flex items-start justify-between gap-2">
             <div class="flex-1 min-w-0">
-              <p class="text-sm font-medium text-hwhub-heading truncate">{{ item.localizedName }}</p>
+              <p class="text-sm font-medium text-hwhub-heading truncate">
+                {{ item.localizedName }}
+              </p>
               <p class="mt-1 text-xs text-hwhub-muted">{{ item.recurrenceSummary }}</p>
             </div>
             <span
