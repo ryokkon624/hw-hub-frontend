@@ -5,11 +5,12 @@ import { useRouter } from 'vue-router'
 import { useAdminHouseworkTemplateStore } from '@/stores/adminHouseworkTemplateStore'
 import { useCodeStore } from '@/stores/codeStore'
 import { useHouseworkCodes } from '@/composables/useHouseworkCodes'
+import { useHouseworkTemplate } from '@/composables/useHouseworkTemplate'
 import { usePagination } from '@/composables/usePagination'
 import { useSortable } from '@/composables/useSortable'
 import { weeklyDaysMaskToLabel } from '@/utils/weeklyDaysLabel'
 import { RECURRENCE_TYPE, CATEGORY } from '@/constants/code.constants'
-import type { AdminHouseworkTemplateModel } from '@/domain'
+import type { AdminHouseworkTemplateModel, HouseworkTemplateModel } from '@/domain'
 import ListPagination from '@/components/ui/ListPagination.vue'
 import { ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-vue-next'
 
@@ -19,6 +20,7 @@ const templateStore = useAdminHouseworkTemplateStore()
 const codeStore = useCodeStore()
 const { recurrenceTypeLabel, categoryLabel, weekdayLabel, nthWeekLabel, categoryOptions } =
   useHouseworkCodes()
+const { getLocalizedName } = useHouseworkTemplate()
 
 const filterCategory = ref<string | 'ALL'>('ALL')
 
@@ -54,6 +56,7 @@ const buildRecurrenceSummary = (item: AdminHouseworkTemplateModel): string => {
 }
 
 interface TemplateViewItem extends AdminHouseworkTemplateModel {
+  localizedName: string
   categoryLabel: string
   recurrenceSummary: string
 }
@@ -61,6 +64,7 @@ interface TemplateViewItem extends AdminHouseworkTemplateModel {
 const viewItems = computed<TemplateViewItem[]>(() =>
   templateStore.items.map((item) => ({
     ...item,
+    localizedName: getLocalizedName(item as unknown as HouseworkTemplateModel),
     categoryLabel: categoryLabel(item.category),
     recurrenceSummary: buildRecurrenceSummary(item),
   })),
@@ -203,15 +207,15 @@ const categoryColorClass = (category: string | null | undefined): string => {
             <tr class="border-b border-hwhub-border bg-hwhub-surface-subtle">
               <th
                 class="px-3 py-2 text-left text-xs font-medium text-hwhub-muted cursor-pointer select-none group transition-colors hover:text-hwhub-heading hover:bg-hwhub-surface"
-                @click="toggleSort('nameJa')"
+                @click="toggleSort('localizedName')"
               >
                 <div class="flex items-center gap-1">
-                  <span>{{ t('admin.houseworkTemplate.columns.nameJa') }}</span>
+                  <span>{{ t('admin.houseworkTemplate.columns.name') }}</span>
                   <component
-                    :is="getSortIcon('nameJa')"
+                    :is="getSortIcon('localizedName')"
                     class="w-3 h-3 transition-colors"
                     :class="
-                      sortKey === 'nameJa'
+                      sortKey === 'localizedName'
                         ? 'text-hwhub-primary'
                         : 'text-hwhub-muted/40 group-hover:text-hwhub-muted'
                     "
@@ -264,14 +268,11 @@ const categoryColorClass = (category: string | null | undefined): string => {
               class="border-b border-hwhub-border hover:bg-hwhub-surface-subtle cursor-pointer"
               @click="goEdit(item.houseworkTemplateId)"
             >
-              <!-- 家事名（日本語） -->
+              <!-- 家��名 -->
               <td class="px-3 py-2 align-top">
-                <div class="flex flex-col">
-                  <span class="text-sm font-medium text-hwhub-heading truncate">
-                    {{ item.nameJa }}
-                  </span>
-                  <span class="text-[11px] text-hwhub-muted truncate">{{ item.nameEn }}</span>
-                </div>
+                <span class="text-sm font-medium text-hwhub-heading truncate">
+                  {{ item.localizedName }}
+                </span>
               </td>
 
               <!-- カテゴリ -->
@@ -296,7 +297,7 @@ const categoryColorClass = (category: string | null | undefined): string => {
                   v-if="hasRecommendation(item)"
                   class="inline-flex items-center rounded-full px-2 py-0.5 text-[11px] bg-amber-50 text-amber-600"
                 >
-                  💡 あり
+                  {{ t('admin.houseworkTemplate.columns.recommendationYes') }}
                 </span>
               </td>
             </tr>
@@ -325,7 +326,7 @@ const categoryColorClass = (category: string | null | undefined): string => {
         >
           <div class="flex items-start justify-between gap-2">
             <div class="flex-1 min-w-0">
-              <p class="text-sm font-medium text-hwhub-heading truncate">{{ item.nameJa }}</p>
+              <p class="text-sm font-medium text-hwhub-heading truncate">{{ item.localizedName }}</p>
               <p class="mt-1 text-xs text-hwhub-muted">{{ item.recurrenceSummary }}</p>
             </div>
             <span
@@ -341,7 +342,7 @@ const categoryColorClass = (category: string | null | undefined): string => {
               v-if="hasRecommendation(item)"
               class="inline-flex items-center rounded-full px-2 py-0.5 bg-amber-50 text-amber-600"
             >
-              💡 あり
+              {{ t('admin.houseworkTemplate.columns.recommendationYes') }}
             </span>
           </div>
         </button>

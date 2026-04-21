@@ -277,8 +277,9 @@
     "houseworkTemplate": {
       "createButton": "テンプレートを追加",
       "columns": {
-        "nameJa": "家事名（日）",
-        "recommendation": "おすすめ"
+        "name": "家事名",
+        "recommendation": "おすすめ",
+        "recommendationYes": "あり"
       },
       "form": {
         "nameJa": "家事名（日本語）",
