@@ -83,7 +83,10 @@ const handleScroll = (e: Event) => {
     return
   }
   const snapDistance = maxScroll / (features.value.length - 1)
-  activeIndex.value = Math.max(0, Math.min(Math.round(target.scrollLeft / snapDistance), features.value.length - 1))
+  activeIndex.value = Math.max(
+    0,
+    Math.min(Math.round(target.scrollLeft / snapDistance), features.value.length - 1),
+  )
 }
 
 const scrollToFeature = (idx: number) => {
@@ -222,15 +225,25 @@ const scrollFeatures = (direction: 'left' | 'right') => {
 
         <div class="relative w-full group/carousel">
           <!-- PC arrows -->
-          <button @click="scrollFeatures('left')" class="hidden md:flex absolute left-4 lg:left-8 top-[45%] -translate-y-1/2 w-16 h-16 bg-white/95 backdrop-blur-md rounded-full shadow-2xl border border-slate-100 items-center justify-center text-slate-500 hover:text-emerald-600 hover:scale-110 opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 z-20">
+          <button
+            @click="scrollFeatures('left')"
+            class="hidden md:flex absolute left-4 lg:left-8 top-[45%] -translate-y-1/2 w-16 h-16 bg-white/95 backdrop-blur-md rounded-full shadow-2xl border border-slate-100 items-center justify-center text-slate-500 hover:text-emerald-600 hover:scale-110 opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 z-20"
+          >
             <ChevronLeft class="w-8 h-8" />
           </button>
-          <button @click="scrollFeatures('right')" class="hidden md:flex absolute right-4 lg:right-8 top-[45%] -translate-y-1/2 w-16 h-16 bg-white/95 backdrop-blur-md rounded-full shadow-2xl border border-slate-100 items-center justify-center text-slate-500 hover:text-emerald-600 hover:scale-110 opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 z-20">
+          <button
+            @click="scrollFeatures('right')"
+            class="hidden md:flex absolute right-4 lg:right-8 top-[45%] -translate-y-1/2 w-16 h-16 bg-white/95 backdrop-blur-md rounded-full shadow-2xl border border-slate-100 items-center justify-center text-slate-500 hover:text-emerald-600 hover:scale-110 opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 z-20"
+          >
             <ChevronRight class="w-8 h-8" />
           </button>
 
           <!-- Carousel Container -->
-          <div ref="featuresContainer" @scroll="handleScroll" class="flex gap-6 overflow-x-auto snap-x snap-mandatory px-4 md:px-12 lg:px-24 xl:px-32 pb-12 pt-4 hide-scrollbar">
+          <div
+            ref="featuresContainer"
+            @scroll="handleScroll"
+            class="flex gap-6 overflow-x-auto snap-x snap-mandatory px-4 md:px-12 lg:px-24 xl:px-32 pb-12 pt-4 hide-scrollbar"
+          >
             <div
               v-for="feature in features"
               :key="feature.title"
@@ -241,12 +254,11 @@ const scrollFeatures = (direction: 'left' | 'right') => {
                 <div
                   class="w-14 h-14 rounded-2xl bg-white border border-slate-100 shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500"
                 >
-                  <component
-                    :is="feature.icon"
-                    class="w-7 h-7 text-emerald-600"
-                  />
+                  <component :is="feature.icon" class="w-7 h-7 text-emerald-600" />
                 </div>
-                <h3 class="text-3xl lg:text-4xl font-extrabold text-slate-800 mb-4 tracking-tight">{{ feature.title }}</h3>
+                <h3 class="text-3xl lg:text-4xl font-extrabold text-slate-800 mb-4 tracking-tight">
+                  {{ feature.title }}
+                </h3>
                 <p class="text-slate-500 text-lg leading-relaxed">{{ feature.desc }}</p>
               </div>
 
@@ -271,7 +283,11 @@ const scrollFeatures = (direction: 'left' | 'right') => {
               v-for="(_, idx) in features"
               :key="idx"
               class="w-3 h-3 rounded-full transition-all duration-300 border border-slate-200"
-              :class="activeIndex === idx ? 'bg-emerald-500 w-10 shadow-sm' : 'bg-slate-200 hover:bg-emerald-300'"
+              :class="
+                activeIndex === idx
+                  ? 'bg-emerald-500 w-10 shadow-sm'
+                  : 'bg-slate-200 hover:bg-emerald-300'
+              "
               @click="scrollToFeature(idx)"
               :aria-label="`Go to slide ${idx + 1}`"
             ></button>

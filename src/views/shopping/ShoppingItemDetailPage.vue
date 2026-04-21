@@ -432,9 +432,7 @@ const isStatusDone = (idx: number) => idx < currentStatusIndex.value
 const isStatusActive = (idx: number) => idx === currentStatusIndex.value
 
 /* --- 未購入判定 --- */
-const isNotPurchased = computed(
-  () => item.value?.status === SHOPPING_ITEM_STATUS.NOT_PURCHASED,
-)
+const isNotPurchased = computed(() => item.value?.status === SHOPPING_ITEM_STATUS.NOT_PURCHASED)
 
 /* --- 削除 --- */
 const onDelete = async () => {
