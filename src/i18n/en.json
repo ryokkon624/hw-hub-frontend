@@ -277,8 +277,9 @@
     "houseworkTemplate": {
       "createButton": "Add Template",
       "columns": {
-        "nameJa": "Name (JA)",
-        "recommendation": "Tip"
+        "name": "Name",
+        "recommendation": "Tip",
+        "recommendationYes": "Yes"
       },
       "form": {
         "nameJa": "Name (Japanese)",

@@ -277,8 +277,9 @@
     "houseworkTemplate": {
       "createButton": "Agregar plantilla",
       "columns": {
-        "nameJa": "Nombre (JA)",
-        "recommendation": "Consejo"
+        "name": "Nombre",
+        "recommendation": "Consejo",
+        "recommendationYes": "Sí"
       },
       "form": {
         "nameJa": "Nombre (japonés)",
