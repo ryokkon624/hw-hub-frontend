@@ -732,6 +732,7 @@
         "status": "Estado"
       },
       "saveButton": "Guardar cambios",
+      "deleteButton": "Eliminar este artículo",
       "imageSection": {
         "title": "Imágenes",
         "none": "Aún no se han añadido imágenes.",
@@ -754,7 +755,10 @@
         "imageAddError": "Error al añadir la imagen.",
         "imageDeleteConfirm": "¿Deseas eliminar esta imagen?",
         "imageDeleteSuccess": "La imagen ha sido eliminada.",
-        "imageDeleteError": "Error al eliminar la imagen."
+        "imageDeleteError": "Error al eliminar la imagen.",
+        "deleteConfirm": "¿Estás seguro de que deseas eliminar este artículo?\nEsta acción no se puede deshacer.",
+        "deleteSuccess": "El artículo ha sido eliminado.",
+        "deleteError": "Error al eliminar el artículo."
       }
     },
     "historyModal": {

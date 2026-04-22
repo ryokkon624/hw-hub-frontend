@@ -732,6 +732,7 @@
         "status": "Status"
       },
       "saveButton": "Save changes",
+      "deleteButton": "Delete this item",
       "imageSection": {
         "title": "Images",
         "none": "No images have been added yet.",
@@ -754,7 +755,10 @@
         "imageAddError": "Failed to add image.",
         "imageDeleteConfirm": "Do you want to delete this image?",
         "imageDeleteSuccess": "Image has been deleted.",
-        "imageDeleteError": "Failed to delete image."
+        "imageDeleteError": "Failed to delete image.",
+        "deleteConfirm": "Are you sure you want to delete this item?\nThis action cannot be undone.",
+        "deleteSuccess": "Item has been deleted.",
+        "deleteError": "Failed to delete the item."
       }
     },
     "historyModal": {

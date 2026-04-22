@@ -16,6 +16,7 @@ vi.mock('@/api/shoppingItemApi', () => ({
     createItem: vi.fn(),
     updateStatus: vi.fn(),
     toggleFavorite: vi.fn(),
+    deleteItem: vi.fn(),
   },
 }))
 
@@ -216,6 +217,45 @@ describe('shoppingStore', () => {
 
     expect(shoppingItemApi.updateStatus).toHaveBeenCalledWith(1, newStatus)
     expect(store.itemsByHouseholdId[1]![0]!.status).toBe(newStatus)
+  })
+
+  it('deleteItem は API 呼び出し後、該当アイテムをキャッシュから除去する', async () => {
+    const store = useShoppingStore()
+    const i1 = createItem({ shoppingItemId: 1 })
+    const i2 = createItem({ shoppingItemId: 2, name: 'パン' })
+    store.itemsByHouseholdId[1] = [i1, i2]
+
+    vi.mocked(shoppingItemApi.deleteItem).mockResolvedValue(undefined)
+
+    await store.deleteItem(1, 1)
+
+    expect(shoppingItemApi.deleteItem).toHaveBeenCalledWith(1)
+    expect(store.itemsByHouseholdId[1]).toEqual([i2])
+  })
+
+  it('deleteItem は該当アイテムが存在しない世帯でもエラーにならない', async () => {
+    const store = useShoppingStore()
+    store.itemsByHouseholdId[1] = []
+
+    vi.mocked(shoppingItemApi.deleteItem).mockResolvedValue(undefined)
+
+    await store.deleteItem(1, 999)
+
+    expect(shoppingItemApi.deleteItem).toHaveBeenCalledWith(999)
+    expect(store.itemsByHouseholdId[1]).toEqual([])
+  })
+
+  it('clear は itemsByHouseholdId と lastFetchedAtByHouseholdId を空にする', () => {
+    const store = useShoppingStore()
+    store.itemsByHouseholdId[1] = [createItem({ shoppingItemId: 1 })]
+    store.itemsByHouseholdId[2] = [createItem({ shoppingItemId: 2 })]
+    store.lastFetchedAtByHouseholdId[1] = Date.now()
+    store.lastFetchedAtByHouseholdId[2] = Date.now()
+
+    store.clear()
+
+    expect(store.itemsByHouseholdId).toEqual({})
+    expect(store.lastFetchedAtByHouseholdId).toEqual({})
   })
 
   it('toggleFavorite は favorite をトグルし、API に FAVORITE_FLAG を渡す', async () => {

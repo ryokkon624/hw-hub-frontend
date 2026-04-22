@@ -143,8 +143,17 @@
           </div>
         </div>
 
-        <!-- 保存ボタン -->
-        <div class="flex justify-end">
+        <!-- 保存ボタン + 削除ボタン -->
+        <div class="flex items-center justify-between">
+          <button
+            v-if="isNotPurchased"
+            type="button"
+            class="inline-flex items-center rounded-md border border-red-300 px-4 py-2 text-sm font-semibold text-red-600 hover:bg-red-50"
+            @click="onDelete"
+          >
+            {{ t('shopping.detail.deleteButton') }}
+          </button>
+          <div v-else />
           <button
             type="button"
             class="inline-flex items-center rounded-md bg-hwhub-primary px-4 py-2 text-sm font-semibold text-white hover:bg-hwhub-primary disabled:opacity-50"
@@ -421,6 +430,26 @@ const statusHelpText = computed(() => {
 
 const isStatusDone = (idx: number) => idx < currentStatusIndex.value
 const isStatusActive = (idx: number) => idx === currentStatusIndex.value
+
+/* --- 未購入判定 --- */
+const isNotPurchased = computed(() => item.value?.status === SHOPPING_ITEM_STATUS.NOT_PURCHASED)
+
+/* --- 削除 --- */
+const onDelete = async () => {
+  if (!item.value || !currentHouseholdId.value) return
+  if (!confirm(t('shopping.detail.messages.deleteConfirm'))) return
+
+  try {
+    await uiStore.withLoading(async () => {
+      await shoppingStore.deleteItem(currentHouseholdId.value!, item.value!.shoppingItemId)
+    })
+    uiStore.showToast('success', t('shopping.detail.messages.deleteSuccess'))
+    router.back()
+  } catch (e) {
+    console.error(e)
+    uiStore.showToast('error', t('shopping.detail.messages.deleteError'))
+  }
+}
 
 /* --- お気に入り --- */
 const onToggleFavorite = async () => {

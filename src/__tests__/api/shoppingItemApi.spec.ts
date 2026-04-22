@@ -13,6 +13,7 @@ type MockedApiClient = {
   post: ReturnType<typeof vi.fn>
   put: ReturnType<typeof vi.fn>
   patch: ReturnType<typeof vi.fn>
+  delete: ReturnType<typeof vi.fn>
 }
 
 const mockedClient = apiClient as unknown as MockedApiClient
@@ -24,6 +25,7 @@ vi.mock('@/api/client', () => {
       post: vi.fn(),
       put: vi.fn(),
       patch: vi.fn(),
+      delete: vi.fn(),
     },
   }
 })
@@ -307,6 +309,17 @@ describe('shoppingItemApi', () => {
       expect(mockedClient.patch).toHaveBeenCalledWith('/api/shopping-items/6/favorite', {
         favorite: FAVORITE_FLAG.FAVORITE,
       })
+    })
+  })
+
+  describe('deleteItem', () => {
+    it('DELETE /api/shopping-items/:id を呼び出す', async () => {
+      mockedClient.delete.mockResolvedValue({})
+
+      await shoppingItemApi.deleteItem(5)
+
+      expect(mockedClient.delete).toHaveBeenCalledTimes(1)
+      expect(mockedClient.delete).toHaveBeenCalledWith('/api/shopping-items/5')
     })
   })
 

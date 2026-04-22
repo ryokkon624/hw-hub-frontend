@@ -83,6 +83,14 @@ export const shoppingItemApi = {
   },
 
   /**
+   * 買い物アイテムを削除する。
+   * @param shoppingItemId 買い物アイテムID
+   */
+  async deleteItem(shoppingItemId: number): Promise<void> {
+    await apiClient.delete<void>(`/api/shopping-items/${shoppingItemId}`)
+  },
+
+  /**
    * お気に入りを更新する。
    * @param shoppingItemId 買い物アイテムID
    * @param favorite お気に入り
