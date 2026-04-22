@@ -245,6 +245,19 @@ describe('shoppingStore', () => {
     expect(store.itemsByHouseholdId[1]).toEqual([])
   })
 
+  it('clear は itemsByHouseholdId と lastFetchedAtByHouseholdId を空にする', () => {
+    const store = useShoppingStore()
+    store.itemsByHouseholdId[1] = [createItem({ shoppingItemId: 1 })]
+    store.itemsByHouseholdId[2] = [createItem({ shoppingItemId: 2 })]
+    store.lastFetchedAtByHouseholdId[1] = Date.now()
+    store.lastFetchedAtByHouseholdId[2] = Date.now()
+
+    store.clear()
+
+    expect(store.itemsByHouseholdId).toEqual({})
+    expect(store.lastFetchedAtByHouseholdId).toEqual({})
+  })
+
   it('toggleFavorite は favorite をトグルし、API に FAVORITE_FLAG を渡す', async () => {
     const store = useShoppingStore()
     const item = createItem({
