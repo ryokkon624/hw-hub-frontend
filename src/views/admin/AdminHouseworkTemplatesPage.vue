@@ -12,7 +12,7 @@ import { weeklyDaysMaskToLabel } from '@/utils/weeklyDaysLabel'
 import { RECURRENCE_TYPE, CATEGORY } from '@/constants/code.constants'
 import type { AdminHouseworkTemplateModel, HouseworkTemplateModel } from '@/domain'
 import ListPagination from '@/components/ui/ListPagination.vue'
-import { ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-vue-next'
+import { ArrowUpDown, ArrowUp, ArrowDown, Lightbulb } from 'lucide-vue-next'
 
 const { t, locale } = useI18n()
 const router = useRouter()
@@ -295,8 +295,9 @@ const categoryColorClass = (category: string | null | undefined): string => {
               <td class="px-3 py-2 align-top">
                 <span
                   v-if="hasRecommendation(item)"
-                  class="inline-flex items-center rounded-full px-2 py-0.5 text-[11px] bg-amber-50 text-amber-600"
+                  class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] bg-amber-50 text-amber-600"
                 >
+                  <Lightbulb class="w-3 h-3" />
                   {{ t('admin.houseworkTemplate.columns.recommendationYes') }}
                 </span>
               </td>
@@ -342,8 +343,9 @@ const categoryColorClass = (category: string | null | undefined): string => {
           <div class="mt-1.5 flex items-center gap-1 text-[11px]">
             <span
               v-if="hasRecommendation(item)"
-              class="inline-flex items-center rounded-full px-2 py-0.5 bg-amber-50 text-amber-600"
+              class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 bg-amber-50 text-amber-600"
             >
+              <Lightbulb class="w-3 h-3" />
               {{ t('admin.houseworkTemplate.columns.recommendationYes') }}
             </span>
           </div>
