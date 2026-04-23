@@ -17,6 +17,7 @@ vi.mock('@/api/shoppingItemApi', () => ({
     updateStatus: vi.fn(),
     toggleFavorite: vi.fn(),
     deleteItem: vi.fn(),
+    bulkUpdateStatus: vi.fn(),
   },
 }))
 
@@ -243,6 +244,26 @@ describe('shoppingStore', () => {
 
     expect(shoppingItemApi.deleteItem).toHaveBeenCalledWith(999)
     expect(store.itemsByHouseholdId[1]).toEqual([])
+  })
+
+  it('bulkUpdateStatus は API 呼び出し後、指定アイテムのステータスを一括更新する', async () => {
+    const store = useShoppingStore()
+    const i1 = createItem({ shoppingItemId: 1, status: SHOPPING_ITEM_STATUS.IN_BASKET })
+    const i2 = createItem({ shoppingItemId: 2, status: SHOPPING_ITEM_STATUS.IN_BASKET })
+    const i3 = createItem({ shoppingItemId: 3, status: SHOPPING_ITEM_STATUS.NOT_PURCHASED })
+    store.itemsByHouseholdId[1] = [i1, i2, i3]
+
+    vi.mocked(shoppingItemApi.bulkUpdateStatus).mockResolvedValue(undefined)
+
+    await store.bulkUpdateStatus(1, [1, 2], SHOPPING_ITEM_STATUS.PURCHASED)
+
+    expect(shoppingItemApi.bulkUpdateStatus).toHaveBeenCalledWith(
+      [1, 2],
+      SHOPPING_ITEM_STATUS.PURCHASED,
+    )
+    expect(store.itemsByHouseholdId[1]![0]!.status).toBe(SHOPPING_ITEM_STATUS.PURCHASED)
+    expect(store.itemsByHouseholdId[1]![1]!.status).toBe(SHOPPING_ITEM_STATUS.PURCHASED)
+    expect(store.itemsByHouseholdId[1]![2]!.status).toBe(SHOPPING_ITEM_STATUS.NOT_PURCHASED)
   })
 
   it('clear は itemsByHouseholdId と lastFetchedAtByHouseholdId を空にする', () => {

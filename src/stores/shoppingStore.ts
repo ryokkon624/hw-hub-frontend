@@ -189,6 +189,28 @@ export const useShoppingStore = defineStore('shopping', {
       )
     },
 
+    /**
+     * 複数の買い物アイテムのステータスを一括更新する。
+     * @param householdId 世帯ID
+     * @param shoppingItemIds 買い物アイテムIDの配列
+     * @param status 更新するステータス
+     */
+    async bulkUpdateStatus(
+      householdId: number,
+      shoppingItemIds: number[],
+      status: ShoppingItemStatusCode,
+    ) {
+      await shoppingItemApi.bulkUpdateStatus(shoppingItemIds, status)
+
+      const current = this.itemsByHouseholdId[householdId] ?? []
+      this.itemsByHouseholdId[householdId] = current.map((item) => {
+        if (shoppingItemIds.includes(item.shoppingItemId)) {
+          return { ...item, status }
+        }
+        return item
+      })
+    },
+
     async toggleFavorite(householdId: number, shoppingItemId: number) {
       const item = this.findItem(householdId, shoppingItemId)
       if (!item) return

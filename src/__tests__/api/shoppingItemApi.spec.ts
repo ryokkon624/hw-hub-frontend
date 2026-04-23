@@ -323,6 +323,20 @@ describe('shoppingItemApi', () => {
     })
   })
 
+  describe('bulkUpdateStatus', () => {
+    it('PATCH /api/shopping-items/bulk-status を正しい payload で呼び出す', async () => {
+      mockedClient.patch.mockResolvedValue({})
+
+      await shoppingItemApi.bulkUpdateStatus([1, 2, 3], '9')
+
+      expect(mockedClient.patch).toHaveBeenCalledTimes(1)
+      expect(mockedClient.patch).toHaveBeenCalledWith('/api/shopping-items/bulk-status', {
+        ids: [1, 2, 3],
+        status: '9',
+      })
+    })
+  })
+
   describe('listHistorySuggestions', () => {
     it('GET /api/households/:id/shopping-items/history-suggestions を params 付きで呼び出し、DTO を Domain Model に変換する', async () => {
       const dtoList = [
