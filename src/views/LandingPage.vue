@@ -134,13 +134,13 @@ const scrollFeatures = (direction: 'left' | 'right') => {
           <LanguageSwitcher />
           <RouterLink
             to="/login"
-            class="text-sm font-medium text-green-100 hover:text-white transition-colors hidden sm:block px-2"
+            class="text-sm font-medium text-green-100 hover:text-white transition-colors hidden md:block px-2"
           >
             {{ t('landing.header.login') }}
           </RouterLink>
           <RouterLink
             to="/signup"
-            class="text-sm font-bold bg-white text-[#1a2e1a] rounded-full px-5 py-2 transition-all hover:bg-green-50 hover:shadow-lg hover:scale-105 active:scale-95"
+            class="text-sm font-bold bg-white text-[#1a2e1a] rounded-full px-5 py-2 transition-all hover:bg-green-50 hover:shadow-lg hover:scale-105 active:scale-95 hidden md:block"
           >
             {{ t('landing.header.signup') }}
           </RouterLink>
