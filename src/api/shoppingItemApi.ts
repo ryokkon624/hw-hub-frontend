@@ -83,6 +83,15 @@ export const shoppingItemApi = {
   },
 
   /**
+   * 複数の買い物アイテムのステータスを一括更新する。
+   * @param ids 買い物アイテムIDの配列
+   * @param status 更新するステータス
+   */
+  async bulkUpdateStatus(ids: number[], status: string): Promise<void> {
+    await apiClient.patch('/api/shopping-items/bulk-status', { ids, status })
+  },
+
+  /**
    * 買い物アイテムを削除する。
    * @param shoppingItemId 買い物アイテムID
    */
