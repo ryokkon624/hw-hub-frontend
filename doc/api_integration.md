@@ -57,6 +57,7 @@
 | | GET | `/api/households/{id}/shopping-items/favorites` | お気に入り買い物アイテム一覧の取得 | `shoppingFavoriteStore` (`shoppingItemApi`) |
 | | GET | `/api/households/{id}/shopping-items/history-suggestions` | 過去の買い物履歴からのサジェスト取得 | `shoppingHistoryStore` (`shoppingItemApi`) |
 | **買い物アイテム詳細** | PUT | `/api/households/{id}/shopping-items/{itemId}` | アイテム基本情報の更新 | `shoppingStore` (`shoppingItemApi`) |
+| | DELETE | `/api/shopping-items/{id}` | 買い物アイテムの削除 | `shoppingStore` (`shoppingItemApi`) |
 | | GET | `/api/shopping-items/{itemId}/attachments` | 添付画像一覧の取得 | `attachmentStore` (`shoppingItemAttachmentApi`) |
 | | POST | `/api/shopping-items/{itemId}/attachments/upload-url` | 画像アップロード用URLの生成 | `attachmentStore` (`shoppingItemAttachmentApi`) |
 | | PUT | (S3 Presigned URL) | 画像の実体アップロード | `authApi` (`putToPresignedUrl`) |
