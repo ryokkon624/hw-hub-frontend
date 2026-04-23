@@ -116,7 +116,7 @@
       <!-- SP用タブバー -->
       <div class="fixed bottom-0 inset-x-0 z-40 md:hidden">
         <!-- タブバー -->
-        <nav class="flex items-stretch justify-around bg-[#1a2e1a] text-xs">
+        <nav class="flex items-stretch justify-around bg-hwhub-sidebar text-xs">
           <button
             v-for="item in mainNavItems"
             :key="item.name"
