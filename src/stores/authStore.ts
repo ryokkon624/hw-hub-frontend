@@ -333,7 +333,7 @@ export const useAuthStore = defineStore('auth', {
       this.logout()
     },
 
-    patchCurrentUser(patch: Partial<{ notificationEnabled: boolean }>) {
+    patchCurrentUser(patch: Partial<{ notificationEnabled: boolean; locale: string }>) {
       if (!this.currentUser) return
       this.currentUser = { ...this.currentUser, ...patch }
     },

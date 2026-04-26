@@ -97,9 +97,7 @@ const close = () => {
 const selectLocale = (lang: Locale) => {
   locale.value = lang
   localStorage.setItem('hwhub_locale', lang)
-  if (authStore.currentUser) {
-    authStore.currentUser.locale = lang
-  }
+  authStore.patchCurrentUser({ locale: lang })
   close()
 }
 </script>
