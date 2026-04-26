@@ -191,7 +191,7 @@
             :class="
               att.id === selectedAttachmentId
                 ? 'border-hwhub-primary'
-                : 'border-hwhub-border hover:border-gray-400'
+                : 'border-hwhub-border hover:border-hwhub-primary'
             "
             @click="onSelectThumbnail(att)"
           >
