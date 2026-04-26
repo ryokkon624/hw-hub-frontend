@@ -1,30 +1,16 @@
 <template>
   <div class="space-y-4">
     <!-- タイトル -->
-    <header class="flex items-center justify-between">
-      <div>
-        <h1 class="sr-only">{{ t('shopping.detail.titleSr') }}</h1>
-        <p class="text-sm text-hwhub-muted">{{ t('shopping.detail.intro') }}</p>
-      </div>
+    <header class="space-y-1">
       <button
-        type="button"
-        class="hidden sm:inline-flex items-center rounded-full bg-hwhub-primary px-4 py-1.5 text-sm font-semibold text-white hover:bg-hwhub-primary"
+        class="flex items-center gap-1 text-sm text-hwhub-muted hover:text-hwhub-heading"
         @click="goBack"
       >
-        {{ t('shopping.detail.back') }}
+        ‹ {{ t('common.cancel') }}
       </button>
+      <h1 class="sr-only">{{ t('shopping.detail.titleSr') }}</h1>
+      <p class="text-sm text-hwhub-muted">{{ t('shopping.detail.intro') }}</p>
     </header>
-
-    <!-- SP 用戻るボタン -->
-    <div class="sm:hidden">
-      <button
-        type="button"
-        class="w-full rounded-full bg-hwhub-primary px-4 py-2 text-sm font-semibold text-white hover:bg-hwhub-primary"
-        @click="goBack"
-      >
-        {{ t('shopping.detail.back') }}
-      </button>
-    </div>
 
     <!-- メインレイアウト：PC は2カラム -->
     <div class="grid gap-4 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">

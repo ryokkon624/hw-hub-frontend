@@ -122,21 +122,21 @@
       />
 
       <!-- ボタン -->
-      <div class="flex items-center gap-2">
-        <button
-          type="submit"
-          class="inline-flex items-center rounded-full bg-hwhub-primary px-4 py-2 text-sm font-semibold text-white hover:bg-hwhub-primary disabled:opacity-50"
-          :disabled="!canSubmit"
-        >
-          {{ t('shopping.create.buttons.submit') }}
-        </button>
-
+      <div class="flex items-center justify-end gap-2">
         <button
           type="button"
           class="text-sm text-hwhub-muted hover:text-hwhub-heading"
           @click="onCancel"
         >
           {{ t('shopping.create.buttons.cancel') }}
+        </button>
+
+        <button
+          type="submit"
+          class="inline-flex items-center rounded-full bg-hwhub-primary px-4 py-2 text-sm font-semibold text-white hover:bg-hwhub-primary disabled:opacity-50"
+          :disabled="!canSubmit"
+        >
+          {{ t('shopping.create.buttons.submit') }}
         </button>
       </div>
     </form>
