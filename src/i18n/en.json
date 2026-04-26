@@ -512,6 +512,14 @@
   "appHeader": {
     "iconAlt": "User icon"
   },
+  "languageSwitcher": {
+    "mobile": {
+      "ariaLabel": "Select language",
+      "title": "Select Language",
+      "close": "Close",
+      "current": "Current"
+    }
+  },
   "oauthResult": {
     "processing": "Processing...",
     "status": "Signing in..."

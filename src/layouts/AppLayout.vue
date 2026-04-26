@@ -92,9 +92,17 @@
       <!-- ヘッダー -->
       <header class="h-16 flex items-center justify-between px-4 border-b bg-white">
         <!-- 左側：ページタイトル + 世帯 -->
-        <div class="flex items-center gap-2">
-          <div class="flex flex-col gap-0.5">
-            <h1 class="font-semibold text-lg text-hwhub-heading">
+        <div class="flex items-center gap-2 min-w-0">
+          <div class="flex flex-col gap-0.5 min-w-0">
+            <!-- SP版：clamp によるフォントサイズ調整 + ellipsis -->
+            <h1
+              class="md:hidden font-semibold text-hwhub-heading whitespace-nowrap overflow-hidden text-ellipsis"
+              style="font-size: clamp(0.75rem, 4vw, 1.125rem)"
+            >
+              {{ pageTitle }}
+            </h1>
+            <!-- PC版：従来スタイル -->
+            <h1 class="hidden md:block font-semibold text-lg text-hwhub-heading">
               {{ pageTitle }}
             </h1>
             <!-- SP時のみ現在の世帯をサブタイトル的に表示 -->
