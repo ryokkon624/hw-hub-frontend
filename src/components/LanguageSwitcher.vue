@@ -4,7 +4,7 @@
   <div v-if="!forcePill" class="md:hidden">
     <button
       type="button"
-      class="flex items-center gap-1.5 px-2 py-1 rounded-full border border-hwhub-border-subtle bg-gradient-to-b from-white to-hwhub-surface-subtle shadow-sm hover:shadow-md transition-all active:scale-95 group"
+      class="flex items-center gap-1.5 px-2 py-1 rounded-full border border-hwhub-border-subtle bg-linear-to-b from-white to-hwhub-surface-subtle shadow-sm hover:shadow-md transition-all active:scale-95 group"
       :class="buttonClass"
       :aria-label="t('languageSwitcher.mobile.ariaLabel')"
       @click="mobileOpen = true"
