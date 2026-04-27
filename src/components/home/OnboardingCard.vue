@@ -80,7 +80,7 @@ const goHouseworkSettings = () => {
           {{ t('home.onboarding.step1.description') }}
         </p>
 
-        <div v-if="!isStep1Done" class="mt-4">
+        <div v-if="!isStep1Done" class="mt-4 flex justify-end">
           <button
             type="button"
             class="inline-flex items-center gap-1.5 rounded-lg bg-hwhub-primary px-3 py-2 text-xs font-semibold text-white transition hover:bg-hwhub-primary-600 shadow-sm"
@@ -117,7 +117,7 @@ const goHouseworkSettings = () => {
           {{ t('home.onboarding.step2.description') }}
         </p>
 
-        <div v-if="!isStep2Done" class="mt-4">
+        <div v-if="!isStep2Done" class="mt-4 flex justify-end">
           <button
             type="button"
             class="inline-flex items-center gap-1.5 rounded-lg bg-hwhub-primary px-3 py-2 text-xs font-semibold text-white transition hover:bg-hwhub-primary-600 shadow-sm"
