@@ -111,7 +111,7 @@
         </div>
 
         <!-- 右側：言語切替 + ユーザメニュー -->
-        <div class="flex-shrink-0">
+        <div class="shrink-0">
           <AppHeader />
         </div>
       </header>
