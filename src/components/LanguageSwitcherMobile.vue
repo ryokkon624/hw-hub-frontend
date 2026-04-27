@@ -41,7 +41,7 @@
                 :class="[
                   currentLocale === lang
                     ? 'bg-white text-hwhub-primary shadow-sm scale-[1.02]'
-                    : 'text-hwhub-muted hover:text-hwhub-heading active:scale-95'
+                    : 'text-hwhub-muted hover:text-hwhub-heading active:scale-95',
                 ]"
                 @click="selectLocale(lang)"
               >
