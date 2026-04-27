@@ -78,13 +78,13 @@ const onSubmit = async () => {
 
 <template>
   <div class="min-h-screen flex items-center justify-center bg-hwhub-surface px-4">
-    <div class="absolute top-4 right-4">
-      <LanguageSwitcher />
+    <div class="absolute top-4 right-4 z-10">
+      <LanguageSwitcher force-pill />
     </div>
-
-    <div
-      class="w-full max-w-4xl bg-white rounded-3xl shadow-lg border border-gray-200 flex flex-col md:flex-row overflow-hidden"
-    >
+    <div class="relative w-full max-w-4xl">
+      <div
+        class="w-full bg-white rounded-3xl shadow-lg border border-gray-200 flex flex-col md:flex-row overflow-hidden"
+      >
       <!-- 左：コピーエリア（サインアップ用の文言） -->
       <section class="md:w-1/2 px-8 py-8 md:py-12 bg-hwhub-surface-subtle flex flex-col gap-6">
         <div class="space-y-4">
@@ -219,4 +219,5 @@ const onSubmit = async () => {
       </section>
     </div>
   </div>
+</div>
 </template>

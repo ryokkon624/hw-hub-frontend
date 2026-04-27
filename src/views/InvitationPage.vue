@@ -89,13 +89,14 @@ onMounted(() => {
 
 <template>
   <div class="min-h-screen flex items-center justify-center bg-hwhub-surface px-4">
-    <div class="absolute top-4 right-4">
-      <LanguageSwitcher />
-    </div>
+    <div class="relative w-full max-w-3xl">
+      <div class="absolute top-4 right-4 z-10">
+        <LanguageSwitcher force-pill />
+      </div>
 
-    <div
-      class="w-full max-w-3xl bg-white rounded-3xl shadow-lg border border-gray-200 overflow-hidden flex flex-col md:flex-row"
-    >
+      <div
+        class="w-full bg-white rounded-3xl shadow-lg border border-gray-200 overflow-hidden flex flex-col md:flex-row"
+      >
       <!-- 左：説明 -->
       <section class="md:w-1/2 px-8 py-8 md:py-10 bg-hwhub-surface-subtle flex flex-col gap-4">
         <div>
@@ -212,4 +213,5 @@ onMounted(() => {
       </section>
     </div>
   </div>
+</div>
 </template>

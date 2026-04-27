@@ -31,31 +31,21 @@
               </button>
             </div>
 
-            <!-- 言語リスト -->
-            <div class="space-y-2">
+            <!-- 言語リスト（ピル形式） -->
+            <div class="mt-4 p-1.5 bg-hwhub-surface-subtle rounded-2xl flex items-center gap-1">
               <button
                 v-for="lang in locales"
                 :key="lang"
                 type="button"
-                class="w-full rounded-xl border px-3 py-2 text-left flex items-center justify-between transition"
-                :class="
+                class="flex-1 py-3 px-2 text-sm font-bold rounded-xl transition-all duration-200 focus:outline-none"
+                :class="[
                   currentLocale === lang
-                    ? 'border-hwhub-primary bg-hwhub-primary text-white'
-                    : 'border-hwhub-border-subtle bg-white text-hwhub-heading hover:bg-hwhub-surface-subtle'
-                "
+                    ? 'bg-white text-hwhub-primary shadow-sm scale-[1.02]'
+                    : 'text-hwhub-muted hover:text-hwhub-heading active:scale-95'
+                ]"
                 @click="selectLocale(lang)"
               >
-                <span class="text-sm font-medium">
-                  {{ t(`common.locales.${lang}`) }}
-                </span>
-
-                <span
-                  v-if="currentLocale === lang"
-                  class="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] bg-white/95 text-hwhub-heading"
-                >
-                  {{ t('languageSwitcher.mobile.current') }}
-                </span>
-                <span v-else class="text-lg text-hwhub-muted">›</span>
+                {{ t(`common.locales.${lang}`) }}
               </button>
             </div>
           </div>

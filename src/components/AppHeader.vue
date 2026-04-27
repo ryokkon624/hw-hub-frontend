@@ -10,7 +10,7 @@
     <div class="relative">
       <button
         type="button"
-        class="flex items-center gap-2 rounded-full border border-hwhub-border-subtle px-2 py-1 bg-white hover:bg-hwhub-surface-subtle transition"
+        class="flex items-center gap-2 transition hover:bg-hwhub-surface-subtle sm:rounded-full sm:border sm:border-hwhub-border-subtle sm:bg-white sm:px-2 sm:py-1"
         @click="toggleMenu"
       >
         <!-- ユーザアイコン（イニシャル） -->
