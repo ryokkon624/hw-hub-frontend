@@ -131,7 +131,11 @@ const scrollFeatures = (direction: 'left' | 'right') => {
         </nav>
 
         <div class="flex items-center gap-3">
-          <LanguageSwitcher />
+          <LanguageSwitcher
+            force-pill
+            button-class="!bg-white/10 !border-white/20 !shadow-none"
+            text-class="!text-white"
+          />
           <RouterLink
             to="/login"
             class="text-sm font-medium text-green-100 hover:text-white transition-colors hidden md:block px-2"

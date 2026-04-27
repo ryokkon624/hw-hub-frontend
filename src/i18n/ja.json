@@ -512,6 +512,14 @@
   "appHeader": {
     "iconAlt": "ユーザーアイコン"
   },
+  "languageSwitcher": {
+    "mobile": {
+      "ariaLabel": "言語を選択",
+      "title": "言語を選択",
+      "close": "閉じる",
+      "current": "現在の言語"
+    }
+  },
   "oauthResult": {
     "processing": "Processing...",
     "status": "サインイン情報を反映しています。"

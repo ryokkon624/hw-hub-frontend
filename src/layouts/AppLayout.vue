@@ -88,24 +88,32 @@
     </aside>
 
     <!-- メイン領域 -->
-    <div class="flex-1 flex flex-col">
+    <div class="flex-1 flex flex-col min-w-0">
       <!-- ヘッダー -->
       <header class="h-16 flex items-center justify-between px-4 border-b bg-white">
         <!-- 左側：ページタイトル + 世帯 -->
-        <div class="flex items-center gap-2">
-          <div class="flex flex-col gap-0.5">
-            <h1 class="font-semibold text-lg text-hwhub-heading">
-              {{ pageTitle }}
-            </h1>
-            <!-- SP時のみ現在の世帯をサブタイトル的に表示 -->
-            <div v-if="currentHousehold" class="md:hidden text-xs text-hwhub-muted">
-              {{ t('layout.sidebar.mobileHouseholdPrefix') }}{{ currentHousehold.name }}
-            </div>
+        <div class="flex-1 min-w-0 flex flex-col justify-center pr-2 overflow-hidden">
+          <!-- SP版：clamp によるフォントサイズ調整 + ellipsis -->
+          <h1
+            class="md:hidden font-semibold text-hwhub-heading whitespace-nowrap overflow-hidden text-ellipsis leading-tight w-full"
+            style="font-size: clamp(0.875rem, 4vw, 1rem)"
+          >
+            {{ pageTitle }}
+          </h1>
+          <!-- PC版：従来スタイル -->
+          <h1 class="hidden md:block font-semibold text-lg text-hwhub-heading truncate">
+            {{ pageTitle }}
+          </h1>
+          <!-- SP時のみ現在の世帯をサブタイトル的に表示 -->
+          <div v-if="currentHousehold" class="md:hidden text-[10px] text-hwhub-muted truncate">
+            {{ t('layout.sidebar.mobileHouseholdPrefix') }}{{ currentHousehold.name }}
           </div>
         </div>
 
         <!-- 右側：言語切替 + ユーザメニュー -->
-        <AppHeader />
+        <div class="flex-shrink-0">
+          <AppHeader />
+        </div>
       </header>
 
       <!-- コンテンツ：SP ではタブバーぶん余白を確保 -->

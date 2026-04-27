@@ -125,7 +125,7 @@ const onClickGoogle = async () => {
 <template>
   <div class="min-h-screen flex items-center justify-center bg-hwhub-surface px-4">
     <div class="absolute top-4 right-4 z-10">
-      <LanguageSwitcher />
+      <LanguageSwitcher force-pill />
     </div>
 
     <!-- カード全体 -->
