@@ -231,4 +231,26 @@ describe('houseworkStore', () => {
     expect(store.items).toEqual([])
     expect(store.current).toBeNull()
   })
+
+  describe('isFetchedFor', () => {
+    it('指定された世帯がまだ fetch されていなければ false を返す', () => {
+      const store = useHouseworkStore()
+
+      expect(store.isFetchedFor(1)).toBe(false)
+    })
+
+    it('指定された世帯が fetch 済みなら true を返す', () => {
+      const store = useHouseworkStore()
+      store.lastFetchedAtByHouseholdId[1] = Date.now()
+
+      expect(store.isFetchedFor(1)).toBe(true)
+    })
+
+    it('別の世帯が fetch 済みでも、対象世帯が未 fetch なら false を返す', () => {
+      const store = useHouseworkStore()
+      store.lastFetchedAtByHouseholdId[2] = Date.now()
+
+      expect(store.isFetchedFor(1)).toBe(false)
+    })
+  })
 })

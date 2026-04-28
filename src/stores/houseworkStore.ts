@@ -19,6 +19,19 @@ export const useHouseworkStore = defineStore('houseworkStore', {
     lastFetchedAtByHouseholdId: {},
   }),
 
+  getters: {
+    /**
+     * 指定された世帯の家事が一度でも fetch されているかを返す。
+     * @param state
+     * @returns fetch 済みなら true
+     */
+    isFetchedFor:
+      (state) =>
+      (householdId: number): boolean => {
+        return !!state.lastFetchedAtByHouseholdId[householdId]
+      },
+  },
+
   actions: {
     /**
      * 選択中の世帯の家事を取得する。

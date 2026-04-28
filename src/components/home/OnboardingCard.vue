@@ -21,8 +21,7 @@ const isStep1Done = computed(() => !!currentHouseholdId.value)
 const isStep2Done = computed(() => {
   if (!isStep1Done.value) return false
 
-  const fetchedAt = houseworkStore.lastFetchedAtByHouseholdId[currentHouseholdId.value ?? 0]
-  if (!fetchedAt) return false
+  if (!houseworkStore.isFetchedFor(currentHouseholdId.value ?? 0)) return false
 
   return hasHouseworks.value
 })
