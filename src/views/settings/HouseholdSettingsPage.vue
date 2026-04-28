@@ -865,7 +865,7 @@ const onClickDeleteHousehold = async () => {
 
     // 有効な家事
     const today = new Date().toISOString().slice(0, 10)
-    const houseworks = houseworkStore.itemsByHouseholdId[householdId] ?? []
+    const houseworks = houseworkStore.itemsFor(householdId)
     houseworkCount = houseworks.filter((h) => (h.endDate ?? '') >= today).length
 
     // 未購入の買い物 (NOT_PURCHASED: 0, IN_BASKET: 1) -> 9:PURCHASED 以外
