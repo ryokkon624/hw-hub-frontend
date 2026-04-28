@@ -130,7 +130,7 @@ export const useShoppingStore = defineStore('shopping', {
       shoppingItemId: number,
       payload: ShoppingItemUpdateInput,
     ) {
-      const updated = await shoppingItemApi.updateItem(householdId, shoppingItemId, payload)
+      const updated = await shoppingItemApi.updateItem(shoppingItemId, payload)
 
       const current = this.itemsByHouseholdId[householdId] ?? []
       const idx = current.findIndex((i) => i.shoppingItemId === shoppingItemId)
