@@ -246,7 +246,7 @@ describe('shoppingItemApi', () => {
   })
 
   describe('updateItem', () => {
-    it('PUT /api/households/:id/shopping-items/:itemId に Request DTO を渡し、戻り値を Domain Model に変換する', async () => {
+    it('PUT /api/shopping-items/:itemId に Request DTO を渡し、戻り値を Domain Model に変換する', async () => {
       const input: ShoppingItemUpdateInput = {
         name: '牛乳（低脂肪）',
         memo: '1L',
@@ -271,10 +271,10 @@ describe('shoppingItemApi', () => {
         data: dto,
       })
 
-      const result = await shoppingItemApi.updateItem(10, 1, input)
+      const result = await shoppingItemApi.updateItem(1, input)
 
       expect(mockedClient.put).toHaveBeenCalledTimes(1)
-      expect(mockedClient.put).toHaveBeenCalledWith('/api/households/10/shopping-items/1', {
+      expect(mockedClient.put).toHaveBeenCalledWith('/api/shopping-items/1', {
         name: '牛乳（低脂肪）',
         memo: '1L',
         storeType: '1',

@@ -53,19 +53,17 @@ export const shoppingItemApi = {
 
   /**
    * 買い物アイテムを更新する。
-   * @param householdId 世帯ID
    * @param shoppingItemId 買い物アイテムID
    * @param input 入力値
    * @returns 買い物アイテムDomain Model
    */
   async updateItem(
-    householdId: number,
     shoppingItemId: number,
     input: ShoppingItemUpdateInput,
   ): Promise<ShoppingItemModel> {
     const payload = toUpdateShoppingItemRequestDto(input)
     const res = await apiClient.put<ShoppingItemDto>(
-      `/api/households/${householdId}/shopping-items/${shoppingItemId}`,
+      `/api/shopping-items/${shoppingItemId}`,
       payload,
     )
     return toShoppingItem(res.data)
