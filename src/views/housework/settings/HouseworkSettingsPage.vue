@@ -8,12 +8,13 @@ import { useHouseholdStore } from '@/stores/householdStore'
 import { weeklyDaysMaskToLabel } from '@/utils/weeklyDaysLabel'
 import type { Housework } from '@/domain'
 import HouseholdSwitcherField from '@/components/HouseholdSwitcherField.vue'
+import OnboardingStepCard from '@/components/home/OnboardingStepCard.vue'
 import ListPagination from '@/components/ui/ListPagination.vue'
 import { useHouseworkCodes } from '@/composables/useHouseworkCodes'
 import { usePagination } from '@/composables/usePagination'
 import { useSortable } from '@/composables/useSortable'
 import { RECURRENCE_TYPE, CATEGORY } from '@/constants/code.constants'
-import { ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-vue-next'
+import { ArrowUpDown, ArrowUp, ArrowDown, House } from 'lucide-vue-next'
 
 const { t, locale } = useI18n()
 const router = useRouter()
@@ -24,6 +25,11 @@ const { recurrenceTypeLabel, categoryLabel, weekdayLabel, nthWeekLabel, category
   useHouseworkCodes()
 
 const filterCategory = ref<string | 'ALL'>('ALL')
+const currentHouseholdId = computed(() => householdStore.currentHouseholdId ?? null)
+
+const goHouseholdSettings = () => {
+  router.push({ name: 'settings.household' })
+}
 
 // 世帯が変わったら一覧を再取得
 watch(
@@ -193,7 +199,8 @@ const categoryColorClass = (category: string | null | undefined): string => {
 
       <button
         type="button"
-        class="hidden sm:inline-flex items-center rounded-full bg-hwhub-primary px-4 py-1.5 text-sm font-semibold text-white hover:bg-hwhub-primary"
+        class="hidden sm:inline-flex items-center rounded-full bg-hwhub-primary px-4 py-1.5 text-sm font-semibold text-white hover:bg-hwhub-primary disabled:opacity-50 disabled:cursor-not-allowed"
+        :disabled="!currentHouseholdId"
         @click="goCreate"
       >
         {{ t('housework.list.addButtonLabel') }}
@@ -207,12 +214,25 @@ const categoryColorClass = (category: string | null | undefined): string => {
     <div class="sm:hidden">
       <button
         type="button"
-        class="w-full rounded-full bg-hwhub-primary px-4 py-2 text-sm font-semibold text-white hover:bg-hwhub-primary"
+        class="w-full rounded-full bg-hwhub-primary px-4 py-2 text-sm font-semibold text-white hover:bg-hwhub-primary disabled:opacity-50 disabled:cursor-not-allowed"
+        :disabled="!currentHouseholdId"
         @click="goCreate"
       >
         {{ t('housework.list.addButtonLabel') }}
       </button>
     </div>
+
+    <!-- おうち未所属時のオンボーディングカード -->
+    <OnboardingStepCard
+      v-if="!currentHouseholdId"
+      :icon="House"
+      :title="t('home.onboarding.step1.title')"
+      :description="t('home.onboarding.step1.description')"
+      :button-label="t('home.onboarding.step1.button')"
+      :is-done="false"
+      :extra-message="t('housework.list.noHouseholdMessage')"
+      @action="goHouseholdSettings"
+    />
 
     <!-- カード：フィルタ + 一覧 -->
     <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">

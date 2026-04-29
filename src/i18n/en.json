@@ -503,6 +503,7 @@
       "householdTitle": "Household",
       "currentHouseholdLabel": "Current household",
       "noHouseholdSelected": "No household selected",
+      "joinOrCreateHousehold": "+ Join or Create a Household",
       "otherHouseholdsLabel": "Other households",
       "editingWarning": "You cannot switch households while editing.",
       "mobileHouseholdPrefix": "Household: ",
@@ -666,6 +667,7 @@
       "titleSr": "Shopping list",
       "intro": "Manage shopping items for this household.",
       "addButton": "+ Add item",
+      "noHouseholdMessage": "Join a household to add shopping items and share them with your family.",
       "filters": {
         "all": "All"
       },
@@ -829,6 +831,7 @@
       "title": "Housework settings",
       "description": "Manage housework templates for this household. When you set recurrence and default assignees, they will be reflected in Assignment and My Tasks.",
       "addButtonLabel": "+ Add housework",
+      "noHouseholdMessage": "Join a household to register housework templates from this screen.",
       "totalPrefix": "Registered housework templates:",
       "totalUnit": "items",
       "filter": {
@@ -968,6 +971,7 @@
       "label": "Household",
       "current": "Current household",
       "noneSelected": "No household is selected",
+      "joinOrCreate": "+ Join or Create a Household",
       "mobile": {
         "title": "Select Household",
         "close": "Close",

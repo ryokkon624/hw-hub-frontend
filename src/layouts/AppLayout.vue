@@ -21,9 +21,14 @@
           </div>
           <div class="text-xs text-green-300">{{ currentHousehold.name }}</div>
         </div>
-        <div v-else class="text-xs text-green-300">
-          {{ t('layout.sidebar.noHouseholdSelected') }}
-        </div>
+        <button
+          v-else
+          type="button"
+          class="text-xs text-green-300 underline underline-offset-2 hover:text-white transition-colors text-left"
+          @click="goHouseholdSettings"
+        >
+          {{ t('layout.sidebar.joinOrCreateHousehold') }}
+        </button>
 
         <!-- 切り替え候補（複数世帯がある場合） -->
         <div v-if="otherHouseholds.length > 0" class="mt-2 space-y-1">
@@ -237,6 +242,10 @@ const isEditingHousework = computed(() =>
     'shopping.item.detail',
   ].includes(route.name as string),
 )
+
+const goHouseholdSettings = () => {
+  router.push({ name: 'settings.household' })
+}
 
 const changeHousehold = async (householdId: number) => {
   if (householdId === householdStore.currentHouseholdId) return
