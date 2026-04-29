@@ -19,6 +19,31 @@ export const useHouseworkStore = defineStore('houseworkStore', {
     lastFetchedAtByHouseholdId: {},
   }),
 
+  getters: {
+    /**
+     * 指定された世帯の家事が一度でも fetch されているかを返す。
+     * @param state
+     * @returns fetch 済みなら true
+     */
+    isFetchedFor:
+      (state) =>
+      (householdId: number): boolean => {
+        return !!state.lastFetchedAtByHouseholdId[householdId]
+      },
+
+    /**
+     * 指定された世帯にキャッシュされている家事一覧を返す。
+     * キャッシュが無い場合は空配列を返す。
+     * @param state
+     * @returns 家事Domain Model配列
+     */
+    itemsFor:
+      (state) =>
+      (householdId: number): Housework[] => {
+        return state.itemsByHouseholdId[householdId] ?? []
+      },
+  },
+
   actions: {
     /**
      * 選択中の世帯の家事を取得する。

@@ -231,4 +231,50 @@ describe('houseworkStore', () => {
     expect(store.items).toEqual([])
     expect(store.current).toBeNull()
   })
+
+  describe('isFetchedFor', () => {
+    it('指定された世帯がまだ fetch されていなければ false を返す', () => {
+      const store = useHouseworkStore()
+
+      expect(store.isFetchedFor(1)).toBe(false)
+    })
+
+    it('指定された世帯が fetch 済みなら true を返す', () => {
+      const store = useHouseworkStore()
+      store.lastFetchedAtByHouseholdId[1] = Date.now()
+
+      expect(store.isFetchedFor(1)).toBe(true)
+    })
+
+    it('別の世帯が fetch 済みでも、対象世帯が未 fetch なら false を返す', () => {
+      const store = useHouseworkStore()
+      store.lastFetchedAtByHouseholdId[2] = Date.now()
+
+      expect(store.isFetchedFor(1)).toBe(false)
+    })
+  })
+
+  describe('itemsFor', () => {
+    it('指定された世帯のキャッシュが無い場合は空配列を返す', () => {
+      const store = useHouseworkStore()
+
+      expect(store.itemsFor(1)).toEqual([])
+    })
+
+    it('指定された世帯のキャッシュがある場合はその配列を返す', () => {
+      const store = useHouseworkStore()
+      const h1 = makeHousework({ houseworkId: 1, name: 'H1' })
+      const h2 = makeHousework({ houseworkId: 2, name: 'H2' })
+      store.itemsByHouseholdId[1] = [h1, h2]
+
+      expect(store.itemsFor(1)).toEqual([h1, h2])
+    })
+
+    it('別の世帯のキャッシュがあっても、対象世帯にキャッシュが無ければ空配列を返す', () => {
+      const store = useHouseworkStore()
+      store.itemsByHouseholdId[2] = [makeHousework({ houseworkId: 99 })]
+
+      expect(store.itemsFor(1)).toEqual([])
+    })
+  })
 })
