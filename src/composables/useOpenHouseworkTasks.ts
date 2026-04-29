@@ -10,9 +10,9 @@ export const useOpenHouseworkTasks = () => {
 
   const currentHouseholdId = computed(() => householdStore.currentHouseholdId ?? null)
 
-  // この store は「現在の世帯の未完了タスク」を持つ前提
+  // openTasks getter経由で未完了タスクを取得する
   const allOpenTasks = computed<HouseworkTaskModel[]>(() => {
-    return (taskStore.items ?? []).filter((t) => t.status === TASK_STATUS.NOT_DONE)
+    return taskStore.openTasks
   })
 
   const fetchOpenTasks = async (opts?: { force?: boolean }) => {
