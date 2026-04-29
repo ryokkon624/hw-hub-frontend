@@ -256,35 +256,56 @@ describe('houseworkTaskStore', () => {
     expect(cachedUpdated1.skippedReason).toBe('bulk update')
   })
 
-  describe('getCacheKey', () => {
-    it('householdId と status を "__" で結合したキーを返す', () => {
+  describe('tasksFor', () => {
+    it('キャッシュにデータがある場合はそのタスク配列を返す', () => {
       const store = useHouseworkTaskStore()
-      expect(store.getCacheKey(1, TASK_STATUS.NOT_DONE)).toBe(`1__${TASK_STATUS.NOT_DONE}`)
+      const task1 = makeTask({ houseworkTaskId: 1, status: TASK_STATUS.NOT_DONE })
+      const task2 = makeTask({ houseworkTaskId: 2, status: TASK_STATUS.NOT_DONE })
+      const key = `1__${TASK_STATUS.NOT_DONE}`
+
+      store.cacheByKey[key] = [task1, task2]
+
+      expect(store.tasksFor(1, TASK_STATUS.NOT_DONE)).toEqual([task1, task2])
     })
 
-    it('householdId が異なれば異なるキーを返す', () => {
+    it('キャッシュにデータがない場合は空配列を返す', () => {
       const store = useHouseworkTaskStore()
-      const key1 = store.getCacheKey(1, TASK_STATUS.NOT_DONE)
-      const key2 = store.getCacheKey(2, TASK_STATUS.NOT_DONE)
-      expect(key1).not.toBe(key2)
+
+      expect(store.tasksFor(1, TASK_STATUS.NOT_DONE)).toEqual([])
     })
 
-    it('status が異なれば異なるキーを返す', () => {
+    it('householdId / status が異なるキャッシュは参照しない', () => {
       const store = useHouseworkTaskStore()
-      const keyNotDone = store.getCacheKey(1, TASK_STATUS.NOT_DONE)
-      const keyDone = store.getCacheKey(1, TASK_STATUS.DONE)
-      expect(keyNotDone).not.toBe(keyDone)
+      const task = makeTask({ houseworkTaskId: 1, status: TASK_STATUS.DONE })
+      const doneKey = `1__${TASK_STATUS.DONE}`
+
+      store.cacheByKey[doneKey] = [task]
+
+      // NOT_DONE のキャッシュは存在しないので空配列が返る
+      expect(store.tasksFor(1, TASK_STATUS.NOT_DONE)).toEqual([])
+      // DONE のキャッシュは正しく返る
+      expect(store.tasksFor(1, TASK_STATUS.DONE)).toEqual([task])
     })
 
-    it('fetchTasks が内部で使うキーと一致する', async () => {
+    it('世帯ID が異なるキャッシュは参照しない', () => {
+      const store = useHouseworkTaskStore()
+      const task = makeTask({ houseworkTaskId: 1, householdId: 2 })
+      const key = `2__${TASK_STATUS.NOT_DONE}`
+
+      store.cacheByKey[key] = [task]
+
+      expect(store.tasksFor(1, TASK_STATUS.NOT_DONE)).toEqual([])
+      expect(store.tasksFor(2, TASK_STATUS.NOT_DONE)).toEqual([task])
+    })
+
+    it('fetchTasks 後に tasksFor で同じタスク配列を取得できる', async () => {
       const store = useHouseworkTaskStore()
       const task = makeTask()
       mockedApi.fetchTasks.mockResolvedValue([task])
 
       await store.fetchTasks({ householdId: 1 })
 
-      const key = store.getCacheKey(1, TASK_STATUS.NOT_DONE)
-      expect(store.cacheByKey[key]).toEqual([task])
+      expect(store.tasksFor(1, TASK_STATUS.NOT_DONE)).toEqual([task])
     })
   })
 })

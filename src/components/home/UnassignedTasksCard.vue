@@ -23,8 +23,7 @@ const soon3DaysEndYmd = addDays(today, 3)
 
 const allTasks = computed<HouseworkTaskModel[]>(() => {
   if (!currentHouseholdId.value) return []
-  const key = taskStore.getCacheKey(currentHouseholdId.value, TASK_STATUS.NOT_DONE)
-  return (taskStore.cacheByKey?.[key] ?? []) as HouseworkTaskModel[]
+  return taskStore.tasksFor(currentHouseholdId.value, TASK_STATUS.NOT_DONE)
 })
 
 const unassignedTasks = computed(() =>
