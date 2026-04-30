@@ -123,6 +123,20 @@ body {
     @apply text-blue-700;
   }
 
+  /* スワイプアクション系 */
+  .bg-hwhub-swipe-action {
+    @apply bg-emerald-500;
+  }
+  .bg-hwhub-swipe-delete {
+    @apply bg-rose-500;
+  }
+  .bg-hwhub-swipe-back {
+    @apply bg-slate-400;
+  }
+  .bg-hwhub-swipe-disabled {
+    @apply bg-slate-300;
+  }
+
   /* 買い物リスト系 */
   .bg-hwhub-store-super {
     @apply bg-emerald-500;

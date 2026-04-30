@@ -119,14 +119,14 @@ const rightBackgroundLabel = computed(() => '')
 
 const backgroundClass = computed(() => {
   if (swipeState.value === 'dragging-right') {
-    if (props.item.status === SHOPPING_ITEM_STATUS.NOT_PURCHASED) return 'bg-emerald-500'
-    if (props.item.status === SHOPPING_ITEM_STATUS.IN_BASKET) return 'bg-emerald-500'
-    return 'bg-slate-400'
+    if (props.item.status === SHOPPING_ITEM_STATUS.NOT_PURCHASED) return 'bg-hwhub-swipe-action'
+    if (props.item.status === SHOPPING_ITEM_STATUS.IN_BASKET) return 'bg-hwhub-swipe-action'
+    return 'bg-hwhub-swipe-back'
   }
   if (swipeState.value === 'dragging-left') {
-    if (props.item.status === SHOPPING_ITEM_STATUS.NOT_PURCHASED) return 'bg-rose-500'
-    if (props.item.status === SHOPPING_ITEM_STATUS.IN_BASKET) return 'bg-slate-400'
-    return 'bg-slate-300'
+    if (props.item.status === SHOPPING_ITEM_STATUS.NOT_PURCHASED) return 'bg-hwhub-swipe-delete'
+    if (props.item.status === SHOPPING_ITEM_STATUS.IN_BASKET) return 'bg-hwhub-swipe-back'
+    return 'bg-hwhub-swipe-disabled'
   }
   return 'bg-transparent'
 })
