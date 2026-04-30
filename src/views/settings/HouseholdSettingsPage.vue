@@ -290,19 +290,12 @@
           <div class="flex items-center justify-between mb-2">
             <div class="flex items-center gap-3">
               <!-- アイコン -->
-              <div
-                class="w-8 h-8 rounded-full bg-hwhub-surface-subtle flex items-center justify-center text-sm font-semibold text-gray-700 overflow-hidden"
-              >
-                <img
-                  v-if="m.iconUrl"
-                  :src="m.iconUrl"
-                  :alt="t('assign.avatarAlt')"
-                  class="w-full h-full object-cover"
-                />
-                <span v-else>
-                  {{ m.displayName.slice(0, 2) }}
-                </span>
-              </div>
+              <UserAvatar
+                :iconUrl="m.iconUrl ?? null"
+                :label="m.displayName"
+                size="md"
+                :alt="t('assign.avatarAlt')"
+              />
 
               <div>
                 <div class="text-sm font-medium text-hwhub-heading">
@@ -515,6 +508,7 @@ import type { HouseholdModel, HouseholdMember } from '@/domain'
 import { householdMemberApi } from '@/api/householdMemberApi'
 import { useAuthStore } from '@/stores/authStore'
 import HouseholdCreateDialog from '@/components/HouseholdCreateDialog.vue'
+import UserAvatar from '@/components/ui/UserAvatar.vue'
 import { useHouseholdInvitationStore } from '@/stores/householdInvitationStore'
 import { HOUSEHOLD_MEMBER_STATUS, INVITATION_STATUS } from '@/constants/code.constants'
 import { useHouseholdCodes } from '@/composables/useHouseholdCodes'

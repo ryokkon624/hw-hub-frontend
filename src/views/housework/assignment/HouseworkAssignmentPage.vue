@@ -58,19 +58,12 @@
           @dragleave.prevent="onDragLeaveTarget(s.member.userId)"
           @drop.prevent="onDropToTarget(s.member.userId)"
         >
-          <div
-            class="h-6 w-6 rounded-full bg-hwhub-surface-subtle flex items-center justify-center text-[11px] font-semibold text-hwhub-muted overflow-hidden"
-          >
-            <img
-              v-if="s.member.iconUrl"
-              :src="s.member.iconUrl"
-              :alt="t('assign.avatarAlt')"
-              class="w-full h-full object-cover"
-            />
-            <span v-else>
-              {{ avatarLabel(s.member) }}
-            </span>
-          </div>
+          <UserAvatar
+            :iconUrl="s.member.iconUrl ?? null"
+            :label="avatarLabel(s.member)"
+            size="sm"
+            :alt="t('assign.avatarAlt')"
+          />
           <div class="flex flex-col">
             <span class="text-[11px] text-hwhub-muted">
               {{ s.member.nickname || s.member.displayName }}
@@ -190,20 +183,13 @@
             </div>
 
             <!-- 担当あり：メンバーアイコン or 頭文字 -->
-            <div
+            <UserAvatar
               v-else
-              class="h-9 w-9 flex items-center justify-center rounded-full bg-hwhub-surface-subtle text-[11px] font-semibold text-hwhub-muted overflow-hidden"
-            >
-              <img
-                v-if="getMemberForTask(task)?.iconUrl"
-                :src="getMemberForTask(task)?.iconUrl || undefined"
-                alt="icon"
-                class="w-full h-full object-cover"
-              />
-              <span v-else>
-                {{ avatarLabel(getMemberForTask(task)) }}
-              </span>
-            </div>
+              :iconUrl="getMemberForTask(task)?.iconUrl ?? null"
+              :label="avatarLabel(getMemberForTask(task))"
+              size="lg"
+              alt="icon"
+            />
           </div>
 
           <!-- 中央：家事名 + 日付 -->
@@ -261,6 +247,7 @@ import { useHouseworkTaskStore } from '@/stores/houseworkTaskStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useUiStore } from '@/stores/uiStore'
 import HouseholdSwitcherField from '@/components/HouseholdSwitcherField.vue'
+import UserAvatar from '@/components/ui/UserAvatar.vue'
 import type { HouseworkTaskModel, HouseholdMember } from '@/domain'
 import { TASK_ASSIGN_REASON, TASK_STATUS } from '@/constants/code.constants'
 import { useOpenHouseworkTasks } from '@/composables/useOpenHouseworkTasks'
