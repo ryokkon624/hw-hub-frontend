@@ -25,13 +25,17 @@ export function useSwipeGesture(
   let startX: number | null = null
 
   const handleTouchStart = (e: TouchEvent) => {
-    startX = e.touches[0].clientX
+    const touch = e.touches[0]
+    if (!touch) return
+    startX = touch.clientX
   }
 
   const handleTouchMove = (e: TouchEvent) => {
     if (startX === null) return
 
-    const diff = e.touches[0].clientX - startX
+    const touch = e.touches[0]
+    if (!touch) return
+    const diff = touch.clientX - startX
     translateX.value = diff
     swipeState.value = diff > 0 ? 'dragging-right' : diff < 0 ? 'dragging-left' : 'idle'
   }
