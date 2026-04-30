@@ -483,7 +483,7 @@ const onClickCompletePurchase = async () => {
     await uiStore.withLoading(async () => {
       const ids = target.map((item) => item.shoppingItemId)
       await shoppingStore.bulkUpdateStatus(householdId, ids, SHOPPING_ITEM_STATUS.PURCHASED)
-      shoppingStore.fetchItems(householdId, { force: true })
+      await shoppingStore.fetchItems(householdId, { force: true })
     })
     uiStore.showToast('success', t('shopping.list.messages.completeSuccess'))
   } catch (e) {
