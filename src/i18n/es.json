@@ -704,7 +704,10 @@
         "favoriteUpdateError": "Error al actualizar el estado de favorito.",
         "statusUpdateError": "Error al actualizar el estado.",
         "completeSuccess": "Artículos marcados como comprados.",
-        "completeError": "Error al marcar artículos como comprados."
+        "completeError": "Error al marcar artículos como comprados.",
+        "deleteConfirm": "¿Estás seguro de que quieres eliminar este artículo?",
+        "deleteError": "Error al eliminar el artículo.",
+        "editToUpdateStatus": "Para cambiar el estado, actualícelo en la pantalla de edición."
       }
     },
     "create": {

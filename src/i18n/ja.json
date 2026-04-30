@@ -721,7 +721,10 @@
         "favoriteUpdateError": "お気に入りの更新に失敗しました",
         "statusUpdateError": "ステータスの更新に失敗しました",
         "completeSuccess": "購入済みに更新しました",
-        "completeError": "購入済みへの更新に失敗しました"
+        "completeError": "購入済みへの更新に失敗しました",
+        "deleteConfirm": "このアイテムを削除しますか？",
+        "deleteError": "アイテムの削除に失敗しました",
+        "editToUpdateStatus": "ステータスを変更するには、編集画面で更新してください"
       }
     },
     "create": {
