@@ -688,6 +688,11 @@
       "filters": {
         "all": "すべて"
       },
+      "tabs": {
+        "notPurchased": "未購入",
+        "basket": "かご",
+        "completed": "購入済み"
+      },
       "notPurchased": {
         "title": "買うものリスト（未購入）",
         "count": "{count} 件",

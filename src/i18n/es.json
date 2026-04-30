@@ -671,6 +671,11 @@
       "filters": {
         "all": "Todos"
       },
+      "tabs": {
+        "notPurchased": "Sin comprar",
+        "basket": "Cesta",
+        "completed": "Comprados"
+      },
       "notPurchased": {
         "title": "Para comprar (no comprado)",
         "count": "{count} artículo(s)",

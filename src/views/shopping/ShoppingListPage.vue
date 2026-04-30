@@ -44,10 +44,18 @@
       @action="goHouseholdSettings"
     />
 
+    <!-- SP 用タブバー（3タブ：未購入・かご・購入済み） -->
+    <ShoppingListTabBar
+      v-model:activeTab="activeTab"
+      :notPurchasedCount="filteredNotPurchasedItems.length"
+      :basketCount="inBasketItems.length"
+    />
+
     <!-- メインレイアウト：PC は2カラム、SP は縦並び（高さ揃え） -->
     <div class="grid gap-4 md:grid-cols-2 md:items-stretch">
       <!-- 未購入リスト -->
       <section
+        :class="[activeTab === 'notPurchased' ? 'block' : 'hidden', 'md:block']"
         class="rounded-xl border bg-white p-4 shadow-sm flex flex-col min-h-[260px] md:h-full"
       >
         <div class="flex items-center justify-between mb-2">
@@ -156,6 +164,7 @@
 
       <!-- かごリスト -->
       <section
+        :class="[activeTab === 'basket' ? 'block' : 'hidden', 'md:block']"
         class="rounded-xl border bg-white p-4 shadow-sm flex flex-col min-h-[260px] md:h-full"
       >
         <div class="flex items-center justify-between mb-3">
@@ -239,11 +248,15 @@
       </section>
     </div>
 
-    <!-- 購入済み（折りたたみ） -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm">
+    <!-- 購入済み（PC: 折りたたみ / SP: タブで表示・常時展開） -->
+    <section
+      :class="[activeTab === 'completed' ? 'block' : 'hidden', 'md:block']"
+      class="rounded-xl border bg-white p-4 shadow-sm"
+    >
+      <!-- PC時: 折りたたみボタン表示 / SP時: 折りたたみボタン非表示 -->
       <button
         type="button"
-        class="flex w-full items-center justify-between text-sm font-semibold text-hwhub-heading"
+        class="hidden md:flex w-full items-center justify-between text-sm font-semibold text-hwhub-heading"
         @click="showCompleted = !showCompleted"
       >
         <span>{{ t('shopping.list.completed.title') }}</span>
@@ -255,8 +268,22 @@
         </span>
       </button>
 
+      <!-- SP時: タイトル（折りたたみなし・常時展開） -->
+      <div
+        class="flex md:hidden items-center justify-between text-sm font-semibold text-hwhub-heading mb-3"
+      >
+        <span>{{ t('shopping.list.completed.title') }}</span>
+        <span class="text-xs text-hwhub-muted">
+          {{ t('shopping.list.completed.count', { count: completedTotalCount }) }}
+          <span v-if="completedGroups.length" class="text-[10px] text-hwhub-muted">
+            {{ t('shopping.list.completed.daysLabel', { days: COMPLETED_DAYS }) }}）
+          </span>
+        </span>
+      </div>
+
+      <!-- PC時の折りたたみコンテンツ -->
       <transition name="fade">
-        <div v-if="showCompleted" class="mt-3 max-h-60 overflow-y-auto">
+        <div v-if="showCompleted" class="mt-3 max-h-60 overflow-y-auto hidden md:block">
           <p v-if="completedGroups.length === 0" class="text-xs text-hwhub-muted">
             {{ t('shopping.list.completed.empty', { days: COMPLETED_DAYS }) }}
           </p>
@@ -300,6 +327,51 @@
           </div>
         </div>
       </transition>
+
+      <!-- SP時の常時展開コンテンツ -->
+      <div class="md:hidden max-h-96 overflow-y-auto">
+        <p v-if="completedGroups.length === 0" class="text-xs text-hwhub-muted">
+          {{ t('shopping.list.completed.empty', { days: COMPLETED_DAYS }) }}
+        </p>
+
+        <div v-else class="space-y-2 text-sm">
+          <div
+            v-for="group in completedGroups"
+            :key="group.date"
+            class="rounded-lg border border-hwhub-border bg-hwhub-surface-subtle p-2"
+          >
+            <!-- グループヘッダ（日付＋件数） -->
+            <div class="flex items-center justify-between text-[11px] text-hwhub-muted mb-1">
+              <span>{{ formatDateLabel(group.date) }}</span>
+              <span>{{ t('common.itemCount', { count: group.items.length }) }}</span>
+            </div>
+
+            <!-- グループ内のアイテム -->
+            <ul class="space-y-1 text-xs">
+              <li
+                v-for="item in group.items"
+                :key="item.shoppingItemId"
+                class="flex justify-between items-start gap-2 border-b last:border-b-0 py-1 min-w-0"
+                @click="goToDetail(item)"
+              >
+                <!-- 左側：名前（複数行OK・横幅は親まで） -->
+                <span class="flex-1 min-w-0 text-xs break-all text-hwhub-heading">
+                  {{ item.name }}
+                </span>
+
+                <!-- 右側：購入場所バッジ（固定幅） -->
+                <span class="text-hwhub-muted shrink-0">
+                  <span
+                    class="px-2 py-0.5 rounded-full bg-hwhub-surface-subtle border border-hwhub-border text-hwhub-muted text-[10px]"
+                  >
+                    {{ storeTypeLabel(item.storeType) }}
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </section>
   </div>
 </template>
@@ -314,6 +386,7 @@ import { useUiStore } from '@/stores/uiStore'
 import { useCodeStore } from '@/stores/codeStore'
 import HouseholdSwitcherField from '@/components/HouseholdSwitcherField.vue'
 import OnboardingStepCard from '@/components/home/OnboardingStepCard.vue'
+import ShoppingListTabBar from '@/components/shopping/ShoppingListTabBar.vue'
 import ShoppingStoreTypeFilter from '@/components/shopping/ShoppingStoreTypeFilter.vue'
 import { useShoppingCodes } from '@/composables/useShoppingCodes'
 import { SHOPPING_ITEM_STATUS } from '@/constants/code.constants'
@@ -330,6 +403,7 @@ const codeStore = useCodeStore()
 const { storeTypeLabel, storeTypeBorderClass } = useShoppingCodes()
 
 const showCompleted = ref(false)
+const activeTab = ref<'notPurchased' | 'basket' | 'completed'>('notPurchased')
 
 const currentHouseholdId = computed(() => householdStore.currentHouseholdId ?? null)
 
