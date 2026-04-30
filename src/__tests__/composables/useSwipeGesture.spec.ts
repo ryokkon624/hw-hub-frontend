@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { ref } from 'vue'
+import { ref, type Ref } from 'vue'
 import { useSwipeGesture } from '@/composables/useSwipeGesture'
 
 /**
@@ -29,7 +29,7 @@ const createTouchEvent = (type: string, clientX: number): TouchEvent => {
 }
 
 describe('useSwipeGesture', () => {
-  let elementRef: ReturnType<typeof ref<HTMLElement | null>>
+  let elementRef: Ref<HTMLElement | null>
   let onSwipeLeft: ReturnType<typeof vi.fn>
   let onSwipeRight: ReturnType<typeof vi.fn>
 
