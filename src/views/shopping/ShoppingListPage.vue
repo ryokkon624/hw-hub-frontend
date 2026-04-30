@@ -9,7 +9,8 @@
 
       <button
         type="button"
-        class="hidden sm:inline-flex items-center rounded-full bg-hwhub-primary px-4 py-1.5 text-sm font-semibold text-white hover:bg-hwhub-primary"
+        class="hidden sm:inline-flex items-center rounded-full bg-hwhub-primary px-4 py-1.5 text-sm font-semibold text-white hover:bg-hwhub-primary disabled:opacity-50 disabled:cursor-not-allowed"
+        :disabled="!currentHouseholdId"
         @click="onClickAdd"
       >
         {{ t('shopping.list.addButton') }}
@@ -23,12 +24,25 @@
     <div class="sm:hidden">
       <button
         type="button"
-        class="w-full rounded-full bg-hwhub-primary px-4 py-2 text-sm font-semibold text-white hover:bg-hwhub-primary"
+        class="w-full rounded-full bg-hwhub-primary px-4 py-2 text-sm font-semibold text-white hover:bg-hwhub-primary disabled:opacity-50 disabled:cursor-not-allowed"
+        :disabled="!currentHouseholdId"
         @click="onClickAdd"
       >
         {{ t('shopping.list.addButton') }}
       </button>
     </div>
+
+    <!-- おうち未所属時のオンボーディングカード -->
+    <OnboardingStepCard
+      v-if="!currentHouseholdId"
+      :icon="House"
+      :title="t('home.onboarding.step1.title')"
+      :description="t('home.onboarding.step1.description')"
+      :button-label="t('home.onboarding.step1.button')"
+      :is-done="false"
+      :extra-message="t('shopping.list.noHouseholdMessage')"
+      @action="goHouseholdSettings"
+    />
 
     <!-- メインレイアウト：PC は2カラム、SP は縦並び（高さ揃え） -->
     <div class="grid gap-4 md:grid-cols-2 md:items-stretch">
@@ -299,11 +313,12 @@ import { useShoppingStore } from '@/stores/shoppingStore'
 import { useUiStore } from '@/stores/uiStore'
 import { useCodeStore } from '@/stores/codeStore'
 import HouseholdSwitcherField from '@/components/HouseholdSwitcherField.vue'
+import OnboardingStepCard from '@/components/home/OnboardingStepCard.vue'
 import ShoppingStoreTypeFilter from '@/components/shopping/ShoppingStoreTypeFilter.vue'
 import { useShoppingCodes } from '@/composables/useShoppingCodes'
 import { SHOPPING_ITEM_STATUS } from '@/constants/code.constants'
 import { isWithinDays } from '@/utils/dateUtils'
-import { Camera } from 'lucide-vue-next'
+import { Camera, House } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -401,6 +416,10 @@ const onClickCompletePurchase = async () => {
     console.error(e)
     uiStore.showToast('error', t('shopping.list.messages.completeError'))
   }
+}
+
+const goHouseholdSettings = () => {
+  router.push({ name: 'settings.household' })
 }
 
 const onClickAdd = () => {

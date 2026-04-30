@@ -503,6 +503,7 @@
       "householdTitle": "Hogar",
       "currentHouseholdLabel": "Hogar actual",
       "noHouseholdSelected": "Ningún hogar seleccionado",
+      "joinOrCreateHousehold": "+ Unirse o crear un hogar",
       "otherHouseholdsLabel": "Otros hogares",
       "editingWarning": "No puedes cambiar de hogar mientras estás editando.",
       "mobileHouseholdPrefix": "Hogar: ",
@@ -666,6 +667,7 @@
       "titleSr": "Lista de compras",
       "intro": "Gestiona los artículos de compras de este hogar.",
       "addButton": "+ Añadir artículo",
+      "noHouseholdMessage": "Únete a un hogar para añadir artículos de compra y compartirlos con tu familia.",
       "filters": {
         "all": "Todos"
       },
@@ -829,6 +831,7 @@
       "title": "Configuración de tareas del hogar",
       "description": "Gestiona las plantillas de tareas del hogar para este hogar. Cuando estableces la recurrencia y los asignados predeterminados, se reflejarán en Asignación y Mis tareas.",
       "addButtonLabel": "+ Añadir tarea",
+      "noHouseholdMessage": "Únete a un hogar para registrar plantillas de tareas desde esta pantalla.",
       "totalPrefix": "Plantillas de tareas registradas:",
       "totalUnit": "artículos",
       "filter": {
@@ -968,6 +971,7 @@
       "label": "Hogar",
       "current": "Hogar actual",
       "noneSelected": "Ningún hogar seleccionado",
+      "joinOrCreate": "+ Unirse o crear un hogar",
       "mobile": {
         "title": "Seleccionar hogar",
         "close": "Cerrar",

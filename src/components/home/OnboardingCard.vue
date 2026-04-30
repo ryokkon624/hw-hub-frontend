@@ -2,9 +2,10 @@
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { Hand, House, CheckSquare, Brush } from 'lucide-vue-next'
+import { Hand, House, Brush } from 'lucide-vue-next'
 import { useHouseholdStore } from '@/stores/householdStore'
 import { useHouseworkStore } from '@/stores/houseworkStore'
+import OnboardingStepCard from './OnboardingStepCard.vue'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -54,81 +55,24 @@ const goHouseworkSettings = () => {
     </header>
 
     <div class="grid gap-4 md:grid-cols-2">
-      <!-- Step 1 Config -->
-      <section
-        class="flex flex-col rounded-lg border p-4 transition-colors"
-        :class="[
-          isStep1Done
-            ? 'bg-white/40 border-hwhub-primary-200 opacity-70'
-            : 'bg-white border-hwhub-primary-300 shadow-sm',
-        ]"
-      >
-        <div class="flex items-start justify-between">
-          <div class="flex items-center gap-2 mb-2">
-            <House class="w-5 h-5 text-hwhub-primary" />
-            <h4 class="font-bold text-hwhub-heading text-sm">
-              {{ t('home.onboarding.step1.title') }}
-            </h4>
-          </div>
-          <div v-if="isStep1Done">
-            <CheckSquare class="w-5 h-5 text-hwhub-primary" />
-          </div>
-        </div>
+      <OnboardingStepCard
+        :icon="House"
+        :title="t('home.onboarding.step1.title')"
+        :description="t('home.onboarding.step1.description')"
+        :button-label="t('home.onboarding.step1.button')"
+        :is-done="isStep1Done"
+        @action="goHouseholdSettings"
+      />
 
-        <p class="text-xs text-hwhub-body leading-relaxed flex-1">
-          {{ t('home.onboarding.step1.description') }}
-        </p>
-
-        <div v-if="!isStep1Done" class="mt-4 flex justify-end">
-          <button
-            type="button"
-            class="inline-flex items-center gap-1.5 rounded-lg bg-hwhub-primary px-3 py-2 text-xs font-semibold text-white transition hover:bg-hwhub-primary-600 shadow-sm"
-            @click="goHouseholdSettings"
-          >
-            {{ t('home.onboarding.step1.button') }}
-            <span aria-hidden="true">&rarr;</span>
-          </button>
-        </div>
-      </section>
-
-      <!-- Step 2 Config -->
-      <section
-        class="flex flex-col rounded-lg border p-4 transition-colors"
-        :class="[
-          isStep2Done
-            ? 'bg-white/40 border-hwhub-primary-200 opacity-70'
-            : 'bg-white border-hwhub-primary-300 shadow-sm',
-        ]"
-      >
-        <div class="flex items-start justify-between">
-          <div class="flex items-center gap-2 mb-2">
-            <Brush class="w-5 h-5 text-hwhub-primary" />
-            <h4 class="font-bold text-hwhub-heading text-sm">
-              {{ t('home.onboarding.step2.title') }}
-            </h4>
-          </div>
-          <div v-if="isStep2Done">
-            <CheckSquare class="w-5 h-5 text-hwhub-primary" />
-          </div>
-        </div>
-
-        <p class="text-xs text-hwhub-body leading-relaxed flex-1">
-          {{ t('home.onboarding.step2.description') }}
-        </p>
-
-        <div v-if="!isStep2Done" class="mt-4 flex justify-end">
-          <button
-            type="button"
-            class="inline-flex items-center gap-1.5 rounded-lg bg-hwhub-primary px-3 py-2 text-xs font-semibold text-white transition hover:bg-hwhub-primary-600 shadow-sm"
-            @click="goHouseworkSettings"
-            :disabled="!isStep1Done"
-            :class="{ 'opacity-50 cursor-not-allowed': !isStep1Done }"
-          >
-            {{ t('home.onboarding.step2.button') }}
-            <span aria-hidden="true">&rarr;</span>
-          </button>
-        </div>
-      </section>
+      <OnboardingStepCard
+        :icon="Brush"
+        :title="t('home.onboarding.step2.title')"
+        :description="t('home.onboarding.step2.description')"
+        :button-label="t('home.onboarding.step2.button')"
+        :is-done="isStep2Done"
+        :is-button-disabled="!isStep1Done"
+        @action="goHouseworkSettings"
+      />
     </div>
   </article>
 </template>
