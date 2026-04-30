@@ -23,6 +23,17 @@ export const useHouseworkTaskStore = defineStore('houseworkTask', {
 
   getters: {
     openTasks: (state) => state.items.filter((t) => t.status === TASK_STATUS.NOT_DONE),
+
+    /**
+     * 指定された世帯・ステータスのタスク一覧をキャッシュから返す。
+     * @param householdId 世帯ID
+     * @param status ステータス
+     * @returns 家事タスクDomain Model配列
+     */
+    tasksFor: (state) => (householdId: number, status: string) => {
+      const key = makeCacheKey(householdId, status)
+      return (state.cacheByKey[key] ?? []) as HouseworkTaskModel[]
+    },
   },
 
   actions: {
@@ -112,16 +123,6 @@ export const useHouseworkTaskStore = defineStore('houseworkTask', {
         assigneeUserId,
         assignReasonType,
       }))
-    },
-
-    /**
-     * キャッシュキーを取得する。
-     * @param householdId 世帯ID
-     * @param status ステータス
-     * @returns キャッシュキー
-     */
-    getCacheKey(householdId: number, status: string): TaskCacheKey {
-      return makeCacheKey(householdId, status)
     },
 
     /**

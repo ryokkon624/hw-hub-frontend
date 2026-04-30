@@ -58,11 +58,8 @@ const tasksForChart = computed<HouseworkTaskModel[]>(() => {
   const validDates = new Set(chartDays.value.map((d) => d.ymd))
   const hid = currentHouseholdId.value
 
-  const openKey = taskStore.getCacheKey(hid, TASK_STATUS.NOT_DONE)
-  const doneKey = taskStore.getCacheKey(hid, TASK_STATUS.DONE)
-
-  const open = (taskStore.cacheByKey?.[openKey] ?? []) as HouseworkTaskModel[]
-  const done = (taskStore.cacheByKey?.[doneKey] ?? []) as HouseworkTaskModel[]
+  const open = taskStore.tasksFor(hid, TASK_STATUS.NOT_DONE)
+  const done = taskStore.tasksFor(hid, TASK_STATUS.DONE)
 
   return [...open, ...done].filter((t) => validDates.has(t.targetDate))
 })

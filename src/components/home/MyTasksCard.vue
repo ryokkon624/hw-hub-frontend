@@ -25,8 +25,7 @@ const loginUserId = computed(() => authStore.currentUser?.userId ?? null)
 
 const allTasks = computed<HouseworkTaskModel[]>(() => {
   if (!currentHouseholdId.value) return []
-  const key = taskStore.getCacheKey(currentHouseholdId.value, TASK_STATUS.NOT_DONE)
-  return (taskStore.cacheByKey?.[key] ?? []) as HouseworkTaskModel[]
+  return taskStore.tasksFor(currentHouseholdId.value, TASK_STATUS.NOT_DONE)
 })
 
 // 自分担当 & 未対応

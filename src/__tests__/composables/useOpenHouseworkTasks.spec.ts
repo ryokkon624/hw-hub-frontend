@@ -12,7 +12,7 @@ type MockHouseholdStore = {
 }
 
 type MockTaskStore = {
-  items: HouseworkTaskModel[]
+  openTasks: HouseworkTaskModel[]
   fetchTasks: (params: { householdId: number; status?: string; force?: boolean }) => Promise<void>
 }
 
@@ -30,7 +30,7 @@ type FetchTasksFn = (params: {
 const fetchTasksSpy = vi.fn<FetchTasksFn>()
 
 const mockTaskStore: MockTaskStore = {
-  items: [],
+  openTasks: [],
   fetchTasks: fetchTasksSpy,
 }
 
@@ -47,7 +47,7 @@ describe('useOpenHouseworkTasks', () => {
   beforeEach(() => {
     // 各テスト前にリセット
     mockHouseholdStore.currentHouseholdId = null
-    mockTaskStore.items = []
+    mockTaskStore.openTasks = []
     fetchTasksSpy.mockReset()
   })
 
@@ -76,7 +76,7 @@ describe('useOpenHouseworkTasks', () => {
     })
   })
 
-  it('allOpenTasks は taskStore.items をそのまま返す', () => {
+  it('allOpenTasks は taskStore.openTasks をそのまま返す', () => {
     const sampleTasks: HouseworkTaskModel[] = [
       {
         houseworkTaskId: 1,
@@ -96,7 +96,7 @@ describe('useOpenHouseworkTasks', () => {
       },
     ]
 
-    mockTaskStore.items = sampleTasks
+    mockTaskStore.openTasks = sampleTasks
     mockHouseholdStore.currentHouseholdId = 1
 
     const { allOpenTasks } = useOpenHouseworkTasks()
