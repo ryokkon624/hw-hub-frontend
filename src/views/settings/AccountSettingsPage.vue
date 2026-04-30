@@ -110,17 +110,17 @@
       </p>
 
       <div class="flex items-center gap-4">
-        <!-- 現在のアイコン -->
+        <!-- 現在のアイコン（取得失敗時は空グレー丸を表示・イニシャルなし） -->
         <div
           class="w-16 h-16 rounded-full bg-hwhub-surface-subtle flex items-center justify-center overflow-hidden"
         >
           <img
-            v-if="userIconUrl"
+            v-if="userIconUrl && !iconImageError"
             :src="userIconUrl"
             :alt="t('settings.account.icon.title')"
             class="w-full h-full object-cover"
+            @error="iconImageError = true"
           />
-          <span v-else class="text-sm text-hwhub-muted">NO IMG</span>
         </div>
 
         <!-- 画像選択 -->
@@ -350,6 +350,9 @@ const locales = SUPPORT_LOCALES
 // 元の値（変更有無の判定用）
 const originalDisplayName = ref<string | null>(null)
 const originalLocale = ref<Locale>('ja')
+
+// アイコン画像取得エラーフラグ（取得失敗時は空グレー丸を表示）
+const iconImageError = ref(false)
 
 const labelForLocale = (lang: Locale) => {
   return t(`common.locales.${lang}`)

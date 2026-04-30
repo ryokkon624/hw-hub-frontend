@@ -14,19 +14,12 @@
         @click="toggleMenu"
       >
         <!-- ユーザアイコン（イニシャル） -->
-        <div
-          class="w-8 h-8 rounded-full bg-hwhub-surface-subtle flex items-center justify-center text-sm font-semibold text-hwhub-heading overflow-hidden"
-        >
-          <img
-            v-if="userIconUrl"
-            :src="userIconUrl"
-            :alt="t('appHeader.iconAlt')"
-            class="w-full h-full object-cover"
-          />
-          <span v-else>
-            {{ initials }}
-          </span>
-        </div>
+        <UserAvatar
+          :iconUrl="userIconUrl"
+          :label="initials"
+          size="md"
+          :alt="t('appHeader.iconAlt')"
+        />
 
         <!-- ニックネーム + アカウント名 -->
         <div class="hidden sm:flex flex-col items-start leading-tight">
@@ -70,6 +63,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { useHouseholdStore } from '@/stores/householdStore'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 import NotificationBell from '@/components/notifications/NotificationBell.vue'
+import UserAvatar from '@/components/ui/UserAvatar.vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
