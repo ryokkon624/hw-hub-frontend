@@ -704,7 +704,10 @@
         "favoriteUpdateError": "Failed to update favorite status.",
         "statusUpdateError": "Failed to update the status.",
         "completeSuccess": "Marked items as purchased.",
-        "completeError": "Failed to mark items as purchased."
+        "completeError": "Failed to mark items as purchased.",
+        "deleteConfirm": "Are you sure you want to delete this item?",
+        "deleteError": "Failed to delete the item.",
+        "editToUpdateStatus": "To change the status, please update it in the edit screen."
       }
     },
     "create": {

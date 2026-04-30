@@ -94,11 +94,29 @@
           </p>
         </div>
 
+        <!-- SP版（md未満）: スワイプUI -->
         <TransitionGroup
           v-else
           name="shopping-list"
           tag="ul"
-          class="space-y-2 flex-1 overflow-y-auto overflow-x-hidden md:max-h-none max-h-80 shopping-move-list"
+          class="md:hidden space-y-2 flex-1 overflow-y-auto overflow-x-hidden max-h-80 shopping-move-list"
+        >
+          <li v-for="item in filteredNotPurchasedItems" :key="item.shoppingItemId">
+            <SwipeableShoppingItem
+              :item="item"
+              @swipe-right="onSwipeRightNotPurchased(item)"
+              @swipe-left="onSwipeLeftNotPurchased(item)"
+              @click="goToDetail(item)"
+            />
+          </li>
+        </TransitionGroup>
+
+        <!-- PC版（md以上）: 従来のボタンUI -->
+        <TransitionGroup
+          v-if="filteredNotPurchasedItems.length > 0"
+          name="shopping-list"
+          tag="ul"
+          class="hidden md:block space-y-2 flex-1 overflow-y-auto overflow-x-hidden shopping-move-list"
         >
           <li
             v-for="item in filteredNotPurchasedItems"
@@ -190,11 +208,29 @@
           <p class="text-xs text-hwhub-muted">{{ t('shopping.list.basket.empty') }}</p>
         </div>
 
+        <!-- SP版（md未満）: スワイプUI -->
         <TransitionGroup
           v-else
           name="shopping-list"
           tag="ul"
-          class="space-y-2 flex-1 overflow-y-auto overflow-x-hidden md:max-h-none max-h-80 shopping-move-list"
+          class="md:hidden space-y-2 flex-1 overflow-y-auto overflow-x-hidden max-h-80 shopping-move-list"
+        >
+          <li v-for="item in inBasketItems" :key="item.shoppingItemId">
+            <SwipeableShoppingItem
+              :item="item"
+              @swipe-right="onSwipeRightBasket(item)"
+              @swipe-left="onSwipeLeftBasket(item)"
+              @click="goToDetail(item)"
+            />
+          </li>
+        </TransitionGroup>
+
+        <!-- PC版（md以上）: 従来のボタンUI -->
+        <TransitionGroup
+          v-if="inBasketItems.length > 0"
+          name="shopping-list"
+          tag="ul"
+          class="hidden md:block space-y-2 flex-1 overflow-y-auto overflow-x-hidden shopping-move-list"
         >
           <li
             v-for="item in inBasketItems"
@@ -346,27 +382,14 @@
               <span>{{ t('common.itemCount', { count: group.items.length }) }}</span>
             </div>
 
-            <!-- グループ内のアイテム -->
+            <!-- グループ内のアイテム（AC5: 左スワイプでトースト表示） -->
             <ul class="space-y-1 text-xs">
-              <li
-                v-for="item in group.items"
-                :key="item.shoppingItemId"
-                class="flex justify-between items-start gap-2 border-b last:border-b-0 py-1 min-w-0"
-                @click="goToDetail(item)"
-              >
-                <!-- 左側：名前（複数行OK・横幅は親まで） -->
-                <span class="flex-1 min-w-0 text-xs break-all text-hwhub-heading">
-                  {{ item.name }}
-                </span>
-
-                <!-- 右側：購入場所バッジ（固定幅） -->
-                <span class="text-hwhub-muted shrink-0">
-                  <span
-                    class="px-2 py-0.5 rounded-full bg-hwhub-surface-subtle border border-hwhub-border text-hwhub-muted text-[10px]"
-                  >
-                    {{ storeTypeLabel(item.storeType) }}
-                  </span>
-                </span>
+              <li v-for="item in group.items" :key="item.shoppingItemId">
+                <SwipeableShoppingItem
+                  :item="item"
+                  @swipe-left="onSwipeLeftCompleted"
+                  @click="goToDetail(item)"
+                />
               </li>
             </ul>
           </div>
@@ -388,6 +411,7 @@ import HouseholdSwitcherField from '@/components/HouseholdSwitcherField.vue'
 import OnboardingStepCard from '@/components/home/OnboardingStepCard.vue'
 import ShoppingListTabBar from '@/components/shopping/ShoppingListTabBar.vue'
 import ShoppingStoreTypeFilter from '@/components/shopping/ShoppingStoreTypeFilter.vue'
+import SwipeableShoppingItem from '@/components/shopping/SwipeableShoppingItem.vue'
 import { useShoppingCodes } from '@/composables/useShoppingCodes'
 import { SHOPPING_ITEM_STATUS } from '@/constants/code.constants'
 import { isWithinDays } from '@/utils/dateUtils'
@@ -490,6 +514,50 @@ const onClickCompletePurchase = async () => {
     console.error(e)
     uiStore.showToast('error', t('shopping.list.messages.completeError'))
   }
+}
+
+/**
+ * スワイプジェスチャーのハンドラー（SP版）
+ * AC1: 未購入 → 右スワイプ → かごへ
+ * AC2: 未購入 → 左スワイプ → 削除（confirm確認あり）
+ * AC3: かご → 左スワイプ → 未購入に戻す
+ * AC4: かご → 右スワイプ → 購入済みに更新
+ * AC5: 購入済み → 左スワイプ → トースト表示（編集画面で更新してください）
+ */
+const onSwipeRightNotPurchased = async (item: ShoppingItemModel) => {
+  await moveToBasket(item)
+}
+
+const onSwipeLeftNotPurchased = async (item: ShoppingItemModel) => {
+  if (!confirm(t('shopping.list.messages.deleteConfirm'))) return
+  try {
+    await shoppingStore.deleteItem(item.householdId, item.shoppingItemId)
+  } catch (e) {
+    console.error(e)
+    uiStore.showToast('error', t('shopping.list.messages.deleteError'))
+  }
+}
+
+const onSwipeRightBasket = async (item: ShoppingItemModel) => {
+  if (!currentHouseholdId.value) return
+  try {
+    await shoppingStore.updateStatus(
+      item.householdId,
+      item.shoppingItemId,
+      SHOPPING_ITEM_STATUS.PURCHASED,
+    )
+  } catch (e) {
+    console.error(e)
+    uiStore.showToast('error', t('shopping.list.messages.statusUpdateError'))
+  }
+}
+
+const onSwipeLeftBasket = async (item: ShoppingItemModel) => {
+  await moveToNotPurchased(item)
+}
+
+const onSwipeLeftCompleted = () => {
+  uiStore.showToast('info', t('shopping.list.messages.editToUpdateStatus'))
 }
 
 const goHouseholdSettings = () => {
