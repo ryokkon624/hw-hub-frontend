@@ -671,6 +671,11 @@
       "filters": {
         "all": "All"
       },
+      "tabs": {
+        "notPurchased": "Not purchased",
+        "basket": "Basket",
+        "completed": "Completed"
+      },
       "notPurchased": {
         "title": "To buy (not purchased)",
         "count": "{count} item(s)",
