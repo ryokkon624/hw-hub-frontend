@@ -51,8 +51,20 @@
       :basketCount="inBasketItems.length"
     />
 
+    <!-- スケルトンスクリーン（初回ロード中） -->
+    <template v-if="isInitialLoading">
+      <section class="rounded-xl border bg-white p-4 shadow-sm flex flex-col min-h-[260px]">
+        <div class="h-4 w-20 rounded bg-slate-200 mb-3 animate-pulse" />
+        <SkeletonItem variant="shopping-item" :count="5" />
+      </section>
+      <section class="rounded-xl border bg-white p-4 shadow-sm flex flex-col min-h-[260px]">
+        <div class="h-4 w-16 rounded bg-slate-200 mb-3 animate-pulse" />
+        <SkeletonItem variant="shopping-item" :count="3" />
+      </section>
+    </template>
+
     <!-- メインレイアウト：PC は2カラム、SP は縦並び（高さ揃え） -->
-    <div class="grid gap-4 md:grid-cols-2 md:items-stretch">
+    <div v-if="!isInitialLoading" class="grid gap-4 md:grid-cols-2 md:items-stretch">
       <!-- 未購入リスト -->
       <section
         :class="[activeTab === 'notPurchased' ? 'block' : 'hidden', 'md:block']"
@@ -286,6 +298,7 @@
 
     <!-- 購入済み（PC: 折りたたみ / SP: タブで表示・常時展開） -->
     <section
+      v-if="!isInitialLoading"
       :class="[activeTab === 'completed' ? 'block' : 'hidden', 'md:block']"
       class="rounded-xl border bg-white p-4 shadow-sm"
     >
@@ -400,7 +413,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted } from 'vue'
+import { computed, ref, onMounted, watch } from 'vue'
 import type { ShoppingItemModel } from '@/domain'
 import { useRouter } from 'vue-router'
 import { useHouseholdStore } from '@/stores/householdStore'
@@ -412,6 +425,7 @@ import OnboardingStepCard from '@/components/home/OnboardingStepCard.vue'
 import ShoppingListTabBar from '@/components/shopping/ShoppingListTabBar.vue'
 import ShoppingStoreTypeFilter from '@/components/shopping/ShoppingStoreTypeFilter.vue'
 import SwipeableShoppingItem from '@/components/shopping/SwipeableShoppingItem.vue'
+import SkeletonItem from '@/components/ui/SkeletonItem.vue'
 import { useShoppingCodes } from '@/composables/useShoppingCodes'
 import { SHOPPING_ITEM_STATUS } from '@/constants/code.constants'
 import { isWithinDays } from '@/utils/dateUtils'
@@ -429,6 +443,9 @@ const { storeTypeLabel, storeTypeBorderClass } = useShoppingCodes()
 const showCompleted = ref(false)
 const activeTab = ref<'notPurchased' | 'basket' | 'completed'>('notPurchased')
 
+// スケルトンスクリーン（初回ロード中のみ表示）
+const isInitialLoading = ref(true)
+
 const currentHouseholdId = computed(() => householdStore.currentHouseholdId ?? null)
 
 // 状態別のリスト
@@ -442,18 +459,38 @@ const completedItems = computed<ShoppingItemModel[]>(() =>
   shoppingStore.completed(currentHouseholdId.value),
 )
 
-onMounted(async () => {
+const fetchShoppingItems = async () => {
   if (!currentHouseholdId.value) return
   try {
-    await uiStore.withLoading(async () => {
+    // 初回ロード中はスケルトンを表示するため withLoading を使わない
+    if (isInitialLoading.value) {
       await codeStore.loadAllIfNeeded()
       await shoppingStore.fetchItems(currentHouseholdId.value!, { force: false })
-    })
+    } else {
+      await uiStore.withLoading(async () => {
+        await codeStore.loadAllIfNeeded()
+        await shoppingStore.fetchItems(currentHouseholdId.value!, { force: false })
+      })
+    }
   } catch (e) {
     console.error(e)
     uiStore.showToast('error', t('shopping.list.messages.fetchError'))
+  } finally {
+    isInitialLoading.value = false
   }
-})
+}
+
+onMounted(fetchShoppingItems)
+
+watch(
+  () => currentHouseholdId.value,
+  async (newId, oldId) => {
+    if (!newId || newId === oldId) return
+    // 世帯切替時はスケルトンを再表示する
+    isInitialLoading.value = true
+    await fetchShoppingItems()
+  },
+)
 
 // ★ お気に入りの切り替え
 const toggleFavorite = async (item: ShoppingItemModel) => {
