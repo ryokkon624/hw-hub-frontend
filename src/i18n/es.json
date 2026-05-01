@@ -611,7 +611,17 @@
       "skipSuccess": "Las tareas sin asignar anteriores han sido omitidas.",
       "skipError": "Error al omitir tareas en bloque."
     },
-    "avatarAlt": "Ícono de miembro"
+    "avatarAlt": "Ícono de miembro",
+
+    "swipe": {
+      "self": "Para mí",
+      "members": "Miembros"
+    },
+
+    "picker": {
+      "title": "Seleccionar asignado",
+      "unassigned": "Sin asignar"
+    }
   },
   "myTasks": {
     "intro": "Esta es una lista de tareas del hogar asignadas a ti. Puedes marcarlas como completadas u omitidas aquí.",
