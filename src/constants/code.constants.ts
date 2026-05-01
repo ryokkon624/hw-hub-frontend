@@ -23,6 +23,7 @@ export const CODE_TYPE = {
   INQUIRY_SENDER_TYPE: '0023', // InquirySenderType (送信者タイプ)
   USER_ROLE: '0024', // UserRole (ユーザロール)
   PERMISSION: '0025', // Permission (パーミッション)
+  THEME_MODE: '0026', // ThemeMode (テーマモード)
 } as const
 
 /**
@@ -251,3 +252,13 @@ export const PERMISSION = {
   SYS_TEMPLATE_MNG: '30',
 } as const
 export type PermissionCode = (typeof PERMISSION)[keyof typeof PERMISSION]
+
+/**
+ * 0026: テーマモード (ThemeMode)
+ */
+export const THEME_MODE = {
+  SYSTEM: 'SYSTEM', // システム連動
+  LIGHT: 'LIGHT', // ライト
+  DARK: 'DARK', // ダーク
+} as const
+export type ThemeModeCode = (typeof THEME_MODE)[keyof typeof THEME_MODE]

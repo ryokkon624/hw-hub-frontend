@@ -10,7 +10,7 @@
     <div class="relative">
       <button
         type="button"
-        class="flex items-center gap-2 transition hover:bg-hwhub-surface-subtle sm:rounded-full sm:border sm:border-hwhub-border-subtle sm:bg-white sm:px-2 sm:py-1"
+        class="flex items-center gap-2 transition hover:bg-hwhub-surface-subtle sm:rounded-full sm:border sm:border-hwhub-border-subtle sm:bg-hwhub-surface-card sm:px-2 sm:py-1"
         @click="toggleMenu"
       >
         <!-- ユーザアイコン（イニシャル） -->
@@ -35,7 +35,7 @@
       <!-- メニュー -->
       <div
         v-if="menuOpen"
-        class="absolute right-0 mt-2 w-40 rounded-md border border-hwhub-border-subtle bg-white shadow-lg z-10 py-1"
+        class="absolute right-0 mt-2 w-40 rounded-md border border-hwhub-border-subtle bg-hwhub-surface-card shadow-lg z-10 py-1"
       >
         <button
           type="button"

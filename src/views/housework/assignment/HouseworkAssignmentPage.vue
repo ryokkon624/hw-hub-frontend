@@ -9,7 +9,7 @@
     <HouseholdSwitcherField class="sm:hidden" />
 
     <!-- メンバー別サマリー -->
-    <section class="rounded-xl border bg-white p-3 shadow-sm space-y-2">
+    <section class="rounded-xl border bg-hwhub-surface-card p-3 shadow-sm space-y-2">
       <h3 class="text-xs font-semibold text-hwhub-muted">{{ t('assign.summary.heading') }}</h3>
 
       <!-- flex-wrap で折り返しレイアウト -->
@@ -48,7 +48,7 @@
           :class="[
             s.member.userId === loginUserId
               ? 'bg-hwhub-primary-50 border-hwhub-primary'
-              : 'bg-white border-hwhub-border',
+              : 'bg-hwhub-surface-card border-hwhub-border',
             draggingOverTargetId === s.member.userId
               ? 'ring-2 ring-hwhub-primary ring-offset-1'
               : '',
@@ -113,7 +113,7 @@
             class="px-3 py-1 rounded-full"
             :class="
               assigneeFilter === 'ALL'
-                ? 'bg-white text-hwhub-heading shadow-sm'
+                ? 'bg-hwhub-surface-card text-hwhub-heading shadow-sm'
                 : 'text-hwhub-muted'
             "
             @click="assigneeFilter = 'ALL'"
@@ -125,7 +125,7 @@
             class="px-3 py-1 rounded-full"
             :class="
               assigneeFilter === 'UNASSIGNED'
-                ? 'bg-white text-hwhub-heading shadow-sm'
+                ? 'bg-hwhub-surface-card text-hwhub-heading shadow-sm'
                 : 'text-hwhub-muted'
             "
             @click="assigneeFilter = 'UNASSIGNED'"
@@ -137,7 +137,7 @@
             class="px-3 py-1 rounded-full"
             :class="
               assigneeFilter === 'MINE_AND_UNASSIGNED'
-                ? 'bg-white text-hwhub-heading shadow-sm'
+                ? 'bg-hwhub-surface-card text-hwhub-heading shadow-sm'
                 : 'text-hwhub-muted'
             "
             @click="assigneeFilter = 'MINE_AND_UNASSIGNED'"
@@ -149,7 +149,7 @@
     </section>
 
     <!-- リスト本体 -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-2">
+    <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-2">
       <!-- スケルトンスクリーン（初回ロード中） -->
       <SkeletonItem v-if="isInitialLoading" variant="task-card" />
 
@@ -220,7 +220,7 @@
               :class="[
                 task.assigneeUserId == null
                   ? 'bg-hwhub-accent-soft border-hwhub-accent'
-                  : 'bg-white hover:bg-hwhub-surface-subtle',
+                  : 'bg-hwhub-surface-card hover:bg-hwhub-surface-subtle',
                 draggingTaskId === task.houseworkTaskId ? 'opacity-60 shadow-md scale-[0.99]' : '',
                 recentlyUpdatedTaskId === task.houseworkTaskId ? 'hw-fade-in' : '',
               ]"
@@ -275,7 +275,7 @@
                   </button>
 
                   <select
-                    class="w-full sm:w-auto rounded-full border px-2 py-1 text-xs bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary-50"
+                    class="w-full sm:w-auto rounded-full border px-2 py-1 text-xs bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary-50"
                     :value="task.assigneeUserId ?? ''"
                     @change="
                       (e) => {

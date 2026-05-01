@@ -4,7 +4,7 @@
       {{ t('notifications.center.title') }}
     </h1>
 
-    <div class="rounded-xl border bg-white shadow-sm overflow-hidden">
+    <div class="rounded-xl border bg-hwhub-surface-card shadow-sm overflow-hidden">
       <div class="p-4 border-b flex items-center justify-between">
         <div class="text-sm text-hwhub-muted">
           {{ t('notifications.center.subtitle') }}

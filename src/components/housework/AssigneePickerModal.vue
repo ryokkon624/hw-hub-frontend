@@ -12,7 +12,7 @@
     <Transition name="sheet-slide">
       <div
         v-if="modelValue"
-        class="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-2xl shadow-xl pb-safe"
+        class="fixed bottom-0 left-0 right-0 z-50 bg-hwhub-surface-card rounded-t-2xl shadow-xl pb-safe"
       >
         <!-- ドラッグハンドル -->
         <div class="flex justify-center pt-3 pb-1">
@@ -47,7 +47,7 @@
             v-for="member in members"
             :key="member.userId"
             type="button"
-            class="flex items-center gap-2 rounded-full border px-3 py-2 text-sm transition-colors bg-white border-hwhub-border active:opacity-70"
+            class="flex items-center gap-2 rounded-full border px-3 py-2 text-sm transition-colors bg-hwhub-surface-card border-hwhub-border active:opacity-70"
             :class="
               member.userId === currentAssigneeUserId
                 ? 'ring-2 ring-hwhub-primary bg-hwhub-primary-50'

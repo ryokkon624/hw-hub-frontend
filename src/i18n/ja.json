@@ -200,8 +200,12 @@
         "actions": "操作"
       },
       "form": {
-        "create": { "title": "ユーザー新規登録" },
-        "edit": { "title": "ユーザー編集" },
+        "create": {
+          "title": "ユーザー新規登録"
+        },
+        "edit": {
+          "title": "ユーザー編集"
+        },
         "email": "メールアドレス",
         "password": "パスワード",
         "passwordHint": "変更する場合のみ入力",
@@ -527,7 +531,6 @@
   },
   "home": {
     "intro": "家事や買い物のざっくりした状況をここで確認できます。詳細な操作は各機能の画面（My Tasks / 家事割り当て / 買い物リスト）から行います。",
-
     "onboarding": {
       "title": "ようこそ Housework Hub へ！",
       "subtitle": "まずはアプリを使うための準備をしましょう。",
@@ -542,12 +545,10 @@
         "button": "家事設定へ移動"
       }
     },
-
     "common": {
       "taskCount": "{count} 件",
       "itemCount": "{count} 件"
     },
-
     "myTasks": {
       "summary": "あなたに割り当てられている家事タスクのサマリーです。",
       "todayLabel": "今日の家事",
@@ -556,7 +557,6 @@
       "note": "※ ステータスの更新は「My Tasks」画面で行えます。",
       "openButton": "My Tasks を開く"
     },
-
     "unassigned": {
       "title": "家事の未割り当て",
       "summary": "担当者が決まっていない家事タスクです。早めに誰かに割り振っておきましょう。",
@@ -567,7 +567,6 @@
       "note": "※ 担当者の変更は「家事割り当て」画面から行えます。",
       "openButton": "家事割り当てを開く"
     },
-
     "shopping": {
       "title": "買い物リスト",
       "summary": "このおうちで未購入のアイテム数です。お店ごとの件数と、最近追加された数を表示します。",
@@ -577,7 +576,6 @@
       "recentLabel": "直近2日以内に追加されたアイテム",
       "openButton": "買い物リストを開く"
     },
-
     "household": {
       "title": "おうちの様子",
       "summary": "過去6日〜未来6日までの家事タスク件数です。メンバーごとの色分けで、誰にどれくらい予定が入っているかをざっくり把握できます（未割当も含む）。",
@@ -586,21 +584,18 @@
   },
   "assign": {
     "intro": "このおうちの家事タスクの担当者を調整します。未割当の家事や、負荷が偏っている家事をここで割り振ります。",
-
     "summary": {
       "heading": "メンバー別の未対応件数",
       "unassignedBadge": "未",
       "unassignedLabel": "未割当",
       "tasksLabel": "未対応タスク {total}件（未割当: {unassigned}件）"
     },
-
     "filter": {
       "label": "表示対象",
       "all": "すべて",
       "unassignedOnly": "未割当のみ",
       "mineAndUnassigned": "自分＋未割当"
     },
-
     "list": {
       "empty": "条件に一致する家事タスクがありません。",
       "unassignedBadge": "未",
@@ -608,13 +603,11 @@
       "assignToMe": "自分にする",
       "selectUnassigned": "未割当"
     },
-
     "messages": {
       "fetchError": "家事タスクの取得に失敗しました",
       "assigneeUpdateSuccess": "担当者を更新しました",
       "assigneeUpdateError": "担当者の更新に失敗しました"
     },
-
     "bulk": {
       "pastUnassignedCount": "過去の未割当: {count}件",
       "skipButton": "⏭ 過去の未割当をスキップ",
@@ -622,14 +615,11 @@
       "skipSuccess": "過去の未割当タスクをスキップしました",
       "skipError": "一括スキップの更新に失敗しました"
     },
-
     "avatarAlt": "メンバーアイコン",
-
     "swipe": {
       "self": "自分にする",
       "members": "メンバーへ"
     },
-
     "picker": {
       "title": "担当者を選択",
       "unassigned": "未割当"
@@ -637,7 +627,6 @@
   },
   "myTasks": {
     "intro": "あなたに割り当てられている家事タスクの一覧です。ここから完了・スキップに更新ができます。",
-
     "past": {
       "title": "過去の家事",
       "description": "今日より前に対応する予定だった家事のうち、まだ未対応のものです。",
@@ -645,7 +634,6 @@
       "empty": "過去の未対応タスクはありません。",
       "groupCount": "（{count}件）"
     },
-
     "future": {
       "title": "これからの家事",
       "description": "今日以降に予定されている家事です。必要に応じて完了やスキップに更新できます。",
@@ -656,17 +644,14 @@
       "empty": "これからの未対応タスクはありません。",
       "groupCount": "（{count}件）"
     },
-
     "actions": {
       "skip": "スキップ",
       "complete": "完了する"
     },
-
     "swipe": {
       "done": "完了",
       "skip": "スキップ"
     },
-
     "messages": {
       "fetchError": "家事タスクの取得に失敗しました",
       "doneSuccess": "家事を完了にしました",
@@ -678,7 +663,6 @@
       "bulkSuccess": "過去の家事をすべて完了にしました",
       "bulkError": "一括完了の更新に失敗しました"
     },
-
     "date": {
       "today": "今日",
       "tomorrow": "明日",
@@ -1179,6 +1163,15 @@
             }
           }
         }
+      },
+      "theme": {
+        "title": "外観",
+        "description": "画面の明るさを設定します。",
+        "options": {
+          "system": "システム連動",
+          "light": "ライト",
+          "dark": "ダーク"
+        }
       }
     },
     "household": {
@@ -1247,28 +1240,20 @@
       "toasts": {
         "createSuccess": "新しいおうちを作成しました",
         "createFailed": "おうちの作成に失敗しました",
-
         "switchSuccess": "おうちを切り替えました",
         "switchFailed": "おうちの切り替えに失敗しました",
-
         "saveNameSuccess": "おうち名を保存しました",
         "saveNameFailed": "おうち名の保存に失敗しました",
-
         "saveNicknameSuccess": "ニックネームを保存しました",
         "saveNicknameFailed": "ニックネームの保存に失敗しました",
-
         "leaveSuccess": "このおうちから離脱しました",
         "leaveFailed": "離脱に失敗しました",
-
         "removeMemberSuccess": "メンバーをおうちから削除しました",
         "removeMemberFailed": "メンバーの削除に失敗しました",
-
         "copyInviteSuccess": "招待リンクをコピーしました",
         "copyInviteFailed": "クリップボードへのコピーに失敗しました",
-
         "inviteCreateSuccess": "招待リンクを作成しました",
         "inviteCreateFailed": "招待リンクの作成に失敗しました",
-
         "revokeInviteSuccess": "招待を取り消しました",
         "revokeInviteFailed": "招待の取り消しに失敗しました",
         "deleteSuccess": "おうちを削除しました",
@@ -1311,12 +1296,16 @@
         "error": "送信に失敗しました。"
       },
       "validation": {
-        "category": { "required": "カテゴリを選択してください" },
+        "category": {
+          "required": "カテゴリを選択してください"
+        },
         "title": {
           "required": "件名を入力してください",
           "maxLength": "件名は200文字以内で入力してください"
         },
-        "body": { "required": "お問い合わせ内容を入力してください" }
+        "body": {
+          "required": "お問い合わせ内容を入力してください"
+        }
       }
     },
     "detail": {

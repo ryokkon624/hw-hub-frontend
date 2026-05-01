@@ -15,7 +15,7 @@
     <!-- メインレイアウト：PC は2カラム -->
     <div class="grid gap-4 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
       <!-- 左：基本情報 -->
-      <section class="rounded-xl border bg-white p-4 shadow-sm space-y-4">
+      <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-4">
         <div class="flex items-start justify-between gap-3">
           <div class="flex-1 min-w-0 space-y-2">
             <!-- 品名 -->
@@ -51,7 +51,7 @@
               }}</label>
               <select
                 v-model="editableStoreType"
-                class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+                class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
               >
                 <option value="">{{ t('shopping.detail.fields.storeTypeUnset') }}</option>
                 <option v-for="opt in storeTypeOptions" :key="opt.value" :value="opt.value">
@@ -152,7 +152,7 @@
       </section>
 
       <!-- 右：画像ギャラリー -->
-      <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
+      <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-3">
         <h2 class="text-sm font-semibold mb-1 text-hwhub-heading">
           {{ t('shopping.detail.imageSection.title') }}
         </h2>

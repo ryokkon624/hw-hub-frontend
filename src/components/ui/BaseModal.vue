@@ -5,7 +5,7 @@
 
     <!-- パネル -->
     <div
-      class="relative z-50 w-full max-w-md max-h-[80vh] rounded-2xl bg-white shadow-lg flex flex-col"
+      class="relative z-50 w-full max-w-md max-h-[80vh] rounded-2xl bg-hwhub-surface-card shadow-lg flex flex-col"
     >
       <!-- ヘッダ -->
       <header class="flex items-center justify-between px-4 py-3 border-b">

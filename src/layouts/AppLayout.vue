@@ -95,7 +95,9 @@
     <!-- メイン領域 -->
     <div class="flex-1 flex flex-col min-w-0">
       <!-- ヘッダー -->
-      <header class="h-16 flex items-center justify-between px-4 border-b bg-white">
+      <header
+        class="h-16 flex items-center justify-between px-4 border-b bg-hwhub-surface-card border-hwhub-border"
+      >
         <!-- 左側：ページタイトル + 世帯 -->
         <div class="flex-1 min-w-0 flex flex-col justify-center pr-2 overflow-hidden">
           <!-- SP版：clamp によるフォントサイズ調整 + ellipsis -->

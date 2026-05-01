@@ -60,7 +60,10 @@ const tMaybe = (msg: string | undefined | null) => {
 
 <template>
   <!-- パスワード変更 -->
-  <section v-if="!isGoogleLinked" class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
+  <section
+    v-if="!isGoogleLinked"
+    class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-3"
+  >
     <h3 class="text-sm font-semibold text-hwhub-heading">
       {{ t('settings.account.password.title') }}
     </h3>
@@ -80,7 +83,7 @@ const tMaybe = (msg: string | undefined | null) => {
             v-bind="field"
             type="password"
             autocomplete="current-password"
-            class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
             :disabled="authStore.isChangingPassword"
           />
         </Field>
@@ -98,7 +101,7 @@ const tMaybe = (msg: string | undefined | null) => {
             v-bind="field"
             type="password"
             autocomplete="new-password"
-            class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
             :disabled="authStore.isChangingPassword"
           />
         </Field>
@@ -116,7 +119,7 @@ const tMaybe = (msg: string | undefined | null) => {
             v-bind="field"
             type="password"
             autocomplete="new-password"
-            class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
             :disabled="authStore.isChangingPassword"
           />
         </Field>
@@ -149,7 +152,7 @@ const tMaybe = (msg: string | undefined | null) => {
     </form>
   </section>
   <!-- パスワード変更の案内（Google連携済みの場合） -->
-  <section v-else class="rounded-xl border bg-white p-4 shadow-sm space-y-2">
+  <section v-else class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-2">
     <h3 class="text-sm font-semibold text-hwhub-heading">
       {{ t('settings.account.password.title') }}
     </h3>

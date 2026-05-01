@@ -53,11 +53,15 @@
 
     <!-- スケルトンスクリーン（初回ロード中） -->
     <template v-if="isInitialLoading">
-      <section class="rounded-xl border bg-white p-4 shadow-sm flex flex-col min-h-[260px]">
+      <section
+        class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm flex flex-col min-h-[260px]"
+      >
         <div class="h-4 w-20 rounded bg-slate-200 mb-3 animate-pulse" />
         <SkeletonItem variant="shopping-item" :count="5" />
       </section>
-      <section class="rounded-xl border bg-white p-4 shadow-sm flex flex-col min-h-[260px]">
+      <section
+        class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm flex flex-col min-h-[260px]"
+      >
         <div class="h-4 w-16 rounded bg-slate-200 mb-3 animate-pulse" />
         <SkeletonItem variant="shopping-item" :count="3" />
       </section>
@@ -68,7 +72,7 @@
       <!-- 未購入リスト -->
       <section
         :class="[activeTab === 'notPurchased' ? 'block' : 'hidden', 'md:block']"
-        class="rounded-xl border bg-white p-4 shadow-sm flex flex-col min-h-[260px] md:h-full"
+        class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm flex flex-col min-h-[260px] md:h-full"
       >
         <div class="flex items-center justify-between mb-2">
           <h2 class="text-sm font-semibold text-hwhub-heading">
@@ -133,7 +137,7 @@
           <li
             v-for="item in filteredNotPurchasedItems"
             :key="item.shoppingItemId"
-            class="group rounded-xl border border-hwhub-border bg-white px-3 py-2.5 flex items-start gap-3 hover:bg-hwhub-surface-subtle shadow-sm hover:shadow-md hover:-translate-y-px transition"
+            class="group rounded-xl border border-hwhub-border bg-hwhub-surface-card px-3 py-2.5 flex items-start gap-3 hover:bg-hwhub-surface-subtle shadow-sm hover:shadow-md hover:-translate-y-px transition"
             :class="storeTypeBorderClass(item.storeType)"
           >
             <!-- テキスト＆アクション -->
@@ -195,7 +199,7 @@
       <!-- かごリスト -->
       <section
         :class="[activeTab === 'basket' ? 'block' : 'hidden', 'md:block']"
-        class="rounded-xl border bg-white p-4 shadow-sm flex flex-col min-h-[260px] md:h-full"
+        class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm flex flex-col min-h-[260px] md:h-full"
       >
         <div class="flex items-center justify-between mb-3">
           <h2 class="text-sm font-semibold text-hwhub-heading">
@@ -247,7 +251,7 @@
           <li
             v-for="item in inBasketItems"
             :key="item.shoppingItemId"
-            class="group rounded-xl border border-hwhub-border bg-white px-3 py-2.5 flex items-start gap-3 hover:bg-hwhub-surface-subtle shadow-sm hover:shadow-md hover:-translate-y-px transition"
+            class="group rounded-xl border border-hwhub-border bg-hwhub-surface-card px-3 py-2.5 flex items-start gap-3 hover:bg-hwhub-surface-subtle shadow-sm hover:shadow-md hover:-translate-y-px transition"
             :class="storeTypeBorderClass(item.storeType)"
           >
             <!-- テキスト＆アクション -->
@@ -300,7 +304,7 @@
     <section
       v-if="!isInitialLoading"
       :class="[activeTab === 'completed' ? 'block' : 'hidden', 'md:block']"
-      class="rounded-xl border bg-white p-4 shadow-sm"
+      class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm"
     >
       <!-- PC時: 折りたたみボタン表示 / SP時: 折りたたみボタン非表示 -->
       <button

@@ -19,7 +19,7 @@
     <!-- 空状態 -->
     <div
       v-else-if="inquiryStore.summaries.length === 0"
-      class="rounded-xl border bg-white p-8 text-center text-sm text-hwhub-muted shadow-sm"
+      class="rounded-xl border bg-hwhub-surface-card p-8 text-center text-sm text-hwhub-muted shadow-sm"
     >
       {{ t('inquiry.list.empty') }}
     </div>
@@ -28,7 +28,7 @@
     <ul v-else class="space-y-3">
       <li v-for="summary in inquiryStore.summaries" :key="summary.inquiryId">
         <button
-          class="w-full text-left rounded-xl border bg-white px-4 py-3 shadow-sm hover:bg-hwhub-surface-subtle transition flex items-center justify-between gap-3"
+          class="w-full text-left rounded-xl border bg-hwhub-surface-card px-4 py-3 shadow-sm hover:bg-hwhub-surface-subtle transition flex items-center justify-between gap-3"
           @click="goDetail(summary.inquiryId)"
         >
           <!-- 左側：コンテンツ -->
@@ -124,7 +124,7 @@ const statusColorClass = (status: string): string => {
     case INQUIRY_STATUS.STAFF_ANSWERED:
       return 'bg-emerald-100 text-emerald-600'
     case INQUIRY_STATUS.CLOSED:
-      return 'bg-slate-100 text-slate-500'
+      return 'bg-slate-100 text-hwhub-muted'
     default:
       return 'bg-hwhub-surface-subtle text-hwhub-muted'
   }

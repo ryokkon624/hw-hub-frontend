@@ -3,7 +3,7 @@
     <div
       v-for="toast in toasts"
       :key="toast.id"
-      class="min-w-[220px] max-w-xs rounded-lg border px-3 py-2 shadow-md bg-white flex items-start gap-2"
+      class="min-w-[220px] max-w-xs rounded-lg border px-3 py-2 shadow-md bg-hwhub-surface-card flex items-start gap-2"
       :class="toastClass(toast.type)"
     >
       <div class="pt-0.5">
@@ -45,7 +45,7 @@ const toastClass = (type: 'success' | 'error' | 'info') => {
     case 'error':
       return 'border-hwhub-danger bg-hwhub-danger-soft text-hwhub-danger'
     default:
-      return 'border-gray-200 bg-hwhub-info-soft text-hwhub-info'
+      return 'border-hwhub-border bg-hwhub-info-soft text-hwhub-info'
   }
 }
 </script>

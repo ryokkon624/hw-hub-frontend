@@ -200,7 +200,7 @@ const statusColorClass = (status: string): string => {
     case INQUIRY_STATUS.STAFF_ANSWERED:
       return 'bg-emerald-100 text-emerald-600'
     case INQUIRY_STATUS.CLOSED:
-      return 'bg-slate-100 text-slate-500'
+      return 'bg-slate-100 text-hwhub-muted'
     default:
       return 'bg-hwhub-surface-subtle text-hwhub-muted'
   }
@@ -211,7 +211,7 @@ const statusWithCode = (code: string): string => `${code}: ${statusLabel(code)}`
 const rowBgClass = (status: string): string => {
   switch (status) {
     case INQUIRY_STATUS.OPEN:
-      return 'bg-white'
+      return 'bg-hwhub-surface-card'
     case INQUIRY_STATUS.AI_ANSWERED:
       return 'bg-violet-50'
     case INQUIRY_STATUS.PENDING_STAFF:
@@ -221,7 +221,7 @@ const rowBgClass = (status: string): string => {
     case INQUIRY_STATUS.CLOSED:
       return 'bg-slate-100'
     default:
-      return 'bg-white'
+      return 'bg-hwhub-surface-card'
   }
 }
 
@@ -269,7 +269,7 @@ const goDetail = (inquiryId: number) => {
         {{ t('common.loading') }}
       </div>
 
-      <section v-else class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
+      <section v-else class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-3">
         <!-- PC版: テーブル + ソート + ページング -->
         <div class="hidden md:block overflow-x-auto">
           <p v-if="pendingViewItems.length > 0" class="mb-2 text-[11px] text-hwhub-muted">
@@ -454,7 +454,7 @@ const goDetail = (inquiryId: number) => {
           <div
             v-for="item in pendingSpPagedItems"
             :key="item.inquiryId"
-            class="rounded-xl border border-hwhub-border bg-white px-3 py-2 shadow-sm space-y-1"
+            class="rounded-xl border border-hwhub-border bg-hwhub-surface-card px-3 py-2 shadow-sm space-y-1"
           >
             <p class="text-sm font-medium text-hwhub-heading">
               #{{ item.inquiryId }}: {{ item.title }}
@@ -506,7 +506,7 @@ const goDetail = (inquiryId: number) => {
          ============================================================ -->
     <template v-else>
       <!-- フィルタフォーム -->
-      <div class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
+      <div class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-3">
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-xs text-hwhub-muted mb-1">
@@ -515,7 +515,7 @@ const goDetail = (inquiryId: number) => {
             <input
               v-model="searchForm.createdAtFrom"
               type="date"
-              class="w-full rounded-md border border-gray-300 px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
+              class="w-full rounded-md border border-hwhub-border px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
             />
           </div>
           <div>
@@ -525,7 +525,7 @@ const goDetail = (inquiryId: number) => {
             <input
               v-model="searchForm.createdAtTo"
               type="date"
-              class="w-full rounded-md border border-gray-300 px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
+              class="w-full rounded-md border border-hwhub-border px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
             />
           </div>
           <div>
@@ -535,7 +535,7 @@ const goDetail = (inquiryId: number) => {
             <input
               v-model="searchForm.updatedAtFrom"
               type="date"
-              class="w-full rounded-md border border-gray-300 px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
+              class="w-full rounded-md border border-hwhub-border px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
             />
           </div>
           <div>
@@ -545,7 +545,7 @@ const goDetail = (inquiryId: number) => {
             <input
               v-model="searchForm.updatedAtTo"
               type="date"
-              class="w-full rounded-md border border-gray-300 px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
+              class="w-full rounded-md border border-hwhub-border px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
             />
           </div>
         </div>
@@ -556,7 +556,7 @@ const goDetail = (inquiryId: number) => {
           <input
             v-model.number="searchForm.userId"
             type="number"
-            class="w-full rounded-md border border-gray-300 px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
+            class="w-full rounded-md border border-hwhub-border px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
           />
         </div>
         <div class="grid grid-cols-2 gap-3">
@@ -566,7 +566,7 @@ const goDetail = (inquiryId: number) => {
             </label>
             <select
               v-model="searchForm.category"
-              class="w-full rounded-md border border-gray-300 px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
+              class="w-full rounded-md border border-hwhub-border px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
             >
               <option value="">—</option>
               <option v-for="opt in categoryOptions" :key="opt.value" :value="opt.value">
@@ -580,7 +580,7 @@ const goDetail = (inquiryId: number) => {
             </label>
             <select
               v-model="searchForm.status"
-              class="w-full rounded-md border border-gray-300 px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
+              class="w-full rounded-md border border-hwhub-border px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
             >
               <option value="">—</option>
               <option v-for="opt in statusOptions" :key="opt.value" :value="opt.value">
@@ -610,7 +610,7 @@ const goDetail = (inquiryId: number) => {
           {{ t('admin.inquiries.search.empty') }}
         </p>
 
-        <section v-else class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
+        <section v-else class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-3">
           <!-- PC版: テーブル + ソート + ページング -->
           <div class="hidden md:block overflow-x-auto">
             <p class="mb-2 text-[11px] text-hwhub-muted">
@@ -804,7 +804,7 @@ const goDetail = (inquiryId: number) => {
             <div
               v-for="item in searchSpPagedItems"
               :key="item.inquiryId"
-              class="rounded-xl border border-hwhub-border bg-white px-3 py-2 shadow-sm space-y-1"
+              class="rounded-xl border border-hwhub-border bg-hwhub-surface-card px-3 py-2 shadow-sm space-y-1"
             >
               <p class="text-sm font-medium text-hwhub-heading">
                 #{{ item.inquiryId }}: {{ item.title }}

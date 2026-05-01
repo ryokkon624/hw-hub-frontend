@@ -6,10 +6,14 @@ import router from './router'
 import { i18n } from './i18n'
 import './assets/main.css'
 import { useAuthStore } from '@/stores/authStore'
+import { useThemeStore } from '@/stores/themeStore'
 
 const app = createApp(App)
 
 app.use(createPinia())
+
+const themeStore = useThemeStore()
+themeStore.init()
 
 const authStore = useAuthStore()
 authStore.initFromStorage()
