@@ -112,7 +112,7 @@ const leftBackgroundLabel = computed(() => {
 const rightBackgroundIcon = computed(() => {
   if (props.item.status === SHOPPING_ITEM_STATUS.NOT_PURCHASED) return Trash2
   if (props.item.status === SHOPPING_ITEM_STATUS.IN_BASKET) return ListRestart
-  return Trash2
+  return null
 })
 
 const rightBackgroundLabel = computed(() => '')
@@ -126,7 +126,7 @@ const backgroundClass = computed(() => {
   if (swipeState.value === 'dragging-left') {
     if (props.item.status === SHOPPING_ITEM_STATUS.NOT_PURCHASED) return 'bg-hwhub-swipe-delete'
     if (props.item.status === SHOPPING_ITEM_STATUS.IN_BASKET) return 'bg-hwhub-swipe-back'
-    return 'bg-hwhub-swipe-disabled'
+    return 'bg-transparent'
   }
   return 'bg-transparent'
 })
