@@ -652,6 +652,11 @@
       "complete": "完了する"
     },
 
+    "swipe": {
+      "done": "完了",
+      "skip": "スキップ"
+    },
+
     "messages": {
       "fetchError": "家事タスクの取得に失敗しました",
       "doneSuccess": "家事を完了にしました",

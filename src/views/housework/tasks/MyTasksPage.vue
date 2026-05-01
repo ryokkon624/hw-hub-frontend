@@ -7,6 +7,7 @@ import { useHouseworkTaskStore } from '@/stores/houseworkTaskStore'
 import type { HouseworkTaskModel } from '@/domain'
 import HouseholdSwitcherField from '@/components/HouseholdSwitcherField.vue'
 import SkeletonItem from '@/components/ui/SkeletonItem.vue'
+import SwipeableTaskCard from '@/components/housework/SwipeableTaskCard.vue'
 import { toYmd } from '@/utils/dateUtils'
 import { useOpenHouseworkTasks } from '@/composables/useOpenHouseworkTasks'
 import { TASK_STATUS } from '@/constants/code.constants'
@@ -170,12 +171,9 @@ const markDone = async (task: HouseworkTaskModel) => {
 }
 
 const skipTask = async (task: HouseworkTaskModel) => {
-  const reason = window.prompt(t('myTasks.messages.skipPrompt'), '')
-  if (reason === null) return
-
   try {
     await uiStore.withLoading(async () => {
-      await taskStore.updateStatus(task.houseworkTaskId, TASK_STATUS.SKIPPED, reason || null)
+      await taskStore.updateStatus(task.houseworkTaskId, TASK_STATUS.SKIPPED, null)
     })
     uiStore.showToast('success', t('myTasks.messages.skipSuccess'))
   } catch (e) {
@@ -259,36 +257,53 @@ const bulkCompletePast = async () => {
 
           <!-- カード一覧 -->
           <div class="space-y-2">
-            <article
-              v-for="task in group.tasks"
-              :key="task.houseworkTaskId"
-              class="rounded-lg border border-rose-200 bg-rose-50 p-3 shadow-sm flex flex-col gap-2"
-            >
-              <div class="flex items-center justify-between gap-2">
-                <div class="min-w-0">
-                  <h3 class="text-sm font-semibold text-rose-700 truncate">
-                    {{ task.houseworkName }}
-                  </h3>
+            <div v-for="task in group.tasks" :key="task.houseworkTaskId">
+              <!-- SP版: スワイプ可能なカード -->
+              <SwipeableTaskCard
+                class="md:hidden"
+                :is-past="true"
+                @swipe-right="markDone(task)"
+                @swipe-left="skipTask(task)"
+              >
+                <div class="flex items-center justify-between gap-2">
+                  <div class="min-w-0">
+                    <h3 class="text-sm font-semibold text-rose-700 truncate">
+                      {{ task.houseworkName }}
+                    </h3>
+                  </div>
                 </div>
-              </div>
+              </SwipeableTaskCard>
 
-              <div class="flex justify-end gap-2">
-                <button
-                  type="button"
-                  class="px-3 py-1 rounded-full border text-xs text-hwhub-muted hover:bg-hwhub-surface-subtle"
-                  @click="skipTask(task)"
-                >
-                  {{ t('myTasks.actions.skip') }}
-                </button>
-                <button
-                  type="button"
-                  class="px-3 py-1 rounded-full text-xs text-white bg-hwhub-primary hover:bg-hwhub-primary"
-                  @click="markDone(task)"
-                >
-                  {{ t('myTasks.actions.complete') }}
-                </button>
-              </div>
-            </article>
+              <!-- PC版: ボタンUI -->
+              <article
+                class="hidden md:flex rounded-lg border border-rose-200 bg-rose-50 p-3 shadow-sm flex-col gap-2"
+              >
+                <div class="flex items-center justify-between gap-2">
+                  <div class="min-w-0">
+                    <h3 class="text-sm font-semibold text-rose-700 truncate">
+                      {{ task.houseworkName }}
+                    </h3>
+                  </div>
+                </div>
+
+                <div class="flex justify-end gap-2">
+                  <button
+                    type="button"
+                    class="px-3 py-1 rounded-full border text-xs text-hwhub-muted hover:bg-hwhub-surface-subtle"
+                    @click="skipTask(task)"
+                  >
+                    {{ t('myTasks.actions.skip') }}
+                  </button>
+                  <button
+                    type="button"
+                    class="px-3 py-1 rounded-full text-xs text-white bg-hwhub-primary hover:bg-hwhub-primary"
+                    @click="markDone(task)"
+                  >
+                    {{ t('myTasks.actions.complete') }}
+                  </button>
+                </div>
+              </article>
+            </div>
           </div>
         </div>
       </div>
@@ -368,37 +383,54 @@ const bulkCompletePast = async () => {
 
           <!-- カード一覧 -->
           <div class="space-y-2">
-            <article
-              v-for="task in group.tasks"
-              :key="task.houseworkTaskId"
-              class="rounded-lg border p-3 shadow-sm flex flex-col gap-2"
-              :class="task.targetDate === todayYmd ? 'bg-green-50 border-green-200' : 'bg-white'"
-            >
-              <div class="flex items-center justify-between gap-2">
-                <div class="min-w-0">
-                  <h3 class="text-sm font-semibold text-hwhub-heading truncate">
-                    {{ task.houseworkName }}
-                  </h3>
+            <div v-for="task in group.tasks" :key="task.houseworkTaskId">
+              <!-- SP版: スワイプ可能なカード -->
+              <SwipeableTaskCard
+                class="md:hidden"
+                :is-today="task.targetDate === todayYmd"
+                @swipe-right="markDone(task)"
+                @swipe-left="skipTask(task)"
+              >
+                <div class="flex items-center justify-between gap-2">
+                  <div class="min-w-0">
+                    <h3 class="text-sm font-semibold text-hwhub-heading truncate">
+                      {{ task.houseworkName }}
+                    </h3>
+                  </div>
                 </div>
-              </div>
+              </SwipeableTaskCard>
 
-              <div class="flex justify-end gap-2">
-                <button
-                  type="button"
-                  class="px-3 py-1 rounded-full border text-xs text-hwhub-muted hover:bg-hwhub-surface-subtle"
-                  @click="skipTask(task)"
-                >
-                  {{ t('myTasks.actions.skip') }}
-                </button>
-                <button
-                  type="button"
-                  class="px-3 py-1 rounded-full text-xs text-white bg-hwhub-primary hover:bg-hwhub-primary"
-                  @click="markDone(task)"
-                >
-                  {{ t('myTasks.actions.complete') }}
-                </button>
-              </div>
-            </article>
+              <!-- PC版: ボタンUI -->
+              <article
+                class="hidden md:flex rounded-lg border p-3 shadow-sm flex-col gap-2"
+                :class="task.targetDate === todayYmd ? 'bg-green-50 border-green-200' : 'bg-white'"
+              >
+                <div class="flex items-center justify-between gap-2">
+                  <div class="min-w-0">
+                    <h3 class="text-sm font-semibold text-hwhub-heading truncate">
+                      {{ task.houseworkName }}
+                    </h3>
+                  </div>
+                </div>
+
+                <div class="flex justify-end gap-2">
+                  <button
+                    type="button"
+                    class="px-3 py-1 rounded-full border text-xs text-hwhub-muted hover:bg-hwhub-surface-subtle"
+                    @click="skipTask(task)"
+                  >
+                    {{ t('myTasks.actions.skip') }}
+                  </button>
+                  <button
+                    type="button"
+                    class="px-3 py-1 rounded-full text-xs text-white bg-hwhub-primary hover:bg-hwhub-primary"
+                    @click="markDone(task)"
+                  >
+                    {{ t('myTasks.actions.complete') }}
+                  </button>
+                </div>
+              </article>
+            </div>
           </div>
         </div>
       </div>

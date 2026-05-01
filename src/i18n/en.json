@@ -636,6 +636,11 @@
       "skip": "Skip",
       "complete": "Mark as done"
     },
+
+    "swipe": {
+      "done": "Done",
+      "skip": "Skip"
+    },
     "messages": {
       "fetchError": "Failed to load housework tasks.",
       "doneSuccess": "Task has been marked as done.",
