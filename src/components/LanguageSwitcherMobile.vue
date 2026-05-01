@@ -11,7 +11,7 @@
         <transition name="slide-up">
           <div
             v-show="isOpen"
-            class="w-full max-w-md rounded-t-2xl bg-white shadow-xl p-4 pb-6 animate-in fade-in slide-in-from-bottom-2"
+            class="w-full max-w-md rounded-t-2xl bg-hwhub-surface-card shadow-xl p-4 pb-6 animate-in fade-in slide-in-from-bottom-2"
           >
             <!-- ハンドル -->
             <div class="flex justify-center mb-2">
@@ -40,7 +40,7 @@
                 class="flex-1 py-3 px-2 text-sm font-bold rounded-xl transition-all duration-200 focus:outline-none"
                 :class="[
                   currentLocale === lang
-                    ? 'bg-white text-hwhub-primary shadow-sm scale-[1.02]'
+                    ? 'bg-hwhub-surface-card text-hwhub-primary shadow-sm scale-[1.02]'
                     : 'text-hwhub-muted hover:text-hwhub-heading active:scale-95',
                 ]"
                 @click="selectLocale(lang)"

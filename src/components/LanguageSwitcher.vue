@@ -25,7 +25,7 @@
 
   <!-- PC版 または forcePill時のピル表示 -->
   <div
-    class="rounded-full border border-hwhub-border-subtle overflow-hidden bg-white shadow-sm"
+    class="rounded-full border border-hwhub-border-subtle overflow-hidden bg-hwhub-surface-card shadow-sm"
     :class="[forcePill ? 'flex' : 'hidden md:inline-flex', buttonClass]"
   >
     <button
