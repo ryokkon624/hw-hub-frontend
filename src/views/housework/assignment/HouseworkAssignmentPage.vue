@@ -186,7 +186,7 @@
                       :iconUrl="getMemberForTask(task)?.iconUrl ?? null"
                       :label="avatarLabel(getMemberForTask(task))"
                       size="lg"
-                      alt="icon"
+                      :alt="t('assign.avatarAlt')"
                     />
                   </div>
 
@@ -246,7 +246,7 @@
                   :iconUrl="getMemberForTask(task)?.iconUrl ?? null"
                   :label="avatarLabel(getMemberForTask(task))"
                   size="lg"
-                  alt="icon"
+                  :alt="t('assign.avatarAlt')"
                 />
               </div>
 
