@@ -271,6 +271,9 @@ body {
   .text-hwhub-primary {
     color: var(--hwhub-primary-text);
   }
+  .text-hwhub-on-primary {
+    color: var(--hwhub-on-primary);
+  }
   .border-hwhub-primary {
     border-color: var(--hwhub-primary-border);
   }
@@ -332,6 +335,9 @@ body {
   /* Border */
   .border-hwhub-border {
     border-color: var(--hwhub-border);
+  }
+  .border-hwhub-border-subtle {
+    border-color: var(--hwhub-border-subtle);
   }
 
   /* Text */

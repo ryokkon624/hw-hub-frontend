@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { THEME_MODE } from '@/constants/code.constants'
 import type { ThemeModeCode } from '@/constants/code.constants'
 
@@ -14,13 +14,6 @@ export const useThemeStore = defineStore('theme', () => {
   const mode = ref<ThemeModeCode>(THEME_MODE.SYSTEM)
   let mediaQueryListener: ((e: MediaQueryListEvent) => void) | null = null
   let mediaQuery: MediaQueryList | null = null
-
-  const effectiveTheme = computed<'LIGHT' | 'DARK'>(() => {
-    if (mode.value === THEME_MODE.LIGHT) return 'LIGHT'
-    if (mode.value === THEME_MODE.DARK) return 'DARK'
-    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    return isDark ? 'DARK' : 'LIGHT'
-  })
 
   function applyTheme(currentMode: ThemeModeCode) {
     const html = document.documentElement
@@ -78,5 +71,5 @@ export const useThemeStore = defineStore('theme', () => {
     }
   }
 
-  return { mode, effectiveTheme, init, setMode }
+  return { mode, init, setMode }
 })

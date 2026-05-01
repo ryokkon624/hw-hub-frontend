@@ -7,7 +7,7 @@
       class="flex items-center gap-1.5 px-3 py-1 text-xs font-bold focus:outline-none transition-all"
       :class="[
         themeStore.mode === option.value
-          ? 'bg-hwhub-primary text-on-primary shadow-inner'
+          ? 'bg-hwhub-primary text-hwhub-on-primary shadow-inner'
           : 'bg-transparent hover:bg-hwhub-surface-subtle text-hwhub-muted',
       ]"
       @click="themeStore.setMode(option.value)"

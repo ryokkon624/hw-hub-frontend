@@ -80,39 +80,4 @@ describe('themeStore', () => {
     expect(document.documentElement.classList.contains('dark')).toBe(false)
     expect(document.documentElement.classList.contains('light')).toBe(false)
   })
-
-  it('effectiveTheme: SYSTEM時はmatchMediaの現在値を返す', async () => {
-    mockMatchMedia.mockImplementation((query: string) => ({
-      matches: query === '(prefers-color-scheme: dark)' ? true : false,
-      media: query,
-      onchange: null,
-      addEventListener: vi.fn(),
-      removeEventListener: vi.fn(),
-      dispatchEvent: vi.fn(),
-    }))
-
-    const { useThemeStore } = await import('@/stores/themeStore')
-    const store = useThemeStore()
-    store.init()
-
-    expect(store.effectiveTheme).toBe('DARK')
-  })
-
-  it('effectiveTheme: LIGHT時は "LIGHT" を返す', async () => {
-    const { useThemeStore } = await import('@/stores/themeStore')
-    const store = useThemeStore()
-    store.init()
-    store.setMode('LIGHT')
-
-    expect(store.effectiveTheme).toBe('LIGHT')
-  })
-
-  it('effectiveTheme: DARK時は "DARK" を返す', async () => {
-    const { useThemeStore } = await import('@/stores/themeStore')
-    const store = useThemeStore()
-    store.init()
-    store.setMode('DARK')
-
-    expect(store.effectiveTheme).toBe('DARK')
-  })
 })
