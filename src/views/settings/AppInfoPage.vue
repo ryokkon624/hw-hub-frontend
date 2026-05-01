@@ -8,7 +8,7 @@
     </div>
 
     <!-- バージョン情報 -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-2">
+    <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-2">
       <h3 class="text-sm font-semibold mb-1">
         {{ t('appInfo.version.sectionTitle') }}
       </h3>
@@ -34,7 +34,7 @@
     </section>
 
     <!-- 利用規約・プライバシーポリシー -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
+    <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-3">
       <h3 class="text-sm font-semibold mb-1">
         {{ t('appInfo.legal.sectionTitle') }}
       </h3>
@@ -66,7 +66,7 @@
     </section>
 
     <!-- データとプライバシーの概要 -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-2">
+    <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-2">
       <h3 class="text-sm font-semibold mb-1">
         {{ t('appInfo.privacyOverview.sectionTitle') }}
       </h3>
@@ -81,7 +81,7 @@
     </section>
 
     <!-- 開発者情報 -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-2">
+    <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-2">
       <h3 class="text-sm font-semibold mb-1">
         {{ t('appInfo.developer.sectionTitle') }}
       </h3>
@@ -96,7 +96,7 @@
     </section>
 
     <!-- OSS ライセンス -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-2">
+    <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-2">
       <h3 class="text-sm font-semibold mb-1">
         {{ t('appInfo.oss.sectionTitle') }}
       </h3>

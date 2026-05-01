@@ -8,7 +8,7 @@
     >
       <!-- ダイアログ本体 -->
       <div
-        class="w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl bg-white shadow-lg p-4 sm:p-5 space-y-4"
+        class="w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl bg-hwhub-surface-card shadow-lg p-4 sm:p-5 space-y-4"
       >
         <!-- ヘッダー -->
         <div class="flex items-center justify-between">

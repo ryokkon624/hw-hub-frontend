@@ -200,8 +200,12 @@
         "actions": "Acciones"
       },
       "form": {
-        "create": { "title": "Crear usuario" },
-        "edit": { "title": "Editar usuario" },
+        "create": {
+          "title": "Crear usuario"
+        },
+        "edit": {
+          "title": "Editar usuario"
+        },
         "email": "Correo",
         "password": "Contraseña",
         "passwordHint": "Dejar en blanco para no cambiar",
@@ -317,7 +321,7 @@
       "description": {
         "beforeHighlight": "Housework Hub es una app para",
         "highlight": "hacer visibles las tareas del hogar y las compras para todos en casa",
-        "afterHighlight": ". Es tu puerta de acceso a las asignaciones de tareas y la página \u201cMis tareas\u201d."
+        "afterHighlight": ". Es tu puerta de acceso a las asignaciones de tareas y la página “Mis tareas”."
       },
       "notes": {
         "sameAccount": "・Puedes iniciar sesión con la misma cuenta que la versión de navegador.",
@@ -467,7 +471,7 @@
         "badge": "INVITACIÓN AL HOGAR",
         "heading": "Has sido invitado a un hogar.",
         "description": "Si aceptas esta invitación, te unirás al hogar y podrás compartir las tareas y listas de compras.",
-        "notice": "Si recibiste esta invitación por error, por favor elige \u201cRechazar\u201d a la derecha."
+        "notice": "Si recibiste esta invitación por error, por favor elige “Rechazar” a la derecha."
       },
       "loading": "Cargando información de la invitación…",
       "error": {
@@ -490,7 +494,7 @@
         "signupAndJoin": "Crear una nueva cuenta"
       },
       "loggedIn": {
-        "confirmMessage": "¿Deseas unirte al hogar \u201c{householdName}\u201d con esta cuenta?"
+        "confirmMessage": "¿Deseas unirte al hogar “{householdName}” con esta cuenta?"
       },
       "actions": {
         "accept": "Unirse",
@@ -550,7 +554,7 @@
       "todayLabel": "Tareas de hoy",
       "weekLabel": "Próximos 7 días",
       "overdueLabel": "Vencidas",
-      "note": "※ Puedes actualizar los estados en la página \u201cMis tareas\u201d.",
+      "note": "※ Puedes actualizar los estados en la página “Mis tareas”.",
       "openButton": "Abrir Mis tareas"
     },
     "unassigned": {
@@ -560,7 +564,7 @@
       "totalPeriod": "Todo el tiempo",
       "soonLabel": "Hoy – en 3 días",
       "soonDescription": "Tareas a asignar pronto",
-      "note": "※ Puedes cambiar los asignados en la página \u201cAsignación\u201d.",
+      "note": "※ Puedes cambiar los asignados en la página “Asignación”.",
       "openButton": "Abrir asignación"
     },
     "shopping": {
@@ -612,12 +616,10 @@
       "skipError": "Error al omitir tareas en bloque."
     },
     "avatarAlt": "Ícono de miembro",
-
     "swipe": {
       "self": "Para mí",
       "members": "Miembros"
     },
-
     "picker": {
       "title": "Seleccionar asignado",
       "unassigned": "Sin asignar"
@@ -646,7 +648,6 @@
       "skip": "Omitir",
       "complete": "Marcar como completada"
     },
-
     "swipe": {
       "done": "Hecho",
       "skip": "Omitir"
@@ -1047,7 +1048,7 @@
       },
       "displayName": {
         "title": "Nombre para mostrar",
-        "description": "Este nombre para mostrar se usa en todo Housework Hub. Los apodos para cada hogar (ej. Mamá / Papá) se pueden cambiar desde \u201cConfiguración del hogar\u201d.",
+        "description": "Este nombre para mostrar se usa en todo Housework Hub. Los apodos para cada hogar (ej. Mamá / Papá) se pueden cambiar desde “Configuración del hogar”.",
         "fieldLabel": "Nombre para mostrar"
       },
       "icon": {
@@ -1161,6 +1162,15 @@
               "mismatch": "Las contraseñas no coinciden."
             }
           }
+        }
+      },
+      "theme": {
+        "title": "Apariencia",
+        "description": "Elige cómo se ve la aplicación.",
+        "options": {
+          "system": "Sistema",
+          "light": "Claro",
+          "dark": "Oscuro"
         }
       }
     },
@@ -1286,12 +1296,16 @@
         "error": "Error al enviar. Inténtalo de nuevo."
       },
       "validation": {
-        "category": { "required": "Por favor seleccione una categoría" },
+        "category": {
+          "required": "Por favor seleccione una categoría"
+        },
         "title": {
           "required": "Por favor ingrese un título",
           "maxLength": "El título debe tener 200 caracteres o menos"
         },
-        "body": { "required": "Por favor ingrese su consulta" }
+        "body": {
+          "required": "Por favor ingrese su consulta"
+        }
       }
     },
     "detail": {

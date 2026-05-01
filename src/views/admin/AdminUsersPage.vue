@@ -201,7 +201,7 @@ onMounted(async () => {
     </div>
 
     <!-- 検索条件カード -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm">
+    <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm">
       <form class="space-y-3" @submit.prevent="handleSearch">
         <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
           <!-- メールアドレス -->
@@ -212,7 +212,7 @@ onMounted(async () => {
             <input
               v-model="searchForm.email"
               type="text"
-              class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+              class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
             />
           </div>
 
@@ -223,7 +223,7 @@ onMounted(async () => {
             </label>
             <select
               v-model="searchForm.isActive"
-              class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+              class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
             >
               <option value="">{{ t('admin.users.search.isActiveAll') }}</option>
               <option value="true">{{ t('admin.users.search.isActiveActive') }}</option>
@@ -238,7 +238,7 @@ onMounted(async () => {
             </label>
             <select
               v-model="searchForm.locale"
-              class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+              class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
             >
               <option value="">{{ t('admin.users.search.localeAll') }}</option>
               <option value="ja">{{ t('common.locales.ja') }}</option>
@@ -266,7 +266,7 @@ onMounted(async () => {
     </div>
 
     <!-- ② 結果カード -->
-    <section v-else class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
+    <section v-else class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-3">
       <!-- 件数表示 -->
       <p v-if="totalCount > 0" class="text-[11px] text-hwhub-muted">
         {{ startIndex }}〜{{ endIndex }}件 / {{ totalCount }}件
@@ -333,7 +333,7 @@ onMounted(async () => {
                 <span
                   class="inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium"
                   :class="
-                    user.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'
+                    user.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-hwhub-muted'
                   "
                 >
                   {{ user.isActiveLabel }}
@@ -361,7 +361,7 @@ onMounted(async () => {
         <div
           v-for="user in pagedItems"
           :key="user.userId"
-          class="rounded-xl border border-hwhub-border bg-white px-3 py-2 shadow-sm space-y-1"
+          class="rounded-xl border border-hwhub-border bg-hwhub-surface-card px-3 py-2 shadow-sm space-y-1"
         >
           <p class="text-sm font-medium text-hwhub-heading">{{ user.displayName }}</p>
           <p class="text-xs text-hwhub-muted">{{ user.email }}</p>
@@ -370,7 +370,9 @@ onMounted(async () => {
             <span class="text-xs text-hwhub-muted">{{ user.locale }}</span>
             <span
               class="inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium"
-              :class="user.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'"
+              :class="
+                user.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-hwhub-muted'
+              "
             >
               {{ user.isActiveLabel }}
             </span>
@@ -405,7 +407,7 @@ onMounted(async () => {
         class="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
         @click.self="closeCreate"
       >
-        <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl mx-4">
+        <div class="w-full max-w-md rounded-2xl bg-hwhub-surface-card p-6 shadow-xl mx-4">
           <h3 class="mb-4 font-semibold text-hwhub-heading">
             {{ t('admin.users.form.create.title') }}
           </h3>
@@ -418,7 +420,7 @@ onMounted(async () => {
                 v-model="createForm.email"
                 type="email"
                 required
-                class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
+                class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
               />
             </div>
             <div>
@@ -430,7 +432,7 @@ onMounted(async () => {
                 type="password"
                 required
                 minlength="8"
-                class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
+                class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
               />
             </div>
             <div>
@@ -441,7 +443,7 @@ onMounted(async () => {
                 v-model="createForm.displayName"
                 type="text"
                 required
-                class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
+                class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
               />
             </div>
             <div>
@@ -450,7 +452,7 @@ onMounted(async () => {
               }}</label>
               <select
                 v-model="createForm.locale"
-                class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+                class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
               >
                 <option value="ja">{{ t('common.locales.ja') }}</option>
                 <option value="en">{{ t('common.locales.en') }}</option>
@@ -486,7 +488,7 @@ onMounted(async () => {
         class="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
         @click.self="closeEdit"
       >
-        <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl mx-4">
+        <div class="w-full max-w-md rounded-2xl bg-hwhub-surface-card p-6 shadow-xl mx-4">
           <h3 class="mb-4 font-semibold text-hwhub-heading">
             {{ t('admin.users.form.edit.title') }}
           </h3>
@@ -499,7 +501,7 @@ onMounted(async () => {
                 v-model="editForm.displayName"
                 type="text"
                 required
-                class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
+                class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
               />
             </div>
             <div>
@@ -508,7 +510,7 @@ onMounted(async () => {
               }}</label>
               <select
                 v-model="editForm.locale"
-                class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+                class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
               >
                 <option value="ja">{{ t('common.locales.ja') }}</option>
                 <option value="en">{{ t('common.locales.en') }}</option>
@@ -525,7 +527,7 @@ onMounted(async () => {
               <input
                 v-model="editForm.password"
                 type="password"
-                class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
+                class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary"
                 minlength="8"
               />
             </div>
@@ -534,7 +536,7 @@ onMounted(async () => {
                 id="isActive"
                 v-model="editForm.isActive"
                 type="checkbox"
-                class="rounded border-gray-300 text-hwhub-primary focus:ring-hwhub-primary"
+                class="rounded border-hwhub-border text-hwhub-primary focus:ring-hwhub-primary"
               />
               <label for="isActive" class="text-sm text-hwhub-heading">
                 {{ t('admin.users.form.isActive') }}

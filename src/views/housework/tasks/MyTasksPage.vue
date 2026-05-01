@@ -214,16 +214,19 @@ const bulkCompletePast = async () => {
 
     <!-- スケルトンスクリーン（初回ロード中） -->
     <template v-if="isInitialLoading">
-      <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
+      <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-3">
         <SkeletonItem variant="task-row" :count="3" />
       </section>
-      <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
+      <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-3">
         <SkeletonItem variant="task-row" :count="4" />
       </section>
     </template>
 
     <!-- セクション A: 過去の家事（今日より前） -->
-    <section v-if="!isInitialLoading" class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
+    <section
+      v-if="!isInitialLoading"
+      class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-3"
+    >
       <div class="flex flex-wrap items-center justify-between gap-2">
         <div>
           <h2 class="text-sm font-semibold text-hwhub-heading flex items-center gap-1">
@@ -310,7 +313,10 @@ const bulkCompletePast = async () => {
     </section>
 
     <!-- セクション B: これからの家事（今日以降） -->
-    <section v-if="!isInitialLoading" class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
+    <section
+      v-if="!isInitialLoading"
+      class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-3"
+    >
       <!-- ヘッダー + フィルタ -->
       <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
         <div>
@@ -327,7 +333,7 @@ const bulkCompletePast = async () => {
               class="px-3 py-1 rounded-full"
               :class="
                 futureFilter === 'ALL'
-                  ? 'bg-white text-hwhub-heading shadow-sm'
+                  ? 'bg-hwhub-surface-card text-hwhub-heading shadow-sm'
                   : 'text-hwhub-muted'
               "
               @click="futureFilter = 'ALL'"
@@ -339,7 +345,7 @@ const bulkCompletePast = async () => {
               class="px-3 py-1 rounded-full"
               :class="
                 futureFilter === 'TODAY'
-                  ? 'bg-white text-hwhub-heading shadow-sm'
+                  ? 'bg-hwhub-surface-card text-hwhub-heading shadow-sm'
                   : 'text-hwhub-muted'
               "
               @click="futureFilter = 'TODAY'"
@@ -351,7 +357,7 @@ const bulkCompletePast = async () => {
               class="px-3 py-1 rounded-full"
               :class="
                 futureFilter === 'WEEK'
-                  ? 'bg-white text-hwhub-heading shadow-sm'
+                  ? 'bg-hwhub-surface-card text-hwhub-heading shadow-sm'
                   : 'text-hwhub-muted'
               "
               @click="futureFilter = 'WEEK'"
@@ -403,7 +409,11 @@ const bulkCompletePast = async () => {
               <!-- PC版: ボタンUI -->
               <article
                 class="hidden md:flex rounded-lg border p-3 shadow-sm flex-col gap-2"
-                :class="task.targetDate === todayYmd ? 'bg-green-50 border-green-200' : 'bg-white'"
+                :class="
+                  task.targetDate === todayYmd
+                    ? 'bg-green-50 border-green-200'
+                    : 'bg-hwhub-surface-card'
+                "
               >
                 <div class="flex items-center justify-between gap-2">
                   <div class="min-w-0">

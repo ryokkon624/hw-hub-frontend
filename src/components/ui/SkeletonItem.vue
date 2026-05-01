@@ -5,7 +5,7 @@
       <!-- task-card: 家事割り当て画面の行 -->
       <template v-if="variant === 'task-card'">
         <div
-          class="flex items-start gap-3 rounded-lg border border-hwhub-border bg-white px-3 py-2 w-full"
+          class="flex items-start gap-3 rounded-lg border border-hwhub-border bg-hwhub-surface-card px-3 py-2 w-full"
         >
           <!-- アイコン -->
           <div class="mt-0.5 h-9 w-9 rounded-full bg-slate-200 shrink-0" />
@@ -21,7 +21,9 @@
 
       <!-- task-row: My Tasks画面のカード -->
       <template v-else-if="variant === 'task-row'">
-        <div class="rounded-lg border border-hwhub-border bg-white p-3 w-full space-y-2">
+        <div
+          class="rounded-lg border border-hwhub-border bg-hwhub-surface-card p-3 w-full space-y-2"
+        >
           <div class="flex items-center justify-between gap-2">
             <div class="h-3.5 w-1/2 rounded bg-slate-200" />
           </div>
@@ -35,7 +37,7 @@
       <!-- shopping-item: 買い物リスト画面のアイテム -->
       <template v-else-if="variant === 'shopping-item'">
         <div
-          class="rounded-xl border border-hwhub-border bg-white px-3 py-2.5 flex items-start gap-3 w-full"
+          class="rounded-xl border border-hwhub-border bg-hwhub-surface-card px-3 py-2.5 flex items-start gap-3 w-full"
         >
           <div class="flex-1 space-y-2 min-w-0">
             <div class="h-3 w-3/4 rounded bg-slate-200" />

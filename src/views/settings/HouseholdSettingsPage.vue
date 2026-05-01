@@ -9,7 +9,7 @@
     </div>
 
     <!-- 1. 所属している世帯一覧（軽め） -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
+    <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-3">
       <div class="flex items-center justify-between mb-2">
         <h3 class="text-sm font-semibold text-hwhub-heading">
           {{ t('settings.household.list.title') }}
@@ -36,7 +36,7 @@
           :class="
             h.householdId === currentHouseholdId
               ? 'bg-hwhub-surface-subtle'
-              : 'bg-white hover:bg-hwhub-surface-subtle cursor-pointer'
+              : 'bg-hwhub-surface-card hover:bg-hwhub-surface-subtle cursor-pointer'
           "
         >
           <div class="flex flex-col" @click="onChangeHousehold(h.householdId)">
@@ -88,7 +88,7 @@
     <!-- 2. 選択中の世帯の設定（世帯情報 + あなたの設定） -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <!-- 2-1. 世帯の情報 -->
-      <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
+      <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-3">
         <h3 class="text-sm font-semibold text-hwhub-heading">
           {{ t('settings.household.info.title') }}
         </h3>
@@ -128,7 +128,7 @@
       </section>
 
       <!-- 2-2. この世帯でのあなたの設定 -->
-      <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
+      <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-3">
         <h3 class="text-sm font-semibold text-hwhub-heading">
           {{ t('settings.household.mySettings.title') }}
         </h3>
@@ -173,7 +173,7 @@
     </div>
 
     <!-- 3. メンバー一覧 -->
-    <section class="bg-white rounded-lg shadow-sm p-4 border mt-6">
+    <section class="bg-hwhub-surface-card rounded-lg shadow-sm p-4 border mt-6">
       <h3 class="text-sm font-semibold text-hwhub-heading">
         {{ t('settings.household.members.title') }}
       </h3>
@@ -283,7 +283,7 @@
         <div
           v-for="m in currentAllMembers"
           :key="m.userId"
-          class="rounded-lg border p-4 bg-white shadow-sm"
+          class="rounded-lg border p-4 bg-hwhub-surface-card shadow-sm"
           :class="statusBorderClass(m.status)"
         >
           <!-- 上段：表示名 & あなた -->
@@ -371,7 +371,7 @@
     </section>
 
     <!-- 4. メンバー招待 -->
-    <section class="bg-white rounded-lg shadow-sm p-4 border mt-6 space-y-4">
+    <section class="bg-hwhub-surface-card rounded-lg shadow-sm p-4 border mt-6 space-y-4">
       <h2 class="text-sm font-semibold text-hwhub-heading">
         {{ t('settings.household.invite.title') }}
       </h2>
@@ -454,7 +454,7 @@
             <div class="flex items-center gap-2 shrink-0" v-if="inv.status === '0'">
               <button
                 type="button"
-                class="px-3 py-1 rounded-full border text-[11px] text-hwhub-heading hover:bg-white"
+                class="px-3 py-1 rounded-full border text-[11px] text-hwhub-heading hover:bg-hwhub-surface-card"
                 @click="copyInviteLink(inv.invitationToken)"
               >
                 {{ t('settings.household.invite.copyButton') }}
@@ -462,7 +462,7 @@
 
               <button
                 type="button"
-                class="px-3 py-1 rounded-full border text-[11px] text-red-600 hover:bg-white"
+                class="px-3 py-1 rounded-full border text-[11px] text-red-600 hover:bg-hwhub-surface-card"
                 @click="revokeInvitation(inv.invitationToken)"
               >
                 {{ t('settings.household.invite.revokeButton') }}
@@ -476,7 +476,7 @@
     <!-- おうち削除 -->
     <section
       v-if="isOwnerInCurrentHousehold"
-      class="bg-white rounded-lg shadow-sm p-4 border mt-6 border-red-200"
+      class="bg-hwhub-surface-card rounded-lg shadow-sm p-4 border mt-6 border-red-200"
     >
       <h2 class="text-sm font-semibold text-red-600">
         {{ t('settings.household.danger.title') }}
@@ -757,13 +757,13 @@ const invitationStatusClass = (status: string) => {
     case INVITATION_STATUS.PENDING:
       return 'bg-emerald-50 text-emerald-700 border-emerald-200'
     case INVITATION_STATUS.ACCEPTED:
-      return 'bg-hwhub-surface-subtle text-hwhub-heading border-gray-200'
+      return 'bg-hwhub-surface-subtle text-hwhub-heading border-hwhub-border'
     case INVITATION_STATUS.DECLINED:
     case INVITATION_STATUS.REVOKED:
     case INVITATION_STATUS.EXPIRED:
-      return 'bg-gray-50 text-hwhub-muted border-gray-200'
+      return 'bg-hwhub-surface-subtle text-hwhub-muted border-hwhub-border'
     default:
-      return 'bg-gray-50 text-hwhub-muted border-gray-200'
+      return 'bg-hwhub-surface-subtle text-hwhub-muted border-hwhub-border'
   }
 }
 

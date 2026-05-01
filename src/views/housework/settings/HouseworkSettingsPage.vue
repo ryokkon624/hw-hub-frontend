@@ -235,7 +235,7 @@ const categoryColorClass = (category: string | null | undefined): string => {
     />
 
     <!-- カード：フィルタ + 一覧 -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
+    <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-3">
       <!-- 上部バー：件数 + フィルタ -->
       <div class="flex flex-wrap items-center justify-between gap-2">
         <p class="text-xs text-hwhub-muted">
@@ -251,7 +251,7 @@ const categoryColorClass = (category: string | null | undefined): string => {
           <span class="text-hwhub-muted">{{ t('housework.list.filter.categoryLabel') }}</span>
           <select
             v-model="filterCategory"
-            class="rounded-md border border-hwhub-border px-2 py-1 text-xs bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+            class="rounded-md border border-hwhub-border px-2 py-1 text-xs bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           >
             <option value="ALL">{{ t('housework.list.filter.categoryAll') }}</option>
             <option v-for="opt in categoryOptions" :key="opt.value" :value="opt.value">
@@ -435,7 +435,7 @@ const categoryColorClass = (category: string | null | undefined): string => {
           v-for="hw in spPagedItems"
           :key="hw.houseworkId"
           type="button"
-          class="w-full text-left rounded-xl border border-hwhub-border bg-white px-3 py-2 shadow-sm hover:bg-hwhub-surface-subtle active:bg-hwhub-surface-subtle transition"
+          class="w-full text-left rounded-xl border border-hwhub-border bg-hwhub-surface-card px-3 py-2 shadow-sm hover:bg-hwhub-surface-subtle active:bg-hwhub-surface-subtle transition"
           @click="goEdit(hw.houseworkId)"
         >
           <!-- 上段：名前 + カテゴリチップ -->

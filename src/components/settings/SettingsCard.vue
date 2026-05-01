@@ -1,7 +1,7 @@
 <template>
   <RouterLink
     :to="to"
-    class="block rounded-xl border bg-white p-4 shadow-sm hover:bg-hwhub-surface-subtle transition"
+    class="block rounded-xl border bg-hwhub-surface-card p-4 shadow-sm hover:bg-hwhub-surface-subtle transition"
   >
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-3">

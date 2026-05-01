@@ -76,13 +76,13 @@
       <!-- 返信フォーム（CLOSED 以外は常に表示） -->
       <div
         v-if="detail.status !== INQUIRY_STATUS.CLOSED"
-        class="rounded-xl border bg-white p-4 shadow-sm space-y-2"
+        class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-2"
       >
         <textarea
           v-model="replyBody"
           rows="3"
           :placeholder="t('admin.inquiries.detail.replyPlaceholder')"
-          class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+          class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
         />
         <div class="flex justify-end">
           <button
@@ -188,7 +188,7 @@ const statusColorClass = (status: string): string => {
     case INQUIRY_STATUS.STAFF_ANSWERED:
       return 'bg-emerald-100 text-emerald-600'
     case INQUIRY_STATUS.CLOSED:
-      return 'bg-slate-100 text-slate-500'
+      return 'bg-slate-100 text-hwhub-muted'
     default:
       return 'bg-hwhub-surface-subtle text-hwhub-muted'
   }

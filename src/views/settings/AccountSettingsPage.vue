@@ -8,7 +8,7 @@
     </div>
 
     <!-- アカウント情報（読み取り） -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm">
+    <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm">
       <h3 class="text-sm font-semibold mb-3 text-hwhub-heading">
         {{ t('settings.account.info.title') }}
       </h3>
@@ -33,7 +33,7 @@
     <PasswordChangeSection />
 
     <!-- プロフィール設定（表示名 + 言語 → 保存ボタン対象） -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-4">
+    <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-4">
       <div>
         <h3 class="text-sm font-semibold text-hwhub-heading">
           {{ t('settings.account.profile.title') }}
@@ -55,7 +55,7 @@
           <input
             v-bind="field"
             type="text"
-            class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
             maxlength="50"
           />
         </Field>
@@ -75,7 +75,7 @@
         <Field name="locale" v-slot="{ field }">
           <select
             v-bind="field"
-            class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           >
             <option v-for="lang in locales" :key="lang" :value="lang">
               {{ labelForLocale(lang) }}
@@ -100,8 +100,19 @@
       </div>
     </section>
 
+    <!-- 外観設定（即時反映） -->
+    <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-2">
+      <h3 class="text-sm font-semibold text-hwhub-heading">
+        {{ t('settings.account.theme.title') }}
+      </h3>
+      <p class="text-xs text-hwhub-muted">
+        {{ t('settings.account.theme.description') }}
+      </p>
+      <ThemeSwitcher />
+    </section>
+
     <!-- プロフィール画像（即時反映） -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
+    <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-3">
       <h3 class="text-sm font-semibold text-hwhub-heading">
         {{ t('settings.account.icon.title') }}
       </h3>
@@ -139,7 +150,7 @@
     </section>
 
     <!-- 通知設定（即時反映） -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
+    <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-3">
       <h3 class="text-sm font-semibold text-hwhub-heading">
         {{ t('settings.account.notifications.title') }}
       </h3>
@@ -224,7 +235,7 @@
     <!-- Google 連携 -->
     <section
       v-if="shouldShowGoogleLinkSection"
-      class="rounded-xl border bg-white p-4 shadow-sm space-y-3"
+      class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-3"
     >
       <div class="flex items-start justify-between gap-4">
         <div class="min-w-0">
@@ -248,7 +259,7 @@
           :class="
             isGoogleLinked
               ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-              : 'bg-slate-50 text-slate-600 border border-slate-200'
+              : 'bg-hwhub-surface-subtle text-slate-600 border border-hwhub-border'
           "
         >
           {{
@@ -262,7 +273,7 @@
       <div v-if="!isGoogleLinked" class="flex flex-col gap-3 pt-2">
         <button
           type="button"
-          class="group w-full sm:w-auto inline-flex items-center justify-center gap-3 rounded-xl border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50 hover:shadow focus:outline-none focus:ring-2 focus:ring-hwhub-primary/40 disabled:opacity-60"
+          class="group w-full sm:w-auto inline-flex items-center justify-center gap-3 rounded-xl border border-hwhub-border bg-hwhub-surface-card px-5 py-2.5 text-sm font-medium text-hwhub-body shadow-sm transition hover:bg-hwhub-surface-subtle hover:shadow focus:outline-none focus:ring-2 focus:ring-hwhub-primary/40 disabled:opacity-60"
           :disabled="authStore.isStartingGoogleLink"
           @click="onStartGoogleLink"
         >
@@ -298,7 +309,9 @@
     </section>
 
     <!-- アカウント削除 -->
-    <section class="rounded-xl border border-red-200 bg-white p-4 shadow-sm space-y-3 mt-8">
+    <section
+      class="rounded-xl border border-red-200 bg-hwhub-surface-card p-4 shadow-sm space-y-3 mt-8"
+    >
       <h3 class="text-sm font-semibold text-red-600">
         {{ t('settings.account.delete.title') }}
       </h3>
@@ -334,6 +347,7 @@ import {
   type AccountSettingsSchemaType,
 } from '@/domain/user/accountSettings.validation'
 import PasswordChangeSection from '@/components/inputs/PasswordChangeSection.vue'
+import ThemeSwitcher from '@/components/settings/ThemeSwitcher.vue'
 import { useNotificationSettingsStore } from '@/stores/notificationSettingsStore'
 import { NOTIFICATION_GROUP } from '@/constants/code.constants'
 

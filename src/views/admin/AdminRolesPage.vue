@@ -10,7 +10,7 @@
         <input
           id="email-search"
           v-model="emailInput"
-          class="w-full rounded-md border border-hwhub-border bg-white px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+          class="w-full rounded-md border border-hwhub-border bg-hwhub-surface-card px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           :placeholder="t('admin.roles.searchPlaceholder')"
         />
       </div>
@@ -43,7 +43,7 @@
         <div
           v-for="user in adminRoleStore.searchResults"
           :key="user.userId"
-          class="rounded-xl border bg-white p-4 shadow-sm"
+          class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm"
         >
           <!-- ユーザー情報 -->
           <div class="mb-3">
@@ -51,7 +51,7 @@
               <span class="font-medium text-sm text-hwhub-heading">{{ user.displayName }}</span>
               <span
                 v-if="!user.isActive"
-                class="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-500"
+                class="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-hwhub-muted"
               >
                 inactive
               </span>

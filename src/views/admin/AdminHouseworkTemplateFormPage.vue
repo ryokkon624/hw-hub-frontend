@@ -204,7 +204,7 @@ const onDelete = async () => {
 <template>
   <form class="space-y-4" @submit.prevent="onSubmit">
     <!-- 基本情報カード -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-4">
+    <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-4">
       <h2 class="text-sm font-semibold text-hwhub-heading">
         {{ t('housework.form.sections.basic.title') }}
       </h2>
@@ -301,7 +301,7 @@ const onDelete = async () => {
         </label>
         <select
           :value="values.category"
-          class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+          class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           @change="setFieldValue('category', ($event.target as HTMLSelectElement).value)"
         >
           <option value="" disabled>{{ t('common.selectPlaceholder') }}</option>
@@ -313,7 +313,7 @@ const onDelete = async () => {
     </section>
 
     <!-- おすすめコメントカード -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-4">
+    <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-4">
       <h2 class="text-sm font-semibold text-hwhub-heading">
         {{ t('admin.houseworkTemplate.form.recommendationSection') }}
       </h2>
@@ -362,7 +362,7 @@ const onDelete = async () => {
     </section>
 
     <!-- 周期設定カード -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-4">
+    <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-4">
       <h2 class="text-sm font-semibold text-hwhub-heading">
         {{ t('housework.form.sections.recurrence.title') }}
       </h2>
@@ -374,7 +374,7 @@ const onDelete = async () => {
         </label>
         <select
           :value="values.recurrenceType"
-          class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+          class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           @change="setFieldValue('recurrenceType', ($event.target as HTMLSelectElement).value)"
         >
           <option v-for="opt in recurrenceTypeOptions" :key="opt.value" :value="opt.value">
@@ -416,7 +416,7 @@ const onDelete = async () => {
         </label>
         <select
           :value="values.dayOfMonth"
-          class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+          class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           @change="
             setFieldValue(
               'dayOfMonth',
@@ -443,7 +443,7 @@ const onDelete = async () => {
           </label>
           <select
             :value="values.nthWeek"
-            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
             @change="setFieldValue('nthWeek', ($event.target as HTMLSelectElement).value || null)"
           >
             <option :value="null">{{ t('common.selectPlaceholder') }}</option>
@@ -462,7 +462,7 @@ const onDelete = async () => {
           </label>
           <select
             :value="values.weekday"
-            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
             @change="setFieldValue('weekday', ($event.target as HTMLSelectElement).value || null)"
           >
             <option :value="null">{{ t('common.selectPlaceholder') }}</option>

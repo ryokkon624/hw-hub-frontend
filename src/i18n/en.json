@@ -200,8 +200,12 @@
         "actions": "Actions"
       },
       "form": {
-        "create": { "title": "Create User" },
-        "edit": { "title": "Edit User" },
+        "create": {
+          "title": "Create User"
+        },
+        "edit": {
+          "title": "Edit User"
+        },
         "email": "Email",
         "password": "Password",
         "passwordHint": "Leave blank to keep current",
@@ -612,12 +616,10 @@
       "skipError": "Failed to skip tasks in bulk."
     },
     "avatarAlt": "Member icon",
-
     "swipe": {
       "self": "Mine",
       "members": "Members"
     },
-
     "picker": {
       "title": "Select assignee",
       "unassigned": "Unassigned"
@@ -646,7 +648,6 @@
       "skip": "Skip",
       "complete": "Mark as done"
     },
-
     "swipe": {
       "done": "Done",
       "skip": "Skip"
@@ -1162,6 +1163,15 @@
             }
           }
         }
+      },
+      "theme": {
+        "title": "Appearance",
+        "description": "Choose how the app looks to you.",
+        "options": {
+          "system": "System",
+          "light": "Light",
+          "dark": "Dark"
+        }
       }
     },
     "household": {
@@ -1286,12 +1296,16 @@
         "error": "Failed to submit. Please try again."
       },
       "validation": {
-        "category": { "required": "Please select a category" },
+        "category": {
+          "required": "Please select a category"
+        },
         "title": {
           "required": "Please enter a title",
           "maxLength": "Title must be 200 characters or less"
         },
-        "body": { "required": "Please enter your inquiry" }
+        "body": {
+          "required": "Please enter your inquiry"
+        }
       }
     },
     "detail": {

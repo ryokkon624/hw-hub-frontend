@@ -7,7 +7,10 @@
     </header>
 
     <!-- フォームカード -->
-    <form class="rounded-xl border bg-white p-4 shadow-sm space-y-4" @submit.prevent="onSubmit">
+    <form
+      class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-4"
+      @submit.prevent="onSubmit"
+    >
       <!-- カテゴリ -->
       <div class="space-y-1">
         <label class="block text-xs font-medium text-hwhub-heading">
@@ -16,7 +19,7 @@
         <Field name="category" v-slot="{ field }">
           <select
             v-bind="field"
-            class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           >
             <option value="">{{ t('common.selectPlaceholder') }}</option>
             <option v-for="option in categoryOptions" :key="option.value" :value="option.value">
@@ -39,7 +42,7 @@
             v-bind="field"
             type="text"
             maxlength="200"
-            class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           />
         </Field>
         <ErrorMessage name="title" v-slot="{ message }">
@@ -56,7 +59,7 @@
           <textarea
             v-bind="field"
             rows="6"
-            class="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           />
         </Field>
         <ErrorMessage name="body" v-slot="{ message }">
