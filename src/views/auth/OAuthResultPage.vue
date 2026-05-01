@@ -61,7 +61,9 @@ onMounted(async () => {
 
 <template>
   <div class="min-h-screen flex items-center justify-center bg-hwhub-surface px-4">
-    <div class="w-full max-w-md bg-white rounded-3xl shadow-lg border border-gray-200 p-8">
+    <div
+      class="w-full max-w-md bg-hwhub-surface-card rounded-3xl shadow-lg border border-hwhub-border p-8"
+    >
       <h1 class="text-lg font-bold text-hwhub-heading">{{ t('oauthResult.processing') }}</h1>
       <p class="text-sm text-hwhub-muted mt-2">
         {{ t('oauthResult.status') }}

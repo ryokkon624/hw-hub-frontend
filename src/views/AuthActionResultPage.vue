@@ -89,13 +89,13 @@ const primaryAction = computed<{ kind: ActionKind; labelKey: string; onClick: ()
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-slate-50 px-4">
-    <div class="w-full max-w-md bg-white rounded-2xl shadow p-8 text-center">
-      <h1 class="text-xl font-bold text-slate-800 mb-4">
+  <div class="min-h-screen flex items-center justify-center bg-hwhub-surface px-4">
+    <div class="w-full max-w-md bg-hwhub-surface-card rounded-2xl shadow p-8 text-center">
+      <h1 class="text-xl font-bold text-hwhub-heading mb-4">
         {{ t(titleKey) }}
       </h1>
 
-      <p class="text-slate-600 mb-8">
+      <p class="text-hwhub-body mb-8">
         {{ t(messageKey) }}
       </p>
 

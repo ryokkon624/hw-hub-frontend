@@ -219,10 +219,10 @@ const scrollFeatures = (direction: 'left' | 'right') => {
     <section id="features" class="py-24 bg-hwhub-surface relative overflow-hidden">
       <div class="w-full">
         <div class="text-center mb-16 space-y-4 px-4">
-          <h2 class="text-4xl md:text-5xl font-extrabold text-slate-800 tracking-tight">
+          <h2 class="text-4xl md:text-5xl font-extrabold text-hwhub-heading tracking-tight">
             {{ t('landing.features.title') }}
           </h2>
-          <p class="text-lg text-slate-500 max-w-2xl mx-auto">
+          <p class="text-lg text-hwhub-muted max-w-2xl mx-auto">
             {{ t('landing.features.subtitle') }}
           </p>
         </div>
@@ -231,13 +231,13 @@ const scrollFeatures = (direction: 'left' | 'right') => {
           <!-- PC arrows -->
           <button
             @click="scrollFeatures('left')"
-            class="hidden md:flex absolute left-4 lg:left-8 top-[45%] -translate-y-1/2 w-16 h-16 bg-white/95 backdrop-blur-md rounded-full shadow-2xl border border-slate-100 items-center justify-center text-slate-500 hover:text-emerald-600 hover:scale-110 opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 z-20"
+            class="hidden md:flex absolute left-4 lg:left-8 top-[45%] -translate-y-1/2 w-16 h-16 bg-hwhub-surface-card/95 backdrop-blur-md rounded-full shadow-2xl border border-hwhub-border-subtle items-center justify-center text-hwhub-muted hover:text-emerald-600 hover:scale-110 opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 z-20"
           >
             <ChevronLeft class="w-8 h-8" />
           </button>
           <button
             @click="scrollFeatures('right')"
-            class="hidden md:flex absolute right-4 lg:right-8 top-[45%] -translate-y-1/2 w-16 h-16 bg-white/95 backdrop-blur-md rounded-full shadow-2xl border border-slate-100 items-center justify-center text-slate-500 hover:text-emerald-600 hover:scale-110 opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 z-20"
+            class="hidden md:flex absolute right-4 lg:right-8 top-[45%] -translate-y-1/2 w-16 h-16 bg-hwhub-surface-card/95 backdrop-blur-md rounded-full shadow-2xl border border-hwhub-border-subtle items-center justify-center text-hwhub-muted hover:text-emerald-600 hover:scale-110 opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 z-20"
           >
             <ChevronRight class="w-8 h-8" />
           </button>
@@ -251,25 +251,27 @@ const scrollFeatures = (direction: 'left' | 'right') => {
             <div
               v-for="feature in features"
               :key="feature.title"
-              class="snap-center shrink-0 w-[85vw] sm:w-[65vw] md:w-[70vw] lg:w-[750px] xl:w-[850px] max-h-[600px] lg:max-h-[650px] group flex flex-col bg-slate-50/50 rounded-5xl md:rounded-6xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden relative"
+              class="snap-center shrink-0 w-[85vw] sm:w-[65vw] md:w-[70vw] lg:w-[750px] xl:w-[850px] max-h-[600px] lg:max-h-[650px] group flex flex-col bg-hwhub-surface-subtle/50 rounded-5xl md:rounded-6xl border border-hwhub-border-subtle shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden relative"
             >
               <!-- Text Content -->
               <div class="p-8 md:p-10 pb-4 md:pb-6 flex-none z-10">
                 <div
-                  class="w-14 h-14 rounded-2xl bg-white border border-slate-100 shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500"
+                  class="w-14 h-14 rounded-2xl bg-hwhub-surface-card border border-hwhub-border-subtle shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500"
                 >
                   <component :is="feature.icon" class="w-7 h-7 text-emerald-600" />
                 </div>
-                <h3 class="text-3xl lg:text-4xl font-extrabold text-slate-800 mb-4 tracking-tight">
+                <h3
+                  class="text-3xl lg:text-4xl font-extrabold text-hwhub-heading mb-4 tracking-tight"
+                >
                   {{ feature.title }}
                 </h3>
-                <p class="text-slate-500 text-lg leading-relaxed">{{ feature.desc }}</p>
+                <p class="text-hwhub-muted text-lg leading-relaxed">{{ feature.desc }}</p>
               </div>
 
               <!-- Image Container -->
               <div class="flex-1 flex flex-col justify-end px-4 md:px-12 relative z-0">
                 <div
-                  class="w-full h-70 sm:h-80 md:h-100 lg:h-[450px] rounded-t-4xl shadow-2xl overflow-hidden transform origin-bottom transition-all duration-700 ease-out border border-slate-200 border-b-0 bg-white"
+                  class="w-full h-70 sm:h-80 md:h-100 lg:h-[450px] rounded-t-4xl shadow-2xl overflow-hidden transform origin-bottom transition-all duration-700 ease-out border border-hwhub-border border-b-0 bg-hwhub-surface-card"
                 >
                   <img
                     :src="feature.image"
@@ -286,11 +288,11 @@ const scrollFeatures = (direction: 'left' | 'right') => {
             <button
               v-for="(_, idx) in features"
               :key="idx"
-              class="w-3 h-3 rounded-full transition-all duration-300 border border-slate-200"
+              class="w-3 h-3 rounded-full transition-all duration-300 border border-hwhub-border"
               :class="
                 activeIndex === idx
                   ? 'bg-emerald-500 w-10 shadow-sm'
-                  : 'bg-slate-200 hover:bg-emerald-300'
+                  : 'bg-hwhub-border hover:bg-emerald-300'
               "
               @click="scrollToFeature(idx)"
               :aria-label="`Go to slide ${idx + 1}`"
@@ -301,13 +303,13 @@ const scrollFeatures = (direction: 'left' | 'right') => {
     </section>
 
     <!-- Targets Section -->
-    <section id="targets" class="py-24 px-4 bg-white">
+    <section id="targets" class="py-24 px-4 bg-hwhub-surface-card">
       <div class="max-w-7xl mx-auto">
         <div class="text-center mb-16 space-y-4">
-          <h2 class="text-4xl md:text-5xl font-extrabold text-slate-800 tracking-tight">
+          <h2 class="text-4xl md:text-5xl font-extrabold text-hwhub-heading tracking-tight">
             {{ t('landing.targets.title') }}
           </h2>
-          <p class="text-lg text-slate-500 max-w-2xl mx-auto">
+          <p class="text-lg text-hwhub-muted max-w-2xl mx-auto">
             {{ t('landing.targets.subtitle') }}
           </p>
         </div>
@@ -316,7 +318,7 @@ const scrollFeatures = (direction: 'left' | 'right') => {
           <div
             v-for="target in targets"
             :key="target.title"
-            class="group rounded-4xl overflow-hidden shadow-xl border border-slate-100 bg-white hover:shadow-2xl hover:-translate-y-2 transition-all duration-500"
+            class="group rounded-4xl overflow-hidden shadow-xl border border-hwhub-border-subtle bg-hwhub-surface-card hover:shadow-2xl hover:-translate-y-2 transition-all duration-500"
           >
             <div class="h-64 overflow-hidden relative">
               <img
@@ -338,8 +340,8 @@ const scrollFeatures = (direction: 'left' | 'right') => {
               </div>
             </div>
 
-            <div class="p-8 bg-white text-center">
-              <p class="text-slate-600 leading-relaxed">{{ target.desc }}</p>
+            <div class="p-8 bg-hwhub-surface-card text-center">
+              <p class="text-hwhub-body leading-relaxed">{{ target.desc }}</p>
             </div>
           </div>
         </div>

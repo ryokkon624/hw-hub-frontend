@@ -83,7 +83,7 @@ const onSubmit = async () => {
     </div>
     <div class="relative w-full max-w-4xl">
       <div
-        class="w-full bg-white rounded-3xl shadow-lg border border-gray-200 flex flex-col md:flex-row overflow-hidden"
+        class="w-full bg-hwhub-surface-card rounded-3xl shadow-lg border border-hwhub-border flex flex-col md:flex-row overflow-hidden"
       >
         <!-- 左：コピーエリア（サインアップ用の文言） -->
         <section class="md:w-1/2 px-8 py-8 md:py-12 bg-hwhub-surface-subtle flex flex-col gap-6">
@@ -196,7 +196,7 @@ const onSubmit = async () => {
               }}</label>
               <select
                 v-model="locale"
-                class="w-full rounded-lg border border-hwhub-border px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-hwhub-primary focus:border-transparent"
+                class="w-full rounded-lg border border-hwhub-border px-3 py-2 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-2 focus:ring-hwhub-primary focus:border-transparent"
               >
                 <option v-for="opt in locales" :key="opt.value" :value="opt.value">
                   {{ opt.label }}

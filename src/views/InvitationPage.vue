@@ -95,7 +95,7 @@ onMounted(() => {
       </div>
 
       <div
-        class="w-full bg-white rounded-3xl shadow-lg border border-gray-200 overflow-hidden flex flex-col md:flex-row"
+        class="w-full bg-hwhub-surface-card rounded-3xl shadow-lg border border-hwhub-border overflow-hidden flex flex-col md:flex-row"
       >
         <!-- 左：説明 -->
         <section class="md:w-1/2 px-8 py-8 md:py-10 bg-hwhub-surface-subtle flex flex-col gap-4">
@@ -175,7 +175,7 @@ onMounted(() => {
                 </button>
                 <button
                   type="button"
-                  class="inline-flex w-full items-center justify-center rounded-full border border-hwhub-border px-4 py-2 text-sm font-semibold text-hwhub-heading bg-white hover:bg-hwhub-surface-subtle"
+                  class="inline-flex w-full items-center justify-center rounded-full border border-hwhub-border px-4 py-2 text-sm font-semibold text-hwhub-heading bg-hwhub-surface-card hover:bg-hwhub-surface-subtle"
                   @click="goRegister"
                 >
                   {{ t('invite.page.loginNeeded.signupAndJoin') }}
@@ -202,7 +202,7 @@ onMounted(() => {
                 </button>
                 <button
                   type="button"
-                  class="inline-flex w-full items-center justify-center rounded-full border border-hwhub-border px-4 py-2 text-sm font-semibold text-hwhub-heading bg-white hover:bg-hwhub-surface-subtle"
+                  class="inline-flex w-full items-center justify-center rounded-full border border-hwhub-border px-4 py-2 text-sm font-semibold text-hwhub-heading bg-hwhub-surface-card hover:bg-hwhub-surface-subtle"
                   @click="decline"
                 >
                   {{ t('invite.page.actions.decline') }}

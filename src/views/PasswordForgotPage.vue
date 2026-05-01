@@ -28,23 +28,23 @@ const onSubmit = async () => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-slate-50 flex items-center justify-center px-4">
-    <div class="w-full max-w-md bg-white rounded-2xl shadow p-6">
-      <h1 class="text-xl font-semibold text-slate-900">{{ t('passwordForgot.title') }}</h1>
-      <p class="mt-2 text-sm text-slate-600">
+  <div class="min-h-screen bg-hwhub-surface flex items-center justify-center px-4">
+    <div class="w-full max-w-md bg-hwhub-surface-card rounded-2xl shadow p-6">
+      <h1 class="text-xl font-semibold text-hwhub-heading">{{ t('passwordForgot.title') }}</h1>
+      <p class="mt-2 text-sm text-hwhub-body">
         {{ t('passwordForgot.description') }}
       </p>
 
       <form class="mt-6 space-y-4" @submit.prevent="onSubmit">
         <div>
-          <label class="block text-sm font-medium text-slate-700">{{
+          <label class="block text-sm font-medium text-hwhub-body">{{
             t('passwordForgot.email')
           }}</label>
           <input
             v-model="email"
             type="email"
             autocomplete="email"
-            class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            class="mt-1 w-full rounded-lg border border-hwhub-border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-hwhub-surface-card"
             :placeholder="t('passwordForgot.placeholder')"
           />
         </div>
@@ -60,7 +60,7 @@ const onSubmit = async () => {
           <span v-else>{{ t('passwordForgot.submitting') }}</span>
         </button>
 
-        <div class="text-center text-sm text-slate-600">
+        <div class="text-center text-sm text-hwhub-body">
           <router-link class="text-emerald-700 hover:underline" :to="{ name: 'login' }">
             {{ t('passwordForgot.backToLogin') }}
           </router-link>
