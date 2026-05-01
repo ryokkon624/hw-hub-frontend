@@ -6,6 +6,7 @@ import { useUiStore } from '@/stores/uiStore'
 import { useHouseworkTaskStore } from '@/stores/houseworkTaskStore'
 import type { HouseworkTaskModel } from '@/domain'
 import HouseholdSwitcherField from '@/components/HouseholdSwitcherField.vue'
+import SkeletonItem from '@/components/ui/SkeletonItem.vue'
 import { toYmd } from '@/utils/dateUtils'
 import { useOpenHouseworkTasks } from '@/composables/useOpenHouseworkTasks'
 import { TASK_STATUS } from '@/constants/code.constants'
@@ -18,6 +19,9 @@ const taskStore = useHouseworkTaskStore()
 const { currentHouseholdId, allOpenTasks, fetchOpenTasks } = useOpenHouseworkTasks()
 
 const loginUserId = computed(() => authStore.currentUser?.userId ?? null)
+
+// スケルトンスクリーン（初回ロード中のみ表示）
+const isInitialLoading = ref(true)
 
 // 未来タスク用の期間フィルタ
 const futureFilter = ref<'ALL' | 'TODAY' | 'WEEK'>('ALL')
@@ -124,12 +128,19 @@ const futureGroups = computed<TaskGroup[]>(() => groupByDate(filteredFutureTasks
 const fetchMyTasks = async () => {
   if (!currentHouseholdId.value) return
   try {
-    await uiStore.withLoading(async () => {
+    // 初回ロード中はスケルトンを表示するため withLoading を使わない
+    if (isInitialLoading.value) {
       await fetchOpenTasks({ force: true })
-    })
+    } else {
+      await uiStore.withLoading(async () => {
+        await fetchOpenTasks({ force: true })
+      })
+    }
   } catch (e) {
     console.error(e)
     uiStore.showToast('error', t('myTasks.messages.fetchError'))
+  } finally {
+    isInitialLoading.value = false
   }
 }
 
@@ -139,6 +150,8 @@ watch(
   () => currentHouseholdId.value,
   async (newId, oldId) => {
     if (!newId || newId === oldId) return
+    // 世帯切替時はスケルトンを再表示する
+    isInitialLoading.value = true
     await fetchMyTasks()
   },
 )
@@ -201,8 +214,18 @@ const bulkCompletePast = async () => {
     <!-- SP 専用 世帯スイッチャー（既存コンポーネントをそのまま利用） -->
     <HouseholdSwitcherField class="sm:hidden" />
 
+    <!-- スケルトンスクリーン（初回ロード中） -->
+    <template v-if="isInitialLoading">
+      <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
+        <SkeletonItem variant="task-row" :count="3" />
+      </section>
+      <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
+        <SkeletonItem variant="task-row" :count="4" />
+      </section>
+    </template>
+
     <!-- セクション A: 過去の家事（今日より前） -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
+    <section v-if="!isInitialLoading" class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
       <div class="flex flex-wrap items-center justify-between gap-2">
         <div>
           <h2 class="text-sm font-semibold text-hwhub-heading flex items-center gap-1">
@@ -272,7 +295,7 @@ const bulkCompletePast = async () => {
     </section>
 
     <!-- セクション B: これからの家事（今日以降） -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
+    <section v-if="!isInitialLoading" class="rounded-xl border bg-white p-4 shadow-sm space-y-3">
       <!-- ヘッダー + フィルタ -->
       <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
         <div>
