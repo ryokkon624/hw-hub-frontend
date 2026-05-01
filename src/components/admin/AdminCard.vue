@@ -5,7 +5,7 @@
     class="block rounded-xl border p-4 shadow-sm transition"
     :class="
       canAccess
-        ? 'bg-white hover:bg-hwhub-surface-subtle cursor-pointer'
+        ? 'bg-hwhub-surface-card hover:bg-hwhub-surface-subtle cursor-pointer'
         : 'bg-hwhub-surface cursor-not-allowed opacity-60'
     "
   >

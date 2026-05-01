@@ -11,7 +11,7 @@
         <transition name="slide-up">
           <div
             v-show="isOpen"
-            class="w-full max-w-md rounded-t-2xl bg-white shadow-xl p-4 pb-6 animate-in fade-in slide-in-from-bottom-2"
+            class="w-full max-w-md rounded-t-2xl bg-hwhub-surface-card shadow-xl p-4 pb-6 animate-in fade-in slide-in-from-bottom-2"
           >
             <!-- ハンドル -->
             <div class="flex justify-center mb-2">
@@ -45,7 +45,7 @@
                 :class="
                   h.householdId === currentHouseholdId
                     ? 'border-hwhub-primary bg-hwhub-primary text-white'
-                    : 'border-hwhub-border-subtle bg-white text-hwhub-heading hover:bg-hwhub-surface-subtle'
+                    : 'border-hwhub-border-subtle bg-hwhub-surface-card text-hwhub-heading hover:bg-hwhub-surface-subtle'
                 "
                 @click="selectHousehold(h.householdId)"
               >

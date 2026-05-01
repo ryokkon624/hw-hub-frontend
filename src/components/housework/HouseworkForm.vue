@@ -200,7 +200,7 @@ const buildTemplateSummary = (tmpl: HouseworkTemplateModel): string => {
     </template>
 
     <!-- ① 基本情報カード -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-4">
+    <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-4">
       <div>
         <h2 class="text-sm font-semibold mb-1 text-hwhub-heading">
           {{ t('housework.form.sections.basic.title') }}
@@ -250,7 +250,7 @@ const buildTemplateSummary = (tmpl: HouseworkTemplateModel): string => {
         <Field name="category" v-slot="{ field }">
           <select
             v-bind="field"
-            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           >
             <option :value="null" disabled>
               {{ t('common.selectPlaceholder') }}
@@ -285,7 +285,7 @@ const buildTemplateSummary = (tmpl: HouseworkTemplateModel): string => {
     </div>
 
     <!-- ② 周期設定カード -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-4">
+    <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-4">
       <div>
         <h2 class="text-sm font-semibold mb-1 text-hwhub-heading">
           {{ t('housework.form.sections.recurrence.title') }}
@@ -303,7 +303,7 @@ const buildTemplateSummary = (tmpl: HouseworkTemplateModel): string => {
         <Field name="recurrenceType" v-slot="{ field }">
           <select
             v-bind="field"
-            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           >
             <option v-for="opt in recurrenceTypeOptions" :key="opt.value" :value="opt.value">
               {{ opt.label }}
@@ -350,7 +350,7 @@ const buildTemplateSummary = (tmpl: HouseworkTemplateModel): string => {
         <Field name="dayOfMonthOption" v-slot="{ field }">
           <select
             v-bind="field"
-            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           >
             <option :value="null" disabled>
               {{ t('common.selectPlaceholder') }}
@@ -377,7 +377,7 @@ const buildTemplateSummary = (tmpl: HouseworkTemplateModel): string => {
           <Field name="nthWeek" v-slot="{ field }">
             <select
               v-bind="field"
-              class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+              class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
             >
               <option :value="null" disabled>
                 {{ t('common.selectPlaceholder') }}
@@ -399,7 +399,7 @@ const buildTemplateSummary = (tmpl: HouseworkTemplateModel): string => {
           <Field name="weekday" v-slot="{ field }">
             <select
               v-bind="field"
-              class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+              class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
             >
               <option :value="null" disabled>
                 {{ t('common.selectPlaceholder') }}
@@ -417,7 +417,7 @@ const buildTemplateSummary = (tmpl: HouseworkTemplateModel): string => {
     </section>
 
     <!-- ③ 担当者・有効期間カード -->
-    <section class="rounded-xl border bg-white p-4 shadow-sm space-y-4">
+    <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-4">
       <div>
         <h2 class="text-sm font-semibold mb-1 text-hwhub-heading">
           {{ t('housework.form.sections.assigneeAndPeriod.title') }}
@@ -435,7 +435,7 @@ const buildTemplateSummary = (tmpl: HouseworkTemplateModel): string => {
         <Field name="defaultAssigneeUserId" v-slot="{ field }">
           <select
             v-bind="field"
-            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
+            class="w-full rounded-md border border-hwhub-border px-3 py-1.5 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           >
             <option value="">
               {{ t('housework.form.fields.defaultAssigneePlaceholder') }}
@@ -508,7 +508,7 @@ const buildTemplateSummary = (tmpl: HouseworkTemplateModel): string => {
       @click.self="closeTemplateModal"
     >
       <div
-        class="bg-white rounded-xl shadow-xl w-full max-w-md max-h-[70vh] flex flex-col overflow-hidden"
+        class="bg-hwhub-surface-card rounded-xl shadow-xl w-full max-w-md max-h-[70vh] flex flex-col overflow-hidden"
       >
         <!-- ヘッダー -->
         <div class="flex items-center justify-between px-4 py-3 border-b border-hwhub-border">
@@ -529,7 +529,7 @@ const buildTemplateSummary = (tmpl: HouseworkTemplateModel): string => {
               :class="
                 templateFilterCategory === 'ALL'
                   ? 'bg-hwhub-primary text-white'
-                  : 'bg-white border border-hwhub-border text-hwhub-muted hover:bg-hwhub-surface'
+                  : 'bg-hwhub-surface-card border border-hwhub-border text-hwhub-muted hover:bg-hwhub-surface'
               "
               @click="templateFilterCategory = 'ALL'"
             >
@@ -543,7 +543,7 @@ const buildTemplateSummary = (tmpl: HouseworkTemplateModel): string => {
               :class="
                 templateFilterCategory === opt.value
                   ? 'bg-hwhub-primary text-white'
-                  : 'bg-white border border-hwhub-border text-hwhub-muted hover:bg-hwhub-surface'
+                  : 'bg-hwhub-surface-card border border-hwhub-border text-hwhub-muted hover:bg-hwhub-surface'
               "
               @click="templateFilterCategory = opt.value"
             >

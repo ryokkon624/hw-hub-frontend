@@ -172,7 +172,7 @@
         <button
           type="button"
           class="relative inline-flex h-7 w-12 items-center rounded-full transition focus:outline-none focus-visible:ring-2 focus-visible:ring-hwhub-primary/30"
-          :class="notifEnabled ? 'bg-hwhub-primary' : 'bg-slate-300'"
+          :class="notifEnabled ? 'bg-hwhub-primary' : 'bg-hwhub-swipe-disabled'"
           :disabled="notifLoading"
           @click="onToggleGlobal"
         >
@@ -196,7 +196,7 @@
           <button
             type="button"
             class="relative inline-flex h-7 w-12 items-center rounded-full transition focus:outline-none focus-visible:ring-2 focus-visible:ring-hwhub-primary/30"
-            :class="groupHousehold ? 'bg-hwhub-primary' : 'bg-slate-300'"
+            :class="groupHousehold ? 'bg-hwhub-primary' : 'bg-hwhub-swipe-disabled'"
             :disabled="notifLoading || !notifEnabled"
             @click="onToggleGroupHousehold"
           >
@@ -219,7 +219,7 @@
           <button
             type="button"
             class="relative inline-flex h-7 w-12 items-center rounded-full transition focus:outline-none focus-visible:ring-2 focus-visible:ring-hwhub-primary/30"
-            :class="groupTask ? 'bg-hwhub-primary' : 'bg-slate-300'"
+            :class="groupTask ? 'bg-hwhub-primary' : 'bg-hwhub-swipe-disabled'"
             :disabled="notifLoading || !notifEnabled"
             @click="onToggleGroupTask"
           >

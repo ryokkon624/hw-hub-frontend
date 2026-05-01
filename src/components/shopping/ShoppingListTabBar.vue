@@ -1,6 +1,6 @@
 <template>
   <!-- SP時のみ表示（PC時は非表示） -->
-  <nav class="md:hidden flex border-b border-hwhub-border bg-white">
+  <nav class="md:hidden flex border-b border-hwhub-border bg-hwhub-surface-card">
     <button
       v-for="tab in tabs"
       :key="tab.key"

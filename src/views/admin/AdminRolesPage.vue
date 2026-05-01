@@ -51,7 +51,7 @@
               <span class="font-medium text-sm text-hwhub-heading">{{ user.displayName }}</span>
               <span
                 v-if="!user.isActive"
-                class="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-hwhub-muted"
+                class="rounded-full bg-hwhub-surface-subtle px-2 py-0.5 text-xs text-hwhub-muted"
               >
                 inactive
               </span>

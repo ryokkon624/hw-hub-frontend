@@ -199,7 +199,7 @@ const formatDateTime = (date: Date): string => {
 const categoryColorClass = (category: string): string => {
   switch (category) {
     case INQUIRY_CATEGORY.GENERAL:
-      return 'bg-slate-100 text-slate-600'
+      return 'bg-hwhub-surface-subtle text-hwhub-body'
     case INQUIRY_CATEGORY.HOUSEWORK:
       return 'bg-amber-100 text-amber-600'
     case INQUIRY_CATEGORY.SHOPPING:
@@ -224,7 +224,7 @@ const statusColorClass = (status: string): string => {
     case INQUIRY_STATUS.STAFF_ANSWERED:
       return 'bg-emerald-100 text-emerald-600'
     case INQUIRY_STATUS.CLOSED:
-      return 'bg-slate-100 text-hwhub-muted'
+      return 'bg-hwhub-surface-subtle text-hwhub-muted'
     default:
       return 'bg-hwhub-surface-subtle text-hwhub-muted'
   }

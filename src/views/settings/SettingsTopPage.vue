@@ -52,7 +52,7 @@
       <SettingsCard
         to="/settings/app"
         :icon="Info"
-        icon-bg-class="bg-slate-100"
+        icon-bg-class="bg-hwhub-surface-subtle"
         icon-color-class="text-hwhub-muted"
         :title="t('settings.sections.about.title')"
         :subtitle="t('settings.sections.about.subtitle')"
