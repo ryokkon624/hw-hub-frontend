@@ -136,6 +136,13 @@ body {
   .bg-hwhub-swipe-disabled {
     @apply bg-slate-300;
   }
+  /* 家事割り当てスワイプ系 */
+  .bg-hwhub-swipe-self {
+    @apply bg-sky-500;
+  }
+  .bg-hwhub-swipe-members {
+    @apply bg-amber-500;
+  }
 
   /* 買い物リスト系 */
   .bg-hwhub-store-super {

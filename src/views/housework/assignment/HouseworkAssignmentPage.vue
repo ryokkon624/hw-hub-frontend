@@ -158,90 +158,153 @@
           {{ t('assign.list.empty') }}
         </div>
 
-        <ul v-else class="space-y-2 w-full">
-          <li
-            v-for="task in visibleTasks"
-            :key="task.houseworkTaskId"
-            class="flex items-start gap-3 rounded-lg border px-3 py-2 text-sm w-full max-w-full overflow-hidden cursor-grab active:cursor-grabbing transition-all duration-150"
-            :class="[
-              task.assigneeUserId == null
-                ? 'bg-hwhub-accent-soft border-hwhub-accent'
-                : 'bg-white hover:bg-hwhub-surface-subtle',
-              draggingTaskId === task.houseworkTaskId ? 'opacity-60 shadow-md scale-[0.99]' : '',
-              recentlyUpdatedTaskId === task.houseworkTaskId ? 'hw-fade-in' : '',
-            ]"
-            draggable="true"
-            @dragstart="onTaskDragStart(task.houseworkTaskId)"
-            @dragend="onTaskDragEnd"
-          >
-            <!-- 左：家事アイコン（未割当 or メンバーアイコン） -->
-            <div
-              class="mt-0.5 h-9 w-9 flex items-center justify-center rounded-full overflow-hidden shrink-0"
+        <template v-else>
+          <!-- SP版: スワイプ対応リスト（md未満で表示） -->
+          <ul class="space-y-2 w-full md:hidden">
+            <li v-for="task in visibleTasks" :key="task.houseworkTaskId">
+              <SwipeableAssignmentCard
+                :class="recentlyUpdatedTaskId === task.houseworkTaskId ? 'hw-fade-in' : ''"
+                @swipe-self="assignToMeBySwipe(task)"
+                @swipe-members="openAssigneePicker(task)"
+              >
+                <!-- 左：家事アイコン（未割当 or メンバーアイコン） -->
+                <div class="flex items-start gap-3">
+                  <div
+                    class="mt-0.5 h-9 w-9 flex items-center justify-center rounded-full overflow-hidden shrink-0"
+                  >
+                    <!-- 未割当 -->
+                    <div
+                      v-if="task.assigneeUserId == null"
+                      class="h-9 w-9 flex items-center justify-center rounded-full bg-hwhub-accent-badge text-[11px] font-semibold text-hwhub-accent-badge"
+                    >
+                      {{ t('assign.list.unassignedBadge') }}
+                    </div>
+
+                    <!-- 担当あり：メンバーアイコン or 頭文字 -->
+                    <UserAvatar
+                      v-else
+                      :iconUrl="getMemberForTask(task)?.iconUrl ?? null"
+                      :label="avatarLabel(getMemberForTask(task))"
+                      size="lg"
+                      alt="icon"
+                    />
+                  </div>
+
+                  <!-- 中央：家事名 + 日付 -->
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-hwhub-heading wrap-break-words">
+                      {{ task.houseworkName }}
+                    </p>
+                    <p class="mt-0.5 text-[11px] text-hwhub-muted">
+                      {{ t('assign.list.executionDate', { date: task.targetDate }) }}
+                    </p>
+                    <!-- 担当者名（SP版） -->
+                    <p
+                      v-if="task.assigneeUserId != null"
+                      class="mt-0.5 text-[11px] text-hwhub-primary"
+                    >
+                      {{ getMemberForTask(task)?.nickname || getMemberForTask(task)?.displayName }}
+                    </p>
+                  </div>
+                </div>
+              </SwipeableAssignmentCard>
+            </li>
+          </ul>
+
+          <!-- PC版: ドラッグ&ドロップ対応リスト（md以上で表示） -->
+          <ul class="hidden md:block space-y-2 w-full">
+            <li
+              v-for="task in visibleTasks"
+              :key="task.houseworkTaskId"
+              class="flex items-start gap-3 rounded-lg border px-3 py-2 text-sm w-full max-w-full overflow-hidden cursor-grab active:cursor-grabbing transition-all duration-150"
+              :class="[
+                task.assigneeUserId == null
+                  ? 'bg-hwhub-accent-soft border-hwhub-accent'
+                  : 'bg-white hover:bg-hwhub-surface-subtle',
+                draggingTaskId === task.houseworkTaskId ? 'opacity-60 shadow-md scale-[0.99]' : '',
+                recentlyUpdatedTaskId === task.houseworkTaskId ? 'hw-fade-in' : '',
+              ]"
+              draggable="true"
+              @dragstart="onTaskDragStart(task.houseworkTaskId)"
+              @dragend="onTaskDragEnd"
             >
-              <!-- 未割当 -->
+              <!-- 左：家事アイコン（未割当 or メンバーアイコン） -->
               <div
-                v-if="task.assigneeUserId == null"
-                class="h-9 w-9 flex items-center justify-center rounded-full bg-hwhub-accent-badge text-[11px] font-semibold text-hwhub-accent-badge"
+                class="mt-0.5 h-9 w-9 flex items-center justify-center rounded-full overflow-hidden shrink-0"
               >
-                {{ t('assign.list.unassignedBadge') }}
+                <!-- 未割当 -->
+                <div
+                  v-if="task.assigneeUserId == null"
+                  class="h-9 w-9 flex items-center justify-center rounded-full bg-hwhub-accent-badge text-[11px] font-semibold text-hwhub-accent-badge"
+                >
+                  {{ t('assign.list.unassignedBadge') }}
+                </div>
+
+                <!-- 担当あり：メンバーアイコン or 頭文字 -->
+                <UserAvatar
+                  v-else
+                  :iconUrl="getMemberForTask(task)?.iconUrl ?? null"
+                  :label="avatarLabel(getMemberForTask(task))"
+                  size="lg"
+                  alt="icon"
+                />
               </div>
 
-              <!-- 担当あり：メンバーアイコン or 頭文字 -->
-              <UserAvatar
-                v-else
-                :iconUrl="getMemberForTask(task)?.iconUrl ?? null"
-                :label="avatarLabel(getMemberForTask(task))"
-                size="lg"
-                alt="icon"
-              />
-            </div>
-
-            <!-- 中央：家事名 + 日付 -->
-            <div class="flex-1 min-w-0">
-              <p class="text-sm font-medium text-hwhub-heading wrap-break-words">
-                {{ task.houseworkName }}
-              </p>
-              <p class="mt-0.5 text-[11px] text-hwhub-muted">
-                {{ t('assign.list.executionDate', { date: task.targetDate }) }}
-              </p>
-            </div>
-
-            <!-- 右：担当セレクト + 自分にする -->
-            <div class="shrink-0 flex flex-col items-end gap-1 min-w-24">
-              <div
-                class="flex flex-col sm:flex-row sm:justify-end items-stretch sm:items-center gap-1 sm:gap-2 w-full"
-              >
-                <button
-                  v-if="loginUserId && task.assigneeUserId !== loginUserId"
-                  type="button"
-                  class="w-full sm:w-auto text-[11px] px-2 py-1 rounded-full border border-hwhub-primary text-hwhub-primary hover:bg-hwhub-primary-50 text-center"
-                  @click="assignToMe(task)"
-                >
-                  {{ t('assign.list.assignToMe') }}
-                </button>
-
-                <select
-                  class="w-full sm:w-auto rounded-full border px-2 py-1 text-xs bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary-50"
-                  :value="task.assigneeUserId ?? ''"
-                  @change="
-                    (e) => {
-                      const value = (e.target as HTMLSelectElement).value
-                      const newId = value === '' ? null : Number(value)
-                      changeAssignee(task, newId)
-                    }
-                  "
-                >
-                  <option value="">{{ t('assign.list.selectUnassigned') }}</option>
-                  <option v-for="m in members" :key="m.userId" :value="m.userId">
-                    {{ m.nickname || m.displayName }}
-                  </option>
-                </select>
+              <!-- 中央：家事名 + 日付 -->
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-hwhub-heading wrap-break-words">
+                  {{ task.houseworkName }}
+                </p>
+                <p class="mt-0.5 text-[11px] text-hwhub-muted">
+                  {{ t('assign.list.executionDate', { date: task.targetDate }) }}
+                </p>
               </div>
-            </div>
-          </li>
-        </ul>
+
+              <!-- 右：担当セレクト + 自分にする -->
+              <div class="shrink-0 flex flex-col items-end gap-1 min-w-24">
+                <div
+                  class="flex flex-col sm:flex-row sm:justify-end items-stretch sm:items-center gap-1 sm:gap-2 w-full"
+                >
+                  <button
+                    v-if="loginUserId && task.assigneeUserId !== loginUserId"
+                    type="button"
+                    class="w-full sm:w-auto text-[11px] px-2 py-1 rounded-full border border-hwhub-primary text-hwhub-primary hover:bg-hwhub-primary-50 text-center"
+                    @click="assignToMe(task)"
+                  >
+                    {{ t('assign.list.assignToMe') }}
+                  </button>
+
+                  <select
+                    class="w-full sm:w-auto rounded-full border px-2 py-1 text-xs bg-white focus:outline-none focus:ring-1 focus:ring-hwhub-primary-50"
+                    :value="task.assigneeUserId ?? ''"
+                    @change="
+                      (e) => {
+                        const value = (e.target as HTMLSelectElement).value
+                        const newId = value === '' ? null : Number(value)
+                        changeAssignee(task, newId)
+                      }
+                    "
+                  >
+                    <option value="">{{ t('assign.list.selectUnassigned') }}</option>
+                    <option v-for="m in members" :key="m.userId" :value="m.userId">
+                      {{ m.nickname || m.displayName }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </template>
       </template>
     </section>
+
+    <!-- メンバー選択モーダル（SP版スワイプ右で起動） -->
+    <AssigneePickerModal
+      v-model="isAssigneePickerOpen"
+      :members="members"
+      :currentAssigneeUserId="swipeTargetTask?.assigneeUserId ?? null"
+      @select="onAssigneePickerSelect"
+    />
   </div>
 </template>
 
@@ -254,6 +317,8 @@ import { useUiStore } from '@/stores/uiStore'
 import HouseholdSwitcherField from '@/components/HouseholdSwitcherField.vue'
 import UserAvatar from '@/components/ui/UserAvatar.vue'
 import SkeletonItem from '@/components/ui/SkeletonItem.vue'
+import SwipeableAssignmentCard from '@/components/housework/SwipeableAssignmentCard.vue'
+import AssigneePickerModal from '@/components/housework/AssigneePickerModal.vue'
 import type { HouseworkTaskModel, HouseholdMember } from '@/domain'
 import { TASK_ASSIGN_REASON, TASK_STATUS } from '@/constants/code.constants'
 import { useOpenHouseworkTasks } from '@/composables/useOpenHouseworkTasks'
@@ -398,12 +463,42 @@ const changeAssignee = async (task: HouseworkTaskModel, newUserId: number | null
   }
 }
 
-// 自分にする
+// 自分にする（PC版ボタン）
 const assignToMe = async (task: HouseworkTaskModel) => {
   if (!loginUserId.value) return
   // すでに自分なら何もしない
   if (task.assigneeUserId === loginUserId.value) return
   await changeAssignee(task, loginUserId.value)
+}
+
+// ----------------------
+// SP版スワイプ関連
+// ----------------------
+
+/** メンバー選択モーダルの表示状態 */
+const isAssigneePickerOpen = ref(false)
+
+/** スワイプ右で選択中のタスク（モーダルで担当者を選ぶ対象） */
+const swipeTargetTask = ref<HouseworkTaskModel | null>(null)
+
+/** SP版: 左スワイプ「自分にする」 */
+const assignToMeBySwipe = async (task: HouseworkTaskModel) => {
+  if (!loginUserId.value) return
+  if (task.assigneeUserId === loginUserId.value) return
+  await changeAssignee(task, loginUserId.value)
+}
+
+/** SP版: 右スワイプ「メンバーへ」→ モーダル起動 */
+const openAssigneePicker = (task: HouseworkTaskModel) => {
+  swipeTargetTask.value = task
+  isAssigneePickerOpen.value = true
+}
+
+/** AssigneePickerModal で担当者が選択されたとき */
+const onAssigneePickerSelect = async (userId: number | null) => {
+  if (!swipeTargetTask.value) return
+  await changeAssignee(swipeTargetTask.value, userId)
+  swipeTargetTask.value = null
 }
 
 // 過去の未割当タスク一括スキップ

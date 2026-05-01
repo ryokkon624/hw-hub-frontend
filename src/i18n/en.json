@@ -611,7 +611,17 @@
       "skipSuccess": "Past unassigned tasks have been skipped.",
       "skipError": "Failed to skip tasks in bulk."
     },
-    "avatarAlt": "Member icon"
+    "avatarAlt": "Member icon",
+
+    "swipe": {
+      "self": "Mine",
+      "members": "Members"
+    },
+
+    "picker": {
+      "title": "Select assignee",
+      "unassigned": "Unassigned"
+    }
   },
   "myTasks": {
     "intro": "This is a list of housework tasks assigned to you. You can mark them as done or skipped here.",
