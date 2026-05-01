@@ -572,9 +572,9 @@ const statusBadgeClass = (status: string) => {
     case HOUSEHOLD_MEMBER_STATUS.INVITED:
       return 'bg-yellow-100 text-yellow-700'
     case HOUSEHOLD_MEMBER_STATUS.LEFT:
-      return 'bg-gray-200 text-gray-600'
+      return 'bg-hwhub-border text-hwhub-body'
     default:
-      return 'bg-gray-100 text-gray-600'
+      return 'bg-hwhub-surface-subtle text-hwhub-body'
   }
 }
 
