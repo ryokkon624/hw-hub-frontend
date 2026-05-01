@@ -56,10 +56,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, reactive, watch } from 'vue'
 import { Camera, ShoppingCart, Trash2, ListRestart, Wallet } from 'lucide-vue-next'
 import type { ShoppingItemModel } from '@/domain'
-import { useSwipeGesture } from '@/composables/useSwipeGesture'
+import { useSwipeGesture, type UseSwipeGestureOptions } from '@/composables/useSwipeGesture'
 import { useShoppingCodes } from '@/composables/useShoppingCodes'
 import { SHOPPING_ITEM_STATUS } from '@/constants/code.constants'
 
@@ -76,10 +76,26 @@ const emit = defineEmits<{
 const containerRef = ref<HTMLElement | null>(null)
 const { storeTypeBorderClass } = useShoppingCodes()
 
+/**
+ * 購入済みアイテムは右スワイプを無効化する。
+ * item.status は動的に変わりうるため reactive で管理する。
+ */
+const swipeOptions = reactive<UseSwipeGestureOptions>({
+  disableRight: props.item.status === SHOPPING_ITEM_STATUS.PURCHASED,
+})
+
+watch(
+  () => props.item.status,
+  (status) => {
+    swipeOptions.disableRight = status === SHOPPING_ITEM_STATUS.PURCHASED
+  },
+)
+
 const { translateX, swipeState } = useSwipeGesture(
   containerRef,
   () => emit('swipeLeft'),
   () => emit('swipeRight'),
+  swipeOptions,
 )
 
 /**
@@ -94,8 +110,8 @@ const { translateX, swipeState } = useSwipeGesture(
  *   - 左スワイプ → 未購入に戻す（グレー / list-restart）
  *
  * 購入済み（PURCHASED）:
- *   - 右スワイプ → なし（スワイプ不要）
- *   - 左スワイプ → トースト表示のみ
+ *   - 右スワイプ → 無効（disableRight: true）
+ *   - 左スワイプ → グレー背景＋メッセージ表示のみ
  */
 const leftBackgroundIcon = computed(() => {
   if (props.item.status === SHOPPING_ITEM_STATUS.NOT_PURCHASED) return ShoppingCart
@@ -126,7 +142,8 @@ const backgroundClass = computed(() => {
   if (swipeState.value === 'dragging-left') {
     if (props.item.status === SHOPPING_ITEM_STATUS.NOT_PURCHASED) return 'bg-hwhub-swipe-delete'
     if (props.item.status === SHOPPING_ITEM_STATUS.IN_BASKET) return 'bg-hwhub-swipe-back'
-    return 'bg-transparent'
+    // 購入済みアイテムの左スワイプ背景: グレー系
+    return 'bg-hwhub-swipe-back'
   }
   return 'bg-transparent'
 })

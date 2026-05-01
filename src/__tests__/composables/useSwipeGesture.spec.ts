@@ -160,4 +160,78 @@ describe('useSwipeGesture', () => {
 
     expect(onSwipeRight).toHaveBeenCalledOnce()
   })
+
+  describe('disableRight オプション', () => {
+    it('disableRight: true のとき右スワイプ中はtranslateXが0のままコールバック不発火', () => {
+      const { translateX, swipeState } = useSwipeGesture(elementRef, onSwipeLeft, onSwipeRight, {
+        disableRight: true,
+      })
+
+      elementRef.value!.dispatchEvent(createTouchEvent('touchstart', 0))
+      // 100px 右にドラッグ
+      elementRef.value!.dispatchEvent(createTouchEvent('touchmove', 100))
+
+      // 右方向はクランプされるので translateX は 0 以下
+      expect(translateX.value).toBe(0)
+      expect(swipeState.value).toBe('idle')
+
+      elementRef.value!.dispatchEvent(createTouchEvent('touchend', 100))
+
+      expect(onSwipeRight).not.toHaveBeenCalled()
+      expect(onSwipeLeft).not.toHaveBeenCalled()
+    })
+
+    it('disableRight: true のとき左スワイプは通常通り発火する', () => {
+      const { translateX } = useSwipeGesture(elementRef, onSwipeLeft, onSwipeRight, {
+        disableRight: true,
+      })
+
+      elementRef.value!.dispatchEvent(createTouchEvent('touchstart', 200))
+      // 150px 左にドラッグ（50%）
+      elementRef.value!.dispatchEvent(createTouchEvent('touchmove', 50))
+      expect(translateX.value).toBe(-150)
+
+      elementRef.value!.dispatchEvent(createTouchEvent('touchend', 50))
+
+      expect(onSwipeLeft).toHaveBeenCalledOnce()
+      expect(onSwipeRight).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('disableLeft オプション', () => {
+    it('disableLeft: true のとき左スワイプ中はtranslateXが0のままコールバック不発火', () => {
+      const { translateX, swipeState } = useSwipeGesture(elementRef, onSwipeLeft, onSwipeRight, {
+        disableLeft: true,
+      })
+
+      elementRef.value!.dispatchEvent(createTouchEvent('touchstart', 200))
+      // 150px 左にドラッグ
+      elementRef.value!.dispatchEvent(createTouchEvent('touchmove', 50))
+
+      // 左方向はクランプされるので translateX は 0 以上
+      expect(translateX.value).toBe(0)
+      expect(swipeState.value).toBe('idle')
+
+      elementRef.value!.dispatchEvent(createTouchEvent('touchend', 50))
+
+      expect(onSwipeLeft).not.toHaveBeenCalled()
+      expect(onSwipeRight).not.toHaveBeenCalled()
+    })
+
+    it('disableLeft: true のとき右スワイプは通常通り発火する', () => {
+      const { translateX } = useSwipeGesture(elementRef, onSwipeLeft, onSwipeRight, {
+        disableLeft: true,
+      })
+
+      elementRef.value!.dispatchEvent(createTouchEvent('touchstart', 0))
+      // 100px 右にドラッグ（33%）
+      elementRef.value!.dispatchEvent(createTouchEvent('touchmove', 100))
+      expect(translateX.value).toBe(100)
+
+      elementRef.value!.dispatchEvent(createTouchEvent('touchend', 100))
+
+      expect(onSwipeRight).toHaveBeenCalledOnce()
+      expect(onSwipeLeft).not.toHaveBeenCalled()
+    })
+  })
 })
