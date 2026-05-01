@@ -636,6 +636,11 @@
       "skip": "Omitir",
       "complete": "Marcar como completada"
     },
+
+    "swipe": {
+      "done": "Hecho",
+      "skip": "Omitir"
+    },
     "messages": {
       "fetchError": "Error al cargar las tareas del hogar.",
       "doneSuccess": "La tarea ha sido marcada como completada.",
