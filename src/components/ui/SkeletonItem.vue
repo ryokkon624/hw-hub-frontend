@@ -1,7 +1,7 @@
 <template>
   <!-- スケルトンスクリーン共通コンポーネント -->
-  <div :class="containerClass" role="status" aria-busy="true">
-    <div v-for="i in resolvedCount" :key="i" class="animate-pulse" :class="itemClass">
+  <div class="space-y-2 w-full" role="status" aria-busy="true">
+    <div v-for="i in resolvedCount" :key="i" class="animate-pulse w-full">
       <!-- task-card: 家事割り当て画面の行 -->
       <template v-if="variant === 'task-card'">
         <div
@@ -67,8 +67,4 @@ const props = withDefaults(
 )
 
 const resolvedCount = computed(() => props.count ?? DEFAULT_COUNT[props.variant] ?? 3)
-
-const containerClass = computed(() => 'space-y-2 w-full')
-
-const itemClass = computed(() => 'w-full')
 </script>

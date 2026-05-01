@@ -330,10 +330,15 @@ const visibleTasks = computed<HouseworkTaskModel[]>(() => {
   return allTasks.value
 })
 
+// ユーザーID → メンバーのMapを事前構築（O(1)参照のため）
+const memberMap = computed<Map<number, HouseholdMember>>(
+  () => new Map(members.value.map((m) => [m.userId, m])),
+)
+
 // タスクの担当メンバー取得
 const getMemberForTask = (task: HouseworkTaskModel): HouseholdMember | null => {
   if (task.assigneeUserId == null) return null
-  return members.value.find((m) => m.userId === task.assigneeUserId) ?? null
+  return memberMap.value.get(task.assigneeUserId) ?? null
 }
 
 // アバターのラベル（ニックネーム or 表示名の先頭2文字）
