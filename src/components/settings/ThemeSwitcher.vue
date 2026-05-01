@@ -21,6 +21,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { Monitor, Sun, Moon } from 'lucide-vue-next'
+import type { Component } from 'vue'
 import { useThemeStore } from '@/stores/themeStore'
 import { THEME_MODE } from '@/constants/code.constants'
 import type { ThemeModeCode } from '@/constants/code.constants'
@@ -28,7 +29,7 @@ import type { ThemeModeCode } from '@/constants/code.constants'
 const { t } = useI18n()
 const themeStore = useThemeStore()
 
-const options: { value: ThemeModeCode; icon: unknown; labelKey: string }[] = [
+const options: { value: ThemeModeCode; icon: Component; labelKey: string }[] = [
   { value: THEME_MODE.SYSTEM, icon: Monitor, labelKey: 'settings.account.theme.options.system' },
   { value: THEME_MODE.LIGHT, icon: Sun, labelKey: 'settings.account.theme.options.light' },
   { value: THEME_MODE.DARK, icon: Moon, labelKey: 'settings.account.theme.options.dark' },
