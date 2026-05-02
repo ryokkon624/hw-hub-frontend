@@ -43,36 +43,47 @@
       <li
         v-for="item in favorites"
         :key="item.shoppingItemId"
-        class="border bg-hwhub-surface-card rounded-lg px-3 py-2 text-xs flex gap-2 items-center hover:bg-hwhub-surface-subtle cursor-pointer transition shadow-sm hover:shadow-md hover:-translate-y-px"
-        :class="storeTypeBorderClass(item.storeType)"
+        class="group rounded-xl border px-3 py-2.5 flex items-start gap-3 hover:bg-hwhub-surface shadow-sm hover:shadow-md hover:-translate-y-px transition cursor-pointer"
+        :class="storeTypeCardClass(item.storeType)"
         @click="onSelect(item)"
       >
-        <!-- サムネ -->
-        <div
-          class="flex items-center justify-center h-8 w-8 rounded bg-hwhub-surface-subtle text-[10px] text-hwhub-muted shrink-0"
-        >
-          <span v-if="item.hasImage">{{
-            t('shopping.favoriteModal.item.thumbnail.hasImage')
-          }}</span>
-          <span v-else>{{ t('shopping.favoriteModal.item.thumbnail.noImage') }}</span>
-        </div>
-
+        <!-- テキスト＆メイン情報 -->
         <div class="flex-1 min-w-0">
-          <p class="font-medium truncate text-sm text-hwhub-heading">{{ item.name }}</p>
-          <p class="text-[11px] text-hwhub-muted truncate">
-            {{ storeTypeLabel(item.storeType) || t('shopping.favoriteModal.item.storeTypeUnset') }}
-            <span v-if="item.memo"
-              >{{ t('shopping.favoriteModal.item.memoPrefix') }}{{ item.memo }}</span
-            >
-          </p>
-        </div>
+          <div class="flex items-start justify-between gap-2 min-w-0">
+            <!-- 左：タイトル＋メモ -->
+            <div class="flex-1 min-w-0 flex flex-col justify-center min-h-10">
+              <p
+                class="text-[13px] font-semibold leading-snug line-clamp-2 group-hover:text-hwhub-heading transition-colors"
+              >
+                {{ item.name }}
+              </p>
+              <p v-if="item.memo" class="mt-0.5 text-[11px] text-hwhub-muted leading-snug truncate">
+                {{ item.memo }}
+              </p>
+              <p class="mt-0.5 text-[10px] text-hwhub-muted/80 leading-snug truncate">
+                {{
+                  storeTypeLabel(item.storeType) || t('shopping.favoriteModal.item.storeTypeUnset')
+                }}
+              </p>
+            </div>
 
-        <button
-          type="button"
-          class="text-[11px] px-2 py-1 rounded-full border border-hwhub-border-subtle text-hwhub-heading hover:bg-hwhub-surface-subtle"
-        >
-          {{ t('shopping.favoriteModal.item.selectButton') }}
-        </button>
+            <!-- 右上：画像アイコン（あるときだけ） -->
+            <div v-if="item.hasImage" class="shrink-0 ml-1 mt-0.5">
+              <span
+                class="inline-flex items-center justify-center h-5 w-5 rounded-full bg-hwhub-surface-subtle text-hwhub-muted"
+              >
+                <Camera class="w-3 h-3 text-hwhub-muted" />
+              </span>
+            </div>
+
+            <!-- 右：アクション -->
+            <div class="flex flex-col justify-center items-center shrink-0 min-h-10 min-w-[56px]">
+              <span class="text-[11px] font-medium text-hwhub-primary">{{
+                t('shopping.favoriteModal.item.selectButton')
+              }}</span>
+            </div>
+          </div>
+        </div>
       </li>
     </ul>
   </BaseModal>
@@ -85,6 +96,7 @@ import ShoppingStoreTypeFilter from '@/components/shopping/ShoppingStoreTypeFilt
 import { useShoppingFavoriteStore } from '@/stores/shoppingFavoriteStore'
 import type { ShoppingItemModel } from '@/domain'
 import { useShoppingCodes } from '@/composables/useShoppingCodes'
+import { Camera } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -99,7 +111,7 @@ const emit = defineEmits<{
 }>()
 
 const favoriteStore = useShoppingFavoriteStore()
-const { storeTypeLabel, storeTypeBorderClass } = useShoppingCodes()
+const { storeTypeLabel, storeTypeCardClass } = useShoppingCodes()
 
 // 元データ（Store からのそのまま）
 const rawFavorites = computed<ShoppingItemModel[]>(() => {
