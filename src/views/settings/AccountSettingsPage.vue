@@ -60,7 +60,7 @@
           />
         </Field>
         <ErrorMessage name="displayName" v-slot="{ message }">
-          <p class="text-xs text-red-600 mt-1">{{ tMaybe(message) }}</p>
+          <p class="text-xs text-hwhub-danger mt-1">{{ tMaybe(message) }}</p>
         </ErrorMessage>
       </div>
 
@@ -83,7 +83,7 @@
           </select>
         </Field>
         <ErrorMessage name="locale" v-slot="{ message }">
-          <p class="text-xs text-red-600 mt-1">{{ tMaybe(message) }}</p>
+          <p class="text-xs text-hwhub-danger mt-1">{{ tMaybe(message) }}</p>
         </ErrorMessage>
       </div>
 
@@ -258,7 +258,7 @@
           class="shrink-0 inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-semibold"
           :class="
             isGoogleLinked
-              ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+              ? 'bg-hwhub-primary-50 text-hwhub-primary border border-hwhub-primary'
               : 'bg-hwhub-surface-subtle text-hwhub-body border border-hwhub-border'
           "
         >
@@ -302,7 +302,7 @@
 
       <div
         v-else
-        class="rounded-lg border border-amber-200 bg-amber-50 p-3 text-[11px] text-amber-900 whitespace-pre-line"
+        class="rounded-lg border border-hwhub-accent bg-hwhub-accent-soft p-3 text-[11px] text-hwhub-accent-badge whitespace-pre-line"
       >
         {{ t('settings.account.google.warning.passwordDisabled') }}
       </div>
@@ -310,19 +310,19 @@
 
     <!-- アカウント削除 -->
     <section
-      class="rounded-xl border border-red-200 bg-hwhub-surface-card p-4 shadow-sm space-y-3 mt-8"
+      class="rounded-xl border border-hwhub-danger bg-hwhub-surface-card p-4 shadow-sm space-y-3 mt-8"
     >
-      <h3 class="text-sm font-semibold text-red-600">
+      <h3 class="text-sm font-semibold text-hwhub-danger">
         {{ t('settings.account.delete.title') }}
       </h3>
-      <p class="text-xs text-red-600 whitespace-pre-wrap">
+      <p class="text-xs text-hwhub-danger whitespace-pre-wrap">
         {{ t('settings.account.delete.description') }}
       </p>
 
       <div class="flex justify-end">
         <button
           type="button"
-          class="inline-flex items-center rounded-md bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700"
+          class="inline-flex items-center rounded-md bg-hwhub-danger-btn px-4 py-2 text-sm font-semibold hover:bg-hwhub-danger-btn"
           @click="onDeleteAccount"
         >
           {{ t('settings.account.delete.button') }}
