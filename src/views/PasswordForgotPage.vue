@@ -49,11 +49,11 @@ const onSubmit = async () => {
           />
         </div>
 
-        <p v-if="errorKey" class="text-sm text-red-600">{{ t(errorKey) }}</p>
+        <p v-if="errorKey" class="text-sm text-hwhub-palette-rose">{{ t(errorKey) }}</p>
 
         <button
           type="submit"
-          class="w-full rounded-lg bg-emerald-600 text-white py-2 font-semibold disabled:opacity-50"
+          class="w-full rounded-lg bg-hwhub-primary text-white py-2 font-semibold disabled:opacity-50"
           :disabled="!canSubmit || passwordResetStore.isRequesting"
         >
           <span v-if="!passwordResetStore.isRequesting">{{ t('passwordForgot.submit') }}</span>
@@ -61,7 +61,7 @@ const onSubmit = async () => {
         </button>
 
         <div class="text-center text-sm text-hwhub-body">
-          <router-link class="text-emerald-700 hover:underline" :to="{ name: 'login' }">
+          <router-link class="text-hwhub-primary hover:underline" :to="{ name: 'login' }">
             {{ t('passwordForgot.backToLogin') }}
           </router-link>
         </div>

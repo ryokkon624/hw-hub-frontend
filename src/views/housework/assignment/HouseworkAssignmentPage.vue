@@ -97,7 +97,7 @@
           </span>
           <button
             type="button"
-            class="px-3 py-1 rounded-full text-xs font-semibold text-white bg-amber-500 hover:bg-amber-600"
+            class="px-3 py-1 rounded-full text-xs font-bold text-white dark:text-amber-950 bg-amber-500 hover:bg-amber-600 transition-colors shadow-sm"
             @click="bulkSkipPastUnassigned"
           >
             {{ t('assign.bulk.skipButton') }}
@@ -164,6 +164,11 @@
             <li v-for="task in visibleTasks" :key="task.houseworkTaskId">
               <SwipeableAssignmentCard
                 :class="recentlyUpdatedTaskId === task.houseworkTaskId ? 'hw-fade-in' : ''"
+                :front-class="
+                  task.assigneeUserId == null
+                    ? 'bg-hwhub-accent-soft border-hwhub-accent'
+                    : 'bg-hwhub-surface-card border-hwhub-border'
+                "
                 @swipe-self="assignToMeBySwipe(task)"
                 @swipe-members="openAssigneePicker(task)"
               >

@@ -51,11 +51,11 @@ const onResend = async () => {
         </ul>
       </div>
 
-      <p v-if="errorKey" class="text-sm text-red-600">{{ t(errorKey) }}</p>
+      <p v-if="errorKey" class="text-sm text-hwhub-palette-rose">{{ t(errorKey) }}</p>
 
       <div class="mt-6 space-y-3">
         <button
-          class="w-full rounded-lg bg-emerald-600 text-white py-2 font-semibold disabled:opacity-50"
+          class="w-full rounded-lg bg-hwhub-primary text-white py-2 font-semibold disabled:opacity-50"
           :disabled="passwordResetStore.isRequesting"
           @click="onResend"
         >
@@ -71,7 +71,7 @@ const onResend = async () => {
         </router-link>
 
         <router-link
-          class="block text-center text-sm text-emerald-700 hover:underline"
+          class="block text-center text-sm text-hwhub-primary hover:underline"
           :to="{ name: 'login' }"
         >
           {{ t('passwordResetSent.backToLogin') }}

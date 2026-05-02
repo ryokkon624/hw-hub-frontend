@@ -79,7 +79,7 @@ const onSubmit = async () => {
 
       <div
         v-if="!token"
-        class="mt-6 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700"
+        class="mt-6 rounded-lg border border-hwhub-palette-rose/20 bg-hwhub-palette-rose-soft p-4 text-sm text-hwhub-palette-rose"
       >
         {{ t('passwordReset.page.missingToken') }}
       </div>
@@ -118,11 +118,11 @@ const onSubmit = async () => {
         </div>
 
         <!-- ここは token expired などの前段エラーではなく、フォーム上の送信失敗系の残り（基本は resultへ飛ぶ） -->
-        <p v-if="errorKey" class="text-sm text-red-600">{{ t(errorKey) }}</p>
+        <p v-if="errorKey" class="text-sm text-hwhub-palette-rose">{{ t(errorKey) }}</p>
 
         <button
           type="submit"
-          class="w-full rounded-lg bg-emerald-600 text-white py-2 font-semibold disabled:opacity-50"
+          class="w-full rounded-lg bg-hwhub-primary text-white py-2 font-semibold disabled:opacity-50"
           :disabled="!canSubmit || passwordResetStore.isConfirming"
         >
           <span v-if="!passwordResetStore.isConfirming">{{ t('passwordReset.form.submit') }}</span>
@@ -134,7 +134,7 @@ const onSubmit = async () => {
             {{ t('passwordReset.links.requestNew') }}
           </router-link>
           <span class="mx-2">·</span>
-          <router-link class="text-emerald-700 hover:underline" :to="{ name: 'login' }">
+          <router-link class="text-hwhub-primary hover:underline" :to="{ name: 'login' }">
             {{ t('passwordReset.links.backToLogin') }}
           </router-link>
         </div>

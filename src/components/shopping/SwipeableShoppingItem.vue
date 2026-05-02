@@ -20,8 +20,8 @@
 
     <!-- 前面レイヤー（アイテム本体、translateXでドラッグ追従） -->
     <div
-      class="relative group rounded-xl border border-hwhub-border bg-hwhub-surface-card px-3 py-2.5 flex items-start gap-3 shadow-sm transition-transform duration-100"
-      :class="storeTypeBorderClass(item.storeType)"
+      class="relative group rounded-xl border px-3 py-2.5 flex items-start gap-3 shadow-sm transition-transform duration-100"
+      :class="storeTypeCardClass(item.storeType)"
       :style="{ transform: `translateX(${translateX}px)` }"
       @click="onItemClick"
     >
@@ -74,7 +74,7 @@ const emit = defineEmits<{
 }>()
 
 const containerRef = ref<HTMLElement | null>(null)
-const { storeTypeBorderClass } = useShoppingCodes()
+const { storeTypeCardClass } = useShoppingCodes()
 
 /**
  * 購入済みアイテムは右スワイプを無効化する。

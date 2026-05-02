@@ -270,7 +270,7 @@ const bulkCompletePast = async () => {
               >
                 <div class="flex items-center justify-between gap-2">
                   <div class="min-w-0">
-                    <h3 class="text-sm font-semibold text-rose-700 truncate">
+                    <h3 class="text-sm font-semibold text-hwhub-palette-rose truncate">
                       {{ task.houseworkName }}
                     </h3>
                   </div>
@@ -279,11 +279,11 @@ const bulkCompletePast = async () => {
 
               <!-- PC版: ボタンUI -->
               <article
-                class="hidden md:flex rounded-lg border border-rose-200 bg-rose-50 p-3 shadow-sm flex-col gap-2"
+                class="hidden md:flex rounded-lg border border-hwhub-palette-rose bg-hwhub-palette-rose-soft p-3 shadow-sm flex-col gap-2"
               >
                 <div class="flex items-center justify-between gap-2">
                   <div class="min-w-0">
-                    <h3 class="text-sm font-semibold text-rose-700 truncate">
+                    <h3 class="text-sm font-semibold text-hwhub-palette-rose truncate">
                       {{ task.houseworkName }}
                     </h3>
                   </div>
@@ -411,7 +411,7 @@ const bulkCompletePast = async () => {
                 class="hidden md:flex rounded-lg border p-3 shadow-sm flex-col gap-2"
                 :class="
                   task.targetDate === todayYmd
-                    ? 'bg-green-50 border-green-200'
+                    ? 'bg-hwhub-palette-emerald-soft border-hwhub-palette-emerald'
                     : 'bg-hwhub-surface-card'
                 "
               >

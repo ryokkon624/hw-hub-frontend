@@ -75,22 +75,26 @@ const goShopping = () => {
 
     <div class="mt-2 grid grid-cols-3 gap-2 text-xs">
       <div
-        class="rounded-lg bg-emerald-50 border border-emerald-200 px-2 py-2 flex flex-col items-start"
+        class="rounded-lg bg-hwhub-store-super-soft border border-hwhub-store-super-subtle px-2 py-2 flex flex-col items-start"
       >
         <span class="text-hwhub-muted">{{ t('home.shopping.super') }}</span>
-        <span class="mt-1 text-base font-semibold text-emerald-700">
+        <span class="mt-1 text-base font-semibold text-hwhub-store-super">
           {{ t('home.common.itemCount', { count: superCount }) }}
         </span>
       </div>
-      <div class="rounded-lg bg-rose-50 border border-rose-200 px-2 py-2 flex flex-col items-start">
+      <div
+        class="rounded-lg bg-hwhub-store-drug-soft border border-hwhub-store-drug-subtle px-2 py-2 flex flex-col items-start"
+      >
         <span class="text-hwhub-muted">{{ t('home.shopping.drug') }}</span>
-        <span class="mt-1 text-base font-semibold text-rose-700">
+        <span class="mt-1 text-base font-semibold text-hwhub-store-drug">
           {{ t('home.common.itemCount', { count: drugCount }) }}
         </span>
       </div>
-      <div class="rounded-lg bg-sky-50 border border-sky-200 px-2 py-2 flex flex-col items-start">
+      <div
+        class="rounded-lg bg-hwhub-store-online-soft border border-hwhub-store-online-subtle px-2 py-2 flex flex-col items-start"
+      >
         <span class="text-hwhub-muted">{{ t('home.shopping.online') }}</span>
-        <span class="mt-1 text-base font-semibold text-sky-700">
+        <span class="mt-1 text-base font-semibold text-hwhub-store-online">
           {{ t('home.common.itemCount', { count: onlineCount }) }}
         </span>
       </div>

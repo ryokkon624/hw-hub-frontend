@@ -24,6 +24,19 @@ export function useShoppingCodes() {
     }
   }
 
+  const storeTypeCardClass = (code: string | null | undefined): string => {
+    switch (code) {
+      case '1': // SUPERMARKET
+        return 'bg-hwhub-palette-emerald-soft border-hwhub-palette-emerald'
+      case '2': // ONLINE
+        return 'bg-hwhub-palette-blue-soft border-hwhub-palette-blue'
+      case '3': // DRUGSTORE
+        return 'bg-hwhub-palette-rose-soft border-hwhub-palette-rose'
+      default:
+        return 'bg-hwhub-surface-card border-hwhub-border'
+    }
+  }
+
   const storeTypeDotClass = (code: string | null | undefined): string => {
     switch (code) {
       case '1':
@@ -42,6 +55,7 @@ export function useShoppingCodes() {
     shoppingItemStatusLabel,
     storeTypeOptions,
     storeTypeBorderClass,
+    storeTypeCardClass,
     storeTypeDotClass,
   }
 }

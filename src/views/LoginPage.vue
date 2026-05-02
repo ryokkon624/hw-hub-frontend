@@ -134,11 +134,13 @@ const onClickGoogle = async () => {
     >
       <!-- 左：ブランド＆説明（SPでは上） -->
       <section
-        class="relative bg-hwhub-surface-subtle md:bg-linear-to-br md:from-hwhub-surface-subtle md:to-white px-6 py-6 md:px-8 md:py-8 flex flex-col justify-between"
+        class="relative bg-hwhub-surface-subtle md:bg-linear-to-br md:from-hwhub-surface-subtle md:to-hwhub-surface-card px-6 py-6 md:px-8 md:py-8 flex flex-col justify-between"
       >
         <!-- アプリ名 -->
         <div class="space-y-4">
-          <div class="inline-flex items-center gap-2 rounded-full bg-white/80 border px-3 py-1">
+          <div
+            class="inline-flex items-center gap-2 rounded-full bg-hwhub-surface/40 border border-hwhub-border px-3 py-1"
+          >
             <span class="text-xs font-semibold text-hwhub-muted">Family App</span>
             <span class="text-[11px] text-hwhub-muted">Housework Hub</span>
           </div>

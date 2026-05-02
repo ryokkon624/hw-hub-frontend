@@ -20,8 +20,8 @@
       class="px-2 py-0.5 rounded-full border flex items-center gap-1 transition"
       :class="
         modelValue === '1'
-          ? 'bg-emerald-500 text-white border-emerald-500'
-          : 'border-emerald-200 text-emerald-700 hover:bg-emerald-50'
+          ? 'bg-hwhub-primary text-white border-hwhub-primary'
+          : 'border-hwhub-palette-emerald/30 text-hwhub-palette-emerald hover:bg-hwhub-palette-emerald-soft'
       "
       @click="$emit('update:modelValue', '1')"
     >
@@ -35,8 +35,8 @@
       class="px-2 py-0.5 rounded-full border flex items-center gap-1 transition"
       :class="
         modelValue === '3'
-          ? 'bg-rose-500 text-white border-rose-500'
-          : 'border-rose-200 text-rose-700 hover:bg-rose-50'
+          ? 'bg-hwhub-palette-rose text-white border-hwhub-palette-rose'
+          : 'border-hwhub-palette-rose/30 text-hwhub-palette-rose hover:bg-hwhub-palette-rose-soft'
       "
       @click="$emit('update:modelValue', '3')"
     >
@@ -50,8 +50,8 @@
       class="px-2 py-0.5 rounded-full border flex items-center gap-1 transition"
       :class="
         modelValue === '2'
-          ? 'bg-sky-500 text-white border-sky-500'
-          : 'border-sky-200 text-sky-700 hover:bg-sky-50'
+          ? 'bg-hwhub-palette-blue text-white border-hwhub-palette-blue'
+          : 'border-hwhub-palette-blue/30 text-hwhub-palette-blue hover:bg-hwhub-palette-blue-soft'
       "
       @click="$emit('update:modelValue', '2')"
     >

@@ -137,8 +137,8 @@
           <li
             v-for="item in filteredNotPurchasedItems"
             :key="item.shoppingItemId"
-            class="group rounded-xl border border-hwhub-border bg-hwhub-surface-card px-3 py-2.5 flex items-start gap-3 hover:bg-hwhub-surface-subtle shadow-sm hover:shadow-md hover:-translate-y-px transition"
-            :class="storeTypeBorderClass(item.storeType)"
+            class="group rounded-xl border px-3 py-2.5 flex items-start gap-3 hover:bg-hwhub-surface shadow-sm hover:shadow-md hover:-translate-y-px transition"
+            :class="storeTypeCardClass(item.storeType)"
           >
             <!-- テキスト＆アクション -->
             <div class="flex-1 min-w-0" @click="goToDetail(item)">
@@ -174,7 +174,7 @@
                   <!-- ★ ボタン -->
                   <button
                     type="button"
-                    class="flex h-7 w-7 items-center justify-center rounded-full border border-transparent text-yellow-400 hover:border-yellow-300 hover:bg-yellow-50 hover:scale-105 transition"
+                    class="flex h-7 w-7 items-center justify-center rounded-full border border-transparent text-hwhub-palette-amber hover:border-hwhub-palette-amber hover:bg-hwhub-palette-amber-soft hover:scale-105 transition"
                     @click.stop="toggleFavorite(item)"
                   >
                     <span v-if="item.favorite">★</span>
@@ -184,7 +184,7 @@
                   <!-- かごへボタン -->
                   <button
                     type="button"
-                    class="px-3 py-1 text-[11px] rounded-full border border-hwhub-border text-hwhub-heading hover:bg-hwhub-surface-subtle active:scale-95"
+                    class="px-3 py-1 text-[11px] rounded-full border border-hwhub-border text-hwhub-heading hover:bg-hwhub-surface active:scale-95"
                     @click.stop="moveToBasket(item)"
                   >
                     {{ t('shopping.list.actions.toBasket') }}
@@ -211,7 +211,7 @@
             }}</span>
             <button
               type="button"
-              class="px-2 py-1 text-[11px] rounded-full border border-hwhub-border text-hwhub-heading hover:bg-hwhub-surface-subtle"
+              class="px-2 py-1 text-[11px] rounded-full border border-hwhub-border text-hwhub-heading hover:bg-hwhub-surface"
               :disabled="inBasketItems.length === 0"
               @click="onClickCompletePurchase"
             >
@@ -251,8 +251,8 @@
           <li
             v-for="item in inBasketItems"
             :key="item.shoppingItemId"
-            class="group rounded-xl border border-hwhub-border bg-hwhub-surface-card px-3 py-2.5 flex items-start gap-3 hover:bg-hwhub-surface-subtle shadow-sm hover:shadow-md hover:-translate-y-px transition"
-            :class="storeTypeBorderClass(item.storeType)"
+            class="group rounded-xl border px-3 py-2.5 flex items-start gap-3 hover:bg-hwhub-surface shadow-sm hover:shadow-md hover:-translate-y-px transition"
+            :class="storeTypeCardClass(item.storeType)"
           >
             <!-- テキスト＆アクション -->
             <div class="flex-1 min-w-0" @click="goToDetail(item)">
@@ -287,7 +287,7 @@
                 >
                   <button
                     type="button"
-                    class="px-3 py-1 text-[11px] rounded-full border border-hwhub-border text-hwhub-heading hover:bg-hwhub-surface-subtle active:scale-95"
+                    class="px-3 py-1 text-[11px] rounded-full border border-hwhub-border text-hwhub-heading hover:bg-hwhub-surface active:scale-95"
                     @click.stop="moveToNotPurchased(item)"
                   >
                     {{ t('shopping.list.actions.return') }}
@@ -442,7 +442,7 @@ const householdStore = useHouseholdStore()
 const shoppingStore = useShoppingStore()
 const uiStore = useUiStore()
 const codeStore = useCodeStore()
-const { storeTypeLabel, storeTypeBorderClass } = useShoppingCodes()
+const { storeTypeLabel, storeTypeCardClass } = useShoppingCodes()
 
 const showCompleted = ref(false)
 const activeTab = ref<'notPurchased' | 'basket' | 'completed'>('notPurchased')

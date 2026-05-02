@@ -7,8 +7,8 @@
       <SettingsCard
         to="/settings/account"
         :icon="User"
-        icon-bg-class="bg-blue-100"
-        icon-color-class="text-blue-600"
+        icon-bg-class="bg-hwhub-palette-blue-soft"
+        icon-color-class="text-hwhub-palette-blue"
         :title="t('settings.sections.account.title')"
         :subtitle="t('settings.sections.account.subtitle')"
       />
@@ -16,8 +16,8 @@
       <SettingsCard
         to="/settings/household"
         :icon="House"
-        icon-bg-class="bg-emerald-100"
-        icon-color-class="text-emerald-600"
+        icon-bg-class="bg-hwhub-palette-emerald-soft"
+        icon-color-class="text-hwhub-palette-emerald"
         :title="t('settings.sections.household.title')"
         :subtitle="t('settings.sections.household.subtitle')"
       />
@@ -25,8 +25,8 @@
       <SettingsCard
         to="/settings/housework"
         :icon="Brush"
-        icon-bg-class="bg-amber-100"
-        icon-color-class="text-amber-600"
+        icon-bg-class="bg-hwhub-palette-amber-soft"
+        icon-color-class="text-hwhub-palette-amber"
         :title="t('settings.sections.housework.title')"
         :subtitle="t('settings.sections.housework.subtitle')"
       />
@@ -34,8 +34,8 @@
       <SettingsCard
         to="/notifications"
         :icon="Bell"
-        icon-bg-class="bg-rose-100"
-        icon-color-class="text-rose-500"
+        icon-bg-class="bg-hwhub-palette-rose-soft"
+        icon-color-class="text-hwhub-palette-rose"
         :title="t('settings.sections.notifications.title')"
         :subtitle="t('settings.sections.notifications.subtitle')"
       />
@@ -43,8 +43,8 @@
       <SettingsCard
         :to="{ name: 'settings.inquiry' }"
         :icon="MessageCircleQuestion"
-        icon-bg-class="bg-violet-100"
-        icon-color-class="text-violet-600"
+        icon-bg-class="bg-hwhub-palette-violet-soft"
+        icon-color-class="text-hwhub-palette-violet"
         :title="t('settings.sections.inquiry.title')"
         :subtitle="t('settings.sections.inquiry.subtitle')"
       />

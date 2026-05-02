@@ -78,13 +78,17 @@ const goMyTasks = () => {
     </header>
 
     <div class="mt-2 grid grid-cols-2 gap-3 text-xs">
-      <div class="rounded-lg bg-hwhub-surface-subtle px-3 py-2 flex flex-col">
+      <div
+        class="rounded-lg bg-hwhub-surface-subtle border border-hwhub-border-subtle px-3 py-2 flex flex-col"
+      >
         <span class="text-hwhub-muted">{{ t('home.myTasks.weekLabel') }}</span>
         <span class="mt-1 text-base font-semibold text-hwhub-heading">
           {{ t('home.common.taskCount', { count: myWeekCount }) }}
         </span>
       </div>
-      <div class="rounded-lg bg-hwhub-danger-soft px-3 py-2 flex flex-col">
+      <div
+        class="rounded-lg bg-hwhub-danger-soft border border-hwhub-danger px-3 py-2 flex flex-col"
+      >
         <span class="text-hwhub-body">{{ t('home.myTasks.overdueLabel') }}</span>
         <span class="mt-1 text-base font-semibold text-hwhub-danger">
           {{ t('home.common.taskCount', { count: myOverdueCount }) }}

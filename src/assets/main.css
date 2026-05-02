@@ -15,9 +15,6 @@
   html:not(.light):not(.dark) {
     color-scheme: dark;
   }
-  html:not(.light):not(.dark) body {
-    /* 下の :root.dark と同じトークンを引き継ぐ */
-  }
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -91,8 +88,19 @@
 
   /* Store */
   --hwhub-store-super: #10b981; /* emerald-500 */
+  --hwhub-store-super-soft: #ecfdf5; /* emerald-50 */
+  --hwhub-store-super-border: #a7f3d0; /* emerald-200 */
+  --hwhub-store-super-text: #047857; /* emerald-700 */
+
   --hwhub-store-online: #0ea5e9; /* sky-500 */
+  --hwhub-store-online-soft: #f0f9ff; /* sky-50 */
+  --hwhub-store-online-border: #bae6fd; /* sky-200 */
+  --hwhub-store-online-text: #0369a1; /* sky-700 */
+
   --hwhub-store-drug: #f43f5e; /* rose-500 */
+  --hwhub-store-drug-soft: #fff1f2; /* rose-50 */
+  --hwhub-store-drug-border: #fecdd3; /* rose-200 */
+  --hwhub-store-drug-text: #be123c; /* rose-700 */
 
   /* Onboarding */
   --hwhub-onboarding-from: #f0fdfa; /* teal-50 */
@@ -109,6 +117,27 @@
   /* Danger button */
   --hwhub-danger-btn: #e11d48; /* rose-600 */
   --hwhub-danger-btn-hover: #be123c; /* rose-700 */
+
+  /* Palette (Soft Tone) */
+  --hwhub-palette-emerald-soft: #ecfdf5; /* emerald-50 */
+  --hwhub-palette-emerald-border: #a7f3d0; /* emerald-200 */
+  --hwhub-palette-emerald-text: #047857; /* emerald-700 */
+
+  --hwhub-palette-blue-soft: #eff6ff; /* blue-50 */
+  --hwhub-palette-blue-border: #bfdbfe; /* blue-200 */
+  --hwhub-palette-blue-text: #1d4ed8; /* blue-700 */
+
+  --hwhub-palette-amber-soft: #fffbeb; /* amber-50 */
+  --hwhub-palette-amber-border: #fde68a; /* amber-200 */
+  --hwhub-palette-amber-text: #b45309; /* amber-700 */
+
+  --hwhub-palette-violet-soft: #f5f3ff; /* violet-50 */
+  --hwhub-palette-violet-border: #ddd6fe; /* violet-200 */
+  --hwhub-palette-violet-text: #6d28d9; /* violet-700 */
+
+  --hwhub-palette-rose-soft: #fff1f2; /* rose-50 */
+  --hwhub-palette-rose-border: #fecdd3; /* rose-200 */
+  --hwhub-palette-rose-text: #be123c; /* rose-700 */
 }
 
 /* ─── DARK (B案: Carbon Slate) ─── */
@@ -120,18 +149,6 @@
 @media (prefers-color-scheme: dark) {
   html:not(.light) {
     color-scheme: dark;
-  }
-}
-
-/* ダーク値: .dark クラス または OS dark (light を明示してない場合) */
-:where(:root.dark),
-:where(html:not(.light):not(.dark)) {
-}
-
-/* 実際の値は両方のセレクタで宣言する */
-:root.dark,
-@media (prefers-color-scheme: dark) {
-  :root:not(.light) {
   }
 }
 
@@ -162,16 +179,16 @@
   /* Primary (emerald — 暗背景で発色させるため少し明るく) */
   --hwhub-primary: #10b981; /* emerald-500 */
   --hwhub-primary-hover: #34d399; /* emerald-400 (hover で明るく) */
-  --hwhub-primary-50: rgba(16, 185, 129, 0.13);
+  --hwhub-primary-50: #1b322f;
   --hwhub-primary-text: #34d399; /* emerald-400 (本文と並べて読みやすく) */
   --hwhub-primary-border: rgba(16, 185, 129, 0.4);
   --hwhub-primary-ring: #34d399;
   --hwhub-on-primary: #04130c; /* 暗緑 (明色 primary 上で AA 確保) */
 
   /* Accent (amber) */
-  --hwhub-accent-soft: rgba(245, 158, 11, 0.1);
+  --hwhub-accent-soft: #362f23;
   --hwhub-accent-border: rgba(245, 158, 11, 0.35);
-  --hwhub-accent-badge-bg: rgba(245, 158, 11, 0.18);
+  --hwhub-accent-badge-bg: #2e2920;
   --hwhub-accent-badge-text: #fbbf24; /* amber-400 */
 
   /* Sidebar (もとから暗いので微調整のみ) */
@@ -184,12 +201,12 @@
   --hwhub-sidebar-border: rgba(255, 255, 255, 0.06);
 
   /* Danger (rose — 刺激を抑える) */
-  --hwhub-danger-soft: rgba(244, 63, 94, 0.1);
+  --hwhub-danger-soft: #382a32;
   --hwhub-danger: #fb7185; /* rose-400 */
   --hwhub-danger-border: rgba(244, 63, 94, 0.32);
 
   /* Info */
-  --hwhub-info-soft: rgba(59, 130, 246, 0.1);
+  --hwhub-info-soft: #223143;
   --hwhub-info: #60a5fa; /* blue-400 */
 
   /* Swipe */
@@ -202,24 +219,56 @@
 
   /* Store (識別性が要るので明度のみ調整) */
   --hwhub-store-super: #10b981;
+  --hwhub-store-super-soft: #1b322f;
+  --hwhub-store-super-border: rgba(16, 185, 129, 0.35);
+  --hwhub-store-super-text: #34d399;
+
   --hwhub-store-online: #38bdf8;
+  --hwhub-store-online-soft: #223143;
+  --hwhub-store-online-border: rgba(56, 189, 248, 0.35);
+  --hwhub-store-online-text: #7dd3fc;
+
   --hwhub-store-drug: #fb7185;
+  --hwhub-store-drug-soft: #382a32;
+  --hwhub-store-drug-border: rgba(251, 113, 133, 0.35);
+  --hwhub-store-drug-text: #fda4af;
 
   /* Onboarding */
   --hwhub-onboarding-from: rgba(20, 184, 166, 0.1);
   --hwhub-onboarding-to: rgba(59, 130, 246, 0.1);
 
   /* Status */
-  --hwhub-status-active-bg: rgba(34, 197, 94, 0.13);
+  --hwhub-status-active-bg: #1e3a2f;
   --hwhub-status-active-text: #4ade80; /* green-400 */
   --hwhub-status-active-border: rgba(34, 197, 94, 0.5);
-  --hwhub-status-pending-bg: rgba(234, 179, 8, 0.13);
+  --hwhub-status-pending-bg: #362f23;
   --hwhub-status-pending-text: #facc15; /* yellow-400 */
   --hwhub-status-pending-border: rgba(234, 179, 8, 0.5);
 
   /* Danger button */
   --hwhub-danger-btn: #fb7185; /* rose-400 */
   --hwhub-danger-btn-hover: #f43f5e; /* rose-500 */
+
+  /* Palette (Soft Tone) */
+  --hwhub-palette-emerald-soft: #1b322f;
+  --hwhub-palette-emerald-border: rgba(16, 185, 129, 0.35);
+  --hwhub-palette-emerald-text: #34d399;
+
+  --hwhub-palette-blue-soft: #223143;
+  --hwhub-palette-blue-border: rgba(59, 130, 246, 0.35);
+  --hwhub-palette-blue-text: #60a5fa;
+
+  --hwhub-palette-amber-soft: #362f23;
+  --hwhub-palette-amber-border: rgba(245, 158, 11, 0.35);
+  --hwhub-palette-amber-text: #fbbf24;
+
+  --hwhub-palette-violet-soft: #2a2843;
+  --hwhub-palette-violet-border: rgba(139, 92, 246, 0.35);
+  --hwhub-palette-violet-text: #a78bfa;
+
+  --hwhub-palette-rose-soft: #382a32;
+  --hwhub-palette-rose-border: rgba(244, 63, 94, 0.35);
+  --hwhub-palette-rose-text: #fb7185;
 }
 
 /* OS dark への追従 (html に .light/.dark が無いときだけ適用) */
@@ -267,8 +316,17 @@
     --hwhub-swipe-self: #0ea5e9;
     --hwhub-swipe-members: #f59e0b;
     --hwhub-store-super: #10b981;
+    --hwhub-store-super-soft: rgba(16, 185, 129, 0.1);
+    --hwhub-store-super-border: rgba(16, 185, 129, 0.35);
+    --hwhub-store-super-text: #34d399;
     --hwhub-store-online: #38bdf8;
+    --hwhub-store-online-soft: rgba(56, 189, 248, 0.1);
+    --hwhub-store-online-border: rgba(56, 189, 248, 0.35);
+    --hwhub-store-online-text: #7dd3fc;
     --hwhub-store-drug: #fb7185;
+    --hwhub-store-drug-soft: rgba(251, 113, 133, 0.1);
+    --hwhub-store-drug-border: rgba(251, 113, 133, 0.35);
+    --hwhub-store-drug-text: #fda4af;
     --hwhub-onboarding-from: rgba(20, 184, 166, 0.1);
     --hwhub-onboarding-to: rgba(59, 130, 246, 0.1);
     --hwhub-status-active-bg: rgba(34, 197, 94, 0.13);
@@ -279,6 +337,22 @@
     --hwhub-status-pending-border: rgba(234, 179, 8, 0.5);
     --hwhub-danger-btn: #fb7185;
     --hwhub-danger-btn-hover: #f43f5e;
+
+    --hwhub-palette-emerald-soft: rgba(16, 185, 129, 0.1);
+    --hwhub-palette-emerald-border: rgba(16, 185, 129, 0.35);
+    --hwhub-palette-emerald-text: #34d399;
+    --hwhub-palette-blue-soft: rgba(59, 130, 246, 0.1);
+    --hwhub-palette-blue-border: rgba(59, 130, 246, 0.35);
+    --hwhub-palette-blue-text: #60a5fa;
+    --hwhub-palette-amber-soft: rgba(245, 158, 11, 0.1);
+    --hwhub-palette-amber-border: rgba(245, 158, 11, 0.35);
+    --hwhub-palette-amber-text: #fbbf24;
+    --hwhub-palette-violet-soft: rgba(139, 92, 246, 0.1);
+    --hwhub-palette-violet-border: rgba(139, 92, 246, 0.35);
+    --hwhub-palette-violet-text: #a78bfa;
+    --hwhub-palette-rose-soft: rgba(244, 63, 94, 0.1);
+    --hwhub-palette-rose-border: rgba(244, 63, 94, 0.35);
+    --hwhub-palette-rose-text: #fb7185;
   }
 }
 
@@ -451,19 +525,49 @@ body {
   .bg-hwhub-store-super {
     background-color: var(--hwhub-store-super);
   }
+  .bg-hwhub-store-super-soft {
+    background-color: var(--hwhub-store-super-soft);
+  }
+  .border-hwhub-store-super-subtle {
+    border-color: var(--hwhub-store-super-border);
+  }
+  .text-hwhub-store-super {
+    color: var(--hwhub-store-super-text);
+  }
+
   .bg-hwhub-store-online {
     background-color: var(--hwhub-store-online);
   }
+  .bg-hwhub-store-online-soft {
+    background-color: var(--hwhub-store-online-soft);
+  }
+  .border-hwhub-store-online-subtle {
+    border-color: var(--hwhub-store-online-border);
+  }
+  .text-hwhub-store-online {
+    color: var(--hwhub-store-online-text);
+  }
+
   .bg-hwhub-store-drug {
     background-color: var(--hwhub-store-drug);
   }
-  .border-hwhub-store-super {
+  .bg-hwhub-store-drug-soft {
+    background-color: var(--hwhub-store-drug-soft);
+  }
+  .border-hwhub-store-drug-subtle {
+    border-color: var(--hwhub-store-drug-border);
+  }
+  .text-hwhub-store-drug {
+    color: var(--hwhub-store-drug-text);
+  }
+
+  .border-hwhub-store-super-l {
     border-left: 6px solid var(--hwhub-store-super);
   }
-  .border-hwhub-store-online {
+  .border-hwhub-store-online-l {
     border-left: 6px solid var(--hwhub-store-online);
   }
-  .border-hwhub-store-drug {
+  .border-hwhub-store-drug-l {
     border-left: 6px solid var(--hwhub-store-drug);
   }
 
@@ -499,5 +603,76 @@ body {
   }
   .hover\:bg-hwhub-danger-btn:hover {
     background-color: var(--hwhub-danger-btn-hover);
+  }
+
+  /* Palette */
+  .bg-hwhub-palette-emerald-soft {
+    background-color: var(--hwhub-palette-emerald-soft);
+  }
+  .border-hwhub-palette-emerald {
+    border-color: var(--hwhub-palette-emerald-border);
+  }
+  .text-hwhub-palette-emerald {
+    color: var(--hwhub-palette-emerald-text);
+  }
+  .bg-hwhub-palette-emerald {
+    background-color: var(--hwhub-palette-emerald-text);
+    color: #ffffff;
+  }
+
+  .bg-hwhub-palette-blue-soft {
+    background-color: var(--hwhub-palette-blue-soft);
+  }
+  .border-hwhub-palette-blue {
+    border-color: var(--hwhub-palette-blue-border);
+  }
+  .text-hwhub-palette-blue {
+    color: var(--hwhub-palette-blue-text);
+  }
+  .bg-hwhub-palette-blue {
+    background-color: var(--hwhub-palette-blue-text);
+    color: #ffffff;
+  }
+
+  .bg-hwhub-palette-amber-soft {
+    background-color: var(--hwhub-palette-amber-soft);
+  }
+  .border-hwhub-palette-amber {
+    border-color: var(--hwhub-palette-amber-border);
+  }
+  .text-hwhub-palette-amber {
+    color: var(--hwhub-palette-amber-text);
+  }
+  .bg-hwhub-palette-amber {
+    background-color: var(--hwhub-palette-amber-text);
+    color: #ffffff;
+  }
+
+  .bg-hwhub-palette-violet-soft {
+    background-color: var(--hwhub-palette-violet-soft);
+  }
+  .border-hwhub-palette-violet {
+    border-color: var(--hwhub-palette-violet-border);
+  }
+  .text-hwhub-palette-violet {
+    color: var(--hwhub-palette-violet-text);
+  }
+  .bg-hwhub-palette-violet {
+    background-color: var(--hwhub-palette-violet-text);
+    color: #ffffff;
+  }
+
+  .bg-hwhub-palette-rose-soft {
+    background-color: var(--hwhub-palette-rose-soft);
+  }
+  .border-hwhub-palette-rose {
+    border-color: var(--hwhub-palette-rose-border);
+  }
+  .text-hwhub-palette-rose {
+    color: var(--hwhub-palette-rose-text);
+  }
+  .bg-hwhub-palette-rose {
+    background-color: var(--hwhub-palette-rose-text);
+    color: #ffffff;
   }
 }

@@ -120,7 +120,7 @@ onMounted(() => {
           <div v-if="loading" class="text-sm text-hwhub-muted">{{ t('invite.page.loading') }}</div>
 
           <div v-else-if="error" class="space-y-3">
-            <p class="text-sm text-red-600">
+            <p class="text-sm text-hwhub-palette-rose">
               {{ error }}
             </p>
             <button
@@ -150,7 +150,7 @@ onMounted(() => {
 
             <p
               v-if="showEmailWarning"
-              class="text-[11px] text-amber-700 bg-amber-50 border border-amber-100 rounded-md px-3 py-2"
+              class="text-[11px] text-hwhub-palette-amber bg-hwhub-palette-amber-soft border border-hwhub-palette-amber rounded-md px-3 py-2"
             >
               {{
                 t('invite.page.warning.emailMismatch', {
