@@ -15,9 +15,6 @@
   html:not(.light):not(.dark) {
     color-scheme: dark;
   }
-  html:not(.light):not(.dark) body {
-    /* 下の :root.dark と同じトークンを引き継ぐ */
-  }
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -91,8 +88,19 @@
 
   /* Store */
   --hwhub-store-super: #10b981; /* emerald-500 */
+  --hwhub-store-super-soft: #ecfdf5; /* emerald-50 */
+  --hwhub-store-super-border: #a7f3d0; /* emerald-200 */
+  --hwhub-store-super-text: #047857; /* emerald-700 */
+
   --hwhub-store-online: #0ea5e9; /* sky-500 */
+  --hwhub-store-online-soft: #f0f9ff; /* sky-50 */
+  --hwhub-store-online-border: #bae6fd; /* sky-200 */
+  --hwhub-store-online-text: #0369a1; /* sky-700 */
+
   --hwhub-store-drug: #f43f5e; /* rose-500 */
+  --hwhub-store-drug-soft: #fff1f2; /* rose-50 */
+  --hwhub-store-drug-border: #fecdd3; /* rose-200 */
+  --hwhub-store-drug-text: #be123c; /* rose-700 */
 
   /* Onboarding */
   --hwhub-onboarding-from: #f0fdfa; /* teal-50 */
@@ -109,9 +117,33 @@
   /* Danger button */
   --hwhub-danger-btn: #e11d48; /* rose-600 */
   --hwhub-danger-btn-hover: #be123c; /* rose-700 */
+
+  /* Palette (Soft Tone) */
+  --hwhub-palette-emerald-soft: #ecfdf5; /* emerald-50 */
+  --hwhub-palette-emerald-border: #a7f3d0; /* emerald-200 */
+  --hwhub-palette-emerald-text: #047857; /* emerald-700 */
+
+  --hwhub-palette-blue-soft: #eff6ff; /* blue-50 */
+  --hwhub-palette-blue-border: #bfdbfe; /* blue-200 */
+  --hwhub-palette-blue-text: #1d4ed8; /* blue-700 */
+
+  --hwhub-palette-amber-soft: #fffbeb; /* amber-50 */
+  --hwhub-palette-amber-border: #fde68a; /* amber-200 */
+  --hwhub-palette-amber-text: #b45309; /* amber-700 */
+
+  --hwhub-palette-violet-soft: #f5f3ff; /* violet-50 */
+  --hwhub-palette-violet-border: #ddd6fe; /* violet-200 */
+  --hwhub-palette-violet-text: #6d28d9; /* violet-700 */
+
+  --hwhub-palette-rose-soft: #fff1f2; /* rose-50 */
+  --hwhub-palette-rose-border: #fecdd3; /* rose-200 */
+  --hwhub-palette-rose-text: #be123c; /* rose-700 */
 }
 
-/* ─── DARK (B案: Carbon Slate) ─── */
+/* ─── DARK (Forest Night) ───
+   背景にうっすら緑を含む暖かいダーク。
+   LIGHTモードの #1a2e1a sidebar と地続きで、
+   家庭の温度感を残す配色。 */
 :root.dark,
 :root.dark body {
   color-scheme: dark;
@@ -123,162 +155,206 @@
   }
 }
 
-/* ダーク値: .dark クラス または OS dark (light を明示してない場合) */
-:where(:root.dark),
-:where(html:not(.light):not(.dark)) {
-}
-
-/* 実際の値は両方のセレクタで宣言する */
-:root.dark,
-@media (prefers-color-scheme: dark) {
-  :root:not(.light) {
-  }
-}
-
 /* ─────────────────────────────────────────────────────────
-   ↓ ここからダーク値の本体。
-   .dark クラス と OS dark を一つの変数ブロックで管理する
-   ために :where() で セレクタを束ねる。
+   .dark クラス
    ───────────────────────────────────────────────────────── */
 :root.dark {
-  /* Surface */
-  --hwhub-surface: #0e1116;
-  --hwhub-surface-card: #181c23;
-  --hwhub-surface-subtle: #141821;
-  --hwhub-surface-login: #181c23;
+  /* Surface — 緑を帯びた暖かいダーク */
+  --hwhub-surface: #10180f;
+  --hwhub-surface-card: #1a241a;
+  --hwhub-surface-subtle: #162017;
+  --hwhub-surface-login: #1a241a;
 
-  /* Border */
-  --hwhub-border: #262b35;
-  --hwhub-border-subtle: #232834;
+  /* Border — 緑寄りのグレー */
+  --hwhub-border: #2a3a2a;
+  --hwhub-border-subtle: #243024;
 
-  /* Text */
-  --hwhub-text-heading: #e7eaf0;
-  --hwhub-text-body: #c4cad6;
-  --hwhub-text-muted: #7a8294;
-  --hwhub-text-brand: #f3f5f9;
-  --hwhub-text-nav-inactive: #9ba3b3;
-  --hwhub-text-nav-inactive-mobile: #6a7387;
+  /* Text — わずかに緑を帯びた読みやすい白 */
+  --hwhub-text-heading: #ecf3eb;
+  --hwhub-text-body: #cbd6c8;
+  --hwhub-text-muted: #8a9888;
+  --hwhub-text-brand: #ecf3eb;
+  --hwhub-text-nav-inactive: #a8b5a5;
+  --hwhub-text-nav-inactive-mobile: #7c8a7a;
 
-  /* Primary (emerald — 暗背景で発色させるため少し明るく) */
-  --hwhub-primary: #10b981; /* emerald-500 */
-  --hwhub-primary-hover: #34d399; /* emerald-400 (hover で明るく) */
-  --hwhub-primary-50: rgba(16, 185, 129, 0.13);
-  --hwhub-primary-text: #34d399; /* emerald-400 (本文と並べて読みやすく) */
-  --hwhub-primary-border: rgba(16, 185, 129, 0.4);
+  /* Primary (emerald — 森の背景に発色させるため一段明るく) */
+  --hwhub-primary: #34d399; /* emerald-400 */
+  --hwhub-primary-hover: #6ee7b7; /* emerald-300 (hover で明るく) */
+  --hwhub-primary-50: #1a2a1f; /* 緑がかった暗背景 */
+  --hwhub-primary-text: #6ee7b7; /* emerald-300 (本文と並べて読みやすく) */
+  --hwhub-primary-border: rgba(52, 211, 153, 0.36);
   --hwhub-primary-ring: #34d399;
-  --hwhub-on-primary: #04130c; /* 暗緑 (明色 primary 上で AA 確保) */
+  --hwhub-on-primary: #06210f; /* 暗緑 (明色 primary 上で AA 確保) */
 
   /* Accent (amber) */
-  --hwhub-accent-soft: rgba(245, 158, 11, 0.1);
-  --hwhub-accent-border: rgba(245, 158, 11, 0.35);
-  --hwhub-accent-badge-bg: rgba(245, 158, 11, 0.18);
+  --hwhub-accent-soft: #2a2418;
+  --hwhub-accent-border: rgba(251, 191, 36, 0.32);
+  --hwhub-accent-badge-bg: #322a1c;
   --hwhub-accent-badge-text: #fbbf24; /* amber-400 */
 
-  /* Sidebar (もとから暗いので微調整のみ) */
-  --hwhub-sidebar: #0a0d12;
-  --hwhub-sidebar-logo: #6ee7b7;
-  --hwhub-sidebar-active: #ffffff;
-  --hwhub-sidebar-active-bg: rgba(16, 185, 129, 0.16);
-  --hwhub-sidebar-hover-bg: rgba(255, 255, 255, 0.06);
-  --hwhub-sidebar-nav: #9ba3b3;
+  /* Sidebar — Forest Night のさらに濃い緑 */
+  --hwhub-sidebar: #0a130a;
+  --hwhub-sidebar-logo: #6ee7b7; /* emerald-300 */
+  --hwhub-sidebar-active: #ecf3eb;
+  --hwhub-sidebar-active-bg: rgba(52, 211, 153, 0.14);
+  --hwhub-sidebar-hover-bg: rgba(255, 255, 255, 0.05);
+  --hwhub-sidebar-nav: #7fa288; /* やや緑寄りの落ち着いた色 */
   --hwhub-sidebar-border: rgba(255, 255, 255, 0.06);
 
   /* Danger (rose — 刺激を抑える) */
-  --hwhub-danger-soft: rgba(244, 63, 94, 0.1);
+  --hwhub-danger-soft: #2e1a20;
   --hwhub-danger: #fb7185; /* rose-400 */
-  --hwhub-danger-border: rgba(244, 63, 94, 0.32);
+  --hwhub-danger-border: rgba(251, 113, 133, 0.32);
 
-  /* Info */
-  --hwhub-info-soft: rgba(59, 130, 246, 0.1);
+  /* Info (blue) */
+  --hwhub-info-soft: #182838;
   --hwhub-info: #60a5fa; /* blue-400 */
 
   /* Swipe */
-  --hwhub-swipe-action: #10b981;
+  --hwhub-swipe-action: #34d399;
   --hwhub-swipe-delete: #f43f5e;
-  --hwhub-swipe-back: #475569;
-  --hwhub-swipe-disabled: #3a4250;
-  --hwhub-swipe-self: #0ea5e9;
-  --hwhub-swipe-members: #f59e0b;
+  --hwhub-swipe-back: #4a5a4a; /* 緑寄りのグレー */
+  --hwhub-swipe-disabled: #3f4d3f; /* 同上 */
+  --hwhub-swipe-self: #38bdf8;
+  --hwhub-swipe-members: #fbbf24;
 
   /* Store (識別性が要るので明度のみ調整) */
-  --hwhub-store-super: #10b981;
-  --hwhub-store-online: #38bdf8;
-  --hwhub-store-drug: #fb7185;
+  --hwhub-store-super: #34d399;
+  --hwhub-store-super-soft: #1a2a1f;
+  --hwhub-store-super-border: rgba(52, 211, 153, 0.32);
+  --hwhub-store-super-text: #6ee7b7;
 
-  /* Onboarding */
-  --hwhub-onboarding-from: rgba(20, 184, 166, 0.1);
-  --hwhub-onboarding-to: rgba(59, 130, 246, 0.1);
+  --hwhub-store-online: #38bdf8;
+  --hwhub-store-online-soft: #182838;
+  --hwhub-store-online-border: rgba(56, 189, 248, 0.32);
+  --hwhub-store-online-text: #7dd3fc;
+
+  --hwhub-store-drug: #fb7185;
+  --hwhub-store-drug-soft: #2e1a20;
+  --hwhub-store-drug-border: rgba(251, 113, 133, 0.32);
+  --hwhub-store-drug-text: #fda4af;
+
+  /* Onboarding — Forest Night の温度感に合わせて緑〜青の柔らかいグラデ */
+  --hwhub-onboarding-from: rgba(52, 211, 153, 0.1);
+  --hwhub-onboarding-to: rgba(56, 189, 248, 0.08);
 
   /* Status */
-  --hwhub-status-active-bg: rgba(34, 197, 94, 0.13);
-  --hwhub-status-active-text: #4ade80; /* green-400 */
-  --hwhub-status-active-border: rgba(34, 197, 94, 0.5);
-  --hwhub-status-pending-bg: rgba(234, 179, 8, 0.13);
-  --hwhub-status-pending-text: #facc15; /* yellow-400 */
-  --hwhub-status-pending-border: rgba(234, 179, 8, 0.5);
+  --hwhub-status-active-bg: #1a2a1f;
+  --hwhub-status-active-text: #6ee7b7; /* emerald-300 */
+  --hwhub-status-active-border: rgba(52, 211, 153, 0.45);
+  --hwhub-status-pending-bg: #2a2418;
+  --hwhub-status-pending-text: #fbbf24; /* amber-400 */
+  --hwhub-status-pending-border: rgba(251, 191, 36, 0.45);
 
   /* Danger button */
   --hwhub-danger-btn: #fb7185; /* rose-400 */
-  --hwhub-danger-btn-hover: #f43f5e; /* rose-500 */
+  --hwhub-danger-btn-hover: #f87171; /* red-400 */
+
+  /* Palette (Soft Tone) — Forest 背景に馴染ませる */
+  --hwhub-palette-emerald-soft: #1a2a1f;
+  --hwhub-palette-emerald-border: rgba(52, 211, 153, 0.32);
+  --hwhub-palette-emerald-text: #6ee7b7;
+
+  --hwhub-palette-blue-soft: #182838;
+  --hwhub-palette-blue-border: rgba(96, 165, 250, 0.32);
+  --hwhub-palette-blue-text: #93c5fd;
+
+  --hwhub-palette-amber-soft: #2a2418;
+  --hwhub-palette-amber-border: rgba(251, 191, 36, 0.32);
+  --hwhub-palette-amber-text: #fbbf24;
+
+  --hwhub-palette-violet-soft: #221d33;
+  --hwhub-palette-violet-border: rgba(167, 139, 250, 0.32);
+  --hwhub-palette-violet-text: #c4b5fd;
+
+  --hwhub-palette-rose-soft: #2e1a20;
+  --hwhub-palette-rose-border: rgba(251, 113, 133, 0.32);
+  --hwhub-palette-rose-text: #fda4af;
 }
 
-/* OS dark への追従 (html に .light/.dark が無いときだけ適用) */
+/* OS dark への追従 (html に .light/.dark が無いときだけ適用)
+   .dark と同じ値を複製。 */
 @media (prefers-color-scheme: dark) {
   :root:not(.light):not(.dark) {
-    --hwhub-surface: #0e1116;
-    --hwhub-surface-card: #181c23;
-    --hwhub-surface-subtle: #141821;
-    --hwhub-surface-login: #181c23;
-    --hwhub-border: #262b35;
-    --hwhub-border-subtle: #232834;
-    --hwhub-text-heading: #e7eaf0;
-    --hwhub-text-body: #c4cad6;
-    --hwhub-text-muted: #7a8294;
-    --hwhub-text-brand: #f3f5f9;
-    --hwhub-text-nav-inactive: #9ba3b3;
-    --hwhub-text-nav-inactive-mobile: #6a7387;
-    --hwhub-primary: #10b981;
-    --hwhub-primary-hover: #34d399;
-    --hwhub-primary-50: rgba(16, 185, 129, 0.13);
-    --hwhub-primary-text: #34d399;
-    --hwhub-primary-border: rgba(16, 185, 129, 0.4);
+    --hwhub-surface: #10180f;
+    --hwhub-surface-card: #1a241a;
+    --hwhub-surface-subtle: #162017;
+    --hwhub-surface-login: #1a241a;
+    --hwhub-border: #2a3a2a;
+    --hwhub-border-subtle: #243024;
+    --hwhub-text-heading: #ecf3eb;
+    --hwhub-text-body: #cbd6c8;
+    --hwhub-text-muted: #8a9888;
+    --hwhub-text-brand: #ecf3eb;
+    --hwhub-text-nav-inactive: #a8b5a5;
+    --hwhub-text-nav-inactive-mobile: #7c8a7a;
+    --hwhub-primary: #34d399;
+    --hwhub-primary-hover: #6ee7b7;
+    --hwhub-primary-50: #1a2a1f;
+    --hwhub-primary-text: #6ee7b7;
+    --hwhub-primary-border: rgba(52, 211, 153, 0.36);
     --hwhub-primary-ring: #34d399;
-    --hwhub-on-primary: #04130c;
-    --hwhub-accent-soft: rgba(245, 158, 11, 0.1);
-    --hwhub-accent-border: rgba(245, 158, 11, 0.35);
-    --hwhub-accent-badge-bg: rgba(245, 158, 11, 0.18);
+    --hwhub-on-primary: #06210f;
+    --hwhub-accent-soft: #2a2418;
+    --hwhub-accent-border: rgba(251, 191, 36, 0.32);
+    --hwhub-accent-badge-bg: #322a1c;
     --hwhub-accent-badge-text: #fbbf24;
-    --hwhub-sidebar: #0a0d12;
+    --hwhub-sidebar: #0a130a;
     --hwhub-sidebar-logo: #6ee7b7;
-    --hwhub-sidebar-active: #ffffff;
-    --hwhub-sidebar-active-bg: rgba(16, 185, 129, 0.16);
-    --hwhub-sidebar-hover-bg: rgba(255, 255, 255, 0.06);
-    --hwhub-sidebar-nav: #9ba3b3;
+    --hwhub-sidebar-active: #ecf3eb;
+    --hwhub-sidebar-active-bg: rgba(52, 211, 153, 0.14);
+    --hwhub-sidebar-hover-bg: rgba(255, 255, 255, 0.05);
+    --hwhub-sidebar-nav: #7fa288;
     --hwhub-sidebar-border: rgba(255, 255, 255, 0.06);
-    --hwhub-danger-soft: rgba(244, 63, 94, 0.1);
+    --hwhub-danger-soft: #2e1a20;
     --hwhub-danger: #fb7185;
-    --hwhub-danger-border: rgba(244, 63, 94, 0.32);
-    --hwhub-info-soft: rgba(59, 130, 246, 0.1);
+    --hwhub-danger-border: rgba(251, 113, 133, 0.32);
+    --hwhub-info-soft: #182838;
     --hwhub-info: #60a5fa;
-    --hwhub-swipe-action: #10b981;
+    --hwhub-swipe-action: #34d399;
     --hwhub-swipe-delete: #f43f5e;
-    --hwhub-swipe-back: #475569;
-    --hwhub-swipe-disabled: #3a4250;
-    --hwhub-swipe-self: #0ea5e9;
-    --hwhub-swipe-members: #f59e0b;
-    --hwhub-store-super: #10b981;
+    --hwhub-swipe-back: #4a5a4a;
+    --hwhub-swipe-disabled: #3f4d3f;
+    --hwhub-swipe-self: #38bdf8;
+    --hwhub-swipe-members: #fbbf24;
+    --hwhub-store-super: #34d399;
+    --hwhub-store-super-soft: #1a2a1f;
+    --hwhub-store-super-border: rgba(52, 211, 153, 0.32);
+    --hwhub-store-super-text: #6ee7b7;
     --hwhub-store-online: #38bdf8;
+    --hwhub-store-online-soft: #182838;
+    --hwhub-store-online-border: rgba(56, 189, 248, 0.32);
+    --hwhub-store-online-text: #7dd3fc;
     --hwhub-store-drug: #fb7185;
-    --hwhub-onboarding-from: rgba(20, 184, 166, 0.1);
-    --hwhub-onboarding-to: rgba(59, 130, 246, 0.1);
-    --hwhub-status-active-bg: rgba(34, 197, 94, 0.13);
-    --hwhub-status-active-text: #4ade80;
-    --hwhub-status-active-border: rgba(34, 197, 94, 0.5);
-    --hwhub-status-pending-bg: rgba(234, 179, 8, 0.13);
-    --hwhub-status-pending-text: #facc15;
-    --hwhub-status-pending-border: rgba(234, 179, 8, 0.5);
+    --hwhub-store-drug-soft: #2e1a20;
+    --hwhub-store-drug-border: rgba(251, 113, 133, 0.32);
+    --hwhub-store-drug-text: #fda4af;
+    --hwhub-onboarding-from: rgba(52, 211, 153, 0.1);
+    --hwhub-onboarding-to: rgba(56, 189, 248, 0.08);
+    --hwhub-status-active-bg: #1a2a1f;
+    --hwhub-status-active-text: #6ee7b7;
+    --hwhub-status-active-border: rgba(52, 211, 153, 0.45);
+    --hwhub-status-pending-bg: #2a2418;
+    --hwhub-status-pending-text: #fbbf24;
+    --hwhub-status-pending-border: rgba(251, 191, 36, 0.45);
     --hwhub-danger-btn: #fb7185;
-    --hwhub-danger-btn-hover: #f43f5e;
+    --hwhub-danger-btn-hover: #f87171;
+
+    --hwhub-palette-emerald-soft: #1a2a1f;
+    --hwhub-palette-emerald-border: rgba(52, 211, 153, 0.32);
+    --hwhub-palette-emerald-text: #6ee7b7;
+    --hwhub-palette-blue-soft: #182838;
+    --hwhub-palette-blue-border: rgba(96, 165, 250, 0.32);
+    --hwhub-palette-blue-text: #93c5fd;
+    --hwhub-palette-amber-soft: #2a2418;
+    --hwhub-palette-amber-border: rgba(251, 191, 36, 0.32);
+    --hwhub-palette-amber-text: #fbbf24;
+    --hwhub-palette-violet-soft: #221d33;
+    --hwhub-palette-violet-border: rgba(167, 139, 250, 0.32);
+    --hwhub-palette-violet-text: #c4b5fd;
+    --hwhub-palette-rose-soft: #2e1a20;
+    --hwhub-palette-rose-border: rgba(251, 113, 133, 0.32);
+    --hwhub-palette-rose-text: #fda4af;
   }
 }
 
@@ -451,19 +527,49 @@ body {
   .bg-hwhub-store-super {
     background-color: var(--hwhub-store-super);
   }
+  .bg-hwhub-store-super-soft {
+    background-color: var(--hwhub-store-super-soft);
+  }
+  .border-hwhub-store-super-subtle {
+    border-color: var(--hwhub-store-super-border);
+  }
+  .text-hwhub-store-super {
+    color: var(--hwhub-store-super-text);
+  }
+
   .bg-hwhub-store-online {
     background-color: var(--hwhub-store-online);
   }
+  .bg-hwhub-store-online-soft {
+    background-color: var(--hwhub-store-online-soft);
+  }
+  .border-hwhub-store-online-subtle {
+    border-color: var(--hwhub-store-online-border);
+  }
+  .text-hwhub-store-online {
+    color: var(--hwhub-store-online-text);
+  }
+
   .bg-hwhub-store-drug {
     background-color: var(--hwhub-store-drug);
   }
-  .border-hwhub-store-super {
+  .bg-hwhub-store-drug-soft {
+    background-color: var(--hwhub-store-drug-soft);
+  }
+  .border-hwhub-store-drug-subtle {
+    border-color: var(--hwhub-store-drug-border);
+  }
+  .text-hwhub-store-drug {
+    color: var(--hwhub-store-drug-text);
+  }
+
+  .border-hwhub-store-super-l {
     border-left: 6px solid var(--hwhub-store-super);
   }
-  .border-hwhub-store-online {
+  .border-hwhub-store-online-l {
     border-left: 6px solid var(--hwhub-store-online);
   }
-  .border-hwhub-store-drug {
+  .border-hwhub-store-drug-l {
     border-left: 6px solid var(--hwhub-store-drug);
   }
 
@@ -499,5 +605,76 @@ body {
   }
   .hover\:bg-hwhub-danger-btn:hover {
     background-color: var(--hwhub-danger-btn-hover);
+  }
+
+  /* Palette */
+  .bg-hwhub-palette-emerald-soft {
+    background-color: var(--hwhub-palette-emerald-soft);
+  }
+  .border-hwhub-palette-emerald {
+    border-color: var(--hwhub-palette-emerald-border);
+  }
+  .text-hwhub-palette-emerald {
+    color: var(--hwhub-palette-emerald-text);
+  }
+  .bg-hwhub-palette-emerald {
+    background-color: var(--hwhub-palette-emerald-text);
+    color: #ffffff;
+  }
+
+  .bg-hwhub-palette-blue-soft {
+    background-color: var(--hwhub-palette-blue-soft);
+  }
+  .border-hwhub-palette-blue {
+    border-color: var(--hwhub-palette-blue-border);
+  }
+  .text-hwhub-palette-blue {
+    color: var(--hwhub-palette-blue-text);
+  }
+  .bg-hwhub-palette-blue {
+    background-color: var(--hwhub-palette-blue-text);
+    color: #ffffff;
+  }
+
+  .bg-hwhub-palette-amber-soft {
+    background-color: var(--hwhub-palette-amber-soft);
+  }
+  .border-hwhub-palette-amber {
+    border-color: var(--hwhub-palette-amber-border);
+  }
+  .text-hwhub-palette-amber {
+    color: var(--hwhub-palette-amber-text);
+  }
+  .bg-hwhub-palette-amber {
+    background-color: var(--hwhub-palette-amber-text);
+    color: #ffffff;
+  }
+
+  .bg-hwhub-palette-violet-soft {
+    background-color: var(--hwhub-palette-violet-soft);
+  }
+  .border-hwhub-palette-violet {
+    border-color: var(--hwhub-palette-violet-border);
+  }
+  .text-hwhub-palette-violet {
+    color: var(--hwhub-palette-violet-text);
+  }
+  .bg-hwhub-palette-violet {
+    background-color: var(--hwhub-palette-violet-text);
+    color: #ffffff;
+  }
+
+  .bg-hwhub-palette-rose-soft {
+    background-color: var(--hwhub-palette-rose-soft);
+  }
+  .border-hwhub-palette-rose {
+    border-color: var(--hwhub-palette-rose-border);
+  }
+  .text-hwhub-palette-rose {
+    color: var(--hwhub-palette-rose-text);
+  }
+  .bg-hwhub-palette-rose {
+    background-color: var(--hwhub-palette-rose-text);
+    color: #ffffff;
   }
 }

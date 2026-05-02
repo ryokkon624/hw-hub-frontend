@@ -86,11 +86,17 @@
               v-for="role in assignableRoles(user.roles)"
               :key="role"
               type="button"
-              class="rounded-lg border px-3 py-1 text-xs font-medium transition hover:bg-hwhub-surface-subtle disabled:opacity-50"
+              class="rounded-lg border px-3 py-1 text-xs font-medium transition-all shadow-sm flex items-center gap-1"
+              :class="[
+                role === USER_ROLE.ADMIN
+                  ? 'border-hwhub-palette-rose bg-hwhub-palette-rose-soft text-hwhub-palette-rose hover:bg-hwhub-palette-rose-soft/80'
+                  : 'border-hwhub-palette-violet bg-hwhub-palette-violet-soft text-hwhub-palette-violet hover:bg-hwhub-palette-violet-soft/80',
+              ]"
               :disabled="adminRoleStore.isSubmitting"
               @click="handleAssign(user.userId, role)"
             >
-              + {{ roleLabel(role) }} {{ t('admin.roles.assignButton') }}
+              <span class="text-sm font-bold">+</span>
+              {{ roleLabel(role) }} {{ t('admin.roles.assignButton') }}
             </button>
           </div>
         </div>
@@ -144,7 +150,9 @@ const roleLabel = (role: UserRoleCode): string => {
 }
 
 const roleBadgeClass = (role: UserRoleCode): string => {
-  return role === USER_ROLE.ADMIN ? 'bg-rose-100 text-rose-600' : 'bg-violet-100 text-violet-600'
+  return role === USER_ROLE.ADMIN
+    ? 'bg-hwhub-palette-rose-soft border border-hwhub-palette-rose text-hwhub-palette-rose'
+    : 'bg-hwhub-palette-violet-soft border border-hwhub-palette-violet text-hwhub-palette-violet'
 }
 
 const assignableRoles = (currentRoles: UserRoleCode[]): UserRoleCode[] =>

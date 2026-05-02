@@ -76,8 +76,8 @@ const backgroundClass = computed(() => {
 })
 
 const cardBorderClass = computed(() => {
-  if (props.isPast) return 'border-rose-200 bg-rose-50'
-  if (props.isToday) return 'bg-green-50 border-green-200'
+  if (props.isPast) return 'border-hwhub-palette-rose bg-hwhub-palette-rose-soft'
+  if (props.isToday) return 'bg-hwhub-palette-emerald-soft border-hwhub-palette-emerald'
   return 'bg-hwhub-surface-card'
 })
 </script>

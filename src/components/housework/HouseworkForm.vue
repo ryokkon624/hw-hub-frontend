@@ -130,17 +130,17 @@ const members = computed<HouseholdMember[]>(() => householdStore.currentMembers)
 const categoryColorClass = (category: string | null | undefined): string => {
   switch (category) {
     case CATEGORY.CLEAN:
-      return 'bg-blue-50 text-blue-600'
+      return 'bg-hwhub-palette-blue-soft border border-hwhub-palette-blue-border text-hwhub-palette-blue-text'
     case CATEGORY.KITCHEN:
-      return 'bg-orange-50 text-orange-600'
+      return 'bg-hwhub-palette-amber-soft border border-hwhub-palette-amber-border text-hwhub-palette-amber-text'
     case CATEGORY.GARDEN:
-      return 'bg-cyan-50 text-cyan-600'
+      return 'bg-hwhub-palette-emerald-soft border border-hwhub-palette-emerald-border text-hwhub-palette-emerald-text'
     case CATEGORY.GARBAGE:
-      return 'bg-emerald-50 text-emerald-600'
+      return 'bg-hwhub-palette-emerald-soft border border-hwhub-palette-emerald-border text-hwhub-palette-emerald-text'
     case CATEGORY.PET:
-      return 'bg-purple-50 text-purple-600'
+      return 'bg-hwhub-palette-violet-soft border border-hwhub-palette-violet-border text-hwhub-palette-violet-text'
     default:
-      return 'bg-hwhub-surface-subtle text-hwhub-muted'
+      return 'bg-hwhub-surface-subtle border border-hwhub-border-subtle text-hwhub-muted'
   }
 }
 
@@ -269,15 +269,15 @@ const buildTemplateSummary = (tmpl: HouseworkTemplateModel): string => {
     <!-- recommendation バナー（テンプレート選択後に表示） -->
     <div
       v-if="selectedRecommendation"
-      class="rounded-lg bg-amber-50 border border-amber-200 px-3 py-2 flex items-start justify-between gap-2"
+      class="rounded-lg bg-hwhub-accent-soft border border-hwhub-accent-border px-3 py-2 flex items-start justify-between gap-2"
     >
       <div class="flex items-start gap-2">
-        <span class="text-amber-500 text-xs mt-0.5">💡</span>
-        <p class="text-xs text-amber-700">{{ selectedRecommendation }}</p>
+        <span class="text-hwhub-palette-amber-text text-xs mt-0.5">💡</span>
+        <p class="text-xs text-hwhub-palette-amber-text">{{ selectedRecommendation }}</p>
       </div>
       <button
         type="button"
-        class="text-amber-400 hover:text-amber-600 shrink-0"
+        class="text-hwhub-palette-amber-text opacity-60 hover:opacity-100 shrink-0"
         @click="selectedRecommendation = null"
       >
         <X class="w-3.5 h-3.5" />
@@ -583,7 +583,7 @@ const buildTemplateSummary = (tmpl: HouseworkTemplateModel): string => {
                 <!-- recommendation プレビュー -->
                 <p
                   v-if="getLocalizedRecommendation(tmpl)"
-                  class="mt-1 text-xs text-amber-600 flex items-center gap-1"
+                  class="mt-1 text-xs text-hwhub-palette-amber-text flex items-center gap-1"
                 >
                   <span>💡</span>
                   <span class="line-clamp-1">{{ getLocalizedRecommendation(tmpl) }}</span>

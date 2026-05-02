@@ -101,7 +101,7 @@ const primaryAction = computed<{ kind: ActionKind; labelKey: string; onClick: ()
 
       <div v-if="primaryAction">
         <button
-          class="w-full bg-emerald-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-emerald-700"
+          class="w-full bg-hwhub-primary text-white py-2 px-4 rounded-lg font-semibold hover:opacity-90 transition-opacity"
           @click="primaryAction.onClick"
         >
           {{ t(primaryAction.labelKey) }}

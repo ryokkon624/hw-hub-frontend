@@ -12,8 +12,8 @@
         :can-access="canManageUser"
         :to="'/admin/users'"
         :icon="Users"
-        icon-bg-class="bg-blue-100"
-        icon-color-class="text-blue-600"
+        icon-bg-class="bg-hwhub-palette-blue-soft"
+        icon-color-class="text-hwhub-palette-blue"
         :title="t('admin.sections.users.title')"
         :subtitle="t('admin.sections.users.subtitle')"
       />
@@ -22,8 +22,8 @@
         :can-access="canManageRole"
         :to="{ name: 'admin.roles' }"
         :icon="ShieldCheck"
-        icon-bg-class="bg-rose-100"
-        icon-color-class="text-rose-600"
+        icon-bg-class="bg-hwhub-palette-rose-soft"
+        icon-color-class="text-hwhub-palette-rose"
         :title="t('admin.sections.roles.title')"
         :subtitle="t('admin.sections.roles.subtitle')"
       />
@@ -32,8 +32,8 @@
         :can-access="canReplyInquiry"
         :to="{ name: 'admin.inquiries' }"
         :icon="MessageCircleQuestion"
-        icon-bg-class="bg-violet-100"
-        icon-color-class="text-violet-600"
+        icon-bg-class="bg-hwhub-palette-violet-soft"
+        icon-color-class="text-hwhub-palette-violet"
         :title="t('admin.sections.inquiries.title')"
         :subtitle="t('admin.sections.inquiries.subtitle')"
       />
@@ -42,8 +42,8 @@
         :can-access="canManageSysTemplate"
         :to="{ name: 'admin.houseworkTemplates' }"
         :icon="LayoutTemplate"
-        icon-bg-class="bg-amber-100"
-        icon-color-class="text-amber-600"
+        icon-bg-class="bg-hwhub-palette-amber-soft"
+        icon-color-class="text-hwhub-palette-amber"
         :title="t('admin.sections.houseworkTemplate.title')"
         :subtitle="t('admin.sections.houseworkTemplate.subtitle')"
       />

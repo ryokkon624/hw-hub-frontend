@@ -95,36 +95,46 @@
       <li
         v-for="h in histories"
         :key="h.sourceShoppingItemId"
-        class="border bg-hwhub-surface-card rounded-lg px-3 py-2 text-xs flex gap-2 items-center hover:bg-hwhub-surface-subtle cursor-pointer transition shadow-sm hover:shadow-md hover:-translate-y-px"
-        :class="storeTypeBorderClass(h.storeType)"
+        class="group rounded-xl border px-3 py-2.5 flex items-start gap-3 hover:bg-hwhub-surface shadow-sm hover:shadow-md hover:-translate-y-px transition cursor-pointer"
+        :class="storeTypeCardClass(h.storeType)"
         @click="onSelect(h)"
       >
-        <!-- サムネ -->
-        <div
-          class="flex items-center justify-center h-8 w-8 rounded bg-hwhub-surface-subtle text-[10px] text-hwhub-muted shrink-0"
-        >
-          <span v-if="h.hasImage"> {{ t('shopping.historyModal.item.thumbnail.hasImage') }}</span>
-          <span v-else>{{ t('shopping.historyModal.item.thumbnail.noImage') }}</span>
-        </div>
-
+        <!-- テキスト＆メイン情報 -->
         <div class="flex-1 min-w-0">
-          <p class="font-medium truncate text-sm text-hwhub-heading">{{ h.name }}</p>
-          <p class="text-[11px] text-hwhub-muted truncate">
-            {{ storeTypeLabel(h.storeType) || t('shopping.historyModal.item.storeTypeUnset') }}
-            <span v-if="h.lastPurchasedDate">
-              ／ {{ h.purchaseCount }}{{ t('shopping.historyModal.item.purchaseCountSuffix') }}
-              {{ ' ' + h.lastPurchasedDate }}</span
-            >
-            <span v-if="h.purchaseCount"> ／ {{ h.purchaseCount }}回</span>
-          </p>
-        </div>
+          <div class="flex items-start justify-between gap-2 min-w-0">
+            <!-- 左：タイトル＋サブ情報 -->
+            <div class="flex-1 min-w-0 flex flex-col justify-center min-h-10">
+              <p
+                class="text-[13px] font-semibold leading-snug line-clamp-2 group-hover:text-hwhub-heading transition-colors"
+              >
+                {{ h.name }}
+              </p>
+              <p class="mt-0.5 text-[11px] text-hwhub-muted leading-snug truncate">
+                {{ storeTypeLabel(h.storeType) || t('shopping.historyModal.item.storeTypeUnset') }}
+                <template v-if="h.lastPurchasedDate">
+                  ／ {{ h.purchaseCount }}{{ t('shopping.historyModal.item.purchaseCountSuffix') }}
+                  {{ ' ' + h.lastPurchasedDate }}
+                </template>
+              </p>
+            </div>
 
-        <button
-          type="button"
-          class="text-[11px] px-2 py-1 rounded-full border border-hwhub-border-subtle text-hwhub-heading hover:bg-hwhub-surface-subtle"
-        >
-          {{ t('shopping.historyModal.item.selectButton') }}
-        </button>
+            <!-- 右上：画像アイコン（あるときだけ） -->
+            <div v-if="h.hasImage" class="shrink-0 ml-1 mt-0.5">
+              <span
+                class="inline-flex items-center justify-center h-5 w-5 rounded-full bg-hwhub-surface-subtle text-hwhub-muted"
+              >
+                <Camera class="w-3 h-3 text-hwhub-muted" />
+              </span>
+            </div>
+
+            <!-- 右：アクション -->
+            <div class="flex flex-col justify-center items-center shrink-0 min-h-10 min-w-[56px]">
+              <span class="text-[11px] font-medium text-hwhub-primary">{{
+                t('shopping.historyModal.item.selectButton')
+              }}</span>
+            </div>
+          </div>
+        </div>
       </li>
     </ul>
   </BaseModal>
@@ -138,6 +148,7 @@ import { useShoppingHistoryStore } from '@/stores/shoppingHistoryStore'
 import type { ShoppingItemHistorySuggestionModel } from '@/domain'
 import { useShoppingCodes } from '@/composables/useShoppingCodes'
 import { isWithinDays } from '@/utils/dateUtils'
+import { Camera } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -151,7 +162,7 @@ const emit = defineEmits<{
 }>()
 
 const historyStore = useShoppingHistoryStore()
-const { storeTypeLabel, storeTypeBorderClass } = useShoppingCodes()
+const { storeTypeLabel, storeTypeCardClass } = useShoppingCodes()
 
 // 元データ（Store からのそのまま）
 const rawHistories = computed<ShoppingItemHistorySuggestionModel[]>(() => {

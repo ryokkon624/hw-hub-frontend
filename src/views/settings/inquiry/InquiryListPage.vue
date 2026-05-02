@@ -101,13 +101,13 @@ const categoryColorClass = (category: string): string => {
     case INQUIRY_CATEGORY.GENERAL:
       return 'bg-slate-100 text-slate-600'
     case INQUIRY_CATEGORY.HOUSEWORK:
-      return 'bg-amber-100 text-amber-600'
+      return 'bg-hwhub-palette-amber-soft border border-hwhub-palette-amber text-hwhub-palette-amber'
     case INQUIRY_CATEGORY.SHOPPING:
-      return 'bg-emerald-100 text-emerald-600'
+      return 'bg-hwhub-palette-emerald-soft border border-hwhub-palette-emerald text-hwhub-palette-emerald'
     case INQUIRY_CATEGORY.ACCOUNT:
-      return 'bg-blue-100 text-blue-600'
+      return 'bg-hwhub-palette-blue-soft border border-hwhub-palette-blue text-hwhub-palette-blue'
     case INQUIRY_CATEGORY.BUG:
-      return 'bg-rose-100 text-rose-600'
+      return 'bg-hwhub-palette-rose-soft border border-hwhub-palette-rose text-hwhub-palette-rose'
     default:
       return 'bg-hwhub-surface-subtle text-hwhub-muted'
   }
@@ -116,15 +116,15 @@ const categoryColorClass = (category: string): string => {
 const statusColorClass = (status: string): string => {
   switch (status) {
     case INQUIRY_STATUS.OPEN:
-      return 'bg-blue-100 text-blue-600'
+      return 'bg-hwhub-palette-blue-soft border border-hwhub-palette-blue text-hwhub-palette-blue'
     case INQUIRY_STATUS.AI_ANSWERED:
-      return 'bg-violet-100 text-violet-600'
+      return 'bg-hwhub-palette-violet-soft border border-hwhub-palette-violet text-hwhub-palette-violet'
     case INQUIRY_STATUS.PENDING_STAFF:
-      return 'bg-amber-100 text-amber-600'
+      return 'bg-hwhub-palette-amber-soft border border-hwhub-palette-amber text-hwhub-palette-amber'
     case INQUIRY_STATUS.STAFF_ANSWERED:
-      return 'bg-emerald-100 text-emerald-600'
+      return 'bg-hwhub-palette-emerald-soft border border-hwhub-palette-emerald text-hwhub-palette-emerald'
     case INQUIRY_STATUS.CLOSED:
-      return 'bg-slate-100 text-hwhub-muted'
+      return 'bg-hwhub-surface-subtle border border-hwhub-border-subtle text-hwhub-muted'
     default:
       return 'bg-hwhub-surface-subtle text-hwhub-muted'
   }

@@ -65,7 +65,7 @@
           <div class="shrink-0 flex flex-col items-end gap-2">
             <button
               type="button"
-              class="flex h-9 w-9 items-center justify-center rounded-full border border-transparent text-yellow-400 hover:border-yellow-300 hover:bg-yellow-50 hover:scale-105 transition"
+              class="flex h-9 w-9 items-center justify-center rounded-full border border-transparent text-hwhub-palette-amber hover:border-hwhub-palette-amber hover:bg-hwhub-palette-amber-soft hover:scale-105 transition"
               @click="onToggleFavorite"
             >
               <span v-if="item?.favorite">★</span>
@@ -97,7 +97,7 @@
                   class="flex h-7 w-7 items-center justify-center rounded-full text-[11px] border transition"
                   :class="[
                     isStatusDone(idx)
-                      ? 'bg-emerald-500 text-white border-emerald-500'
+                      ? 'bg-hwhub-palette-emerald text-white border-hwhub-palette-emerald'
                       : isStatusActive(idx)
                         ? 'bg-hwhub-primary text-white border-hwhub-primary'
                         : 'bg-hwhub-surface-subtle text-hwhub-muted border-hwhub-border',
@@ -134,7 +134,7 @@
           <button
             v-if="isNotPurchased"
             type="button"
-            class="inline-flex items-center rounded-md border border-red-300 px-4 py-2 text-sm font-semibold text-red-600 hover:bg-red-50"
+            class="inline-flex items-center rounded-md border border-hwhub-palette-rose/30 px-4 py-2 text-sm font-semibold text-hwhub-palette-rose hover:bg-hwhub-palette-rose-soft"
             @click="onDelete"
           >
             {{ t('shopping.detail.deleteButton') }}

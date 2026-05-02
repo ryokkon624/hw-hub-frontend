@@ -195,7 +195,7 @@ const scrollFeatures = (direction: 'left' | 'right') => {
         >
           <RouterLink
             to="/signup"
-            class="group inline-flex items-center justify-center gap-2 bg-emerald-500 text-white font-bold rounded-full px-8 py-4 text-lg transition-all hover:bg-emerald-400 hover:shadow-xl hover:shadow-emerald-500/30 hover:-translate-y-1 active:translate-y-0"
+            class="group inline-flex items-center justify-center gap-2 bg-hwhub-primary text-white font-bold rounded-full px-8 py-4 text-lg transition-all hover:opacity-90 hover:shadow-xl hover:shadow-hwhub-primary/30 hover:-translate-y-1 active:translate-y-0"
           >
             {{ t('landing.hero.ctaStart') }}
             <ChevronRight class="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -367,7 +367,7 @@ const scrollFeatures = (direction: 'left' | 'right') => {
         <div class="pt-6">
           <RouterLink
             to="/signup"
-            class="group inline-flex items-center justify-center gap-2 bg-emerald-500 text-white font-bold rounded-full px-10 py-5 text-xl transition-all hover:bg-emerald-400 hover:shadow-2xl hover:shadow-emerald-500/30 hover:-translate-y-1 active:translate-y-0"
+            class="group inline-flex items-center justify-center gap-2 bg-hwhub-primary text-white font-bold rounded-full px-10 py-5 text-xl transition-all hover:opacity-90 hover:shadow-2xl hover:shadow-hwhub-primary/30 hover:-translate-y-1 active:translate-y-0"
           >
             {{ t('landing.cta.button') }}
             <ChevronRight class="w-6 h-6 group-hover:translate-x-1 transition-transform" />

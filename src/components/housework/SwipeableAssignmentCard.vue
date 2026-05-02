@@ -34,7 +34,8 @@
 
     <!-- 前面レイヤー（カード本体、translateXでドラッグ追従） -->
     <div
-      class="relative rounded-xl border p-3 shadow-sm flex flex-col gap-2 bg-hwhub-surface-card"
+      class="relative rounded-xl border p-3 shadow-sm flex flex-col gap-2 transition-colors duration-200"
+      :class="frontClass || 'bg-hwhub-surface-card border-hwhub-border'"
       :style="{ transform: `translateX(${translateX}px)` }"
     >
       <slot />
@@ -47,6 +48,10 @@ import { ref, computed } from 'vue'
 import { Users, UserCheck } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 import { useSwipeGesture } from '@/composables/useSwipeGesture'
+
+defineProps<{
+  frontClass?: string
+}>()
 
 const emit = defineEmits<{
   /** 左スワイプ: 自分にする */

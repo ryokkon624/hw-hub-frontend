@@ -55,36 +55,46 @@ onMounted(() => store.loadStatusSummary())
         {{ t('admin.dashboard.status.unclosedSection') }}
       </p>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-        <div class="rounded-lg bg-emerald-50 border border-emerald-200 px-2 py-2 flex flex-col">
+        <div
+          class="rounded-lg bg-hwhub-palette-emerald-soft border border-hwhub-palette-emerald px-2 py-2 flex flex-col"
+        >
           <span class="text-hwhub-muted">{{ statusLabel(INQUIRY_STATUS.OPEN) }}</span>
-          <span class="mt-1 text-base font-semibold text-emerald-700">
+          <span class="mt-1 text-base font-semibold text-hwhub-palette-emerald">
             {{ summary?.open ?? 0 }}{{ t('admin.dashboard.status.unit') }}
           </span>
         </div>
-        <div class="rounded-lg bg-blue-50 border border-blue-200 px-2 py-2 flex flex-col">
+        <div
+          class="rounded-lg bg-hwhub-palette-blue-soft border border-hwhub-palette-blue px-2 py-2 flex flex-col"
+        >
           <span class="text-hwhub-muted">{{ statusLabel(INQUIRY_STATUS.AI_ANSWERED) }}</span>
-          <span class="mt-1 text-base font-semibold text-blue-700">
+          <span class="mt-1 text-base font-semibold text-hwhub-palette-blue">
             {{ summary?.aiAnswered ?? 0 }}{{ t('admin.dashboard.status.unit') }}
           </span>
         </div>
-        <div class="rounded-lg bg-amber-50 border border-amber-200 px-2 py-2 flex flex-col">
+        <div
+          class="rounded-lg bg-hwhub-palette-amber-soft border border-hwhub-palette-amber px-2 py-2 flex flex-col"
+        >
           <span class="text-hwhub-muted">{{ statusLabel(INQUIRY_STATUS.PENDING_STAFF) }}</span>
-          <span class="mt-1 text-base font-semibold text-amber-700">
+          <span class="mt-1 text-base font-semibold text-hwhub-palette-amber">
             {{ summary?.pendingStaff ?? 0 }}{{ t('admin.dashboard.status.unit') }}
           </span>
         </div>
-        <div class="rounded-lg bg-violet-50 border border-violet-200 px-2 py-2 flex flex-col">
+        <div
+          class="rounded-lg bg-hwhub-palette-violet-soft border border-hwhub-palette-violet px-2 py-2 flex flex-col"
+        >
           <span class="text-hwhub-muted">{{ statusLabel(INQUIRY_STATUS.STAFF_ANSWERED) }}</span>
-          <span class="mt-1 text-base font-semibold text-violet-700">
+          <span class="mt-1 text-base font-semibold text-hwhub-palette-violet">
             {{ summary?.staffAnswered ?? 0 }}{{ t('admin.dashboard.status.unit') }}
           </span>
         </div>
       </div>
       <div
-        class="mt-2 rounded-lg bg-emerald-50 border border-emerald-200 px-3 py-2 text-xs flex items-center justify-between"
+        class="mt-2 rounded-lg bg-hwhub-palette-emerald-soft border border-hwhub-palette-emerald px-3 py-2 text-xs flex items-center justify-between"
       >
-        <span class="text-emerald-700">{{ t('admin.dashboard.status.totalUnclosed') }}</span>
-        <span class="text-base font-semibold text-emerald-700">
+        <span class="text-hwhub-palette-emerald">{{
+          t('admin.dashboard.status.totalUnclosed')
+        }}</span>
+        <span class="text-base font-semibold text-hwhub-palette-emerald">
           {{ totalUnclosed }}{{ t('admin.dashboard.status.unit') }}
         </span>
       </div>
@@ -96,37 +106,45 @@ onMounted(() => store.loadStatusSummary())
         {{ t('admin.dashboard.status.staleSection') }}
       </p>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-        <div class="rounded-lg bg-emerald-50 border border-emerald-200 px-2 py-2 flex flex-col">
+        <div
+          class="rounded-lg bg-hwhub-palette-emerald-soft border border-hwhub-palette-emerald px-2 py-2 flex flex-col"
+        >
           <span class="text-hwhub-muted">{{ statusLabel(INQUIRY_STATUS.OPEN) }}</span>
-          <span class="mt-1 text-base font-semibold text-emerald-700">
+          <span class="mt-1 text-base font-semibold text-hwhub-palette-emerald">
             {{ summary?.staleUnclosedOpen ?? 0 }}{{ t('admin.dashboard.status.unit') }}
           </span>
         </div>
-        <div class="rounded-lg bg-blue-50 border border-blue-200 px-2 py-2 flex flex-col">
+        <div
+          class="rounded-lg bg-hwhub-palette-blue-soft border border-hwhub-palette-blue px-2 py-2 flex flex-col"
+        >
           <span class="text-hwhub-muted">{{ statusLabel(INQUIRY_STATUS.AI_ANSWERED) }}</span>
-          <span class="mt-1 text-base font-semibold text-blue-700">
+          <span class="mt-1 text-base font-semibold text-hwhub-palette-blue">
             {{ summary?.staleUnclosedAiAnswered ?? 0 }}{{ t('admin.dashboard.status.unit') }}
           </span>
         </div>
-        <div class="rounded-lg bg-amber-50 border border-amber-200 px-2 py-2 flex flex-col">
+        <div
+          class="rounded-lg bg-hwhub-palette-amber-soft border border-hwhub-palette-amber px-2 py-2 flex flex-col"
+        >
           <span class="text-hwhub-muted">{{ statusLabel(INQUIRY_STATUS.PENDING_STAFF) }}</span>
-          <span class="mt-1 text-base font-semibold text-amber-700">
+          <span class="mt-1 text-base font-semibold text-hwhub-palette-amber">
             {{ summary?.staleUnclosedPendingStaff ?? 0 }}{{ t('admin.dashboard.status.unit') }}
           </span>
         </div>
-        <div class="rounded-lg bg-violet-50 border border-violet-200 px-2 py-2 flex flex-col">
+        <div
+          class="rounded-lg bg-hwhub-palette-violet-soft border border-hwhub-palette-violet px-2 py-2 flex flex-col"
+        >
           <span class="text-hwhub-muted">{{ statusLabel(INQUIRY_STATUS.STAFF_ANSWERED) }}</span>
-          <span class="mt-1 text-base font-semibold text-violet-700">
+          <span class="mt-1 text-base font-semibold text-hwhub-palette-violet">
             {{ summary?.staleUnclosedStaffAnswered ?? 0 }}{{ t('admin.dashboard.status.unit') }}
           </span>
         </div>
       </div>
       <div
-        class="mt-2 rounded-lg bg-rose-50 border border-rose-200 px-3 py-2 text-xs flex items-center justify-between"
+        class="mt-2 rounded-lg bg-hwhub-palette-rose-soft border border-hwhub-palette-rose px-3 py-2 text-xs flex items-center justify-between"
       >
-        <span class="text-rose-600">{{ t('admin.dashboard.status.totalStaleUnclosed') }}</span>
+        <span class="text-hwhub-palette-rose">{{ t('admin.dashboard.status.staleSection') }}</span>
         <span
-          class="text-base text-rose-600"
+          class="text-base text-hwhub-palette-rose"
           :class="totalStaleUnclosed > 0 ? 'font-bold' : 'font-semibold'"
         >
           {{ totalStaleUnclosed }}{{ t('admin.dashboard.status.unit') }}

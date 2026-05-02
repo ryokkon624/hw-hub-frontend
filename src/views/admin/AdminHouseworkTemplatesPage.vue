@@ -119,15 +119,15 @@ const goCreate = () => {
 const categoryColorClass = (category: string | null | undefined): string => {
   switch (category) {
     case CATEGORY.CLEAN:
-      return 'bg-blue-50 text-blue-600'
+      return 'bg-hwhub-palette-blue-soft border border-hwhub-palette-blue text-hwhub-palette-blue'
     case CATEGORY.KITCHEN:
-      return 'bg-orange-50 text-orange-600'
+      return 'bg-hwhub-palette-amber-soft border border-hwhub-palette-amber text-hwhub-palette-amber'
     case CATEGORY.GARDEN:
-      return 'bg-cyan-50 text-cyan-600'
+      return 'bg-hwhub-palette-emerald-soft border border-hwhub-palette-emerald text-hwhub-palette-emerald'
     case CATEGORY.GARBAGE:
-      return 'bg-emerald-50 text-emerald-600'
+      return 'bg-hwhub-palette-emerald-soft border border-hwhub-palette-emerald text-hwhub-palette-emerald'
     case CATEGORY.PET:
-      return 'bg-purple-50 text-purple-600'
+      return 'bg-hwhub-palette-rose-soft border border-hwhub-palette-rose text-hwhub-palette-rose'
     default:
       return 'bg-hwhub-surface-subtle text-hwhub-muted'
   }
@@ -295,7 +295,7 @@ const categoryColorClass = (category: string | null | undefined): string => {
               <td class="px-3 py-2 align-top">
                 <span
                   v-if="hasRecommendation(item)"
-                  class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] bg-amber-50 text-amber-600"
+                  class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] bg-hwhub-palette-amber-soft border border-hwhub-palette-amber text-hwhub-palette-amber"
                 >
                   <Lightbulb class="w-3 h-3" />
                   {{ t('admin.houseworkTemplate.columns.recommendationYes') }}
@@ -343,7 +343,7 @@ const categoryColorClass = (category: string | null | undefined): string => {
           <div class="mt-1.5 flex items-center gap-1 text-[11px]">
             <span
               v-if="hasRecommendation(item)"
-              class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 bg-amber-50 text-amber-600"
+              class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 bg-hwhub-palette-amber-soft border border-hwhub-palette-amber text-hwhub-palette-amber"
             >
               <Lightbulb class="w-3 h-3" />
               {{ t('admin.houseworkTemplate.columns.recommendationYes') }}

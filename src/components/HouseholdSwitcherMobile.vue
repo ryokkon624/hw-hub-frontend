@@ -54,7 +54,7 @@
                     class="h-8 w-8 rounded-full flex items-center justify-center"
                     :class="
                       h.householdId === currentHouseholdId
-                        ? 'bg-white text-hwhub-heading'
+                        ? 'bg-white text-hwhub-primary'
                         : 'bg-hwhub-surface-subtle text-hwhub-muted'
                     "
                   >
@@ -78,7 +78,7 @@
                 <div class="ml-2 flex items-center gap-1">
                   <span
                     v-if="h.householdId === currentHouseholdId"
-                    class="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] bg-white/95 text-hwhub-heading"
+                    class="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] bg-white/95 text-slate-900"
                   >
                     {{ t('household.switcher.mobile.current') }}
                   </span>

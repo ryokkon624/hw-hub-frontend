@@ -88,7 +88,9 @@ const onSubmit = async () => {
         <!-- 左：コピーエリア（サインアップ用の文言） -->
         <section class="md:w-1/2 px-8 py-8 md:py-12 bg-hwhub-surface-subtle flex flex-col gap-6">
           <div class="space-y-4">
-            <div class="inline-flex items-center gap-2 rounded-full bg-white/80 border px-3 py-1">
+            <div
+              class="inline-flex items-center gap-2 rounded-full bg-hwhub-surface/40 border border-hwhub-border px-3 py-1"
+            >
               <span class="text-xs font-semibold text-hwhub-muted">Family App</span>
               <span class="text-[11px] text-hwhub-muted">Housework Hub</span>
             </div>
@@ -205,7 +207,7 @@ const onSubmit = async () => {
             </div>
 
             <!-- エラー -->
-            <p v-if="errorMessage" class="text-xs text-red-600">
+            <p v-if="errorMessage" class="text-xs text-hwhub-palette-rose">
               {{ errorMessage }}
             </p>
 

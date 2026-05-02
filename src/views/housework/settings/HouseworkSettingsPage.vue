@@ -173,15 +173,15 @@ const goCreate = () => {
 const categoryColorClass = (category: string | null | undefined): string => {
   switch (category) {
     case CATEGORY.CLEAN:
-      return 'bg-blue-50 text-blue-600'
+      return 'bg-hwhub-palette-blue-soft border border-hwhub-palette-blue text-hwhub-palette-blue'
     case CATEGORY.KITCHEN:
-      return 'bg-orange-50 text-orange-600'
+      return 'bg-hwhub-palette-amber-soft border border-hwhub-palette-amber text-hwhub-palette-amber'
     case CATEGORY.GARDEN:
-      return 'bg-cyan-50 text-cyan-600'
+      return 'bg-hwhub-palette-emerald-soft border border-hwhub-palette-emerald text-hwhub-palette-emerald'
     case CATEGORY.GARBAGE:
-      return 'bg-emerald-50 text-emerald-600'
+      return 'bg-hwhub-palette-emerald-soft border border-hwhub-palette-emerald text-hwhub-palette-emerald'
     case CATEGORY.PET:
-      return 'bg-purple-50 text-purple-600'
+      return 'bg-hwhub-palette-rose-soft border border-hwhub-palette-rose text-hwhub-palette-rose'
     default:
       return 'bg-hwhub-surface-subtle text-hwhub-muted'
   }
