@@ -42,7 +42,7 @@ const goHouseworkSettings = () => {
 <template>
   <article
     v-if="showCard"
-    class="rounded-xl border border-hwhub-primary-200 bg-hwhub-onboarding p-5 shadow-sm animate-in fade-in slide-in-from-top-2 duration-500"
+    class="rounded-xl border border-hwhub-border-subtle bg-hwhub-onboarding p-5 shadow-sm animate-in fade-in slide-in-from-top-2 duration-500"
   >
     <header class="mb-4">
       <h3 class="text-lg font-bold text-hwhub-heading flex items-center gap-2">

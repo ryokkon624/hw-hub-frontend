@@ -585,9 +585,9 @@ const statusBorderClass = (status: string) => {
     case HOUSEHOLD_MEMBER_STATUS.INVITED: // 招待中
       return 'border-l-4 border-hwhub-status-pending'
     case HOUSEHOLD_MEMBER_STATUS.LEFT: // 離脱
-      return 'border-l-4 border-l-gray-400'
+      return 'border-l-4 border-hwhub-border'
     default:
-      return 'border-l-4 border-l-gray-300'
+      return 'border-l-4 border-hwhub-border'
   }
 }
 
