@@ -21,9 +21,9 @@
     <!-- ドロップダウン -->
     <div
       v-if="open"
-      class="absolute right-0 mt-2 w-80 rounded-xl border border-hwhub-border-subtle bg-white shadow-lg z-20 overflow-hidden"
+      class="absolute right-0 mt-2 w-80 rounded-xl border border-hwhub-border-subtle bg-hwhub-surface-card shadow-lg z-20 overflow-hidden"
     >
-      <div class="px-3 py-2 border-b bg-white flex items-center justify-between">
+      <div class="px-3 py-2 border-b bg-hwhub-surface-card flex items-center justify-between">
         <div class="text-sm font-medium text-hwhub-heading">
           {{ t('notifications.bell.title') }}
         </div>

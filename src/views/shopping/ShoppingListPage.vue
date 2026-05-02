@@ -56,13 +56,13 @@
       <section
         class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm flex flex-col min-h-[260px]"
       >
-        <div class="h-4 w-20 rounded bg-slate-200 mb-3 animate-pulse" />
+        <div class="h-4 w-20 rounded bg-hwhub-border mb-3 animate-pulse" />
         <SkeletonItem variant="shopping-item" :count="5" />
       </section>
       <section
         class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm flex flex-col min-h-[260px]"
       >
-        <div class="h-4 w-16 rounded bg-slate-200 mb-3 animate-pulse" />
+        <div class="h-4 w-16 rounded bg-hwhub-border mb-3 animate-pulse" />
         <SkeletonItem variant="shopping-item" :count="3" />
       </section>
     </template>

@@ -74,11 +74,11 @@ describe('useShoppingCodes', () => {
       expect(storeTypeBorderClass('3')).toBe('border-hwhub-store-drug')
     })
 
-    it('それ以外(不正値、null、undefined)の場合は border-gray-300 を返す', () => {
+    it('それ以外(不正値、null、undefined)の場合は border-hwhub-border を返す', () => {
       const { storeTypeBorderClass } = useShoppingCodes()
-      expect(storeTypeBorderClass('99')).toBe('border-gray-300')
-      expect(storeTypeBorderClass(null)).toBe('border-gray-300')
-      expect(storeTypeBorderClass(undefined)).toBe('border-gray-300')
+      expect(storeTypeBorderClass('99')).toBe('border-hwhub-border')
+      expect(storeTypeBorderClass(null)).toBe('border-hwhub-border')
+      expect(storeTypeBorderClass(undefined)).toBe('border-hwhub-border')
     })
   })
 
@@ -98,11 +98,11 @@ describe('useShoppingCodes', () => {
       expect(storeTypeDotClass('3')).toBe('bg-hwhub-store-drug')
     })
 
-    it('それ以外(不正値、null、undefined)の場合は bg-gray-300 を返す', () => {
+    it('それ以外(不正値、null、undefined)の場合は bg-hwhub-swipe-disabled を返す', () => {
       const { storeTypeDotClass } = useShoppingCodes()
-      expect(storeTypeDotClass('99')).toBe('bg-gray-300')
-      expect(storeTypeDotClass(null)).toBe('bg-gray-300')
-      expect(storeTypeDotClass(undefined)).toBe('bg-gray-300')
+      expect(storeTypeDotClass('99')).toBe('bg-hwhub-swipe-disabled')
+      expect(storeTypeDotClass(null)).toBe('bg-hwhub-swipe-disabled')
+      expect(storeTypeDotClass(undefined)).toBe('bg-hwhub-swipe-disabled')
     })
   })
 })

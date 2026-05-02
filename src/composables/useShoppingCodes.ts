@@ -20,7 +20,7 @@ export function useShoppingCodes() {
       case '3': // DRUGSTORE
         return 'border-hwhub-store-drug'
       default:
-        return 'border-gray-300'
+        return 'border-hwhub-border'
     }
   }
 
@@ -33,7 +33,7 @@ export function useShoppingCodes() {
       case '3':
         return 'bg-hwhub-store-drug'
       default:
-        return 'bg-gray-300'
+        return 'bg-hwhub-swipe-disabled'
     }
   }
 

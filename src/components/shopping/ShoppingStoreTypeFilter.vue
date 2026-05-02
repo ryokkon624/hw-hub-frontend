@@ -7,7 +7,7 @@
       :class="
         modelValue === 'all'
           ? 'bg-hwhub-primary text-white border-hwhub-primary'
-          : 'border-gray-300 text-hwhub-muted hover:bg-hwhub-surface-subtle'
+          : 'border-hwhub-border text-hwhub-muted hover:bg-hwhub-surface-subtle'
       "
       @click="$emit('update:modelValue', 'all')"
     >

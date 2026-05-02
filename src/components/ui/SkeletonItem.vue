@@ -8,14 +8,14 @@
           class="flex items-start gap-3 rounded-lg border border-hwhub-border bg-hwhub-surface-card px-3 py-2 w-full"
         >
           <!-- アイコン -->
-          <div class="mt-0.5 h-9 w-9 rounded-full bg-slate-200 shrink-0" />
+          <div class="mt-0.5 h-9 w-9 rounded-full bg-hwhub-border shrink-0" />
           <!-- テキスト -->
           <div class="flex-1 space-y-2 min-w-0">
-            <div class="h-3 w-2/3 rounded bg-slate-200" />
-            <div class="h-2.5 w-1/3 rounded bg-slate-100" />
+            <div class="h-3 w-2/3 rounded bg-hwhub-border" />
+            <div class="h-2.5 w-1/3 rounded bg-hwhub-surface-subtle" />
           </div>
           <!-- 担当セレクト（右側） -->
-          <div class="shrink-0 h-6 w-20 rounded-full bg-slate-200" />
+          <div class="shrink-0 h-6 w-20 rounded-full bg-hwhub-border" />
         </div>
       </template>
 
@@ -25,11 +25,11 @@
           class="rounded-lg border border-hwhub-border bg-hwhub-surface-card p-3 w-full space-y-2"
         >
           <div class="flex items-center justify-between gap-2">
-            <div class="h-3.5 w-1/2 rounded bg-slate-200" />
+            <div class="h-3.5 w-1/2 rounded bg-hwhub-border" />
           </div>
           <div class="flex justify-end gap-2">
-            <div class="h-6 w-14 rounded-full bg-slate-100" />
-            <div class="h-6 w-14 rounded-full bg-slate-200" />
+            <div class="h-6 w-14 rounded-full bg-hwhub-surface-subtle" />
+            <div class="h-6 w-14 rounded-full bg-hwhub-border" />
           </div>
         </div>
       </template>
@@ -40,8 +40,8 @@
           class="rounded-xl border border-hwhub-border bg-hwhub-surface-card px-3 py-2.5 flex items-start gap-3 w-full"
         >
           <div class="flex-1 space-y-2 min-w-0">
-            <div class="h-3 w-3/4 rounded bg-slate-200" />
-            <div class="h-2.5 w-1/2 rounded bg-slate-100" />
+            <div class="h-3 w-3/4 rounded bg-hwhub-border" />
+            <div class="h-2.5 w-1/2 rounded bg-hwhub-surface-subtle" />
           </div>
         </div>
       </template>

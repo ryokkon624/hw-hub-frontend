@@ -33,7 +33,7 @@
 
     <!-- 前面レイヤー（カード本体、translateXでドラッグ追従） -->
     <div
-      class="relative rounded-xl border p-3 shadow-sm flex flex-col gap-2 bg-white"
+      class="relative rounded-xl border p-3 shadow-sm flex flex-col gap-2 bg-hwhub-surface-card"
       :class="cardBorderClass"
       :style="{ transform: `translateX(${translateX}px)` }"
     >
@@ -78,6 +78,6 @@ const backgroundClass = computed(() => {
 const cardBorderClass = computed(() => {
   if (props.isPast) return 'border-rose-200 bg-rose-50'
   if (props.isToday) return 'bg-green-50 border-green-200'
-  return 'bg-white'
+  return 'bg-hwhub-surface-card'
 })
 </script>

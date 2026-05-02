@@ -33,16 +33,16 @@ const onResend = async () => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-slate-50 flex items-center justify-center px-4">
-    <div class="w-full max-w-md bg-white rounded-2xl shadow p-6">
-      <h1 class="text-xl font-semibold text-slate-900">{{ t('passwordResetSent.title') }}</h1>
+  <div class="min-h-screen bg-hwhub-surface flex items-center justify-center px-4">
+    <div class="w-full max-w-md bg-hwhub-surface-card rounded-2xl shadow p-6">
+      <h1 class="text-xl font-semibold text-hwhub-heading">{{ t('passwordResetSent.title') }}</h1>
 
-      <p class="mt-2 text-sm text-slate-600">
+      <p class="mt-2 text-sm text-hwhub-body">
         {{ t('passwordResetSent.description') }}
-        <span v-if="email" class="font-medium text-slate-800">({{ email }})</span>
+        <span v-if="email" class="font-medium text-hwhub-heading">({{ email }})</span>
       </p>
 
-      <div class="mt-4 rounded-lg bg-slate-50 p-4 text-sm text-slate-600 space-y-2">
+      <div class="mt-4 rounded-lg bg-hwhub-surface-subtle p-4 text-sm text-hwhub-body space-y-2">
         <p>{{ t('passwordResetSent.checkSpam') }}</p>
         <ul class="list-disc pl-5 space-y-1">
           <li>{{ t('passwordResetSent.spamActions.spamFolder') }}</li>
@@ -64,7 +64,7 @@ const onResend = async () => {
         </button>
 
         <router-link
-          class="block w-full text-center rounded-lg border border-slate-300 py-2 font-semibold text-slate-700 hover:bg-slate-50"
+          class="block w-full text-center rounded-lg border border-hwhub-border py-2 font-semibold text-hwhub-body hover:bg-hwhub-surface-subtle"
           :to="{ name: 'password.forgot' }"
         >
           {{ t('passwordResetSent.useDifferentEmail') }}

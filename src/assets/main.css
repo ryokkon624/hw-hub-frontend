@@ -308,6 +308,9 @@ body {
   .bg-hwhub-surface-card {
     background-color: var(--hwhub-surface-card);
   }
+  .hover\:bg-hwhub-surface-subtle:hover {
+    background-color: var(--hwhub-surface-subtle);
+  }
 
   /* Sidebar */
   .bg-hwhub-sidebar {
@@ -335,6 +338,9 @@ body {
   /* Border */
   .border-hwhub-border {
     border-color: var(--hwhub-border);
+  }
+  .bg-hwhub-border {
+    background-color: var(--hwhub-border);
   }
   .border-hwhub-border-subtle {
     border-color: var(--hwhub-border-subtle);

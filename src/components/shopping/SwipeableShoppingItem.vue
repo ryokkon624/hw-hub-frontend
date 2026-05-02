@@ -20,7 +20,7 @@
 
     <!-- 前面レイヤー（アイテム本体、translateXでドラッグ追従） -->
     <div
-      class="relative group rounded-xl border border-hwhub-border bg-white px-3 py-2.5 flex items-start gap-3 shadow-sm transition-transform duration-100"
+      class="relative group rounded-xl border border-hwhub-border bg-hwhub-surface-card px-3 py-2.5 flex items-start gap-3 shadow-sm transition-transform duration-100"
       :class="storeTypeBorderClass(item.storeType)"
       :style="{ transform: `translateX(${translateX}px)` }"
       @click="onItemClick"

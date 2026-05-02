@@ -34,7 +34,7 @@
 
     <!-- 前面レイヤー（カード本体、translateXでドラッグ追従） -->
     <div
-      class="relative rounded-xl border p-3 shadow-sm flex flex-col gap-2 bg-white"
+      class="relative rounded-xl border p-3 shadow-sm flex flex-col gap-2 bg-hwhub-surface-card"
       :style="{ transform: `translateX(${translateX}px)` }"
     >
       <slot />

@@ -51,7 +51,7 @@ onMounted(async () => {
     <h1 class="text-xl font-semibold">{{ t('emailVerify.page.title') }}</h1>
 
     <div class="mt-6">
-      <p class="text-sm text-gray-600">{{ t('emailVerify.page.loading') }}</p>
+      <p class="text-sm text-hwhub-body">{{ t('emailVerify.page.loading') }}</p>
     </div>
   </div>
 </template>

@@ -16,7 +16,7 @@
       >
         <!-- ドラッグハンドル -->
         <div class="flex justify-center pt-3 pb-1">
-          <div class="w-10 h-1 rounded-full bg-slate-300" />
+          <div class="w-10 h-1 rounded-full bg-hwhub-swipe-disabled" />
         </div>
 
         <!-- タイトル -->

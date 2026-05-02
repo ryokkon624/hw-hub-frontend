@@ -73,7 +73,7 @@ const goNext = () => {
       class="rounded-md px-2.5 py-1.5 text-xs font-medium transition"
       :class="
         isFirst
-          ? 'text-gray-300 cursor-not-allowed'
+          ? 'text-hwhub-muted cursor-not-allowed'
           : 'text-hwhub-muted hover:bg-hwhub-surface-subtle hover:text-hwhub-heading'
       "
       :disabled="isFirst"
@@ -84,7 +84,7 @@ const goNext = () => {
 
     <!-- ページ番号 -->
     <template v-for="(page, idx) in pageNumbers" :key="idx">
-      <span v-if="page === '...'" class="px-1 text-xs text-gray-400 select-none"> … </span>
+      <span v-if="page === '...'" class="px-1 text-xs text-hwhub-muted select-none"> … </span>
       <button
         v-else
         type="button"
@@ -106,7 +106,7 @@ const goNext = () => {
       class="rounded-md px-2.5 py-1.5 text-xs font-medium transition"
       :class="
         isLast
-          ? 'text-gray-300 cursor-not-allowed'
+          ? 'text-hwhub-muted cursor-not-allowed'
           : 'text-hwhub-muted hover:bg-hwhub-surface-subtle hover:text-hwhub-heading'
       "
       :disabled="isLast"

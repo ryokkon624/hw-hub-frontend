@@ -130,7 +130,7 @@ const onClickGoogle = async () => {
 
     <!-- カード全体 -->
     <div
-      class="w-full max-w-4xl rounded-3xl bg-white shadow-xl border border-gray-200 overflow-hidden grid md:grid-cols-[1.1fr_1fr]"
+      class="w-full max-w-4xl rounded-3xl bg-hwhub-surface-card shadow-xl border border-hwhub-border overflow-hidden grid md:grid-cols-[1.1fr_1fr]"
     >
       <!-- 左：ブランド＆説明（SPでは上） -->
       <section
@@ -196,9 +196,9 @@ const onClickGoogle = async () => {
 
             <!-- Divider -->
             <div class="flex items-center gap-2 text-[11px] text-hwhub-muted">
-              <span class="flex-1 h-px bg-gray-200" />
+              <span class="flex-1 h-px bg-hwhub-border" />
               <span>{{ t('login.divider') }}</span>
-              <span class="flex-1 h-px bg-gray-200" />
+              <span class="flex-1 h-px bg-hwhub-border" />
             </div>
           </div>
 
@@ -213,7 +213,7 @@ const onClickGoogle = async () => {
                 v-model="email"
                 type="email"
                 autocomplete="email"
-                class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-hwhub-primary/70 focus:border-hwhub-primary bg-white"
+                class="w-full rounded-lg border border-hwhub-border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-hwhub-primary/70 focus:border-hwhub-primary bg-hwhub-surface-card"
                 :placeholder="t('login.placeholderEmail')"
               />
             </div>
@@ -227,7 +227,7 @@ const onClickGoogle = async () => {
                 v-model="password"
                 type="password"
                 autocomplete="current-password"
-                class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-hwhub-primary/70 focus:border-hwhub-primary bg-white"
+                class="w-full rounded-lg border border-hwhub-border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-hwhub-primary/70 focus:border-hwhub-primary bg-hwhub-surface-card"
                 :placeholder="t('login.placeholderPassword')"
               />
             </div>

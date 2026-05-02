@@ -7,13 +7,13 @@
     <!-- 見た目用ラッパ -->
     <label
       :for="inputId"
-      class="flex items-center justify-between gap-3 rounded-xl border border-dashed border-hwhub-border-subtle bg-hwhub-surface-subtle px-3 py-2 text-sm cursor-pointer hover:border-hwhub-primary hover:bg-white transition"
+      class="flex items-center justify-between gap-3 rounded-xl border border-dashed border-hwhub-border-subtle bg-hwhub-surface-subtle px-3 py-2 text-sm cursor-pointer hover:border-hwhub-primary hover:bg-hwhub-surface-card transition"
       :class="{ 'opacity-60 cursor-default': loading }"
     >
       <div class="flex items-center gap-2">
         <!-- 簡易アイコン -->
         <div
-          class="flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-sm text-hwhub-heading"
+          class="flex h-8 w-8 items-center justify-center rounded-full bg-hwhub-surface-card shadow-sm text-hwhub-heading"
         >
           <Camera class="w-5 h-5 text-hwhub-primary" />
         </div>

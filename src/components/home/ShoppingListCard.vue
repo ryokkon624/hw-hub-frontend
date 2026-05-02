@@ -60,7 +60,7 @@ const goShopping = () => {
 </script>
 
 <template>
-  <article class="rounded-xl border bg-white p-4 shadow-sm flex flex-col gap-3">
+  <article class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm flex flex-col gap-3">
     <header class="flex items-start justify-between gap-3">
       <div>
         <h3 class="text-sm font-semibold text-hwhub-heading flex items-center gap-2">

@@ -21,7 +21,7 @@
     <button
       v-else
       type="button"
-      class="w-full rounded-xl border border-hwhub-border-subtle px-3 py-2 flex items-center justify-between bg-white text-sm hover:bg-hwhub-surface-subtle transition"
+      class="w-full rounded-xl border border-hwhub-border-subtle px-3 py-2 flex items-center justify-between bg-hwhub-surface-card text-sm hover:bg-hwhub-surface-subtle transition"
       @click="open = true"
     >
       <div class="flex items-center gap-2">

@@ -69,7 +69,7 @@
               @click="onToggleFavorite"
             >
               <span v-if="item?.favorite">★</span>
-              <span v-else class="text-slate-300">☆</span>
+              <span v-else class="text-hwhub-muted">☆</span>
             </button>
             <p class="text-[11px] text-hwhub-muted">
               {{ t('shopping.detail.fields.favoriteLabel') }}

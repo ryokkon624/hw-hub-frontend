@@ -28,8 +28,8 @@ const onAction = () => {
     class="flex flex-col rounded-lg border p-4 transition-colors"
     :class="[
       isDone
-        ? 'bg-white/40 border-hwhub-primary-200 opacity-70'
-        : 'bg-white border-hwhub-primary-300 shadow-sm',
+        ? 'bg-hwhub-surface-card/40 border-hwhub-primary-200 opacity-70'
+        : 'bg-hwhub-surface-card border-hwhub-primary-300 shadow-sm',
     ]"
   >
     <div class="flex items-start justify-between">

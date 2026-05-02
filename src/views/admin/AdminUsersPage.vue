@@ -325,7 +325,7 @@ onMounted(async () => {
               <td class="px-3 py-2 text-xs text-hwhub-heading">{{ user.displayName }}</td>
               <td class="px-3 py-2 text-xs text-hwhub-heading">{{ user.locale }}</td>
               <td class="px-3 py-2 text-xs text-center">
-                <span :class="user.notificationEnabled ? 'text-green-600' : 'text-gray-400'">
+                <span :class="user.notificationEnabled ? 'text-green-600' : 'text-hwhub-muted'">
                   {{ user.notificationEnabled ? '✓' : '—' }}
                 </span>
               </td>
@@ -333,7 +333,9 @@ onMounted(async () => {
                 <span
                   class="inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium"
                   :class="
-                    user.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-hwhub-muted'
+                    user.isActive
+                      ? 'bg-green-100 text-green-700'
+                      : 'bg-hwhub-surface-subtle text-hwhub-muted'
                   "
                 >
                   {{ user.isActiveLabel }}
@@ -371,7 +373,9 @@ onMounted(async () => {
             <span
               class="inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium"
               :class="
-                user.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-hwhub-muted'
+                user.isActive
+                  ? 'bg-green-100 text-green-700'
+                  : 'bg-hwhub-surface-subtle text-hwhub-muted'
               "
             >
               {{ user.isActiveLabel }}

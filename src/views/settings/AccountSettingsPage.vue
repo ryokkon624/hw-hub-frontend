@@ -172,7 +172,7 @@
         <button
           type="button"
           class="relative inline-flex h-7 w-12 items-center rounded-full transition focus:outline-none focus-visible:ring-2 focus-visible:ring-hwhub-primary/30"
-          :class="notifEnabled ? 'bg-hwhub-primary' : 'bg-slate-300'"
+          :class="notifEnabled ? 'bg-hwhub-primary' : 'bg-hwhub-swipe-disabled'"
           :disabled="notifLoading"
           @click="onToggleGlobal"
         >
@@ -196,7 +196,7 @@
           <button
             type="button"
             class="relative inline-flex h-7 w-12 items-center rounded-full transition focus:outline-none focus-visible:ring-2 focus-visible:ring-hwhub-primary/30"
-            :class="groupHousehold ? 'bg-hwhub-primary' : 'bg-slate-300'"
+            :class="groupHousehold ? 'bg-hwhub-primary' : 'bg-hwhub-swipe-disabled'"
             :disabled="notifLoading || !notifEnabled"
             @click="onToggleGroupHousehold"
           >
@@ -219,7 +219,7 @@
           <button
             type="button"
             class="relative inline-flex h-7 w-12 items-center rounded-full transition focus:outline-none focus-visible:ring-2 focus-visible:ring-hwhub-primary/30"
-            :class="groupTask ? 'bg-hwhub-primary' : 'bg-slate-300'"
+            :class="groupTask ? 'bg-hwhub-primary' : 'bg-hwhub-swipe-disabled'"
             :disabled="notifLoading || !notifEnabled"
             @click="onToggleGroupTask"
           >
@@ -259,7 +259,7 @@
           :class="
             isGoogleLinked
               ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-              : 'bg-hwhub-surface-subtle text-slate-600 border border-hwhub-border'
+              : 'bg-hwhub-surface-subtle text-hwhub-body border border-hwhub-border'
           "
         >
           {{
@@ -289,7 +289,7 @@
           </span>
           <span v-else class="flex items-center gap-2">
             <span
-              class="h-4 w-4 rounded-full border-2 border-gray-400/60 border-t-transparent animate-spin"
+              class="h-4 w-4 rounded-full border-2 border-hwhub-border border-t-transparent animate-spin"
             />
             {{ t('settings.account.google.actions.linking') }}
           </span>

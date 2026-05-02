@@ -61,7 +61,7 @@ const canResend = computed(() => !isSubmitting.value && cooldownSeconds.value <=
   <div class="mx-auto max-w-md p-6">
     <h1 class="text-xl font-semibold">{{ t('emailVerify.waitPage.title') }}</h1>
 
-    <p class="mt-4 text-sm text-gray-600">
+    <p class="mt-4 text-sm text-hwhub-body">
       <span v-if="email">{{ t('emailVerify.waitPage.sentTo', { email }) }}</span>
       {{ t('emailVerify.waitPage.instruction') }}
     </p>
@@ -77,7 +77,7 @@ const canResend = computed(() => !isSubmitting.value && cooldownSeconds.value <=
       <span v-else>{{ t('emailVerify.waitPage.resendButton') }}</span>
     </button>
 
-    <p class="mt-4 text-xs text-gray-500">
+    <p class="mt-4 text-xs text-hwhub-muted">
       {{ t('emailVerify.waitPage.spamNote') }}
     </p>
   </div>
