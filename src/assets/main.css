@@ -93,6 +93,22 @@
   --hwhub-store-super: #10b981; /* emerald-500 */
   --hwhub-store-online: #0ea5e9; /* sky-500 */
   --hwhub-store-drug: #f43f5e; /* rose-500 */
+
+  /* Onboarding */
+  --hwhub-onboarding-from: #f0fdfa; /* teal-50 */
+  --hwhub-onboarding-to: #eff6ff; /* blue-50 */
+
+  /* Status */
+  --hwhub-status-active-bg: #dcfce7; /* green-100 */
+  --hwhub-status-active-text: #15803d; /* green-700 */
+  --hwhub-status-active-border: #4ade80; /* green-400 */
+  --hwhub-status-pending-bg: #fef9c3; /* yellow-100 */
+  --hwhub-status-pending-text: #a16207; /* yellow-700 */
+  --hwhub-status-pending-border: #facc15; /* yellow-400 */
+
+  /* Danger button */
+  --hwhub-danger-btn: #e11d48; /* rose-600 */
+  --hwhub-danger-btn-hover: #be123c; /* rose-700 */
 }
 
 /* ─── DARK (B案: Carbon Slate) ─── */
@@ -188,6 +204,22 @@
   --hwhub-store-super: #10b981;
   --hwhub-store-online: #38bdf8;
   --hwhub-store-drug: #fb7185;
+
+  /* Onboarding */
+  --hwhub-onboarding-from: rgba(20, 184, 166, 0.1);
+  --hwhub-onboarding-to: rgba(59, 130, 246, 0.1);
+
+  /* Status */
+  --hwhub-status-active-bg: rgba(34, 197, 94, 0.13);
+  --hwhub-status-active-text: #4ade80; /* green-400 */
+  --hwhub-status-active-border: rgba(34, 197, 94, 0.5);
+  --hwhub-status-pending-bg: rgba(234, 179, 8, 0.13);
+  --hwhub-status-pending-text: #facc15; /* yellow-400 */
+  --hwhub-status-pending-border: rgba(234, 179, 8, 0.5);
+
+  /* Danger button */
+  --hwhub-danger-btn: #fb7185; /* rose-400 */
+  --hwhub-danger-btn-hover: #f43f5e; /* rose-500 */
 }
 
 /* OS dark への追従 (html に .light/.dark が無いときだけ適用) */
@@ -237,6 +269,16 @@
     --hwhub-store-super: #10b981;
     --hwhub-store-online: #38bdf8;
     --hwhub-store-drug: #fb7185;
+    --hwhub-onboarding-from: rgba(20, 184, 166, 0.1);
+    --hwhub-onboarding-to: rgba(59, 130, 246, 0.1);
+    --hwhub-status-active-bg: rgba(34, 197, 94, 0.13);
+    --hwhub-status-active-text: #4ade80;
+    --hwhub-status-active-border: rgba(34, 197, 94, 0.5);
+    --hwhub-status-pending-bg: rgba(234, 179, 8, 0.13);
+    --hwhub-status-pending-text: #facc15;
+    --hwhub-status-pending-border: rgba(234, 179, 8, 0.5);
+    --hwhub-danger-btn: #fb7185;
+    --hwhub-danger-btn-hover: #f43f5e;
   }
 }
 
@@ -423,5 +465,39 @@ body {
   }
   .border-hwhub-store-drug {
     border-left: 6px solid var(--hwhub-store-drug);
+  }
+
+  /* Onboarding */
+  .bg-hwhub-onboarding {
+    background-image: linear-gradient(
+      to right,
+      var(--hwhub-onboarding-from),
+      var(--hwhub-onboarding-to)
+    );
+  }
+
+  /* Status */
+  .bg-hwhub-status-active {
+    background-color: var(--hwhub-status-active-bg);
+    color: var(--hwhub-status-active-text);
+  }
+  .border-hwhub-status-active {
+    border-color: var(--hwhub-status-active-border);
+  }
+  .bg-hwhub-status-pending {
+    background-color: var(--hwhub-status-pending-bg);
+    color: var(--hwhub-status-pending-text);
+  }
+  .border-hwhub-status-pending {
+    border-color: var(--hwhub-status-pending-border);
+  }
+
+  /* Danger button */
+  .bg-hwhub-danger-btn {
+    background-color: var(--hwhub-danger-btn);
+    color: #ffffff;
+  }
+  .hover\:bg-hwhub-danger-btn:hover {
+    background-color: var(--hwhub-danger-btn-hover);
   }
 }
