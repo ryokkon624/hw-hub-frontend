@@ -228,7 +228,7 @@
             <td class="py-2 px-2">
               <span
                 v-if="m.role === 'OWNER'"
-                class="px-2 py-1 rounded-full bg-amber-50 text-amber-700 text-[11px] font-medium border border-amber-200"
+                class="px-2 py-1 rounded-full bg-hwhub-accent-soft text-hwhub-accent-badge text-[11px] font-medium border border-hwhub-accent"
               >
                 {{ t('settings.household.members.table.roleOwner') }}
               </span>
@@ -246,7 +246,7 @@
               <button
                 v-if="m.userId === loginUserId && !isOwnerInCurrentHousehold && m.status === '1'"
                 type="button"
-                class="px-3 py-1 rounded-full border text-[11px] text-red-600 hover:bg-red-50"
+                class="px-3 py-1 rounded-full border text-[11px] text-hwhub-danger hover:bg-hwhub-danger-soft"
                 @click="leaveHousehold"
               >
                 {{ t('settings.household.members.actions.leave') }}
@@ -258,7 +258,7 @@
                   isOwnerInCurrentHousehold && m.userId !== loginUserId && m.status === '1'
                 "
                 type="button"
-                class="px-3 py-1 rounded-full border text-[11px] text-red-600 hover:bg-red-50"
+                class="px-3 py-1 rounded-full border text-[11px] text-hwhub-danger hover:bg-hwhub-danger-soft"
                 @click="removeMember(m.userId)"
               >
                 {{ t('settings.household.members.actions.remove') }}
@@ -268,7 +268,7 @@
               <button
                 v-if="isOwnerInCurrentHousehold && m.userId !== loginUserId && m.status === '1'"
                 type="button"
-                class="ml-2 px-3 py-1 rounded-full border text-[11px] text-amber-600 hover:bg-amber-50"
+                class="ml-2 px-3 py-1 rounded-full border text-[11px] text-hwhub-accent-badge hover:bg-hwhub-accent-soft"
                 @click="transferOwner(m)"
               >
                 {{ t('settings.household.members.actions.transferOwner') }}
@@ -341,7 +341,7 @@
             <button
               v-if="m.userId === loginUserId && !isOwnerInCurrentHousehold && m.status === '1'"
               type="button"
-              class="px-3 py-1 rounded-full border text-[11px] text-red-600 hover:bg-red-50"
+              class="px-3 py-1 rounded-full border text-[11px] text-hwhub-danger hover:bg-hwhub-danger-soft"
               @click="leaveHousehold"
             >
               {{ t('settings.household.members.actions.leave') }}
@@ -350,7 +350,7 @@
             <button
               v-else-if="isOwnerInCurrentHousehold && m.userId !== loginUserId && m.status === '1'"
               type="button"
-              class="px-3 py-1 rounded-full border text-[11px] text-red-600 hover:bg-red-50"
+              class="px-3 py-1 rounded-full border text-[11px] text-hwhub-danger hover:bg-hwhub-danger-soft"
               @click="removeMember(m.userId)"
             >
               {{ t('settings.household.members.actions.remove') }}
@@ -360,7 +360,7 @@
             <button
               v-if="isOwnerInCurrentHousehold && m.userId !== loginUserId && m.status === '1'"
               type="button"
-              class="ml-2 px-3 py-1 rounded-full border text-[11px] text-amber-600 hover:bg-amber-50"
+              class="ml-2 px-3 py-1 rounded-full border text-[11px] text-hwhub-accent-badge hover:bg-hwhub-accent-soft"
               @click="transferOwner(m)"
             >
               {{ t('settings.household.members.actions.transferOwner') }}
@@ -462,7 +462,7 @@
 
               <button
                 type="button"
-                class="px-3 py-1 rounded-full border text-[11px] text-red-600 hover:bg-hwhub-surface-card"
+                class="px-3 py-1 rounded-full border text-[11px] text-hwhub-danger hover:bg-hwhub-surface-card"
                 @click="revokeInvitation(inv.invitationToken)"
               >
                 {{ t('settings.household.invite.revokeButton') }}
@@ -476,19 +476,19 @@
     <!-- おうち削除 -->
     <section
       v-if="isOwnerInCurrentHousehold"
-      class="bg-hwhub-surface-card rounded-lg shadow-sm p-4 border mt-6 border-red-200"
+      class="bg-hwhub-surface-card rounded-lg shadow-sm p-4 border mt-6 border-hwhub-danger"
     >
-      <h2 class="text-sm font-semibold text-red-600">
+      <h2 class="text-sm font-semibold text-hwhub-danger">
         {{ t('settings.household.danger.title') }}
       </h2>
-      <p class="text-xs text-red-600 mt-2 whitespace-pre-wrap">
+      <p class="text-xs text-hwhub-danger mt-2 whitespace-pre-wrap">
         {{ t('settings.household.danger.note') }}
       </p>
 
       <div class="mt-4 flex justify-end">
         <button
           type="button"
-          class="px-4 py-2 rounded-md bg-red-600 text-white text-sm font-semibold hover:bg-red-700"
+          class="px-4 py-2 rounded-md bg-hwhub-danger-btn text-sm font-semibold hover:bg-hwhub-danger-btn"
           @click="onClickDeleteHousehold"
         >
           {{ t('settings.household.danger.deleteButton') }}
@@ -568,9 +568,9 @@ const originalHouseholdName = ref('')
 const statusBadgeClass = (status: string) => {
   switch (status) {
     case HOUSEHOLD_MEMBER_STATUS.ACTIVE:
-      return 'bg-green-100 text-green-700'
+      return 'bg-hwhub-status-active'
     case HOUSEHOLD_MEMBER_STATUS.INVITED:
-      return 'bg-yellow-100 text-yellow-700'
+      return 'bg-hwhub-status-pending'
     case HOUSEHOLD_MEMBER_STATUS.LEFT:
       return 'bg-hwhub-border text-hwhub-body'
     default:
@@ -581,13 +581,13 @@ const statusBadgeClass = (status: string) => {
 const statusBorderClass = (status: string) => {
   switch (status) {
     case HOUSEHOLD_MEMBER_STATUS.ACTIVE: // 有効
-      return 'border-l-4 border-l-green-400'
+      return 'border-l-4 border-hwhub-status-active'
     case HOUSEHOLD_MEMBER_STATUS.INVITED: // 招待中
-      return 'border-l-4 border-l-yellow-400'
+      return 'border-l-4 border-hwhub-status-pending'
     case HOUSEHOLD_MEMBER_STATUS.LEFT: // 離脱
-      return 'border-l-4 border-l-gray-400'
+      return 'border-l-4 border-hwhub-border'
     default:
-      return 'border-l-4 border-l-gray-300'
+      return 'border-l-4 border-hwhub-border'
   }
 }
 
@@ -755,7 +755,7 @@ const invitations = computed(() =>
 const invitationStatusClass = (status: string) => {
   switch (status) {
     case INVITATION_STATUS.PENDING:
-      return 'bg-emerald-50 text-emerald-700 border-emerald-200'
+      return 'bg-hwhub-primary-50 text-hwhub-primary border-hwhub-primary'
     case INVITATION_STATUS.ACCEPTED:
       return 'bg-hwhub-surface-subtle text-hwhub-heading border-hwhub-border'
     case INVITATION_STATUS.DECLINED:
