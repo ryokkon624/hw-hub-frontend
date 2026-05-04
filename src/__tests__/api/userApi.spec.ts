@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { userApi } from '@/api/userApi'
 import { apiClient } from '@/api/client'
 import type { HouseholdModel, UserProfile } from '@/domain'
+import { THEME_MODE } from '@/constants/code.constants'
 
 vi.mock('@/api/client', () => {
   return {
@@ -9,6 +10,7 @@ vi.mock('@/api/client', () => {
       get: vi.fn(),
       post: vi.fn(),
       put: vi.fn(),
+      patch: vi.fn(),
       delete: vi.fn(),
     },
   }
@@ -18,6 +20,7 @@ type MockedApiClient = {
   get: ReturnType<typeof vi.fn>
   post: ReturnType<typeof vi.fn>
   put: ReturnType<typeof vi.fn>
+  patch: ReturnType<typeof vi.fn>
   delete: ReturnType<typeof vi.fn>
 }
 
@@ -213,5 +216,38 @@ describe('userApi', () => {
     expect(mockedClient.put).toHaveBeenCalledTimes(1)
     expect(mockedClient.put).toHaveBeenCalledWith('/api/users/me/notification-settings', req)
     expect(result).toEqual(responseData)
+  })
+
+  it('updateTheme: PATCH /users/me/theme に themeMode を送信する（SYSTEM）', async () => {
+    mockedClient.patch.mockResolvedValue({ data: undefined })
+
+    await userApi.updateTheme(THEME_MODE.SYSTEM)
+
+    expect(mockedClient.patch).toHaveBeenCalledTimes(1)
+    expect(mockedClient.patch).toHaveBeenCalledWith('/api/users/me/theme', {
+      themeMode: THEME_MODE.SYSTEM,
+    })
+  })
+
+  it('updateTheme: PATCH /users/me/theme に themeMode を送信する（LIGHT）', async () => {
+    mockedClient.patch.mockResolvedValue({ data: undefined })
+
+    await userApi.updateTheme(THEME_MODE.LIGHT)
+
+    expect(mockedClient.patch).toHaveBeenCalledTimes(1)
+    expect(mockedClient.patch).toHaveBeenCalledWith('/api/users/me/theme', {
+      themeMode: THEME_MODE.LIGHT,
+    })
+  })
+
+  it('updateTheme: PATCH /users/me/theme に themeMode を送信する（DARK）', async () => {
+    mockedClient.patch.mockResolvedValue({ data: undefined })
+
+    await userApi.updateTheme(THEME_MODE.DARK)
+
+    expect(mockedClient.patch).toHaveBeenCalledTimes(1)
+    expect(mockedClient.patch).toHaveBeenCalledWith('/api/users/me/theme', {
+      themeMode: THEME_MODE.DARK,
+    })
   })
 })
