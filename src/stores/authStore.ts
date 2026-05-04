@@ -11,6 +11,7 @@ import { useRoleStore } from './roleStore'
 import { useAdminHouseworkTemplateStore } from './adminHouseworkTemplateStore'
 import { useHouseworkStore } from './houseworkStore'
 import { useShoppingStore } from './shoppingStore'
+import { useThemeStore } from './themeStore'
 
 interface AuthState {
   accessToken: string | null
@@ -88,6 +89,10 @@ export const useAuthStore = defineStore('auth', {
       this.accessToken = session.accessToken
       this.currentUser = session.user
       this.saveToStorage()
+
+      const themeStore = useThemeStore()
+      themeStore.syncFromServer(session.user.themeMode)
+      themeStore.markLoggedIn()
 
       const householdStore = useHouseholdStore()
       await householdStore.fetchMyHouseholds()
@@ -225,6 +230,9 @@ export const useAuthStore = defineStore('auth', {
         iconUrl: profile.iconUrl,
       }
       this.saveToStorage()
+
+      const themeStore = useThemeStore()
+      themeStore.syncFromServer(profile.themeMode)
     },
 
     /**

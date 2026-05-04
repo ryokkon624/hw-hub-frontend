@@ -33,7 +33,21 @@ vi.mock('@/api/userApi', () => ({
     deleteAccount: vi.fn(),
     changeMyPassword: vi.fn(),
     updateNotificationSettings: vi.fn(),
+    updateTheme: vi.fn(),
   },
+}))
+
+const mockThemeStore = {
+  syncFromServer: vi.fn(),
+  markLoggedIn: vi.fn(),
+  markLoggedOut: vi.fn(),
+  setMode: vi.fn(),
+  mode: 'SYSTEM' as 'SYSTEM' | 'LIGHT' | 'DARK',
+  init: vi.fn(),
+}
+
+vi.mock('@/stores/themeStore', () => ({
+  useThemeStore: () => mockThemeStore,
 }))
 
 // householdStore / codeStore は「useXXXStore が呼ばれたらダミーオブジェクトを返す」モック
@@ -95,6 +109,10 @@ describe('authStore', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
     vi.clearAllMocks()
+    // themeStore モックをリセット
+    mockThemeStore.syncFromServer.mockReset()
+    mockThemeStore.markLoggedIn.mockReset()
+    mockThemeStore.markLoggedOut.mockReset()
 
     // localStorage を毎回リセット
     testGlobal.localStorage = createLocalStorageMock()
@@ -195,6 +213,33 @@ describe('authStore', () => {
 
     expect(mockHouseholdStore.fetchMyHouseholds).toHaveBeenCalled()
     expect(mockCodeStore.loadAllIfNeeded).toHaveBeenCalled()
+  })
+
+  it('login は authApi がthemeModeを返す場合、themeStore.syncFromServer を呼ぶ', async () => {
+    const user = createLoginUser()
+    vi.mocked(authApi.login).mockResolvedValue({
+      accessToken: 'login-token',
+      user: { ...user, themeMode: 'DARK' } as typeof user & { themeMode?: string },
+    } as Awaited<ReturnType<typeof authApi.login>>)
+
+    const store = useAuthStore()
+    await store.login('test@example.com', 'password')
+
+    expect(mockThemeStore.syncFromServer).toHaveBeenCalledWith('DARK')
+    expect(mockThemeStore.markLoggedIn).toHaveBeenCalled()
+  })
+
+  it('login は themeMode がない場合でも themeStore.markLoggedIn を呼ぶ', async () => {
+    const user = createLoginUser()
+    vi.mocked(authApi.login).mockResolvedValue({
+      accessToken: 'login-token',
+      user,
+    })
+
+    const store = useAuthStore()
+    await store.login('test@example.com', 'password')
+
+    expect(mockThemeStore.markLoggedIn).toHaveBeenCalled()
   })
 
   it('register は authApi.register を呼び、login と同様に状態を更新する', async () => {
@@ -323,6 +368,24 @@ describe('authStore', () => {
       iconUrl: 'https://example.com/icon.png',
     })
     expect(saveSpy).toHaveBeenCalled()
+  })
+
+  it('fetchUserProfile は themeMode が含まれる場合 themeStore.syncFromServer を呼ぶ', async () => {
+    vi.mocked(userApi.getProfile).mockResolvedValue({
+      userId: 1,
+      email: 'profile@example.com',
+      displayName: 'FromProfile',
+      locale: 'ja',
+      notificationEnabled: true,
+      iconUrl: null,
+      authProvider: 'google',
+      themeMode: 'LIGHT',
+    } as Awaited<ReturnType<typeof userApi.getProfile>> & { themeMode?: string })
+
+    const store = useAuthStore()
+    await store.fetchUserProfile()
+
+    expect(mockThemeStore.syncFromServer).toHaveBeenCalledWith('LIGHT')
   })
 
   it('updateAccountProfile は userApi.updateProfile を呼び、currentUser を更新して saveToStorage を呼ぶ', async () => {

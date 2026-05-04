@@ -63,6 +63,9 @@ describe('authApi', () => {
           displayName: 'User',
           locale: 'ja',
           iconUrl: 'http://example.com/icon.png',
+          authProvider: undefined,
+          notificationEnabled: undefined,
+          themeMode: null,
         },
       })
     })
@@ -134,6 +137,9 @@ describe('authApi', () => {
             displayName: 'New User',
             locale: 'ja',
             iconUrl: null,
+            authProvider: undefined,
+            notificationEnabled: undefined,
+            themeMode: null,
           },
         },
       })

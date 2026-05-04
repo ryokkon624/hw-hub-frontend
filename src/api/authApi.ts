@@ -105,6 +105,7 @@ interface LoginUserDto {
   authProvider: string
   displayName: string
   locale: string
+  themeMode?: string | null
   notificationEnabled: boolean
   iconUrl?: string | null
 }
@@ -142,6 +143,7 @@ const toLoginUser = (dto: LoginUserDto): LoginUser => ({
   locale: dto.locale,
   notificationEnabled: dto.notificationEnabled,
   iconUrl: dto.iconUrl ?? null,
+  themeMode: dto.themeMode ?? null,
 })
 
 /**

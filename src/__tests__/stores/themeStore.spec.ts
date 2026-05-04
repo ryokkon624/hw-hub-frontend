@@ -1,11 +1,18 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 
+vi.mock('@/api/userApi', () => ({
+  userApi: {
+    updateTheme: vi.fn(),
+  },
+}))
+
 describe('themeStore', () => {
   let mockMatchMedia: ReturnType<typeof vi.fn>
 
   beforeEach(() => {
     setActivePinia(createPinia())
+    vi.clearAllMocks()
     localStorage.clear()
     document.documentElement.className = ''
 
@@ -79,5 +86,57 @@ describe('themeStore', () => {
     expect(store.mode).toBe('SYSTEM')
     expect(document.documentElement.classList.contains('dark')).toBe(false)
     expect(document.documentElement.classList.contains('light')).toBe(false)
+  })
+
+  it('syncFromServer はサーバーの値でモードとLSを上書きする', async () => {
+    localStorage.setItem('hwhub_theme', 'LIGHT')
+    const { useThemeStore } = await import('@/stores/themeStore')
+    const store = useThemeStore()
+    store.init()
+
+    store.syncFromServer('DARK')
+
+    expect(store.mode).toBe('DARK')
+    expect(localStorage.getItem('hwhub_theme')).toBe('DARK')
+    expect(document.documentElement.classList.contains('dark')).toBe(true)
+    expect(document.documentElement.classList.contains('light')).toBe(false)
+  })
+
+  it('syncFromServer に null/undefined が渡された場合は何もしない', async () => {
+    localStorage.setItem('hwhub_theme', 'LIGHT')
+    const { useThemeStore } = await import('@/stores/themeStore')
+    const store = useThemeStore()
+    store.init()
+
+    store.syncFromServer(null as unknown as string)
+
+    expect(store.mode).toBe('LIGHT')
+    expect(localStorage.getItem('hwhub_theme')).toBe('LIGHT')
+  })
+
+  it('setMode はログイン中の場合 userApi.updateTheme を呼ぶ', async () => {
+    const { userApi } = await import('@/api/userApi')
+    const { useThemeStore } = await import('@/stores/themeStore')
+    const store = useThemeStore()
+    store.init()
+
+    // ログイン済みとしてmarkする
+    store.markLoggedIn()
+
+    await store.setMode('DARK')
+
+    expect(userApi.updateTheme).toHaveBeenCalledWith('DARK')
+  })
+
+  it('setMode は未ログイン時は userApi.updateTheme を呼ばない', async () => {
+    const { userApi } = await import('@/api/userApi')
+    const { useThemeStore } = await import('@/stores/themeStore')
+    const store = useThemeStore()
+    store.init()
+
+    // ログアウト状態（markLoggedInを呼ばない）
+    await store.setMode('DARK')
+
+    expect(userApi.updateTheme).not.toHaveBeenCalled()
   })
 })
