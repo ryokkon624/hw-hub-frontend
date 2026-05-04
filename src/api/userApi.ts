@@ -1,5 +1,6 @@
 import { apiClient } from './client'
 import type { HouseholdModel, UserProfile } from '@/domain'
+import type { ThemeModeCode } from '@/constants/code.constants'
 
 export const userApi = {
   /**
@@ -89,6 +90,14 @@ export const userApi = {
   async deleteAccount(): Promise<void> {
     await apiClient.delete('/api/users/me')
   },
+
+  /**
+   * テーマモードをDBに保存する。
+   * @param themeMode テーマモード（SYSTEM / LIGHT / DARK）
+   */
+  async updateTheme(themeMode: ThemeModeCode): Promise<void> {
+    await apiClient.patch('/api/users/me/theme', { themeMode })
+  },
 }
 
 // ---- API DTO ----------------------------------------------------
@@ -111,6 +120,7 @@ interface UserProfileDto {
   authProvider: string
   displayName: string
   locale: string
+  themeMode?: string | null
   notificationEnabled: boolean
   iconUrl?: string | null
 }
@@ -163,6 +173,7 @@ const toUserProfile = (dto: UserProfileDto): UserProfile => ({
   authProvider: dto.authProvider,
   displayName: dto.displayName,
   locale: dto.locale,
+  themeMode: dto.themeMode ?? null,
   notificationEnabled: dto.notificationEnabled,
   iconUrl: dto.iconUrl ?? null,
 })

@@ -11,6 +11,7 @@ export interface LoginUser {
   locale: string
   notificationEnabled: boolean
   iconUrl?: string | null
+  themeMode?: string | null
 }
 
 /**

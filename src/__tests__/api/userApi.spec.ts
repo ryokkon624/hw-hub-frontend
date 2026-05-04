@@ -74,6 +74,7 @@ describe('userApi', () => {
       notificationEnabled: true,
       iconUrl: 'https://example.com/icon.png',
       authProvider: 'google',
+      themeMode: null,
     }
     expect(result).toEqual(expected)
   })
@@ -101,6 +102,7 @@ describe('userApi', () => {
       notificationEnabled: false,
       iconUrl: null,
       authProvider: 'google',
+      themeMode: null,
     }
     expect(result).toEqual(expected)
   })

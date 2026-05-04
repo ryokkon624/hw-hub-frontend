@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { THEME_MODE } from '@/constants/code.constants'
 import type { ThemeModeCode } from '@/constants/code.constants'
+import { userApi } from '@/api/userApi'
 
 const LS_KEY = 'hwhub_theme'
 const VALID_MODES: ThemeModeCode[] = [THEME_MODE.SYSTEM, THEME_MODE.LIGHT, THEME_MODE.DARK]
@@ -12,6 +13,7 @@ function isValidMode(value: string): value is ThemeModeCode {
 
 export const useThemeStore = defineStore('theme', () => {
   const mode = ref<ThemeModeCode>(THEME_MODE.SYSTEM)
+  const isLoggedIn = ref(false)
   let mediaQueryListener: ((e: MediaQueryListEvent) => void) | null = null
   let mediaQuery: MediaQueryList | null = null
 
@@ -60,7 +62,27 @@ export const useThemeStore = defineStore('theme', () => {
     }
   }
 
-  function setMode(newMode: ThemeModeCode) {
+  function syncFromServer(themeMode: string | null | undefined) {
+    if (!themeMode || !isValidMode(themeMode)) return
+    mode.value = themeMode as ThemeModeCode
+    localStorage.setItem(LS_KEY, themeMode)
+    applyTheme(themeMode as ThemeModeCode)
+    if (themeMode === THEME_MODE.SYSTEM) {
+      attachMediaListener()
+    } else {
+      detachMediaListener()
+    }
+  }
+
+  function markLoggedIn() {
+    isLoggedIn.value = true
+  }
+
+  function markLoggedOut() {
+    isLoggedIn.value = false
+  }
+
+  async function setMode(newMode: ThemeModeCode) {
     mode.value = newMode
     localStorage.setItem(LS_KEY, newMode)
     applyTheme(newMode)
@@ -69,7 +91,10 @@ export const useThemeStore = defineStore('theme', () => {
     } else {
       detachMediaListener()
     }
+    if (isLoggedIn.value) {
+      await userApi.updateTheme(newMode)
+    }
   }
 
-  return { mode, init, setMode }
+  return { mode, init, setMode, syncFromServer, markLoggedIn, markLoggedOut }
 })

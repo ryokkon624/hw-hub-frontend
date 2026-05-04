@@ -7,6 +7,7 @@ export type UserProfile = {
   authProvider: string
   displayName: string
   locale: string // 'ja' | 'en' | 'es'
+  themeMode?: string | null
   notificationEnabled: boolean
   iconUrl?: string | null
 }
