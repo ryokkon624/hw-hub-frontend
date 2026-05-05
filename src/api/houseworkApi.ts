@@ -54,14 +54,6 @@ export const houseworkApi = {
     const res = await apiClient.put<HouseworkDto>(`/api/houseworks/${houseworkId}`, payload)
     return toHousework(res.data)
   },
-
-  /**
-   * 家事を削除する。
-   * @param houseworkId 家事ID
-   */
-  async deleteHousework(houseworkId: number): Promise<void> {
-    await apiClient.delete(`/api/houseworks/${houseworkId}`)
-  },
 }
 
 // ---- API DTO ----------------------------------------------------

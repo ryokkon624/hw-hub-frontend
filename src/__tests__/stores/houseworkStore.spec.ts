@@ -21,7 +21,6 @@ vi.mock('@/api/houseworkApi', () => ({
     getHousework: vi.fn(),
     createHousework: vi.fn(),
     updateHousework: vi.fn(),
-    deleteHousework: vi.fn(),
   },
 }))
 
@@ -200,25 +199,6 @@ describe('houseworkStore', () => {
     expect(store.current).toEqual(updated)
     expect(store.items[0]).toEqual(updated)
     expect(store.itemsByHouseholdId[1][0]).toEqual(updated)
-  })
-
-  it('delete: 対象家事を items / itemsByHouseholdId から削除し、current も必要ならクリアする', async () => {
-    const store = useHouseworkStore()
-    const h1 = makeHousework({ houseworkId: 1, name: '残る' })
-    const h2 = makeHousework({ houseworkId: 2, name: '消える' })
-
-    store.items = [h1, h2]
-    store.itemsByHouseholdId[1] = [h1, h2]
-    store.current = h2
-
-    mockedHouseworkApi.deleteHousework.mockResolvedValue()
-
-    await store.delete(2)
-
-    expect(mockedHouseworkApi.deleteHousework).toHaveBeenCalledWith(2)
-    expect(store.items).toEqual([h1])
-    expect(store.itemsByHouseholdId[1]).toEqual([h1])
-    expect(store.current).toBeNull()
   })
 
   it('clear: items と current をクリアする', () => {

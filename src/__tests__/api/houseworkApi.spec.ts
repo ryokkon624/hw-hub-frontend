@@ -250,15 +250,4 @@ describe('houseworkApi', () => {
       expect(result.name).toBe('テスト家事') // baseDto の値で map されていること
     })
   })
-
-  describe('deleteHousework', () => {
-    it('DELETE /api/houseworks/:id を呼び出す', async () => {
-      mockedClient.delete.mockResolvedValue({})
-
-      await houseworkApi.deleteHousework(10)
-
-      expect(mockedClient.delete).toHaveBeenCalledTimes(1)
-      expect(mockedClient.delete).toHaveBeenCalledWith('/api/houseworks/10')
-    })
-  })
 })
