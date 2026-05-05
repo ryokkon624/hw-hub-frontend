@@ -196,14 +196,14 @@ const routes: RouteRecordRaw[] = [
         path: 'settings/housework/new',
         name: 'settings.housework.new',
         component: HouseworkCreatePage,
-        meta: { titleKey: 'pageTitles.houseworkCreate' },
+        meta: { titleKey: 'pageTitles.houseworkCreate', featureScope: ANNOUNCEMENT_SCOPE.HW_CONF },
       },
       {
         path: 'settings/housework/:houseworkId/edit',
         name: 'settings.housework.edit',
         component: HouseworkEditPage,
         props: true,
-        meta: { titleKey: 'pageTitles.houseworkEdit' },
+        meta: { titleKey: 'pageTitles.houseworkEdit', featureScope: ANNOUNCEMENT_SCOPE.HW_CONF },
       },
 
       // ---- Shopping ----
@@ -217,14 +217,14 @@ const routes: RouteRecordRaw[] = [
         path: 'shopping/new',
         name: 'shopping.new',
         component: ShoppingItemCreatePage,
-        meta: { titleKey: 'pageTitles.shoppingCreate' },
+        meta: { titleKey: 'pageTitles.shoppingCreate', featureScope: ANNOUNCEMENT_SCOPE.SHOPPING },
       },
       {
         path: 'shopping/items/:itemId',
         name: 'shopping.item.detail',
         component: ShoppingItemDetailPage,
         props: true,
-        meta: { titleKey: 'pageTitles.shoppingEdit' },
+        meta: { titleKey: 'pageTitles.shoppingEdit', featureScope: ANNOUNCEMENT_SCOPE.SHOPPING },
       },
 
       // ---- Settings ----
@@ -381,13 +381,13 @@ const routes: RouteRecordRaw[] = [
         path: 'settings/inquiry/new',
         name: 'settings.inquiry.new',
         component: InquiryCreatePage,
-        meta: { titleKey: 'pageTitles.inquiryCreate' },
+        meta: { titleKey: 'pageTitles.inquiryCreate', featureScope: ANNOUNCEMENT_SCOPE.INQUIRY },
       },
       {
         path: 'settings/inquiry/:inquiryId',
         name: 'settings.inquiry.detail',
         component: InquiryDetailPage,
-        meta: { titleKey: 'pageTitles.inquiryDetail' },
+        meta: { titleKey: 'pageTitles.inquiryDetail', featureScope: ANNOUNCEMENT_SCOPE.INQUIRY },
       },
     ],
   },

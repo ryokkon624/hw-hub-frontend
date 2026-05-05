@@ -67,7 +67,9 @@ const route = useRoute()
 const { t, locale } = useI18n()
 const announcementStore = useAnnouncementStore()
 
-const visibleAnnouncements = computed(() => announcementStore.visibleForRoute(route.name as string))
+const visibleAnnouncements = computed(() =>
+  announcementStore.visibleForRoute(route.name as string, route.meta.featureScope),
+)
 
 function localizedTitle(announcement: Announcement): string {
   if (locale.value === 'ja') return announcement.titleJa

@@ -49,19 +49,22 @@ export const useAnnouncementStore = defineStore('announcement', {
       },
 
     /**
-     * 指定ルート名に表示すべきアナウンス一覧を返す。
+     * 指定ルート名と現在の featureScope に表示すべきアナウンス一覧を返す。
      * - targetScope が 'ALL' の場合は全ルートで表示
-     * - targetScope が特定スコープの場合は対応するルート名と一致する場合のみ表示
+     * - currentScope が指定されている場合は targetScope === currentScope の場合のみ表示
+     * - currentScope が未定義（featureScope 未設定のルート）の場合は ALL のみ表示
      * - closedIds に含まれるアナウンスは除外する
+     * @param routeName 現在のルート名（未使用だが AnnouncementBanner.vue との互換性のため残す）
+     * @param currentScope 現在のルートの featureScope
      */
     visibleForRoute:
       (state) =>
-      (routeName: string): Announcement[] => {
+      (routeName: string, currentScope?: AnnouncementScopeCode): Announcement[] => {
         return state.announcements.filter((a) => {
           if (state.closedIds.has(a.id)) return false
           if (a.targetScope === ANNOUNCEMENT_SCOPE.ALL) return true
-          const mappedRoute = SCOPE_TO_ROUTE_MAP[a.targetScope]
-          return mappedRoute === routeName
+          if (!currentScope) return false
+          return a.targetScope === currentScope
         })
       },
   },
