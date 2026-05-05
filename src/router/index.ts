@@ -10,6 +10,8 @@ declare module 'vue-router' {
     titleKey?: string
     title?: string
     public?: boolean
+    /** アナウンスバナーの対象スコープ（m_code 0027 の code_value） */
+    featureScope?: string
   }
 }
 
@@ -155,7 +157,7 @@ const routes: RouteRecordRaw[] = [
         path: 'home',
         name: 'home',
         component: HomePage,
-        meta: { titleKey: 'pageTitles.home' },
+        meta: { titleKey: 'pageTitles.home', featureScope: 'HOME' },
       },
 
       // ---- Housework ----
@@ -163,13 +165,13 @@ const routes: RouteRecordRaw[] = [
         path: 'housework/assign',
         name: 'housework.assign',
         component: HouseworkAssignmentPage,
-        meta: { titleKey: 'pageTitles.houseworkAssign' },
+        meta: { titleKey: 'pageTitles.houseworkAssign', featureScope: 'HW_ASSIGN' },
       },
       {
         path: 'housework/tasks',
         name: 'housework.tasks',
         component: MyTasksPage,
-        meta: { titleKey: 'pageTitles.myTasks' },
+        meta: { titleKey: 'pageTitles.myTasks', featureScope: 'HW_TASK' },
       },
 
       // ---- Housework Settings ----
@@ -177,7 +179,7 @@ const routes: RouteRecordRaw[] = [
         path: 'settings/housework',
         name: 'settings.housework',
         component: HouseworkSettingsPage,
-        meta: { titleKey: 'pageTitles.houseworkSettings' },
+        meta: { titleKey: 'pageTitles.houseworkSettings', featureScope: 'HW_CONF' },
       },
       {
         path: 'settings/housework/new',
@@ -198,7 +200,7 @@ const routes: RouteRecordRaw[] = [
         path: 'shopping',
         name: 'shopping',
         component: ShoppingListPage,
-        meta: { titleKey: 'pageTitles.shopping' },
+        meta: { titleKey: 'pageTitles.shopping', featureScope: 'SHOPPING' },
       },
       {
         path: 'shopping/new',
@@ -225,19 +227,19 @@ const routes: RouteRecordRaw[] = [
         path: 'settings/account',
         name: 'settings.account',
         component: AccountSettingsPage,
-        meta: { titleKey: 'pageTitles.accountSettings' },
+        meta: { titleKey: 'pageTitles.accountSettings', featureScope: 'CONF_ACCT' },
       },
       {
         path: 'settings/household',
         name: 'settings.household',
         component: HouseholdSettingsPage,
-        meta: { titleKey: 'pageTitles.householdSettings' },
+        meta: { titleKey: 'pageTitles.householdSettings', featureScope: 'CONF_HH' },
       },
       {
         path: 'settings/app',
         name: 'settings.app',
         component: AppInfoPage,
-        meta: { titleKey: 'pageTitles.app' },
+        meta: { titleKey: 'pageTitles.app', featureScope: 'CONF_APP' },
       },
       {
         path: 'settings/app/terms',
@@ -258,7 +260,7 @@ const routes: RouteRecordRaw[] = [
         path: 'notifications',
         name: 'notifications',
         component: NotificationCenterPage,
-        meta: { titleKey: 'pageTitles.notifications' },
+        meta: { titleKey: 'pageTitles.notifications', featureScope: 'NOTIFY' },
       },
 
       // ---- Admin ----
@@ -270,7 +272,12 @@ const routes: RouteRecordRaw[] = [
             path: '',
             name: 'admin',
             component: AdminTopPage,
-            meta: { titleKey: 'pageTitles.admin', requiresAuth: true, requiresAdmin: true },
+            meta: {
+              titleKey: 'pageTitles.admin',
+              requiresAuth: true,
+              requiresAdmin: true,
+              featureScope: 'ADMIN',
+            },
           },
           {
             path: 'users',
@@ -351,7 +358,7 @@ const routes: RouteRecordRaw[] = [
         path: 'settings/inquiry',
         name: 'settings.inquiry',
         component: InquiryListPage,
-        meta: { titleKey: 'pageTitles.inquiry' },
+        meta: { titleKey: 'pageTitles.inquiry', featureScope: 'INQUIRY' },
       },
       {
         path: 'settings/inquiry/new',

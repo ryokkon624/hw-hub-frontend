@@ -94,6 +94,9 @@
 
     <!-- メイン領域 -->
     <div class="flex-1 flex flex-col min-w-0">
+      <!-- アナウンスバナー -->
+      <AnnouncementBanner />
+
       <!-- ヘッダー -->
       <header
         class="h-16 flex items-center justify-between px-4 border-b bg-hwhub-surface-card border-hwhub-border"
@@ -189,6 +192,7 @@ import {
 import AppHeader from '@/components/AppHeader.vue'
 import AppToastContainer from '@/components/AppToastContainer.vue'
 import LoadingOverlay from '@/components/LoadingOverlay.vue'
+import AnnouncementBanner from '@/components/announcement/AnnouncementBanner.vue'
 import { useHouseholdStore } from '@/stores/householdStore'
 import { useRole } from '@/composables/useRole'
 
