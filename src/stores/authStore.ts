@@ -105,7 +105,9 @@ export const useAuthStore = defineStore('auth', {
       await roleStore.fetchMyRoles()
 
       const announcementStore = useAnnouncementStore()
-      announcementStore.fetchActive()
+      if (!announcementStore.isLoaded) {
+        announcementStore.fetchActive()
+      }
     },
 
     beginAuthTransition() {
@@ -148,7 +150,9 @@ export const useAuthStore = defineStore('auth', {
       await roleStore.fetchMyRoles()
 
       const announcementStore = useAnnouncementStore()
-      announcementStore.fetchActive()
+      if (!announcementStore.isLoaded) {
+        announcementStore.fetchActive()
+      }
 
       return result
     },
@@ -185,7 +189,9 @@ export const useAuthStore = defineStore('auth', {
         await roleStore.fetchMyRoles()
 
         const announcementStore = useAnnouncementStore()
-        announcementStore.fetchActive()
+        if (!announcementStore.isLoaded) {
+          announcementStore.fetchActive()
+        }
       } finally {
         this.isBootstrapping = false
         const notificationStore = useNotificationStore()
