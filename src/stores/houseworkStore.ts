@@ -149,30 +149,6 @@ export const useHouseworkStore = defineStore('houseworkStore', {
       return updated
     },
 
-    /**
-     * 指定された家事IDの家事を削除する。
-     * @param houseworkId 家事ID
-     */
-    async delete(houseworkId: number) {
-      const householdStore = useHouseholdStore()
-      const householdId = householdStore.currentHouseholdId
-
-      await houseworkApi.deleteHousework(houseworkId)
-
-      this.items = this.items.filter((item) => item.houseworkId !== houseworkId)
-
-      if (householdId) {
-        const list = this.itemsByHouseholdId[householdId] ?? []
-        this.itemsByHouseholdId[householdId] = list.filter(
-          (item) => item.houseworkId !== houseworkId,
-        )
-      }
-
-      if (this.current?.houseworkId === houseworkId) {
-        this.current = null
-      }
-    },
-
     clear() {
       this.items = []
       this.current = null
