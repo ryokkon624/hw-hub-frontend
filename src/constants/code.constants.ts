@@ -24,6 +24,8 @@ export const CODE_TYPE = {
   USER_ROLE: '0024', // UserRole (ユーザロール)
   PERMISSION: '0025', // Permission (パーミッション)
   THEME_MODE: '0026', // ThemeMode (テーマモード)
+  ANNOUNCEMENT_SCOPE: '0027', // AnnouncementScope (アナウンス対象スコープ)
+  ANNOUNCEMENT_SEVERITY: '0028', // AnnouncementSeverity (アナウンス重要度)
 } as const
 
 /**
@@ -262,3 +264,34 @@ export const THEME_MODE = {
   DARK: 'DARK', // ダーク
 } as const
 export type ThemeModeCode = (typeof THEME_MODE)[keyof typeof THEME_MODE]
+
+/**
+ * 0027: アナウンス対象スコープ (AnnouncementScope)
+ * code_value は VARCHAR(10) 制限のため短縮形を採用
+ */
+export const ANNOUNCEMENT_SCOPE = {
+  ALL: 'ALL',
+  HOME: 'HOME',
+  HW_ASSIGN: 'HW_ASSIGN',
+  HW_TASK: 'HW_TASK',
+  HW_CONF: 'HW_CONF',
+  SHOPPING: 'SHOPPING',
+  CONF_ACCT: 'CONF_ACCT',
+  CONF_HH: 'CONF_HH',
+  CONF_APP: 'CONF_APP',
+  NOTIFY: 'NOTIFY',
+  INQUIRY: 'INQUIRY',
+  ADMIN: 'ADMIN',
+} as const
+export type AnnouncementScopeCode = (typeof ANNOUNCEMENT_SCOPE)[keyof typeof ANNOUNCEMENT_SCOPE]
+
+/**
+ * 0028: アナウンス重要度 (AnnouncementSeverity)
+ */
+export const ANNOUNCEMENT_SEVERITY = {
+  INFO: 'INFO',
+  WARN: 'WARN',
+  ERROR: 'ERROR',
+} as const
+export type AnnouncementSeverityCode =
+  (typeof ANNOUNCEMENT_SEVERITY)[keyof typeof ANNOUNCEMENT_SEVERITY]

@@ -85,6 +85,7 @@
   --hwhub-swipe-disabled: #cbd5e1; /* slate-300 */
   --hwhub-swipe-self: #0ea5e9; /* sky-500 */
   --hwhub-swipe-members: #f59e0b; /* amber-500 */
+  --hwhub-warning: #f59e0b; /* amber-500 */
 
   /* Store */
   --hwhub-store-super: #10b981; /* emerald-500 */
@@ -217,6 +218,7 @@
   --hwhub-swipe-disabled: #3f4d3f; /* 同上 */
   --hwhub-swipe-self: #38bdf8;
   --hwhub-swipe-members: #fbbf24;
+  --hwhub-warning: #fbbf24; /* amber-400 */
 
   /* Store (識別性が要るので明度のみ調整) */
   --hwhub-store-super: #34d399;
@@ -412,6 +414,9 @@ body {
   .text-hwhub-accent-badge {
     color: var(--hwhub-accent-badge-text);
   }
+  .bg-hwhub-warning {
+    background-color: var(--hwhub-warning);
+  }
 
   /* Surface */
   .bg-hwhub-surface {
@@ -488,6 +493,9 @@ body {
   .bg-hwhub-danger-soft {
     background-color: var(--hwhub-danger-soft);
   }
+  .bg-hwhub-danger {
+    background-color: var(--hwhub-danger);
+  }
   .text-hwhub-danger {
     color: var(--hwhub-danger);
   }
@@ -498,6 +506,9 @@ body {
   /* Info */
   .bg-hwhub-info-soft {
     background-color: var(--hwhub-info-soft);
+  }
+  .bg-hwhub-info {
+    background-color: var(--hwhub-info);
   }
   .text-hwhub-info {
     color: var(--hwhub-info);

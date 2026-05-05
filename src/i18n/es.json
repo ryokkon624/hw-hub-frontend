@@ -1593,5 +1593,8 @@
       "privacy": "Política de privacidad",
       "copyright": "© 2026 Housework Hub"
     }
+  },
+  "announcement": {
+    "close": "Cerrar"
   }
 }

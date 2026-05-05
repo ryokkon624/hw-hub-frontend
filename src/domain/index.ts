@@ -29,3 +29,5 @@ export * from './shopping/history/shoppingItemHistory.model.ts'
 export * from './notification/notification.model.ts'
 // inquiry
 export * from './inquiry/inquiry.model.ts'
+// announcement
+export * from './announcement/announcement.model.ts'

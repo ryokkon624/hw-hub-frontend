@@ -12,6 +12,7 @@ import { useAdminHouseworkTemplateStore } from './adminHouseworkTemplateStore'
 import { useHouseworkStore } from './houseworkStore'
 import { useShoppingStore } from './shoppingStore'
 import { useThemeStore } from './themeStore'
+import { useAnnouncementStore } from './announcementStore'
 
 interface AuthState {
   accessToken: string | null
@@ -102,6 +103,11 @@ export const useAuthStore = defineStore('auth', {
 
       const roleStore = useRoleStore()
       await roleStore.fetchMyRoles()
+
+      const announcementStore = useAnnouncementStore()
+      if (!announcementStore.isLoaded) {
+        announcementStore.fetchActive()
+      }
     },
 
     beginAuthTransition() {
@@ -143,6 +149,11 @@ export const useAuthStore = defineStore('auth', {
       const roleStore = useRoleStore()
       await roleStore.fetchMyRoles()
 
+      const announcementStore = useAnnouncementStore()
+      if (!announcementStore.isLoaded) {
+        announcementStore.fetchActive()
+      }
+
       return result
     },
 
@@ -176,6 +187,11 @@ export const useAuthStore = defineStore('auth', {
         codeStore.loadAllIfNeeded()
         const roleStore = useRoleStore()
         await roleStore.fetchMyRoles()
+
+        const announcementStore = useAnnouncementStore()
+        if (!announcementStore.isLoaded) {
+          announcementStore.fetchActive()
+        }
       } finally {
         this.isBootstrapping = false
         const notificationStore = useNotificationStore()
@@ -213,6 +229,9 @@ export const useAuthStore = defineStore('auth', {
 
       const shoppingStore = useShoppingStore()
       shoppingStore.clear()
+
+      const announcementStore = useAnnouncementStore()
+      announcementStore.reset()
     },
 
     /**

@@ -6,6 +6,16 @@ import { userApi } from '@/api/userApi'
 import type { AuthSession, LoginUser, HouseholdModel, HouseholdMember } from '@/domain'
 import { HOUSEHOLD_MEMBER_STATUS } from '@/constants/code.constants'
 
+const mockAnnouncementStore = {
+  fetchActive: vi.fn(),
+  reset: vi.fn(),
+  isLoaded: false,
+}
+
+vi.mock('@/stores/announcementStore', () => ({
+  useAnnouncementStore: () => mockAnnouncementStore,
+}))
+
 const testGlobal = globalThis as typeof globalThis & {
   localStorage: Storage
   fetch: typeof fetch
@@ -113,6 +123,10 @@ describe('authStore', () => {
     mockThemeStore.syncFromServer.mockReset()
     mockThemeStore.markLoggedIn.mockReset()
     mockThemeStore.markLoggedOut.mockReset()
+    // announcementStore モックをリセット
+    mockAnnouncementStore.fetchActive.mockReset()
+    mockAnnouncementStore.reset.mockReset()
+    mockAnnouncementStore.isLoaded = false
 
     // localStorage を毎回リセット
     testGlobal.localStorage = createLocalStorageMock()
@@ -812,5 +826,88 @@ describe('authStore', () => {
     store.patchCurrentUser({ notificationEnabled: true })
 
     expect(store.currentUser).toBeNull()
+  })
+
+  // --- announcementStore.fetchActive の isLoaded ガード ---
+
+  it('login: isLoaded が false の場合 announcementStore.fetchActive を呼ぶ', async () => {
+    const user = createLoginUser()
+    vi.mocked(authApi.login).mockResolvedValue({ accessToken: 'token', user })
+    mockAnnouncementStore.isLoaded = false
+
+    const store = useAuthStore()
+    await store.login('test@example.com', 'password')
+
+    expect(mockAnnouncementStore.fetchActive).toHaveBeenCalledTimes(1)
+  })
+
+  it('login: isLoaded が true の場合 announcementStore.fetchActive を呼ばない', async () => {
+    const user = createLoginUser()
+    vi.mocked(authApi.login).mockResolvedValue({ accessToken: 'token', user })
+    mockAnnouncementStore.isLoaded = true
+
+    const store = useAuthStore()
+    await store.login('test@example.com', 'password')
+
+    expect(mockAnnouncementStore.fetchActive).not.toHaveBeenCalled()
+  })
+
+  it('register: isLoaded が false の場合 announcementStore.fetchActive を呼ぶ', async () => {
+    const user = createLoginUser()
+    vi.mocked(authApi.register).mockResolvedValue({
+      kind: 'LOGGED_IN',
+      session: { accessToken: 'token', user },
+    })
+    mockAnnouncementStore.isLoaded = false
+
+    const store = useAuthStore()
+    await store.register({
+      email: 'new@example.com',
+      password: 'pw',
+      displayName: 'New',
+      locale: 'ja',
+    })
+
+    expect(mockAnnouncementStore.fetchActive).toHaveBeenCalledTimes(1)
+  })
+
+  it('register: isLoaded が true の場合 announcementStore.fetchActive を呼ばない', async () => {
+    const user = createLoginUser()
+    vi.mocked(authApi.register).mockResolvedValue({
+      kind: 'LOGGED_IN',
+      session: { accessToken: 'token', user },
+    })
+    mockAnnouncementStore.isLoaded = true
+
+    const store = useAuthStore()
+    await store.register({
+      email: 'new@example.com',
+      password: 'pw',
+      displayName: 'New',
+      locale: 'ja',
+    })
+
+    expect(mockAnnouncementStore.fetchActive).not.toHaveBeenCalled()
+  })
+
+  it('completeOAuthLogin: isLoaded が false の場合 announcementStore.fetchActive を呼ぶ', async () => {
+    vi.spyOn(useAuthStore(), 'fetchUserProfile').mockResolvedValue(undefined)
+    mockAnnouncementStore.isLoaded = false
+
+    const store = useAuthStore()
+    vi.spyOn(store, 'fetchUserProfile').mockResolvedValue(undefined)
+    await store.completeOAuthLogin('oauth-token')
+
+    expect(mockAnnouncementStore.fetchActive).toHaveBeenCalledTimes(1)
+  })
+
+  it('completeOAuthLogin: isLoaded が true の場合 announcementStore.fetchActive を呼ばない', async () => {
+    mockAnnouncementStore.isLoaded = true
+
+    const store = useAuthStore()
+    vi.spyOn(store, 'fetchUserProfile').mockResolvedValue(undefined)
+    await store.completeOAuthLogin('oauth-token')
+
+    expect(mockAnnouncementStore.fetchActive).not.toHaveBeenCalled()
   })
 })

@@ -1,6 +1,11 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import { useUiStore } from '@/stores/uiStore'
-import { PERMISSION, type PermissionCode } from '@/constants/code.constants'
+import {
+  PERMISSION,
+  ANNOUNCEMENT_SCOPE,
+  type PermissionCode,
+  type AnnouncementScopeCode,
+} from '@/constants/code.constants'
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -10,6 +15,8 @@ declare module 'vue-router' {
     titleKey?: string
     title?: string
     public?: boolean
+    /** アナウンスバナーの対象スコープ（m_code 0027 の code_value） */
+    featureScope?: AnnouncementScopeCode
   }
 }
 
@@ -155,7 +162,7 @@ const routes: RouteRecordRaw[] = [
         path: 'home',
         name: 'home',
         component: HomePage,
-        meta: { titleKey: 'pageTitles.home' },
+        meta: { titleKey: 'pageTitles.home', featureScope: ANNOUNCEMENT_SCOPE.HOME },
       },
 
       // ---- Housework ----
@@ -163,13 +170,16 @@ const routes: RouteRecordRaw[] = [
         path: 'housework/assign',
         name: 'housework.assign',
         component: HouseworkAssignmentPage,
-        meta: { titleKey: 'pageTitles.houseworkAssign' },
+        meta: {
+          titleKey: 'pageTitles.houseworkAssign',
+          featureScope: ANNOUNCEMENT_SCOPE.HW_ASSIGN,
+        },
       },
       {
         path: 'housework/tasks',
         name: 'housework.tasks',
         component: MyTasksPage,
-        meta: { titleKey: 'pageTitles.myTasks' },
+        meta: { titleKey: 'pageTitles.myTasks', featureScope: ANNOUNCEMENT_SCOPE.HW_TASK },
       },
 
       // ---- Housework Settings ----
@@ -177,20 +187,23 @@ const routes: RouteRecordRaw[] = [
         path: 'settings/housework',
         name: 'settings.housework',
         component: HouseworkSettingsPage,
-        meta: { titleKey: 'pageTitles.houseworkSettings' },
+        meta: {
+          titleKey: 'pageTitles.houseworkSettings',
+          featureScope: ANNOUNCEMENT_SCOPE.HW_CONF,
+        },
       },
       {
         path: 'settings/housework/new',
         name: 'settings.housework.new',
         component: HouseworkCreatePage,
-        meta: { titleKey: 'pageTitles.houseworkCreate' },
+        meta: { titleKey: 'pageTitles.houseworkCreate', featureScope: ANNOUNCEMENT_SCOPE.HW_CONF },
       },
       {
         path: 'settings/housework/:houseworkId/edit',
         name: 'settings.housework.edit',
         component: HouseworkEditPage,
         props: true,
-        meta: { titleKey: 'pageTitles.houseworkEdit' },
+        meta: { titleKey: 'pageTitles.houseworkEdit', featureScope: ANNOUNCEMENT_SCOPE.HW_CONF },
       },
 
       // ---- Shopping ----
@@ -198,20 +211,20 @@ const routes: RouteRecordRaw[] = [
         path: 'shopping',
         name: 'shopping',
         component: ShoppingListPage,
-        meta: { titleKey: 'pageTitles.shopping' },
+        meta: { titleKey: 'pageTitles.shopping', featureScope: ANNOUNCEMENT_SCOPE.SHOPPING },
       },
       {
         path: 'shopping/new',
         name: 'shopping.new',
         component: ShoppingItemCreatePage,
-        meta: { titleKey: 'pageTitles.shoppingCreate' },
+        meta: { titleKey: 'pageTitles.shoppingCreate', featureScope: ANNOUNCEMENT_SCOPE.SHOPPING },
       },
       {
         path: 'shopping/items/:itemId',
         name: 'shopping.item.detail',
         component: ShoppingItemDetailPage,
         props: true,
-        meta: { titleKey: 'pageTitles.shoppingEdit' },
+        meta: { titleKey: 'pageTitles.shoppingEdit', featureScope: ANNOUNCEMENT_SCOPE.SHOPPING },
       },
 
       // ---- Settings ----
@@ -225,19 +238,25 @@ const routes: RouteRecordRaw[] = [
         path: 'settings/account',
         name: 'settings.account',
         component: AccountSettingsPage,
-        meta: { titleKey: 'pageTitles.accountSettings' },
+        meta: {
+          titleKey: 'pageTitles.accountSettings',
+          featureScope: ANNOUNCEMENT_SCOPE.CONF_ACCT,
+        },
       },
       {
         path: 'settings/household',
         name: 'settings.household',
         component: HouseholdSettingsPage,
-        meta: { titleKey: 'pageTitles.householdSettings' },
+        meta: {
+          titleKey: 'pageTitles.householdSettings',
+          featureScope: ANNOUNCEMENT_SCOPE.CONF_HH,
+        },
       },
       {
         path: 'settings/app',
         name: 'settings.app',
         component: AppInfoPage,
-        meta: { titleKey: 'pageTitles.app' },
+        meta: { titleKey: 'pageTitles.app', featureScope: ANNOUNCEMENT_SCOPE.CONF_APP },
       },
       {
         path: 'settings/app/terms',
@@ -258,7 +277,7 @@ const routes: RouteRecordRaw[] = [
         path: 'notifications',
         name: 'notifications',
         component: NotificationCenterPage,
-        meta: { titleKey: 'pageTitles.notifications' },
+        meta: { titleKey: 'pageTitles.notifications', featureScope: ANNOUNCEMENT_SCOPE.NOTIFY },
       },
 
       // ---- Admin ----
@@ -270,7 +289,12 @@ const routes: RouteRecordRaw[] = [
             path: '',
             name: 'admin',
             component: AdminTopPage,
-            meta: { titleKey: 'pageTitles.admin', requiresAuth: true, requiresAdmin: true },
+            meta: {
+              titleKey: 'pageTitles.admin',
+              requiresAuth: true,
+              requiresAdmin: true,
+              featureScope: ANNOUNCEMENT_SCOPE.ADMIN,
+            },
           },
           {
             path: 'users',
@@ -351,19 +375,19 @@ const routes: RouteRecordRaw[] = [
         path: 'settings/inquiry',
         name: 'settings.inquiry',
         component: InquiryListPage,
-        meta: { titleKey: 'pageTitles.inquiry' },
+        meta: { titleKey: 'pageTitles.inquiry', featureScope: ANNOUNCEMENT_SCOPE.INQUIRY },
       },
       {
         path: 'settings/inquiry/new',
         name: 'settings.inquiry.new',
         component: InquiryCreatePage,
-        meta: { titleKey: 'pageTitles.inquiryCreate' },
+        meta: { titleKey: 'pageTitles.inquiryCreate', featureScope: ANNOUNCEMENT_SCOPE.INQUIRY },
       },
       {
         path: 'settings/inquiry/:inquiryId',
         name: 'settings.inquiry.detail',
         component: InquiryDetailPage,
-        meta: { titleKey: 'pageTitles.inquiryDetail' },
+        meta: { titleKey: 'pageTitles.inquiryDetail', featureScope: ANNOUNCEMENT_SCOPE.INQUIRY },
       },
     ],
   },
