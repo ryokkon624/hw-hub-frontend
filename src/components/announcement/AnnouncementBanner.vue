@@ -1,53 +1,69 @@
 <template>
-  <div v-if="visibleAnnouncements.length > 0" class="w-full">
+  <div v-if="visibleAnnouncements.length > 0" class="w-full flex flex-col gap-px bg-hwhub-border">
     <div
       v-for="announcement in visibleAnnouncements"
       :key="announcement.id"
-      class="border-b"
+      class="relative overflow-hidden transition-all duration-200"
       :class="bannerClass(announcement.severity)"
     >
-      <!-- タイトル行 -->
+      <!-- 左側の重要度インジケーター -->
       <div
-        class="flex items-center px-4 py-2 cursor-pointer select-none"
+        class="absolute left-0 top-0 bottom-0 w-1"
+        :class="indicatorClass(announcement.severity)"
+      />
+
+      <!-- タイトル行（クリックで展開） -->
+      <div
+        class="flex items-center pl-5 pr-3 py-3 cursor-pointer select-none group hover:bg-black/2 dark:hover:bg-white/2 transition-colors"
         @click="announcementStore.toggleExpand(announcement.id)"
       >
         <!-- 重要度アイコン -->
         <component
           :is="severityIcon(announcement.severity)"
-          class="w-4 h-4 mr-2 shrink-0"
+          class="w-4 h-4 mr-3 shrink-0"
           :class="severityIconClass(announcement.severity)"
         />
 
         <!-- タイトル -->
-        <span class="flex-1 text-sm font-medium text-hwhub-heading truncate">
+        <span class="flex-1 text-sm font-semibold text-hwhub-heading truncate">
           {{ localizedTitle(announcement) }}
         </span>
 
-        <!-- 開閉シェブロン | 閉じるボタン -->
-        <div class="shrink-0 flex items-center gap-1 ml-2">
-          <component
-            :is="announcementStore.isExpanded(announcement.id) ? ChevronDown : ChevronRight"
-            class="w-4 h-4 text-hwhub-muted"
+        <!-- アクションエリア -->
+        <div class="shrink-0 flex items-center gap-3 ml-2">
+          <!-- 展開インジケーター（回転アニメーション） -->
+          <ChevronRight
+            class="w-4 h-4 text-hwhub-muted transition-transform duration-300"
+            :class="{ 'rotate-90': announcementStore.isExpanded(announcement.id) }"
           />
-          <span class="text-hwhub-muted mx-1">|</span>
+
+          <!-- 閉じるボタン（独立したアクション） -->
           <button
             type="button"
-            class="w-5 h-5 flex items-center justify-center rounded hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
+            class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
             :aria-label="t('announcement.close')"
             @click.stop="announcementStore.close(announcement.id)"
           >
-            <X class="w-3 h-3 text-hwhub-muted" />
+            <X class="w-4 h-4 text-hwhub-muted" />
           </button>
         </div>
       </div>
 
-      <!-- 本文（展開時のみ） -->
-      <div
-        v-if="announcementStore.isExpanded(announcement.id)"
-        class="px-4 pb-3 text-sm text-hwhub-body"
+      <!-- 本文（展開アニメーション付き） -->
+      <Transition
+        enter-active-class="transition-all duration-300 ease-out"
+        leave-active-class="transition-all duration-200 ease-in"
+        enter-from-class="max-h-0 opacity-0"
+        enter-to-class="max-h-[500px] opacity-100"
+        leave-from-class="max-h-[500px] opacity-100"
+        leave-to-class="max-h-0 opacity-0"
       >
-        {{ localizedBody(announcement) }}
-      </div>
+        <div v-if="announcementStore.isExpanded(announcement.id)" class="overflow-hidden">
+          <div class="pl-12 pr-12 pb-4 text-sm text-hwhub-body leading-relaxed whitespace-pre-wrap">
+            {{ localizedBody(announcement) }}
+          </div>
+        </div>
+      </Transition>
     </div>
   </div>
 </template>
@@ -56,7 +72,7 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { Info, TriangleAlert, OctagonAlert, ChevronRight, ChevronDown, X } from 'lucide-vue-next'
+import { Info, TriangleAlert, OctagonAlert, ChevronRight, X } from 'lucide-vue-next'
 import type { Component } from 'vue'
 import type { Announcement } from '@/domain'
 import { ANNOUNCEMENT_SEVERITY } from '@/constants/code.constants'
@@ -86,11 +102,22 @@ function localizedBody(announcement: Announcement): string {
 function bannerClass(severity: AnnouncementSeverityCode): string {
   switch (severity) {
     case ANNOUNCEMENT_SEVERITY.ERROR:
-      return 'bg-hwhub-danger-soft border-hwhub-danger'
+      return 'bg-hwhub-danger-soft'
     case ANNOUNCEMENT_SEVERITY.WARN:
-      return 'bg-hwhub-accent-soft border-hwhub-border'
+      return 'bg-hwhub-accent-soft'
     default:
-      return 'bg-hwhub-info-soft border-hwhub-border'
+      return 'bg-hwhub-info-soft'
+  }
+}
+
+function indicatorClass(severity: AnnouncementSeverityCode): string {
+  switch (severity) {
+    case ANNOUNCEMENT_SEVERITY.ERROR:
+      return 'bg-hwhub-danger'
+    case ANNOUNCEMENT_SEVERITY.WARN:
+      return 'bg-hwhub-warning'
+    default:
+      return 'bg-hwhub-info'
   }
 }
 
