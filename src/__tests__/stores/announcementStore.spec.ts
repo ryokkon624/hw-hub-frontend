@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { useAnnouncementStore } from '@/stores/announcementStore'
 import { announcementApi } from '@/api/announcementApi'
+import { ANNOUNCEMENT_SEVERITY, ANNOUNCEMENT_SCOPE } from '@/constants/code.constants'
 import type { Announcement } from '@/domain'
 
 vi.mock('@/api/announcementApi', () => ({
@@ -37,8 +38,8 @@ const makeAnnouncement = (overrides: Partial<Announcement> = {}): Announcement =
   bodyJa: '本文',
   bodyEn: 'Body',
   bodyEs: 'Cuerpo',
-  severity: 'INFO',
-  targetScope: 'ALL',
+  severity: ANNOUNCEMENT_SEVERITY.INFO,
+  targetScope: ANNOUNCEMENT_SCOPE.ALL,
   startAt: '2026-05-01T00:00:00',
   endAt: '2026-06-01T00:00:00',
   ...overrides,
@@ -57,8 +58,12 @@ describe('announcementStore', () => {
     const store = useAnnouncementStore()
 
     const mockData: Announcement[] = [
-      makeAnnouncement({ id: 1, severity: 'INFO' }),
-      makeAnnouncement({ id: 2, severity: 'WARN', targetScope: 'HOME' }),
+      makeAnnouncement({ id: 1, severity: ANNOUNCEMENT_SEVERITY.INFO }),
+      makeAnnouncement({
+        id: 2,
+        severity: ANNOUNCEMENT_SEVERITY.WARN,
+        targetScope: ANNOUNCEMENT_SCOPE.HOME,
+      }),
     ]
 
     vi.mocked(announcementApi.fetchActiveAnnouncements).mockResolvedValue(mockData)
@@ -143,7 +148,7 @@ describe('announcementStore', () => {
 
   it('visibleForRoute: targetScope が ALL のアナウンスは全ルートで表示される', () => {
     const store = useAnnouncementStore()
-    store.announcements = [makeAnnouncement({ id: 1, targetScope: 'ALL' })]
+    store.announcements = [makeAnnouncement({ id: 1, targetScope: ANNOUNCEMENT_SCOPE.ALL })]
 
     const result = store.visibleForRoute('home')
     expect(result).toHaveLength(1)
@@ -152,8 +157,8 @@ describe('announcementStore', () => {
   it('visibleForRoute: targetScope が HOME のアナウンスは home ルートのみ表示される', () => {
     const store = useAnnouncementStore()
     store.announcements = [
-      makeAnnouncement({ id: 1, targetScope: 'HOME' }),
-      makeAnnouncement({ id: 2, targetScope: 'HW_TASK' }),
+      makeAnnouncement({ id: 1, targetScope: ANNOUNCEMENT_SCOPE.HOME }),
+      makeAnnouncement({ id: 2, targetScope: ANNOUNCEMENT_SCOPE.HW_TASK }),
     ]
 
     const homeResult = store.visibleForRoute('home')
@@ -168,8 +173,8 @@ describe('announcementStore', () => {
   it('visibleForRoute: close されたアナウンスは表示されない', () => {
     const store = useAnnouncementStore()
     store.announcements = [
-      makeAnnouncement({ id: 1, targetScope: 'ALL' }),
-      makeAnnouncement({ id: 2, targetScope: 'ALL' }),
+      makeAnnouncement({ id: 1, targetScope: ANNOUNCEMENT_SCOPE.ALL }),
+      makeAnnouncement({ id: 2, targetScope: ANNOUNCEMENT_SCOPE.ALL }),
     ]
     store.closedIds.add(1)
 
@@ -180,7 +185,7 @@ describe('announcementStore', () => {
 
   it('visibleForRoute: ルートスコープと一致しないアナウンスは表示されない', () => {
     const store = useAnnouncementStore()
-    store.announcements = [makeAnnouncement({ id: 1, targetScope: 'HW_ASSIGN' })]
+    store.announcements = [makeAnnouncement({ id: 1, targetScope: ANNOUNCEMENT_SCOPE.HW_ASSIGN })]
 
     const result = store.visibleForRoute('home')
     expect(result).toHaveLength(0)

@@ -1,4 +1,5 @@
 import type { Announcement } from '@/domain'
+import type { AnnouncementSeverityCode, AnnouncementScopeCode } from '@/constants/code.constants'
 import { apiClient } from './client'
 
 export const announcementApi = {
@@ -47,8 +48,8 @@ const toModel = (dto: AnnouncementDto): Announcement => ({
   bodyJa: dto.bodyJa,
   bodyEn: dto.bodyEn,
   bodyEs: dto.bodyEs,
-  severity: dto.severity,
-  targetScope: dto.targetScope,
+  severity: dto.severity as AnnouncementSeverityCode,
+  targetScope: dto.targetScope as AnnouncementScopeCode,
   startAt: dto.startAt,
   endAt: dto.endAt,
 })

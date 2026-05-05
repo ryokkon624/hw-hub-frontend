@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { announcementApi } from '@/api/announcementApi'
 import { apiClient } from '@/api/client'
+import { ANNOUNCEMENT_SEVERITY, ANNOUNCEMENT_SCOPE } from '@/constants/code.constants'
 
 type MockedApiClient = {
   get: ReturnType<typeof vi.fn>
@@ -29,8 +30,8 @@ describe('announcementApi', () => {
         bodyJa: '本文1',
         bodyEn: 'Body1',
         bodyEs: 'Cuerpo1',
-        severity: 'INFO',
-        targetScope: 'ALL',
+        severity: ANNOUNCEMENT_SEVERITY.INFO,
+        targetScope: ANNOUNCEMENT_SCOPE.ALL,
         startAt: '2026-05-01T00:00:00',
         endAt: '2026-06-01T00:00:00',
       },
@@ -49,8 +50,8 @@ describe('announcementApi', () => {
 
     expect(result).toHaveLength(1)
     expect(result[0].id).toBe(1)
-    expect(result[0].severity).toBe('INFO')
-    expect(result[0].targetScope).toBe('ALL')
+    expect(result[0].severity).toBe(ANNOUNCEMENT_SEVERITY.INFO)
+    expect(result[0].targetScope).toBe(ANNOUNCEMENT_SCOPE.ALL)
     // title/body は locale ごとに提供する形式
     expect(result[0].titleJa).toBe('タイトル1')
     expect(result[0].titleEn).toBe('Title1')

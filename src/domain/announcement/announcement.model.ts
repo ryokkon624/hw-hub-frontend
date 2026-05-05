@@ -1,3 +1,5 @@
+import type { AnnouncementSeverityCode, AnnouncementScopeCode } from '@/constants/code.constants'
+
 export interface Announcement {
   id: number
   titleJa: string
@@ -6,8 +8,8 @@ export interface Announcement {
   bodyJa: string
   bodyEn: string
   bodyEs: string
-  severity: string
-  targetScope: string
+  severity: AnnouncementSeverityCode
+  targetScope: AnnouncementScopeCode
   startAt: string
   endAt: string
 }

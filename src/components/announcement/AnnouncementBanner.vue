@@ -59,6 +59,8 @@ import { useI18n } from 'vue-i18n'
 import { Info, TriangleAlert, OctagonAlert, ChevronRight, ChevronDown, X } from 'lucide-vue-next'
 import type { Component } from 'vue'
 import type { Announcement } from '@/domain'
+import { ANNOUNCEMENT_SEVERITY } from '@/constants/code.constants'
+import type { AnnouncementSeverityCode } from '@/constants/code.constants'
 import { useAnnouncementStore } from '@/stores/announcementStore'
 
 const route = useRoute()
@@ -79,33 +81,33 @@ function localizedBody(announcement: Announcement): string {
   return announcement.bodyEn
 }
 
-function bannerClass(severity: string): string {
+function bannerClass(severity: AnnouncementSeverityCode): string {
   switch (severity) {
-    case 'ERROR':
+    case ANNOUNCEMENT_SEVERITY.ERROR:
       return 'bg-hwhub-danger-soft border-hwhub-danger'
-    case 'WARN':
+    case ANNOUNCEMENT_SEVERITY.WARN:
       return 'bg-hwhub-accent-soft border-hwhub-border'
     default:
       return 'bg-hwhub-info-soft border-hwhub-border'
   }
 }
 
-function severityIcon(severity: string): Component {
+function severityIcon(severity: AnnouncementSeverityCode): Component {
   switch (severity) {
-    case 'ERROR':
+    case ANNOUNCEMENT_SEVERITY.ERROR:
       return OctagonAlert
-    case 'WARN':
+    case ANNOUNCEMENT_SEVERITY.WARN:
       return TriangleAlert
     default:
       return Info
   }
 }
 
-function severityIconClass(severity: string): string {
+function severityIconClass(severity: AnnouncementSeverityCode): string {
   switch (severity) {
-    case 'ERROR':
+    case ANNOUNCEMENT_SEVERITY.ERROR:
       return 'text-rose-500'
-    case 'WARN':
+    case ANNOUNCEMENT_SEVERITY.WARN:
       return 'text-amber-500'
     default:
       return 'text-blue-500'
