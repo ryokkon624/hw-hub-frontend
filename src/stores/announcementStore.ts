@@ -1,22 +1,25 @@
 import { defineStore } from 'pinia'
 import type { Announcement } from '@/domain'
 import { announcementApi } from '@/api/announcementApi'
+import { ANNOUNCEMENT_SCOPE } from '@/constants/code.constants'
+import type { AnnouncementScopeCode } from '@/constants/code.constants'
 
 const CLOSED_IDS_KEY = 'hwhub.announcement.closed'
 
 /** target_scope コード値 → 対応するルート名のマッピング */
-const SCOPE_TO_ROUTE_MAP: Record<string, string> = {
-  HOME: 'home',
-  HW_ASSIGN: 'housework.assign',
-  HW_TASK: 'housework.tasks',
-  HW_CONF: 'settings.housework',
-  SHOPPING: 'shopping',
-  CONF_ACCT: 'settings.account',
-  CONF_HH: 'settings.household',
-  CONF_APP: 'settings.app',
-  NOTIFY: 'notifications',
-  INQUIRY: 'settings.inquiry',
-  ADMIN: 'admin',
+const SCOPE_TO_ROUTE_MAP: Record<AnnouncementScopeCode, string> = {
+  [ANNOUNCEMENT_SCOPE.ALL]: '',
+  [ANNOUNCEMENT_SCOPE.HOME]: 'home',
+  [ANNOUNCEMENT_SCOPE.HW_ASSIGN]: 'housework.assign',
+  [ANNOUNCEMENT_SCOPE.HW_TASK]: 'housework.tasks',
+  [ANNOUNCEMENT_SCOPE.HW_CONF]: 'settings.housework',
+  [ANNOUNCEMENT_SCOPE.SHOPPING]: 'shopping',
+  [ANNOUNCEMENT_SCOPE.CONF_ACCT]: 'settings.account',
+  [ANNOUNCEMENT_SCOPE.CONF_HH]: 'settings.household',
+  [ANNOUNCEMENT_SCOPE.CONF_APP]: 'settings.app',
+  [ANNOUNCEMENT_SCOPE.NOTIFY]: 'notifications',
+  [ANNOUNCEMENT_SCOPE.INQUIRY]: 'settings.inquiry',
+  [ANNOUNCEMENT_SCOPE.ADMIN]: 'admin',
 }
 
 interface AnnouncementState {
@@ -56,7 +59,7 @@ export const useAnnouncementStore = defineStore('announcement', {
       (routeName: string): Announcement[] => {
         return state.announcements.filter((a) => {
           if (state.closedIds.has(a.id)) return false
-          if (a.targetScope === 'ALL') return true
+          if (a.targetScope === ANNOUNCEMENT_SCOPE.ALL) return true
           const mappedRoute = SCOPE_TO_ROUTE_MAP[a.targetScope]
           return mappedRoute === routeName
         })

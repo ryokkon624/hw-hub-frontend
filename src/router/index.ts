@@ -1,6 +1,11 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import { useUiStore } from '@/stores/uiStore'
-import { PERMISSION, type PermissionCode } from '@/constants/code.constants'
+import {
+  PERMISSION,
+  ANNOUNCEMENT_SCOPE,
+  type PermissionCode,
+  type AnnouncementScopeCode,
+} from '@/constants/code.constants'
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -11,7 +16,7 @@ declare module 'vue-router' {
     title?: string
     public?: boolean
     /** アナウンスバナーの対象スコープ（m_code 0027 の code_value） */
-    featureScope?: string
+    featureScope?: AnnouncementScopeCode
   }
 }
 
@@ -157,7 +162,7 @@ const routes: RouteRecordRaw[] = [
         path: 'home',
         name: 'home',
         component: HomePage,
-        meta: { titleKey: 'pageTitles.home', featureScope: 'HOME' },
+        meta: { titleKey: 'pageTitles.home', featureScope: ANNOUNCEMENT_SCOPE.HOME },
       },
 
       // ---- Housework ----
@@ -165,13 +170,16 @@ const routes: RouteRecordRaw[] = [
         path: 'housework/assign',
         name: 'housework.assign',
         component: HouseworkAssignmentPage,
-        meta: { titleKey: 'pageTitles.houseworkAssign', featureScope: 'HW_ASSIGN' },
+        meta: {
+          titleKey: 'pageTitles.houseworkAssign',
+          featureScope: ANNOUNCEMENT_SCOPE.HW_ASSIGN,
+        },
       },
       {
         path: 'housework/tasks',
         name: 'housework.tasks',
         component: MyTasksPage,
-        meta: { titleKey: 'pageTitles.myTasks', featureScope: 'HW_TASK' },
+        meta: { titleKey: 'pageTitles.myTasks', featureScope: ANNOUNCEMENT_SCOPE.HW_TASK },
       },
 
       // ---- Housework Settings ----
@@ -179,7 +187,10 @@ const routes: RouteRecordRaw[] = [
         path: 'settings/housework',
         name: 'settings.housework',
         component: HouseworkSettingsPage,
-        meta: { titleKey: 'pageTitles.houseworkSettings', featureScope: 'HW_CONF' },
+        meta: {
+          titleKey: 'pageTitles.houseworkSettings',
+          featureScope: ANNOUNCEMENT_SCOPE.HW_CONF,
+        },
       },
       {
         path: 'settings/housework/new',
@@ -200,7 +211,7 @@ const routes: RouteRecordRaw[] = [
         path: 'shopping',
         name: 'shopping',
         component: ShoppingListPage,
-        meta: { titleKey: 'pageTitles.shopping', featureScope: 'SHOPPING' },
+        meta: { titleKey: 'pageTitles.shopping', featureScope: ANNOUNCEMENT_SCOPE.SHOPPING },
       },
       {
         path: 'shopping/new',
@@ -227,19 +238,25 @@ const routes: RouteRecordRaw[] = [
         path: 'settings/account',
         name: 'settings.account',
         component: AccountSettingsPage,
-        meta: { titleKey: 'pageTitles.accountSettings', featureScope: 'CONF_ACCT' },
+        meta: {
+          titleKey: 'pageTitles.accountSettings',
+          featureScope: ANNOUNCEMENT_SCOPE.CONF_ACCT,
+        },
       },
       {
         path: 'settings/household',
         name: 'settings.household',
         component: HouseholdSettingsPage,
-        meta: { titleKey: 'pageTitles.householdSettings', featureScope: 'CONF_HH' },
+        meta: {
+          titleKey: 'pageTitles.householdSettings',
+          featureScope: ANNOUNCEMENT_SCOPE.CONF_HH,
+        },
       },
       {
         path: 'settings/app',
         name: 'settings.app',
         component: AppInfoPage,
-        meta: { titleKey: 'pageTitles.app', featureScope: 'CONF_APP' },
+        meta: { titleKey: 'pageTitles.app', featureScope: ANNOUNCEMENT_SCOPE.CONF_APP },
       },
       {
         path: 'settings/app/terms',
@@ -260,7 +277,7 @@ const routes: RouteRecordRaw[] = [
         path: 'notifications',
         name: 'notifications',
         component: NotificationCenterPage,
-        meta: { titleKey: 'pageTitles.notifications', featureScope: 'NOTIFY' },
+        meta: { titleKey: 'pageTitles.notifications', featureScope: ANNOUNCEMENT_SCOPE.NOTIFY },
       },
 
       // ---- Admin ----
@@ -276,7 +293,7 @@ const routes: RouteRecordRaw[] = [
               titleKey: 'pageTitles.admin',
               requiresAuth: true,
               requiresAdmin: true,
-              featureScope: 'ADMIN',
+              featureScope: ANNOUNCEMENT_SCOPE.ADMIN,
             },
           },
           {
@@ -358,7 +375,7 @@ const routes: RouteRecordRaw[] = [
         path: 'settings/inquiry',
         name: 'settings.inquiry',
         component: InquiryListPage,
-        meta: { titleKey: 'pageTitles.inquiry', featureScope: 'INQUIRY' },
+        meta: { titleKey: 'pageTitles.inquiry', featureScope: ANNOUNCEMENT_SCOPE.INQUIRY },
       },
       {
         path: 'settings/inquiry/new',
