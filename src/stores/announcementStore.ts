@@ -36,6 +36,16 @@ export const useAnnouncementStore = defineStore('announcement', {
 
   getters: {
     /**
+     * 指定IDのアナウンスが展開中かどうかを返す。
+     * @param id アナウンスID
+     */
+    isExpanded:
+      (state) =>
+      (id: number): boolean => {
+        return state.expandedIds.has(id)
+      },
+
+    /**
      * 指定ルート名に表示すべきアナウンス一覧を返す。
      * - targetScope が 'ALL' の場合は全ルートで表示
      * - targetScope が特定スコープの場合は対応するルート名と一致する場合のみ表示

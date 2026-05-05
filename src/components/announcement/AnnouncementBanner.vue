@@ -26,7 +26,7 @@
         <!-- 開閉シェブロン | 閉じるボタン -->
         <div class="shrink-0 flex items-center gap-1 ml-2">
           <component
-            :is="announcementStore.expandedIds.has(announcement.id) ? ChevronDown : ChevronRight"
+            :is="announcementStore.isExpanded(announcement.id) ? ChevronDown : ChevronRight"
             class="w-4 h-4 text-hwhub-muted"
           />
           <span class="text-hwhub-muted mx-1">|</span>
@@ -43,7 +43,7 @@
 
       <!-- 本文（展開時のみ） -->
       <div
-        v-if="announcementStore.expandedIds.has(announcement.id)"
+        v-if="announcementStore.isExpanded(announcement.id)"
         class="px-4 pb-3 text-sm text-hwhub-body"
       >
         {{ localizedBody(announcement) }}

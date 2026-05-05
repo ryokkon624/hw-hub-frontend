@@ -113,6 +113,32 @@ describe('announcementStore', () => {
     expect(store.expandedIds.has(1)).toBe(false)
   })
 
+  // ---- isExpanded ----
+
+  it('isExpanded: 展開中のIDに対して true を返す', () => {
+    const store = useAnnouncementStore()
+    store.expandedIds.add(1)
+    expect(store.isExpanded(1)).toBe(true)
+  })
+
+  it('isExpanded: 展開していないIDに対して false を返す', () => {
+    const store = useAnnouncementStore()
+    expect(store.isExpanded(1)).toBe(false)
+  })
+
+  it('isExpanded: toggleExpand で展開した後は true を返す', () => {
+    const store = useAnnouncementStore()
+    store.toggleExpand(1)
+    expect(store.isExpanded(1)).toBe(true)
+  })
+
+  it('isExpanded: toggleExpand で折りたたんだ後は false を返す', () => {
+    const store = useAnnouncementStore()
+    store.expandedIds.add(1)
+    store.toggleExpand(1)
+    expect(store.isExpanded(1)).toBe(false)
+  })
+
   // ---- visibleForRoute ----
 
   it('visibleForRoute: targetScope が ALL のアナウンスは全ルートで表示される', () => {
