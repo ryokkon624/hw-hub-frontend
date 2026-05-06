@@ -8,6 +8,7 @@ export const useAdminAnnouncementStore = defineStore('adminAnnouncement', {
     items: [] as AdminAnnouncementModel[],
     isLoading: false,
     isSubmitting: false,
+    isLoaded: false,
   }),
 
   actions: {
@@ -16,9 +17,15 @@ export const useAdminAnnouncementStore = defineStore('adminAnnouncement', {
       this.isLoading = true
       try {
         this.items = await adminApi.fetchAdminAnnouncements()
+        this.isLoaded = true
       } finally {
         this.isLoading = false
       }
+    },
+
+    async loadAllIfNeeded() {
+      if (this.isLoaded) return
+      await this.loadAll()
     },
 
     async create(req: AdminAnnouncementRequest) {

@@ -335,6 +335,13 @@
         "expired": "Expirado"
       },
       "form": {
+        "titleSection": "Título",
+        "bodySection": "Cuerpo",
+        "settingsSection": "Configuración",
+        "deleteButton": "Eliminar",
+        "cancelButton": "Cancelar",
+        "updateButton": "Actualizar",
+        "createButton": "Registrar",
         "titleJa": "Título (Japonés)",
         "titleEn": "Título (Inglés)",
         "titleEs": "Título (Español)",

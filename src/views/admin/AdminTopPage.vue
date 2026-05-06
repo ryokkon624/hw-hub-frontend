@@ -52,8 +52,8 @@
         :can-access="canManageAnnouncement"
         :to="{ name: 'admin.announcements' }"
         :icon="Megaphone"
-        icon-bg-class="bg-cyan-50"
-        icon-color-class="text-cyan-500"
+        icon-bg-class="bg-hwhub-palette-emerald-soft"
+        icon-color-class="text-hwhub-palette-emerald"
         :title="t('admin.sections.announcement.title')"
         :subtitle="t('admin.sections.announcement.subtitle')"
       />

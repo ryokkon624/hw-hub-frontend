@@ -78,6 +78,46 @@ describe('adminAnnouncementStore', () => {
       await expect(store.loadAll()).rejects.toThrow('fail')
       expect(store.isLoading).toBe(false)
     })
+
+    it('ロード完了後に isLoaded が true になる', async () => {
+      const store = useAdminAnnouncementStore()
+      vi.mocked(adminApi.fetchAdminAnnouncements).mockResolvedValue(mockAnnouncements)
+
+      expect(store.isLoaded).toBe(false)
+      await store.loadAll()
+      expect(store.isLoaded).toBe(true)
+    })
+
+    it('エラー発生時は isLoaded が false のまま', async () => {
+      const store = useAdminAnnouncementStore()
+      vi.mocked(adminApi.fetchAdminAnnouncements).mockRejectedValue(new Error('fail'))
+
+      await expect(store.loadAll()).rejects.toThrow('fail')
+      expect(store.isLoaded).toBe(false)
+    })
+  })
+
+  describe('loadAllIfNeeded', () => {
+    it('未ロード時はAPIを呼び出す', async () => {
+      const store = useAdminAnnouncementStore()
+      vi.mocked(adminApi.fetchAdminAnnouncements).mockResolvedValue(mockAnnouncements)
+
+      await store.loadAllIfNeeded()
+
+      expect(adminApi.fetchAdminAnnouncements).toHaveBeenCalledTimes(1)
+      expect(store.items).toEqual(mockAnnouncements)
+    })
+
+    it('ロード済みの場合はAPIを呼び出さない', async () => {
+      const store = useAdminAnnouncementStore()
+      vi.mocked(adminApi.fetchAdminAnnouncements).mockResolvedValue(mockAnnouncements)
+
+      await store.loadAllIfNeeded()
+      vi.clearAllMocks()
+      await store.loadAllIfNeeded()
+
+      expect(adminApi.fetchAdminAnnouncements).not.toHaveBeenCalled()
+    })
   })
 
   describe('create', () => {

@@ -335,6 +335,13 @@
         "expired": "期限切れ"
       },
       "form": {
+        "titleSection": "タイトル",
+        "bodySection": "本文",
+        "settingsSection": "設定",
+        "deleteButton": "削除",
+        "cancelButton": "キャンセル",
+        "updateButton": "更新",
+        "createButton": "登録",
         "titleJa": "タイトル（日本語）",
         "titleEn": "タイトル（英語）",
         "titleEs": "タイトル（スペイン語）",

@@ -110,7 +110,7 @@ const [endAt, endAtAttrs] = defineField('endAt')
 onMounted(async () => {
   await codeStore.loadAllIfNeeded()
   if (isEdit.value) {
-    await store.loadAll()
+    await store.loadAllIfNeeded()
   }
 })
 
@@ -176,7 +176,9 @@ const onDelete = async () => {
     <form class="space-y-6" @submit.prevent="onSubmit">
       <!-- タイトル 3言語 -->
       <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-3">
-        <h2 class="text-sm font-semibold text-hwhub-heading">タイトル</h2>
+        <h2 class="text-sm font-semibold text-hwhub-heading">
+          {{ t('admin.announcement.form.titleSection') }}
+        </h2>
 
         <div class="space-y-2">
           <label class="block text-xs font-medium text-hwhub-muted">
@@ -220,7 +222,9 @@ const onDelete = async () => {
 
       <!-- 本文 3言語 -->
       <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-3">
-        <h2 class="text-sm font-semibold text-hwhub-heading">本文</h2>
+        <h2 class="text-sm font-semibold text-hwhub-heading">
+          {{ t('admin.announcement.form.bodySection') }}
+        </h2>
 
         <div class="space-y-2">
           <label class="block text-xs font-medium text-hwhub-muted">
@@ -264,7 +268,9 @@ const onDelete = async () => {
 
       <!-- 設定 -->
       <section class="rounded-xl border bg-hwhub-surface-card p-4 shadow-sm space-y-3">
-        <h2 class="text-sm font-semibold text-hwhub-heading">設定</h2>
+        <h2 class="text-sm font-semibold text-hwhub-heading">
+          {{ t('admin.announcement.form.settingsSection') }}
+        </h2>
 
         <div class="space-y-2">
           <label class="block text-xs font-medium text-hwhub-muted">
@@ -336,7 +342,7 @@ const onDelete = async () => {
           :disabled="store.isSubmitting"
           @click="onDelete"
         >
-          削除
+          {{ t('admin.announcement.form.deleteButton') }}
         </button>
 
         <div class="flex items-center gap-3 ml-auto">
@@ -345,14 +351,18 @@ const onDelete = async () => {
             class="rounded-full border border-hwhub-border px-4 py-2 text-sm font-semibold text-hwhub-muted hover:bg-hwhub-surface-subtle transition"
             @click="goBack"
           >
-            キャンセル
+            {{ t('admin.announcement.form.cancelButton') }}
           </button>
           <button
             type="submit"
             class="rounded-full bg-hwhub-primary px-4 py-2 text-sm font-semibold text-white hover:opacity-90 disabled:opacity-50 transition"
             :disabled="store.isSubmitting || formSubmitting"
           >
-            {{ isEdit ? '更新' : '登録' }}
+            {{
+              isEdit
+                ? t('admin.announcement.form.updateButton')
+                : t('admin.announcement.form.createButton')
+            }}
           </button>
         </div>
       </div>
