@@ -126,7 +126,10 @@
     "adminUsers": "Gestión de usuarios",
     "adminHouseworkTemplates": "Plantillas de tareas",
     "adminHouseworkTemplateNew": "Agregar plantilla",
-    "adminHouseworkTemplateEdit": "Editar plantilla"
+    "adminHouseworkTemplateEdit": "Editar plantilla",
+    "adminAnnouncements": "Gestión de anuncios",
+    "adminAnnouncementNew": "Agregar anuncio",
+    "adminAnnouncementEdit": "Editar anuncio"
   },
   "nav": {
     "admin": "Admin"
@@ -171,6 +174,10 @@
       "houseworkTemplate": {
         "title": "Plantillas de tareas",
         "subtitle": "Gestionar plantillas del sistema"
+      },
+      "announcement": {
+        "title": "Gestión de anuncios",
+        "subtitle": "Registrar, editar y eliminar banners de anuncios"
       }
     },
     "users": {
@@ -312,6 +319,83 @@
         "weekdayRequired": "Por favor seleccione un día de la semana."
       },
       "deleteConfirm": "¿Eliminar esta plantilla?"
+    },
+    "announcement": {
+      "createButton": "Agregar anuncio",
+      "columns": {
+        "title": "Título",
+        "severity": "Severidad",
+        "targetScope": "Alcance",
+        "period": "Período",
+        "status": "Estado"
+      },
+      "status": {
+        "upcoming": "Próximo",
+        "active": "Activo",
+        "expired": "Expirado"
+      },
+      "form": {
+        "titleSection": "Título",
+        "bodySection": "Cuerpo",
+        "settingsSection": "Configuración",
+        "deleteButton": "Eliminar",
+        "cancelButton": "Cancelar",
+        "updateButton": "Actualizar",
+        "createButton": "Registrar",
+        "titleJa": "Título (Japonés)",
+        "titleEn": "Título (Inglés)",
+        "titleEs": "Título (Español)",
+        "bodyJa": "Cuerpo (Japonés)",
+        "bodyEn": "Cuerpo (Inglés)",
+        "bodyEs": "Cuerpo (Español)",
+        "severity": "Severidad",
+        "targetScope": "Alcance",
+        "startAt": "Fecha/hora de inicio",
+        "endAt": "Fecha/hora de fin"
+      },
+      "toast": {
+        "created": "Anuncio creado.",
+        "updated": "Anuncio actualizado.",
+        "deleted": "Anuncio eliminado.",
+        "error": "Por favor verifique su entrada."
+      },
+      "validation": {
+        "titleJa": {
+          "required": "El título (japonés) es obligatorio.",
+          "maxBytes": "El título (japonés) debe tener 200 bytes o menos."
+        },
+        "titleEn": {
+          "required": "El título (inglés) es obligatorio.",
+          "maxBytes": "El título (inglés) debe tener 200 bytes o menos."
+        },
+        "titleEs": {
+          "required": "El título (español) es obligatorio.",
+          "maxBytes": "El título (español) debe tener 200 bytes o menos."
+        },
+        "bodyJa": {
+          "required": "El cuerpo (japonés) es obligatorio."
+        },
+        "bodyEn": {
+          "required": "El cuerpo (inglés) es obligatorio."
+        },
+        "bodyEs": {
+          "required": "El cuerpo (español) es obligatorio."
+        },
+        "severity": {
+          "required": "La severidad es obligatoria."
+        },
+        "targetScope": {
+          "required": "El alcance objetivo es obligatorio."
+        },
+        "startAt": {
+          "required": "La fecha/hora de inicio es obligatoria."
+        },
+        "endAt": {
+          "required": "La fecha/hora de fin es obligatoria."
+        },
+        "endAtAfterStartAt": "La fecha/hora de fin debe ser posterior a la de inicio."
+      },
+      "deleteConfirm": "¿Eliminar este anuncio?"
     }
   },
   "login": {

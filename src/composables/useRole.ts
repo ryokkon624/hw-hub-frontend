@@ -27,6 +27,8 @@ export function useRole() {
   const canManageUser = computed(() => hasPermission(PERMISSION.USER_LIST_VIEW))
   /** システム家事テンプレート管理ができるか */
   const canManageSysTemplate = computed(() => hasPermission(PERMISSION.SYS_TEMPLATE_MNG))
+  /** アナウンス管理ができるか */
+  const canManageAnnouncement = computed(() => hasPermission(PERMISSION.ANNOUNCEMENT_MNG))
 
   return {
     hasRole,
@@ -39,5 +41,6 @@ export function useRole() {
     canManageRole,
     canManageUser,
     canManageSysTemplate,
+    canManageAnnouncement,
   }
 }
