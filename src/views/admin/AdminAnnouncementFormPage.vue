@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
+import { ChevronLeft } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { useForm } from 'vee-validate'
@@ -166,7 +167,7 @@ const onDelete = async () => {
         class="text-hwhub-muted hover:text-hwhub-heading transition-colors"
         @click="goBack"
       >
-        ←
+        <ChevronLeft class="w-5 h-5" />
       </button>
       <h1 class="text-base font-semibold text-hwhub-heading">
         {{ isEdit ? t('pageTitles.adminAnnouncementEdit') : t('pageTitles.adminAnnouncementNew') }}
