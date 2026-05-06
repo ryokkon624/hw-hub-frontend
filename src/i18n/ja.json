@@ -360,6 +360,39 @@
         "error": "入力内容を確認してください。"
       },
       "validation": {
+        "titleJa": {
+          "required": "タイトル（日本語）は必須です。",
+          "maxBytes": "タイトル（日本語）は200バイト以内で入力してください。"
+        },
+        "titleEn": {
+          "required": "タイトル（英語）は必須です。",
+          "maxBytes": "タイトル（英語）は200バイト以内で入力してください。"
+        },
+        "titleEs": {
+          "required": "タイトル（スペイン語）は必須です。",
+          "maxBytes": "タイトル（スペイン語）は200バイト以内で入力してください。"
+        },
+        "bodyJa": {
+          "required": "本文（日本語）は必須です。"
+        },
+        "bodyEn": {
+          "required": "本文（英語）は必須です。"
+        },
+        "bodyEs": {
+          "required": "本文（スペイン語）は必須です。"
+        },
+        "severity": {
+          "required": "重要度は必須です。"
+        },
+        "targetScope": {
+          "required": "対象スコープは必須です。"
+        },
+        "startAt": {
+          "required": "有効開始日時は必須です。"
+        },
+        "endAt": {
+          "required": "有効終了日時は必須です。"
+        },
         "endAtAfterStartAt": "有効終了日時は有効開始日時より後に設定してください。"
       },
       "deleteConfirm": "このアナウンスを削除しますか？"

@@ -360,6 +360,39 @@
         "error": "Por favor verifique su entrada."
       },
       "validation": {
+        "titleJa": {
+          "required": "El título (japonés) es obligatorio.",
+          "maxBytes": "El título (japonés) debe tener 200 bytes o menos."
+        },
+        "titleEn": {
+          "required": "El título (inglés) es obligatorio.",
+          "maxBytes": "El título (inglés) debe tener 200 bytes o menos."
+        },
+        "titleEs": {
+          "required": "El título (español) es obligatorio.",
+          "maxBytes": "El título (español) debe tener 200 bytes o menos."
+        },
+        "bodyJa": {
+          "required": "El cuerpo (japonés) es obligatorio."
+        },
+        "bodyEn": {
+          "required": "El cuerpo (inglés) es obligatorio."
+        },
+        "bodyEs": {
+          "required": "El cuerpo (español) es obligatorio."
+        },
+        "severity": {
+          "required": "La severidad es obligatoria."
+        },
+        "targetScope": {
+          "required": "El alcance objetivo es obligatorio."
+        },
+        "startAt": {
+          "required": "La fecha/hora de inicio es obligatoria."
+        },
+        "endAt": {
+          "required": "La fecha/hora de fin es obligatoria."
+        },
         "endAtAfterStartAt": "La fecha/hora de fin debe ser posterior a la de inicio."
       },
       "deleteConfirm": "¿Eliminar este anuncio?"

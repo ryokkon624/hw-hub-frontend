@@ -4,14 +4,13 @@ import { ChevronLeft } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { useForm } from 'vee-validate'
-import { toTypedSchema } from '@vee-validate/yup'
-import * as yup from 'yup'
 import { useAdminAnnouncementStore } from '@/stores/adminAnnouncementStore'
 import { useCodeStore } from '@/stores/codeStore'
 import { useUiStore } from '@/stores/uiStore'
 import { CODE_TYPE } from '@/constants/code.constants'
 import type { AdminAnnouncementRequest } from '@/api/adminApi'
 import { resolveCodeLabel } from '@/domain'
+import { announcementFormTypedSchema } from '@/domain/announcement/announcementForm.validation'
 
 const props = defineProps<{ id?: number }>()
 const isEdit = computed(() => props.id !== undefined)
@@ -37,32 +36,8 @@ const scopeOptions = computed(() =>
   })),
 )
 
-// バリデーションスキーマ
-const schema = toTypedSchema(
-  yup.object({
-    titleJa: yup.string().required(),
-    titleEn: yup.string().required(),
-    titleEs: yup.string().required(),
-    bodyJa: yup.string().required(),
-    bodyEn: yup.string().required(),
-    bodyEs: yup.string().required(),
-    severity: yup.string().required(),
-    targetScope: yup.string().required(),
-    startAt: yup.string().required(),
-    endAt: yup
-      .string()
-      .required()
-      .test(
-        'end-after-start',
-        t('admin.announcement.validation.endAtAfterStartAt'),
-        function (value) {
-          const { startAt } = this.parent as { startAt: string }
-          if (!startAt || !value) return true
-          return new Date(value) > new Date(startAt)
-        },
-      ),
-  }),
-)
+// バリデーションスキーマ（utils から読み込み）
+const schema = announcementFormTypedSchema
 
 // 編集対象の既存データを探す
 const existingItem = computed(() => {
@@ -191,7 +166,7 @@ const onDelete = async () => {
             type="text"
             class="w-full rounded-lg border border-hwhub-border px-3 py-2 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           />
-          <p v-if="errors.titleJa" class="text-xs text-rose-500">{{ errors.titleJa }}</p>
+          <p v-if="errors.titleJa" class="text-xs text-rose-500">{{ t(errors.titleJa) }}</p>
         </div>
 
         <div class="space-y-2">
@@ -204,7 +179,7 @@ const onDelete = async () => {
             type="text"
             class="w-full rounded-lg border border-hwhub-border px-3 py-2 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           />
-          <p v-if="errors.titleEn" class="text-xs text-rose-500">{{ errors.titleEn }}</p>
+          <p v-if="errors.titleEn" class="text-xs text-rose-500">{{ t(errors.titleEn) }}</p>
         </div>
 
         <div class="space-y-2">
@@ -217,7 +192,7 @@ const onDelete = async () => {
             type="text"
             class="w-full rounded-lg border border-hwhub-border px-3 py-2 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           />
-          <p v-if="errors.titleEs" class="text-xs text-rose-500">{{ errors.titleEs }}</p>
+          <p v-if="errors.titleEs" class="text-xs text-rose-500">{{ t(errors.titleEs) }}</p>
         </div>
       </section>
 
@@ -237,7 +212,7 @@ const onDelete = async () => {
             rows="4"
             class="w-full rounded-lg border border-hwhub-border px-3 py-2 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary resize-none"
           />
-          <p v-if="errors.bodyJa" class="text-xs text-rose-500">{{ errors.bodyJa }}</p>
+          <p v-if="errors.bodyJa" class="text-xs text-rose-500">{{ t(errors.bodyJa) }}</p>
         </div>
 
         <div class="space-y-2">
@@ -250,7 +225,7 @@ const onDelete = async () => {
             rows="4"
             class="w-full rounded-lg border border-hwhub-border px-3 py-2 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary resize-none"
           />
-          <p v-if="errors.bodyEn" class="text-xs text-rose-500">{{ errors.bodyEn }}</p>
+          <p v-if="errors.bodyEn" class="text-xs text-rose-500">{{ t(errors.bodyEn) }}</p>
         </div>
 
         <div class="space-y-2">
@@ -263,7 +238,7 @@ const onDelete = async () => {
             rows="4"
             class="w-full rounded-lg border border-hwhub-border px-3 py-2 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary resize-none"
           />
-          <p v-if="errors.bodyEs" class="text-xs text-rose-500">{{ errors.bodyEs }}</p>
+          <p v-if="errors.bodyEs" class="text-xs text-rose-500">{{ t(errors.bodyEs) }}</p>
         </div>
       </section>
 
@@ -287,7 +262,7 @@ const onDelete = async () => {
               {{ opt.label }}
             </option>
           </select>
-          <p v-if="errors.severity" class="text-xs text-rose-500">{{ errors.severity }}</p>
+          <p v-if="errors.severity" class="text-xs text-rose-500">{{ t(errors.severity) }}</p>
         </div>
 
         <div class="space-y-2">
@@ -304,7 +279,9 @@ const onDelete = async () => {
               {{ opt.label }}
             </option>
           </select>
-          <p v-if="errors.targetScope" class="text-xs text-rose-500">{{ errors.targetScope }}</p>
+          <p v-if="errors.targetScope" class="text-xs text-rose-500">
+            {{ t(errors.targetScope) }}
+          </p>
         </div>
 
         <div class="space-y-2">
@@ -317,7 +294,7 @@ const onDelete = async () => {
             type="datetime-local"
             class="w-full rounded-lg border border-hwhub-border px-3 py-2 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           />
-          <p v-if="errors.startAt" class="text-xs text-rose-500">{{ errors.startAt }}</p>
+          <p v-if="errors.startAt" class="text-xs text-rose-500">{{ t(errors.startAt) }}</p>
         </div>
 
         <div class="space-y-2">
@@ -330,7 +307,7 @@ const onDelete = async () => {
             type="datetime-local"
             class="w-full rounded-lg border border-hwhub-border px-3 py-2 text-sm bg-hwhub-surface-card focus:outline-none focus:ring-1 focus:ring-hwhub-primary focus:border-hwhub-primary"
           />
-          <p v-if="errors.endAt" class="text-xs text-rose-500">{{ errors.endAt }}</p>
+          <p v-if="errors.endAt" class="text-xs text-rose-500">{{ t(errors.endAt) }}</p>
         </div>
       </section>
 
@@ -357,7 +334,7 @@ const onDelete = async () => {
           <button
             type="submit"
             class="rounded-full bg-hwhub-primary px-4 py-2 text-sm font-semibold text-white hover:opacity-90 disabled:opacity-50 transition"
-            :disabled="store.isSubmitting || formSubmitting"
+            :disabled="store.isSubmitting || formSubmitting || Object.keys(errors).length > 0"
           >
             {{
               isEdit

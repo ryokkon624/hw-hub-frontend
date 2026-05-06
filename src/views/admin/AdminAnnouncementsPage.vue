@@ -49,11 +49,11 @@ const scopeLabel = (code: string): string => {
 const severityColorClass = (severity: string): string => {
   switch (severity) {
     case ANNOUNCEMENT_SEVERITY.INFO:
-      return 'bg-blue-50 border border-blue-200 text-blue-600'
+      return 'bg-hwhub-palette-blue-soft border border-hwhub-palette-blue text-hwhub-palette-blue'
     case ANNOUNCEMENT_SEVERITY.WARN:
-      return 'bg-amber-50 border border-amber-200 text-amber-600'
+      return 'bg-hwhub-palette-amber-soft border border-hwhub-palette-amber text-hwhub-palette-amber'
     case ANNOUNCEMENT_SEVERITY.ERROR:
-      return 'bg-rose-50 border border-rose-200 text-rose-600'
+      return 'bg-hwhub-palette-rose-soft border border-hwhub-palette-rose text-hwhub-palette-rose'
     default:
       return 'bg-hwhub-surface-subtle text-hwhub-muted'
   }

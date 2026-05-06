@@ -360,6 +360,39 @@
         "error": "Please check your input."
       },
       "validation": {
+        "titleJa": {
+          "required": "Title (Japanese) is required.",
+          "maxBytes": "Title (Japanese) must be 200 bytes or less."
+        },
+        "titleEn": {
+          "required": "Title (English) is required.",
+          "maxBytes": "Title (English) must be 200 bytes or less."
+        },
+        "titleEs": {
+          "required": "Title (Spanish) is required.",
+          "maxBytes": "Title (Spanish) must be 200 bytes or less."
+        },
+        "bodyJa": {
+          "required": "Body (Japanese) is required."
+        },
+        "bodyEn": {
+          "required": "Body (English) is required."
+        },
+        "bodyEs": {
+          "required": "Body (Spanish) is required."
+        },
+        "severity": {
+          "required": "Severity is required."
+        },
+        "targetScope": {
+          "required": "Target scope is required."
+        },
+        "startAt": {
+          "required": "Start date/time is required."
+        },
+        "endAt": {
+          "required": "End date/time is required."
+        },
         "endAtAfterStartAt": "End date/time must be after start date/time."
       },
       "deleteConfirm": "Delete this announcement?"
