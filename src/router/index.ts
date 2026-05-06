@@ -68,6 +68,8 @@ import AdminRolesPage from '@/views/admin/AdminRolesPage.vue'
 import AdminUsersPage from '@/views/admin/AdminUsersPage.vue'
 import AdminHouseworkTemplatesPage from '@/views/admin/AdminHouseworkTemplatesPage.vue'
 import AdminHouseworkTemplateFormPage from '@/views/admin/AdminHouseworkTemplateFormPage.vue'
+import AdminAnnouncementsPage from '@/views/admin/AdminAnnouncementsPage.vue'
+import AdminAnnouncementFormPage from '@/views/admin/AdminAnnouncementFormPage.vue'
 
 import { useAuthStore } from '@/stores/authStore'
 import { useNotificationStore } from '@/stores/notificationStore'
@@ -365,6 +367,37 @@ const routes: RouteRecordRaw[] = [
               titleKey: 'pageTitles.adminHouseworkTemplateEdit',
               requiresAuth: true,
               requiresPermission: PERMISSION.SYS_TEMPLATE_MNG,
+            },
+          },
+          {
+            path: 'announcements',
+            name: 'admin.announcements',
+            component: AdminAnnouncementsPage,
+            meta: {
+              titleKey: 'pageTitles.adminAnnouncements',
+              requiresAuth: true,
+              requiresPermission: PERMISSION.ANNOUNCEMENT_MNG,
+            },
+          },
+          {
+            path: 'announcements/new',
+            name: 'admin.announcements.new',
+            component: AdminAnnouncementFormPage,
+            meta: {
+              titleKey: 'pageTitles.adminAnnouncementNew',
+              requiresAuth: true,
+              requiresPermission: PERMISSION.ANNOUNCEMENT_MNG,
+            },
+          },
+          {
+            path: 'announcements/:id/edit',
+            name: 'admin.announcements.edit',
+            component: AdminAnnouncementFormPage,
+            props: (route) => ({ id: Number(route.params.id) }),
+            meta: {
+              titleKey: 'pageTitles.adminAnnouncementEdit',
+              requiresAuth: true,
+              requiresPermission: PERMISSION.ANNOUNCEMENT_MNG,
             },
           },
         ],

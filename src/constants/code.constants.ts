@@ -252,6 +252,7 @@ export const PERMISSION = {
   USER_LIST_VIEW: '10',
   ROLE_MANAGE: '11',
   SYS_TEMPLATE_MNG: '30',
+  ANNOUNCEMENT_MNG: '40',
 } as const
 export type PermissionCode = (typeof PERMISSION)[keyof typeof PERMISSION]
 

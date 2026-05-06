@@ -126,7 +126,10 @@
     "adminUsers": "Gestión de usuarios",
     "adminHouseworkTemplates": "Plantillas de tareas",
     "adminHouseworkTemplateNew": "Agregar plantilla",
-    "adminHouseworkTemplateEdit": "Editar plantilla"
+    "adminHouseworkTemplateEdit": "Editar plantilla",
+    "adminAnnouncements": "Gestión de anuncios",
+    "adminAnnouncementNew": "Agregar anuncio",
+    "adminAnnouncementEdit": "Editar anuncio"
   },
   "nav": {
     "admin": "Admin"
@@ -171,6 +174,10 @@
       "houseworkTemplate": {
         "title": "Plantillas de tareas",
         "subtitle": "Gestionar plantillas del sistema"
+      },
+      "announcement": {
+        "title": "Gestión de anuncios",
+        "subtitle": "Registrar, editar y eliminar banners de anuncios"
       }
     },
     "users": {
@@ -312,6 +319,43 @@
         "weekdayRequired": "Por favor seleccione un día de la semana."
       },
       "deleteConfirm": "¿Eliminar esta plantilla?"
+    },
+    "announcement": {
+      "createButton": "Agregar anuncio",
+      "columns": {
+        "title": "Título",
+        "severity": "Severidad",
+        "targetScope": "Alcance",
+        "period": "Período",
+        "status": "Estado"
+      },
+      "status": {
+        "upcoming": "Próximo",
+        "active": "Activo",
+        "expired": "Expirado"
+      },
+      "form": {
+        "titleJa": "Título (Japonés)",
+        "titleEn": "Título (Inglés)",
+        "titleEs": "Título (Español)",
+        "bodyJa": "Cuerpo (Japonés)",
+        "bodyEn": "Cuerpo (Inglés)",
+        "bodyEs": "Cuerpo (Español)",
+        "severity": "Severidad",
+        "targetScope": "Alcance",
+        "startAt": "Fecha/hora de inicio",
+        "endAt": "Fecha/hora de fin"
+      },
+      "toast": {
+        "created": "Anuncio creado.",
+        "updated": "Anuncio actualizado.",
+        "deleted": "Anuncio eliminado.",
+        "error": "Por favor verifique su entrada."
+      },
+      "validation": {
+        "endAtAfterStartAt": "La fecha/hora de fin debe ser posterior a la de inicio."
+      },
+      "deleteConfirm": "¿Eliminar este anuncio?"
     }
   },
   "login": {

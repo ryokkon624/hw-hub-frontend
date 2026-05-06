@@ -47,12 +47,28 @@
         :title="t('admin.sections.houseworkTemplate.title')"
         :subtitle="t('admin.sections.houseworkTemplate.subtitle')"
       />
+
+      <AdminCard
+        :can-access="canManageAnnouncement"
+        :to="{ name: 'admin.announcements' }"
+        :icon="Megaphone"
+        icon-bg-class="bg-cyan-50"
+        icon-color-class="text-cyan-500"
+        :title="t('admin.sections.announcement.title')"
+        :subtitle="t('admin.sections.announcement.subtitle')"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { LayoutTemplate, ShieldCheck, MessageCircleQuestion, Users } from 'lucide-vue-next'
+import {
+  LayoutTemplate,
+  ShieldCheck,
+  MessageCircleQuestion,
+  Users,
+  Megaphone,
+} from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 import { useRole } from '@/composables/useRole'
 import AdminCard from '@/components/admin/AdminCard.vue'
@@ -61,5 +77,11 @@ import DailyInquiryStatusCard from '@/components/admin/DailyInquiryStatusCard.vu
 import DailyInquiryMessageCard from '@/components/admin/DailyInquiryMessageCard.vue'
 
 const { t } = useI18n()
-const { canManageUser, canManageRole, canReplyInquiry, canManageSysTemplate } = useRole()
+const {
+  canManageUser,
+  canManageRole,
+  canReplyInquiry,
+  canManageSysTemplate,
+  canManageAnnouncement,
+} = useRole()
 </script>

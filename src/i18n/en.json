@@ -126,7 +126,10 @@
     "adminUsers": "User Management",
     "adminHouseworkTemplates": "Housework Templates",
     "adminHouseworkTemplateNew": "Add Template",
-    "adminHouseworkTemplateEdit": "Edit Template"
+    "adminHouseworkTemplateEdit": "Edit Template",
+    "adminAnnouncements": "Announcement Management",
+    "adminAnnouncementNew": "Add Announcement",
+    "adminAnnouncementEdit": "Edit Announcement"
   },
   "nav": {
     "admin": "Admin"
@@ -171,6 +174,10 @@
       "houseworkTemplate": {
         "title": "Housework Template",
         "subtitle": "Manage system housework templates"
+      },
+      "announcement": {
+        "title": "Announcement Management",
+        "subtitle": "Register, edit, and delete announcement banners"
       }
     },
     "users": {
@@ -312,6 +319,43 @@
         "weekdayRequired": "Please select a day of the week."
       },
       "deleteConfirm": "Delete this template?"
+    },
+    "announcement": {
+      "createButton": "Add Announcement",
+      "columns": {
+        "title": "Title",
+        "severity": "Severity",
+        "targetScope": "Target Scope",
+        "period": "Period",
+        "status": "Status"
+      },
+      "status": {
+        "upcoming": "Upcoming",
+        "active": "Active",
+        "expired": "Expired"
+      },
+      "form": {
+        "titleJa": "Title (Japanese)",
+        "titleEn": "Title (English)",
+        "titleEs": "Title (Spanish)",
+        "bodyJa": "Body (Japanese)",
+        "bodyEn": "Body (English)",
+        "bodyEs": "Body (Spanish)",
+        "severity": "Severity",
+        "targetScope": "Target Scope",
+        "startAt": "Start Date/Time",
+        "endAt": "End Date/Time"
+      },
+      "toast": {
+        "created": "Announcement created.",
+        "updated": "Announcement updated.",
+        "deleted": "Announcement deleted.",
+        "error": "Please check your input."
+      },
+      "validation": {
+        "endAtAfterStartAt": "End date/time must be after start date/time."
+      },
+      "deleteConfirm": "Delete this announcement?"
     }
   },
   "login": {

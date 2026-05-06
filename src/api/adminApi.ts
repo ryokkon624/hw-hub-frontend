@@ -11,6 +11,7 @@ import type {
   DailyInquiryMessageModel,
   DailyInquiryStatusModel,
   AdminHouseworkTemplateModel,
+  AdminAnnouncementModel,
 } from '@/domain'
 
 // ---- API クライアント --------------------------------------------
@@ -129,6 +130,31 @@ export const adminApi = {
 
   async deleteAdminHouseworkTemplate(id: number): Promise<void> {
     await apiClient.delete(`/api/admin/housework-templates/${id}`)
+  },
+
+  // ---- アナウンス管理 ----------------------------------------
+
+  async fetchAdminAnnouncements(): Promise<AdminAnnouncementModel[]> {
+    const res = await apiClient.get<AdminAnnouncementDto[]>('/api/admin/announcements')
+    return res.data.map(toAdminAnnouncementModel)
+  },
+
+  async fetchAdminAnnouncement(id: number): Promise<AdminAnnouncementModel> {
+    const res = await apiClient.get<AdminAnnouncementDto>(`/api/admin/announcements/${id}`)
+    return toAdminAnnouncementModel(res.data)
+  },
+
+  async createAdminAnnouncement(req: AdminAnnouncementRequest): Promise<AdminAnnouncementModel> {
+    const res = await apiClient.post<AdminAnnouncementDto>('/api/admin/announcements', req)
+    return toAdminAnnouncementModel(res.data)
+  },
+
+  async updateAdminAnnouncement(id: number, req: AdminAnnouncementRequest): Promise<void> {
+    await apiClient.put(`/api/admin/announcements/${id}`, req)
+  },
+
+  async deleteAdminAnnouncement(id: number): Promise<void> {
+    await apiClient.delete(`/api/admin/announcements/${id}`)
   },
 }
 
@@ -255,6 +281,33 @@ export interface AdminHouseworkTemplateRequest {
   weekday: string | null
 }
 
+interface AdminAnnouncementDto {
+  id: number
+  titleJa: string
+  titleEn: string
+  titleEs: string
+  bodyJa: string
+  bodyEn: string
+  bodyEs: string
+  severity: string
+  targetScope: string
+  startAt: string
+  endAt: string
+}
+
+export interface AdminAnnouncementRequest {
+  titleJa: string
+  titleEn: string
+  titleEs: string
+  bodyJa: string
+  bodyEn: string
+  bodyEs: string
+  severity: string
+  targetScope: string
+  startAt: string
+  endAt: string
+}
+
 // ---- Mapper ------------------------------------------------------
 const toAdminUserModel = (dto: AdminUserDto): AdminUserModel => ({
   userId: dto.userId,
@@ -325,4 +378,18 @@ const toAdminHouseworkTemplateModel = (
   dayOfMonth: dto.dayOfMonth,
   nthWeek: dto.nthWeek,
   weekday: dto.weekday,
+})
+
+const toAdminAnnouncementModel = (dto: AdminAnnouncementDto): AdminAnnouncementModel => ({
+  id: dto.id,
+  titleJa: dto.titleJa,
+  titleEn: dto.titleEn,
+  titleEs: dto.titleEs,
+  bodyJa: dto.bodyJa,
+  bodyEn: dto.bodyEn,
+  bodyEs: dto.bodyEs,
+  severity: dto.severity,
+  targetScope: dto.targetScope,
+  startAt: dto.startAt,
+  endAt: dto.endAt,
 })

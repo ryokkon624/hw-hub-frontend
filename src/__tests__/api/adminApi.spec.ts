@@ -616,4 +616,112 @@ describe('adminApi', () => {
       expect(mockedApiClient.delete).toHaveBeenCalledWith('/api/admin/housework-templates/20')
     })
   })
+
+  // ---- アナウンス管理 ------------------------------------------------
+
+  describe('fetchAdminAnnouncements', () => {
+    it('アナウンス一覧をGETリクエストで取得する', async () => {
+      const dto = {
+        id: 1,
+        titleJa: 'タイトル',
+        titleEn: 'Title',
+        titleEs: 'Titulo',
+        bodyJa: '本文',
+        bodyEn: 'Body',
+        bodyEs: 'Cuerpo',
+        severity: 'INFO',
+        targetScope: 'ALL',
+        startAt: '2026-05-01T00:00:00',
+        endAt: '2026-05-31T00:00:00',
+      }
+      mockedApiClient.get.mockResolvedValue({ data: [dto] })
+
+      const result = await adminApi.fetchAdminAnnouncements()
+
+      expect(mockedApiClient.get).toHaveBeenCalledWith('/api/admin/announcements')
+      expect(result).toHaveLength(1)
+      expect(result[0].id).toBe(1)
+      expect(result[0].titleJa).toBe('タイトル')
+    })
+  })
+
+  describe('fetchAdminAnnouncement', () => {
+    it('指定IDのアナウンスをGETリクエストで取得する', async () => {
+      const dto = {
+        id: 5,
+        titleJa: 'タイトル5',
+        titleEn: 'Title5',
+        titleEs: 'Titulo5',
+        bodyJa: '本文5',
+        bodyEn: 'Body5',
+        bodyEs: 'Cuerpo5',
+        severity: 'WARN',
+        targetScope: 'HOME',
+        startAt: '2026-05-01T00:00:00',
+        endAt: '2026-05-31T00:00:00',
+      }
+      mockedApiClient.get.mockResolvedValue({ data: dto })
+
+      const result = await adminApi.fetchAdminAnnouncement(5)
+
+      expect(mockedApiClient.get).toHaveBeenCalledWith('/api/admin/announcements/5')
+      expect(result.id).toBe(5)
+    })
+  })
+
+  describe('createAdminAnnouncement', () => {
+    it('アナウンスをPOSTリクエストで作成する', async () => {
+      const req = {
+        titleJa: 'タイトル',
+        titleEn: 'Title',
+        titleEs: 'Titulo',
+        bodyJa: '本文',
+        bodyEn: 'Body',
+        bodyEs: 'Cuerpo',
+        severity: 'INFO' as const,
+        targetScope: 'ALL' as const,
+        startAt: '2026-05-01T00:00:00',
+        endAt: '2026-05-31T00:00:00',
+      }
+      const resDto = { ...req, id: 1 }
+      mockedApiClient.post.mockResolvedValue({ data: resDto })
+
+      const result = await adminApi.createAdminAnnouncement(req)
+
+      expect(mockedApiClient.post).toHaveBeenCalledWith('/api/admin/announcements', req)
+      expect(result.id).toBe(1)
+    })
+  })
+
+  describe('updateAdminAnnouncement', () => {
+    it('アナウンスをPUTリクエストで更新する', async () => {
+      const req = {
+        titleJa: 'タイトル更新',
+        titleEn: 'Title Updated',
+        titleEs: 'Titulo Actualizado',
+        bodyJa: '本文更新',
+        bodyEn: 'Body Updated',
+        bodyEs: 'Cuerpo Actualizado',
+        severity: 'WARN' as const,
+        targetScope: 'HOME' as const,
+        startAt: '2026-05-01T00:00:00',
+        endAt: '2026-05-31T00:00:00',
+      }
+      mockedApiClient.put.mockResolvedValue({})
+
+      await adminApi.updateAdminAnnouncement(5, req)
+
+      expect(mockedApiClient.put).toHaveBeenCalledWith('/api/admin/announcements/5', req)
+    })
+  })
+
+  describe('deleteAdminAnnouncement', () => {
+    it('アナウンスをDELETEリクエストで削除する', async () => {
+      mockedApiClient.delete.mockResolvedValue({})
+
+      await adminApi.deleteAdminAnnouncement(10)
+
+      expect(mockedApiClient.delete).toHaveBeenCalledWith('/api/admin/announcements/10')
+    })
+  })
 })
