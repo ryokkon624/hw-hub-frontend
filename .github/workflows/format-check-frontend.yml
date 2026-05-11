@@ -1,0 +1,29 @@
+name: format-check-frontend
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+env:
+  NODE_VERSION: "22"
+
+jobs:
+  format-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Check prettier format
+        run: npx prettier --check src/
