@@ -163,7 +163,7 @@ describe('announcementStore', () => {
 
     const result = store.visibleForRoute('home', undefined)
     expect(result).toHaveLength(1)
-    expect(result[0].id).toBe(1)
+    expect(result[0]!.id).toBe(1)
   })
 
   it('visibleForRoute: currentScope が HOME のとき targetScope === HOME のアナウンスが表示される', () => {
@@ -175,11 +175,11 @@ describe('announcementStore', () => {
 
     const homeResult = store.visibleForRoute('home', ANNOUNCEMENT_SCOPE.HOME)
     expect(homeResult).toHaveLength(1)
-    expect(homeResult[0].id).toBe(1)
+    expect(homeResult[0]!.id).toBe(1)
 
     const taskResult = store.visibleForRoute('housework.tasks', ANNOUNCEMENT_SCOPE.HW_TASK)
     expect(taskResult).toHaveLength(1)
-    expect(taskResult[0].id).toBe(2)
+    expect(taskResult[0]!.id).toBe(2)
   })
 
   it('visibleForRoute: currentScope が SHOPPING のとき targetScope === HW_TASK のアナウンスは表示されない', () => {
@@ -200,7 +200,7 @@ describe('announcementStore', () => {
 
     const result = store.visibleForRoute('home', ANNOUNCEMENT_SCOPE.HOME)
     expect(result).toHaveLength(1)
-    expect(result[0].id).toBe(2)
+    expect(result[0]!.id).toBe(2)
   })
 
   it('visibleForRoute: currentScope と targetScope が一致するアナウンスは表示される', () => {
