@@ -640,8 +640,8 @@ describe('adminApi', () => {
 
       expect(mockedApiClient.get).toHaveBeenCalledWith('/api/admin/announcements')
       expect(result).toHaveLength(1)
-      expect(result[0].id).toBe(1)
-      expect(result[0].titleJa).toBe('タイトル')
+      expect(result[0]!.id).toBe(1)
+      expect(result[0]!.titleJa).toBe('タイトル')
     })
   })
 

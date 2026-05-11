@@ -49,13 +49,13 @@ describe('announcementApi', () => {
     expect(mockedClient.get).toHaveBeenCalledWith('/api/announcements/active')
 
     expect(result).toHaveLength(1)
-    expect(result[0].id).toBe(1)
-    expect(result[0].severity).toBe(ANNOUNCEMENT_SEVERITY.INFO)
-    expect(result[0].targetScope).toBe(ANNOUNCEMENT_SCOPE.ALL)
+    expect(result[0]!.id).toBe(1)
+    expect(result[0]!.severity).toBe(ANNOUNCEMENT_SEVERITY.INFO)
+    expect(result[0]!.targetScope).toBe(ANNOUNCEMENT_SCOPE.ALL)
     // title/body は locale ごとに提供する形式
-    expect(result[0].titleJa).toBe('タイトル1')
-    expect(result[0].titleEn).toBe('Title1')
-    expect(result[0].titleEs).toBe('Titulo1')
+    expect(result[0]!.titleJa).toBe('タイトル1')
+    expect(result[0]!.titleEn).toBe('Title1')
+    expect(result[0]!.titleEs).toBe('Titulo1')
   })
 
   it('fetchActiveAnnouncements: data.announcements が配列でない場合は空配列を返す', async () => {
