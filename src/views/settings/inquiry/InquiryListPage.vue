@@ -104,9 +104,9 @@ const categoryColorClass = (category: string): string => {
       return 'bg-hwhub-palette-amber-soft border border-hwhub-palette-amber text-hwhub-palette-amber'
     case INQUIRY_CATEGORY.SHOPPING:
       return 'bg-hwhub-palette-emerald-soft border border-hwhub-palette-emerald text-hwhub-palette-emerald'
-    case INQUIRY_CATEGORY.ACCOUNT:
+    case INQUIRY_CATEGORY.ACCOUNT_SETTINGS:
       return 'bg-hwhub-palette-blue-soft border border-hwhub-palette-blue text-hwhub-palette-blue'
-    case INQUIRY_CATEGORY.BUG:
+    case INQUIRY_CATEGORY.BUG_REPORT:
       return 'bg-hwhub-palette-rose-soft border border-hwhub-palette-rose text-hwhub-palette-rose'
     default:
       return 'bg-hwhub-surface-subtle text-hwhub-muted'

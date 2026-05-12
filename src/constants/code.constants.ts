@@ -20,7 +20,7 @@ export const CODE_TYPE = {
   NOTIFICATION_GROUP: '0020', // NotificationGroup (通知グループ)
   INQUIRY_CATEGORY: '0021', // InquiryCategory (問い合わせカテゴリ)
   INQUIRY_STATUS: '0022', // InquiryStatus (問い合わせステータス)
-  INQUIRY_SENDER_TYPE: '0023', // InquirySenderType (送信者タイプ)
+  SENDER_TYPE: '0023', // SenderType (送信者タイプ)
   USER_ROLE: '0024', // UserRole (ユーザロール)
   PERMISSION: '0025', // Permission (パーミッション)
   THEME_MODE: '0026', // ThemeMode (テーマモード)
@@ -68,7 +68,7 @@ export type NthWeekCode = (typeof NTH_WEEK)[keyof typeof NTH_WEEK]
  * 0004: カテゴリ (Category)
  */
 export const CATEGORY = {
-  CLEAN: 'CLEAN', // 掃除
+  CLEANING: 'CLEAN', // 掃除
   GARBAGE: 'GARBAGE', // ゴミ出し
   GARDEN: 'GARDEN', // 庭の手入れ
   KITCHEN: 'KITCHEN', // キッチン関連
@@ -91,10 +91,10 @@ export type TaskStatusCode = (typeof TASK_STATUS)[keyof typeof TASK_STATUS]
  * 0006: 家事タスク割当理由 (TaskAssignReason)
  */
 export const TASK_ASSIGN_REASON = {
-  SELF_ASSIGNED: '1', // 自発的に担当
-  BY_REQUEST: '2', // お願いされて
-  FORCED: '9', // 押しつけられ
-  SYSTEM_ASSIGNED: '0', // システム割当
+  SELF_ASSIGNED: '0', // 自発的に担当
+  BY_REQUEST: '1', // お願いされて
+  FORCED: '2', // 押しつけられ
+  SYSTEM_ASSIGNED: '9', // システム割当
 } as const
 
 /**
@@ -155,8 +155,23 @@ export const NOTIFICATION_STATUS = {
  * ※フロントでは利用しない。
  */
 export const PROGRAM_TYPE = {
-  ADMIN: '0', // 管理者ブログ
-  SYSTEM: '1', // システム
+  SYSTEM: 'SYSTEM', // システム
+  ADMIN: 'ADMIN', // 管理者プログラム
+  ONL_AUTH: 'OnlAuth', // ONL_AUTH
+  ONL_CODE: 'OnlCode', // ONL_CODE
+  ONL_HLD_AUTH: 'OnlHldAuth', // ONL_HLDAUTH
+  ONL_HLD_INVI: 'OnlHldInvi', // ONL_HLDINVI
+  ONL_HLD_MEM: 'OnlHldMem', // ONL_HLDMEM
+  ONL_HLD: 'OnlHld', // ONL_HLD
+  ONL_HWR: 'OnlHwr', // ONL_HWR
+  ONL_HWRTSK: 'OnlHwrTsk', // ONL_HWRTSK
+  ONL_SHPATCH: 'OnlShpAtch', // ONL_SHPATCH
+  ONL_SHP: 'OnlShp', // ONL_SHP
+  ONL_USR_ICON: 'OnlUsrIcon', // ONL_USRICON
+  ONL_USR: 'OnlUsr', // ONL_USR
+  BTC_INV_EXPR: 'BtcInvExpr', // BTC_INV_EXPR
+  BTC_TSK_GEN: 'BtcTskGen', // BTC_TSK_GEN
+  BTC_TSK_RECL: 'BtcTskRecl', // BTC_TSK_RECL
 } as const
 
 /**
@@ -185,7 +200,7 @@ export const NOTIFICATION_LINK_TYPE = {
   HOUSEHOLD: 'Household',
   INVITATION: 'Invite',
   SETTINGS: 'Settings',
-  INQUIRY: 'Inquiry',
+  INQUIRY_DETAIL: 'Inquiry',
 } as const
 export type NotificationLinkTypeCode =
   (typeof NOTIFICATION_LINK_TYPE)[keyof typeof NOTIFICATION_LINK_TYPE]
@@ -207,8 +222,8 @@ export const INQUIRY_CATEGORY = {
   GENERAL: '10',
   HOUSEWORK: '20',
   SHOPPING: '21',
-  ACCOUNT: '30',
-  BUG: '40',
+  ACCOUNT_SETTINGS: '30',
+  BUG_REPORT: '40',
   OTHER: '90',
 } as const
 export type InquiryCategoryCode = (typeof INQUIRY_CATEGORY)[keyof typeof INQUIRY_CATEGORY]
@@ -226,14 +241,14 @@ export const INQUIRY_STATUS = {
 export type InquiryStatusCode = (typeof INQUIRY_STATUS)[keyof typeof INQUIRY_STATUS]
 
 /**
- * 0023: 送信者タイプ (InquirySenderType)
+ * 0023: 送信者タイプ (SenderType)
  */
-export const INQUIRY_SENDER_TYPE = {
-  USER: 'USER',
-  AI: 'AI',
+export const SENDER_TYPE = {
+  YOU: 'USER',
+  AI_SUPPORT: 'AI',
   STAFF: 'STAFF',
 } as const
-export type InquirySenderTypeCode = (typeof INQUIRY_SENDER_TYPE)[keyof typeof INQUIRY_SENDER_TYPE]
+export type SenderTypeCode = (typeof SENDER_TYPE)[keyof typeof SENDER_TYPE]
 
 /**
  * 0024: ユーザーロール (UserRole)
@@ -248,11 +263,11 @@ export type UserRoleCode = (typeof USER_ROLE)[keyof typeof USER_ROLE]
  * 0025: パーミッション (Permission)
  */
 export const PERMISSION = {
-  INQUIRY_REPLY: '20',
   USER_LIST_VIEW: '10',
-  ROLE_MANAGE: '11',
-  SYS_TEMPLATE_MNG: '30',
-  ANNOUNCEMENT_MNG: '40',
+  ROLE_MANAGEMENT: '11',
+  INQUIRY_REPLY: '20',
+  SYSTEM_TEMPLATE_MANAGEMENT: '30',
+  ANNOUNCEMENT_MANAGEMENT: '40',
 } as const
 export type PermissionCode = (typeof PERMISSION)[keyof typeof PERMISSION]
 
@@ -273,14 +288,14 @@ export type ThemeModeCode = (typeof THEME_MODE)[keyof typeof THEME_MODE]
 export const ANNOUNCEMENT_SCOPE = {
   ALL: 'ALL',
   HOME: 'HOME',
-  HW_ASSIGN: 'HW_ASSIGN',
-  HW_TASK: 'HW_TASK',
-  HW_CONF: 'HW_CONF',
+  HOUSEWORK_ASSIGN: 'HW_ASSIGN',
+  MY_TASKS: 'HW_TASK',
+  HOUSEWORK_SETTINGS: 'HW_CONF',
   SHOPPING: 'SHOPPING',
-  CONF_ACCT: 'CONF_ACCT',
-  CONF_HH: 'CONF_HH',
-  CONF_APP: 'CONF_APP',
-  NOTIFY: 'NOTIFY',
+  ACCOUNT_SETTINGS: 'CONF_ACCT',
+  HOUSEHOLD_SETTINGS: 'CONF_HH',
+  APP_SETTINGS: 'CONF_APP',
+  NOTIFICATION: 'NOTIFY',
   INQUIRY: 'INQUIRY',
   ADMIN: 'ADMIN',
 } as const
@@ -291,7 +306,7 @@ export type AnnouncementScopeCode = (typeof ANNOUNCEMENT_SCOPE)[keyof typeof ANN
  */
 export const ANNOUNCEMENT_SEVERITY = {
   INFO: 'INFO',
-  WARN: 'WARN',
+  WARNING: 'WARN',
   ERROR: 'ERROR',
 } as const
 export type AnnouncementSeverityCode =
