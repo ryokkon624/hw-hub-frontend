@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { inquiryApi } from '@/api/inquiryApi'
 import { apiClient } from '@/api/client'
-import { INQUIRY_CATEGORY, INQUIRY_STATUS, INQUIRY_SENDER_TYPE } from '@/constants/code.constants'
+import { INQUIRY_CATEGORY, INQUIRY_STATUS, SENDER_TYPE } from '@/constants/code.constants'
 
 type MockedApiClient = {
   get: ReturnType<typeof vi.fn>
@@ -36,7 +36,7 @@ describe('inquiryApi', () => {
             },
             {
               inquiryId: 2,
-              category: INQUIRY_CATEGORY.BUG,
+              category: INQUIRY_CATEGORY.BUG_REPORT,
               status: INQUIRY_STATUS.AI_ANSWERED,
               title: '不具合報告',
               createdAt: '2026-01-20T12:00:00Z',
@@ -58,7 +58,7 @@ describe('inquiryApi', () => {
       })
       expect(result[1]).toEqual({
         inquiryId: 2,
-        category: INQUIRY_CATEGORY.BUG,
+        category: INQUIRY_CATEGORY.BUG_REPORT,
         status: INQUIRY_STATUS.AI_ANSWERED,
         title: '不具合報告',
         createdAt: new Date('2026-01-20T12:00:00Z'),
@@ -87,21 +87,21 @@ describe('inquiryApi', () => {
             {
               messageId: 101,
               seq: 1,
-              senderType: INQUIRY_SENDER_TYPE.USER,
+              senderType: SENDER_TYPE.YOU,
               body: 'ご質問です',
               createdAt: '2026-02-10T09:00:00Z',
             },
             {
               messageId: 102,
               seq: 2,
-              senderType: INQUIRY_SENDER_TYPE.AI,
+              senderType: SENDER_TYPE.AI_SUPPORT,
               body: 'AI回答です',
               createdAt: '2026-02-10T09:05:00Z',
             },
             {
               messageId: 103,
               seq: 3,
-              senderType: INQUIRY_SENDER_TYPE.STAFF,
+              senderType: SENDER_TYPE.STAFF,
               body: 'スタッフ回答です',
               createdAt: '2026-02-10T09:10:00Z',
             },
@@ -121,19 +121,19 @@ describe('inquiryApi', () => {
       expect(result.messages[0]).toEqual({
         messageId: 101,
         seq: 1,
-        senderType: INQUIRY_SENDER_TYPE.USER,
+        senderType: SENDER_TYPE.YOU,
         body: 'ご質問です',
         createdAt: new Date('2026-02-10T09:00:00Z'),
       })
-      expect(result.messages[1]?.senderType).toBe(INQUIRY_SENDER_TYPE.AI)
-      expect(result.messages[2]?.senderType).toBe(INQUIRY_SENDER_TYPE.STAFF)
+      expect(result.messages[1]?.senderType).toBe(SENDER_TYPE.AI_SUPPORT)
+      expect(result.messages[2]?.senderType).toBe(SENDER_TYPE.STAFF)
     })
 
     it('メッセージが0件の場合でも正常にマッピングできる', async () => {
       mockedClient.get.mockResolvedValue({
         data: {
           inquiryId: 3,
-          category: INQUIRY_CATEGORY.ACCOUNT,
+          category: INQUIRY_CATEGORY.ACCOUNT_SETTINGS,
           status: INQUIRY_STATUS.OPEN,
           title: 'アカウントについて',
           createdAt: '2026-03-01T08:00:00Z',

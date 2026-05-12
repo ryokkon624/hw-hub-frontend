@@ -50,7 +50,7 @@ const severityColorClass = (severity: string): string => {
   switch (severity) {
     case ANNOUNCEMENT_SEVERITY.INFO:
       return 'bg-hwhub-palette-blue-soft border border-hwhub-palette-blue text-hwhub-palette-blue'
-    case ANNOUNCEMENT_SEVERITY.WARN:
+    case ANNOUNCEMENT_SEVERITY.WARNING:
       return 'bg-hwhub-palette-amber-soft border border-hwhub-palette-amber text-hwhub-palette-amber'
     case ANNOUNCEMENT_SEVERITY.ERROR:
       return 'bg-hwhub-palette-rose-soft border border-hwhub-palette-rose text-hwhub-palette-rose'

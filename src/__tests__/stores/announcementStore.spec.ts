@@ -61,7 +61,7 @@ describe('announcementStore', () => {
       makeAnnouncement({ id: 1, severity: ANNOUNCEMENT_SEVERITY.INFO }),
       makeAnnouncement({
         id: 2,
-        severity: ANNOUNCEMENT_SEVERITY.WARN,
+        severity: ANNOUNCEMENT_SEVERITY.WARNING,
         targetScope: ANNOUNCEMENT_SCOPE.HOME,
       }),
     ]
@@ -170,21 +170,21 @@ describe('announcementStore', () => {
     const store = useAnnouncementStore()
     store.announcements = [
       makeAnnouncement({ id: 1, targetScope: ANNOUNCEMENT_SCOPE.HOME }),
-      makeAnnouncement({ id: 2, targetScope: ANNOUNCEMENT_SCOPE.HW_TASK }),
+      makeAnnouncement({ id: 2, targetScope: ANNOUNCEMENT_SCOPE.MY_TASKS }),
     ]
 
     const homeResult = store.visibleForRoute('home', ANNOUNCEMENT_SCOPE.HOME)
     expect(homeResult).toHaveLength(1)
     expect(homeResult[0]!.id).toBe(1)
 
-    const taskResult = store.visibleForRoute('housework.tasks', ANNOUNCEMENT_SCOPE.HW_TASK)
+    const taskResult = store.visibleForRoute('housework.tasks', ANNOUNCEMENT_SCOPE.MY_TASKS)
     expect(taskResult).toHaveLength(1)
     expect(taskResult[0]!.id).toBe(2)
   })
 
-  it('visibleForRoute: currentScope が SHOPPING のとき targetScope === HW_TASK のアナウンスは表示されない', () => {
+  it('visibleForRoute: currentScope が SHOPPING のとき targetScope === MY_TASKS のアナウンスは表示されない', () => {
     const store = useAnnouncementStore()
-    store.announcements = [makeAnnouncement({ id: 1, targetScope: ANNOUNCEMENT_SCOPE.HW_TASK })]
+    store.announcements = [makeAnnouncement({ id: 1, targetScope: ANNOUNCEMENT_SCOPE.MY_TASKS })]
 
     const result = store.visibleForRoute('shopping.new', ANNOUNCEMENT_SCOPE.SHOPPING)
     expect(result).toHaveLength(0)
@@ -205,15 +205,19 @@ describe('announcementStore', () => {
 
   it('visibleForRoute: currentScope と targetScope が一致するアナウンスは表示される', () => {
     const store = useAnnouncementStore()
-    store.announcements = [makeAnnouncement({ id: 1, targetScope: ANNOUNCEMENT_SCOPE.HW_ASSIGN })]
+    store.announcements = [
+      makeAnnouncement({ id: 1, targetScope: ANNOUNCEMENT_SCOPE.HOUSEWORK_ASSIGN }),
+    ]
 
-    const result = store.visibleForRoute('housework.assign', ANNOUNCEMENT_SCOPE.HW_ASSIGN)
+    const result = store.visibleForRoute('housework.assign', ANNOUNCEMENT_SCOPE.HOUSEWORK_ASSIGN)
     expect(result).toHaveLength(1)
   })
 
   it('visibleForRoute: currentScope と targetScope が不一致のアナウンスは表示されない', () => {
     const store = useAnnouncementStore()
-    store.announcements = [makeAnnouncement({ id: 1, targetScope: ANNOUNCEMENT_SCOPE.HW_ASSIGN })]
+    store.announcements = [
+      makeAnnouncement({ id: 1, targetScope: ANNOUNCEMENT_SCOPE.HOUSEWORK_ASSIGN }),
+    ]
 
     const result = store.visibleForRoute('home', ANNOUNCEMENT_SCOPE.HOME)
     expect(result).toHaveLength(0)

@@ -9,7 +9,7 @@ export function useInquiryCodes() {
   const statusLabel = (v: string | number | null | undefined) =>
     labelOf(CODE_TYPE.INQUIRY_STATUS, v)
   const senderTypeLabel = (v: string | number | null | undefined) =>
-    labelOf(CODE_TYPE.INQUIRY_SENDER_TYPE, v)
+    labelOf(CODE_TYPE.SENDER_TYPE, v)
 
   const categoryOptions = optionsOf(CODE_TYPE.INQUIRY_CATEGORY)
 

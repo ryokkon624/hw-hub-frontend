@@ -84,6 +84,23 @@ dist/
 
 ---
 
+## 区分値（enum）の更新
+
+区分値定数 `src/constants/code.constants.ts` は **hw-hub-database** の `generateEnums` タスクで自動生成されます。  
+m_code を変更したときは以下の手順で更新してください。
+
+```bash
+# hw-hub-database で実行
+./gradlew generateEnums
+
+# 生成ファイルをコピー
+cp build/generated/frontend/code.constants.ts src/constants/code.constants.ts
+```
+
+> コピー後、定数名を参照しているファイルを TypeScript の型チェックで確認してください（`npm run build` or `npx tsc --noEmit`）。
+
+---
+
 ## テスト
 
 ```bash

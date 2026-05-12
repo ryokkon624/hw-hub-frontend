@@ -40,7 +40,7 @@
           v-for="message in detail.messages"
           :key="message.messageId"
           class="flex"
-          :class="message.senderType === INQUIRY_SENDER_TYPE.USER ? 'justify-end' : 'justify-start'"
+          :class="message.senderType === SENDER_TYPE.YOU ? 'justify-end' : 'justify-start'"
         >
           <div
             class="max-w-[80%] rounded-xl px-4 py-2 text-sm"
@@ -118,7 +118,7 @@ import { useInquiryStore } from '@/stores/inquiryStore'
 import { useUiStore } from '@/stores/uiStore'
 import { useCodeStore } from '@/stores/codeStore'
 import { useInquiryCodes } from '@/composables/useInquiryCodes'
-import { INQUIRY_CATEGORY, INQUIRY_STATUS, INQUIRY_SENDER_TYPE } from '@/constants/code.constants'
+import { INQUIRY_CATEGORY, INQUIRY_STATUS, SENDER_TYPE } from '@/constants/code.constants'
 
 const { t } = useI18n()
 const route = useRoute()
@@ -204,9 +204,9 @@ const categoryColorClass = (category: string): string => {
       return 'bg-hwhub-palette-amber-soft border border-hwhub-palette-amber text-hwhub-palette-amber'
     case INQUIRY_CATEGORY.SHOPPING:
       return 'bg-hwhub-palette-emerald-soft border border-hwhub-palette-emerald text-hwhub-palette-emerald'
-    case INQUIRY_CATEGORY.ACCOUNT:
+    case INQUIRY_CATEGORY.ACCOUNT_SETTINGS:
       return 'bg-hwhub-palette-blue-soft border border-hwhub-palette-blue text-hwhub-palette-blue'
-    case INQUIRY_CATEGORY.BUG:
+    case INQUIRY_CATEGORY.BUG_REPORT:
       return 'bg-hwhub-palette-rose-soft border border-hwhub-palette-rose text-hwhub-palette-rose'
     default:
       return 'bg-hwhub-surface-subtle text-hwhub-muted'
@@ -232,11 +232,11 @@ const statusColorClass = (status: string): string => {
 
 const messageClass = (senderType: string): string => {
   switch (senderType) {
-    case INQUIRY_SENDER_TYPE.USER:
+    case SENDER_TYPE.YOU:
       return 'bg-hwhub-primary text-white'
-    case INQUIRY_SENDER_TYPE.AI:
+    case SENDER_TYPE.AI_SUPPORT:
       return 'bg-hwhub-palette-violet-soft border border-hwhub-palette-violet text-hwhub-heading'
-    case INQUIRY_SENDER_TYPE.STAFF:
+    case SENDER_TYPE.STAFF:
       return 'bg-hwhub-palette-emerald-soft border border-hwhub-palette-emerald text-hwhub-heading'
     default:
       return 'bg-hwhub-surface-subtle text-hwhub-heading'

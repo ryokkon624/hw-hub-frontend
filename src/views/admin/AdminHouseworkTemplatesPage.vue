@@ -118,7 +118,7 @@ const goCreate = () => {
 
 const categoryColorClass = (category: string | null | undefined): string => {
   switch (category) {
-    case CATEGORY.CLEAN:
+    case CATEGORY.CLEANING:
       return 'bg-hwhub-palette-blue-soft border border-hwhub-palette-blue text-hwhub-palette-blue'
     case CATEGORY.KITCHEN:
       return 'bg-hwhub-palette-amber-soft border border-hwhub-palette-amber text-hwhub-palette-amber'

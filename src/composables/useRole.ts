@@ -22,13 +22,13 @@ export function useRole() {
   /** 問い合わせ返信ができるか */
   const canReplyInquiry = computed(() => hasPermission(PERMISSION.INQUIRY_REPLY))
   /** ロール管理ができるか */
-  const canManageRole = computed(() => hasPermission(PERMISSION.ROLE_MANAGE))
+  const canManageRole = computed(() => hasPermission(PERMISSION.ROLE_MANAGEMENT))
   /** ユーザ管理ができるか */
   const canManageUser = computed(() => hasPermission(PERMISSION.USER_LIST_VIEW))
   /** システム家事テンプレート管理ができるか */
-  const canManageSysTemplate = computed(() => hasPermission(PERMISSION.SYS_TEMPLATE_MNG))
+  const canManageSysTemplate = computed(() => hasPermission(PERMISSION.SYSTEM_TEMPLATE_MANAGEMENT))
   /** アナウンス管理ができるか */
-  const canManageAnnouncement = computed(() => hasPermission(PERMISSION.ANNOUNCEMENT_MNG))
+  const canManageAnnouncement = computed(() => hasPermission(PERMISSION.ANNOUNCEMENT_MANAGEMENT))
 
   return {
     hasRole,

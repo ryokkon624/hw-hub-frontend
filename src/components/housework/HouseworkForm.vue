@@ -129,7 +129,7 @@ const members = computed<HouseholdMember[]>(() => householdStore.currentMembers)
 
 const categoryColorClass = (category: string | null | undefined): string => {
   switch (category) {
-    case CATEGORY.CLEAN:
+    case CATEGORY.CLEANING:
       return 'bg-hwhub-palette-blue-soft border border-hwhub-palette-blue-border text-hwhub-palette-blue-text'
     case CATEGORY.KITCHEN:
       return 'bg-hwhub-palette-amber-soft border border-hwhub-palette-amber-border text-hwhub-palette-amber-text'

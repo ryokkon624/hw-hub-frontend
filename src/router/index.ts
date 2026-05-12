@@ -174,14 +174,14 @@ const routes: RouteRecordRaw[] = [
         component: HouseworkAssignmentPage,
         meta: {
           titleKey: 'pageTitles.houseworkAssign',
-          featureScope: ANNOUNCEMENT_SCOPE.HW_ASSIGN,
+          featureScope: ANNOUNCEMENT_SCOPE.HOUSEWORK_ASSIGN,
         },
       },
       {
         path: 'housework/tasks',
         name: 'housework.tasks',
         component: MyTasksPage,
-        meta: { titleKey: 'pageTitles.myTasks', featureScope: ANNOUNCEMENT_SCOPE.HW_TASK },
+        meta: { titleKey: 'pageTitles.myTasks', featureScope: ANNOUNCEMENT_SCOPE.MY_TASKS },
       },
 
       // ---- Housework Settings ----
@@ -191,21 +191,27 @@ const routes: RouteRecordRaw[] = [
         component: HouseworkSettingsPage,
         meta: {
           titleKey: 'pageTitles.houseworkSettings',
-          featureScope: ANNOUNCEMENT_SCOPE.HW_CONF,
+          featureScope: ANNOUNCEMENT_SCOPE.HOUSEWORK_SETTINGS,
         },
       },
       {
         path: 'settings/housework/new',
         name: 'settings.housework.new',
         component: HouseworkCreatePage,
-        meta: { titleKey: 'pageTitles.houseworkCreate', featureScope: ANNOUNCEMENT_SCOPE.HW_CONF },
+        meta: {
+          titleKey: 'pageTitles.houseworkCreate',
+          featureScope: ANNOUNCEMENT_SCOPE.HOUSEWORK_SETTINGS,
+        },
       },
       {
         path: 'settings/housework/:houseworkId/edit',
         name: 'settings.housework.edit',
         component: HouseworkEditPage,
         props: true,
-        meta: { titleKey: 'pageTitles.houseworkEdit', featureScope: ANNOUNCEMENT_SCOPE.HW_CONF },
+        meta: {
+          titleKey: 'pageTitles.houseworkEdit',
+          featureScope: ANNOUNCEMENT_SCOPE.HOUSEWORK_SETTINGS,
+        },
       },
 
       // ---- Shopping ----
@@ -242,7 +248,7 @@ const routes: RouteRecordRaw[] = [
         component: AccountSettingsPage,
         meta: {
           titleKey: 'pageTitles.accountSettings',
-          featureScope: ANNOUNCEMENT_SCOPE.CONF_ACCT,
+          featureScope: ANNOUNCEMENT_SCOPE.ACCOUNT_SETTINGS,
         },
       },
       {
@@ -251,14 +257,14 @@ const routes: RouteRecordRaw[] = [
         component: HouseholdSettingsPage,
         meta: {
           titleKey: 'pageTitles.householdSettings',
-          featureScope: ANNOUNCEMENT_SCOPE.CONF_HH,
+          featureScope: ANNOUNCEMENT_SCOPE.HOUSEHOLD_SETTINGS,
         },
       },
       {
         path: 'settings/app',
         name: 'settings.app',
         component: AppInfoPage,
-        meta: { titleKey: 'pageTitles.app', featureScope: ANNOUNCEMENT_SCOPE.CONF_APP },
+        meta: { titleKey: 'pageTitles.app', featureScope: ANNOUNCEMENT_SCOPE.APP_SETTINGS },
       },
       {
         path: 'settings/app/terms',
@@ -279,7 +285,10 @@ const routes: RouteRecordRaw[] = [
         path: 'notifications',
         name: 'notifications',
         component: NotificationCenterPage,
-        meta: { titleKey: 'pageTitles.notifications', featureScope: ANNOUNCEMENT_SCOPE.NOTIFY },
+        meta: {
+          titleKey: 'pageTitles.notifications',
+          featureScope: ANNOUNCEMENT_SCOPE.NOTIFICATION,
+        },
       },
 
       // ---- Admin ----
@@ -315,7 +324,7 @@ const routes: RouteRecordRaw[] = [
             meta: {
               titleKey: 'pageTitles.adminRoles',
               requiresAuth: true,
-              requiresPermission: PERMISSION.ROLE_MANAGE,
+              requiresPermission: PERMISSION.ROLE_MANAGEMENT,
             },
           },
           {
@@ -345,7 +354,7 @@ const routes: RouteRecordRaw[] = [
             meta: {
               titleKey: 'pageTitles.adminHouseworkTemplates',
               requiresAuth: true,
-              requiresPermission: PERMISSION.SYS_TEMPLATE_MNG,
+              requiresPermission: PERMISSION.SYSTEM_TEMPLATE_MANAGEMENT,
             },
           },
           {
@@ -355,7 +364,7 @@ const routes: RouteRecordRaw[] = [
             meta: {
               titleKey: 'pageTitles.adminHouseworkTemplateNew',
               requiresAuth: true,
-              requiresPermission: PERMISSION.SYS_TEMPLATE_MNG,
+              requiresPermission: PERMISSION.SYSTEM_TEMPLATE_MANAGEMENT,
             },
           },
           {
@@ -366,7 +375,7 @@ const routes: RouteRecordRaw[] = [
             meta: {
               titleKey: 'pageTitles.adminHouseworkTemplateEdit',
               requiresAuth: true,
-              requiresPermission: PERMISSION.SYS_TEMPLATE_MNG,
+              requiresPermission: PERMISSION.SYSTEM_TEMPLATE_MANAGEMENT,
             },
           },
           {
@@ -376,7 +385,7 @@ const routes: RouteRecordRaw[] = [
             meta: {
               titleKey: 'pageTitles.adminAnnouncements',
               requiresAuth: true,
-              requiresPermission: PERMISSION.ANNOUNCEMENT_MNG,
+              requiresPermission: PERMISSION.ANNOUNCEMENT_MANAGEMENT,
             },
           },
           {
@@ -386,7 +395,7 @@ const routes: RouteRecordRaw[] = [
             meta: {
               titleKey: 'pageTitles.adminAnnouncementNew',
               requiresAuth: true,
-              requiresPermission: PERMISSION.ANNOUNCEMENT_MNG,
+              requiresPermission: PERMISSION.ANNOUNCEMENT_MANAGEMENT,
             },
           },
           {
@@ -397,7 +406,7 @@ const routes: RouteRecordRaw[] = [
             meta: {
               titleKey: 'pageTitles.adminAnnouncementEdit',
               requiresAuth: true,
-              requiresPermission: PERMISSION.ANNOUNCEMENT_MNG,
+              requiresPermission: PERMISSION.ANNOUNCEMENT_MANAGEMENT,
             },
           },
         ],

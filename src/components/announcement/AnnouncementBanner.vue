@@ -103,7 +103,7 @@ function bannerClass(severity: AnnouncementSeverityCode): string {
   switch (severity) {
     case ANNOUNCEMENT_SEVERITY.ERROR:
       return 'bg-hwhub-danger-soft'
-    case ANNOUNCEMENT_SEVERITY.WARN:
+    case ANNOUNCEMENT_SEVERITY.WARNING:
       return 'bg-hwhub-accent-soft'
     default:
       return 'bg-hwhub-info-soft'
@@ -114,7 +114,7 @@ function indicatorClass(severity: AnnouncementSeverityCode): string {
   switch (severity) {
     case ANNOUNCEMENT_SEVERITY.ERROR:
       return 'bg-hwhub-danger'
-    case ANNOUNCEMENT_SEVERITY.WARN:
+    case ANNOUNCEMENT_SEVERITY.WARNING:
       return 'bg-hwhub-warning'
     default:
       return 'bg-hwhub-info'
@@ -125,7 +125,7 @@ function severityIcon(severity: AnnouncementSeverityCode): Component {
   switch (severity) {
     case ANNOUNCEMENT_SEVERITY.ERROR:
       return OctagonAlert
-    case ANNOUNCEMENT_SEVERITY.WARN:
+    case ANNOUNCEMENT_SEVERITY.WARNING:
       return TriangleAlert
     default:
       return Info
@@ -136,7 +136,7 @@ function severityIconClass(severity: AnnouncementSeverityCode): string {
   switch (severity) {
     case ANNOUNCEMENT_SEVERITY.ERROR:
       return 'text-rose-500'
-    case ANNOUNCEMENT_SEVERITY.WARN:
+    case ANNOUNCEMENT_SEVERITY.WARNING:
       return 'text-amber-500'
     default:
       return 'text-blue-500'
