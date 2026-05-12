@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { useInquiryStore } from '@/stores/inquiryStore'
 import { inquiryApi } from '@/api/inquiryApi'
-import { INQUIRY_CATEGORY, INQUIRY_STATUS, INQUIRY_SENDER_TYPE } from '@/constants/code.constants'
+import { INQUIRY_CATEGORY, INQUIRY_STATUS, SENDER_TYPE } from '@/constants/code.constants'
 import type { InquirySummary, InquiryDetail } from '@/domain'
 
 vi.mock('@/api/inquiryApi', () => ({
@@ -40,7 +40,7 @@ describe('inquiryStore', () => {
       {
         messageId: 1,
         seq: 1,
-        senderType: INQUIRY_SENDER_TYPE.USER,
+        senderType: SENDER_TYPE.YOU,
         body: 'メッセージ',
         createdAt: new Date('2026-01-01T00:01:00Z'),
       },

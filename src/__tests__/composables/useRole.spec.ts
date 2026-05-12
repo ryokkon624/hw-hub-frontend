@@ -143,7 +143,7 @@ describe('useRole', () => {
   })
 
   describe('canManageAnnouncement', () => {
-    it('ANNOUNCEMENT_MNGパーミッション（40）を持っている場合はtrueを返す', () => {
+    it('ANNOUNCEMENT_MANAGEMENTパーミッション（40）を持っている場合はtrueを返す', () => {
       const store = useRoleStore()
       store.permissions = ['40'] as typeof store.permissions
       const { canManageAnnouncement } = useRole()
@@ -151,7 +151,7 @@ describe('useRole', () => {
       expect(canManageAnnouncement.value).toBe(true)
     })
 
-    it('ANNOUNCEMENT_MNGパーミッションを持っていない場合はfalseを返す', () => {
+    it('ANNOUNCEMENT_MANAGEMENTパーミッションを持っていない場合はfalseを返す', () => {
       const store = useRoleStore()
       store.permissions = ['10', '11', '20'] as typeof store.permissions
       const { canManageAnnouncement } = useRole()

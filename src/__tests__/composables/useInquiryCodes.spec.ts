@@ -66,13 +66,13 @@ describe('useInquiryCodes', () => {
   })
 
   describe('senderTypeLabel', () => {
-    it('INQUIRY_SENDER_TYPEタイプでlabelOfを呼ぶ', () => {
+    it('SENDER_TYPEタイプでlabelOfを呼ぶ', () => {
       mockLabelOf.mockReturnValue('ユーザー')
       const { senderTypeLabel } = useInquiryCodes()
 
       const result = senderTypeLabel('01')
 
-      expect(mockLabelOf).toHaveBeenCalledWith(CODE_TYPE.INQUIRY_SENDER_TYPE, '01')
+      expect(mockLabelOf).toHaveBeenCalledWith(CODE_TYPE.SENDER_TYPE, '01')
       expect(result).toBe('ユーザー')
     })
   })
