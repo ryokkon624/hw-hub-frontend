@@ -205,7 +205,9 @@ describe('announcementStore', () => {
 
   it('visibleForRoute: currentScope と targetScope が一致するアナウンスは表示される', () => {
     const store = useAnnouncementStore()
-    store.announcements = [makeAnnouncement({ id: 1, targetScope: ANNOUNCEMENT_SCOPE.HOUSEWORK_ASSIGN })]
+    store.announcements = [
+      makeAnnouncement({ id: 1, targetScope: ANNOUNCEMENT_SCOPE.HOUSEWORK_ASSIGN }),
+    ]
 
     const result = store.visibleForRoute('housework.assign', ANNOUNCEMENT_SCOPE.HOUSEWORK_ASSIGN)
     expect(result).toHaveLength(1)
@@ -213,7 +215,9 @@ describe('announcementStore', () => {
 
   it('visibleForRoute: currentScope と targetScope が不一致のアナウンスは表示されない', () => {
     const store = useAnnouncementStore()
-    store.announcements = [makeAnnouncement({ id: 1, targetScope: ANNOUNCEMENT_SCOPE.HOUSEWORK_ASSIGN })]
+    store.announcements = [
+      makeAnnouncement({ id: 1, targetScope: ANNOUNCEMENT_SCOPE.HOUSEWORK_ASSIGN }),
+    ]
 
     const result = store.visibleForRoute('home', ANNOUNCEMENT_SCOPE.HOME)
     expect(result).toHaveLength(0)

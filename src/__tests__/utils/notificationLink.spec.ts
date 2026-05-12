@@ -70,7 +70,10 @@ describe('notificationLink', () => {
 
   it('INQUIRYのときはsettings.inquiry.detailに遷移する', async () => {
     const router = createMockRouter()
-    const notification = { ...createNotification(NOTIFICATION_LINK_TYPE.INQUIRY_DETAIL), linkId: 42 }
+    const notification = {
+      ...createNotification(NOTIFICATION_LINK_TYPE.INQUIRY_DETAIL),
+      linkId: 42,
+    }
 
     await navigateByNotification(router, notification)
 

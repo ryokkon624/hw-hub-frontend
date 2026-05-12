@@ -198,14 +198,20 @@ const routes: RouteRecordRaw[] = [
         path: 'settings/housework/new',
         name: 'settings.housework.new',
         component: HouseworkCreatePage,
-        meta: { titleKey: 'pageTitles.houseworkCreate', featureScope: ANNOUNCEMENT_SCOPE.HOUSEWORK_SETTINGS },
+        meta: {
+          titleKey: 'pageTitles.houseworkCreate',
+          featureScope: ANNOUNCEMENT_SCOPE.HOUSEWORK_SETTINGS,
+        },
       },
       {
         path: 'settings/housework/:houseworkId/edit',
         name: 'settings.housework.edit',
         component: HouseworkEditPage,
         props: true,
-        meta: { titleKey: 'pageTitles.houseworkEdit', featureScope: ANNOUNCEMENT_SCOPE.HOUSEWORK_SETTINGS },
+        meta: {
+          titleKey: 'pageTitles.houseworkEdit',
+          featureScope: ANNOUNCEMENT_SCOPE.HOUSEWORK_SETTINGS,
+        },
       },
 
       // ---- Shopping ----
@@ -279,7 +285,10 @@ const routes: RouteRecordRaw[] = [
         path: 'notifications',
         name: 'notifications',
         component: NotificationCenterPage,
-        meta: { titleKey: 'pageTitles.notifications', featureScope: ANNOUNCEMENT_SCOPE.NOTIFICATION },
+        meta: {
+          titleKey: 'pageTitles.notifications',
+          featureScope: ANNOUNCEMENT_SCOPE.NOTIFICATION,
+        },
       },
 
       // ---- Admin ----
