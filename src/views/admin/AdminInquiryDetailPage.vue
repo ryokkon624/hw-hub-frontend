@@ -34,7 +34,7 @@
         <div
           class="rounded-lg bg-hwhub-surface-subtle px-3 py-2 text-xs text-hwhub-muted space-y-0.5"
         >
-          <p>{{ t('inquiry.detail.clientInfo.ui') }}: {{ detail.uiClient }}</p>
+          <p>{{ t('inquiry.detail.clientInfo.ui') }}: {{ uiClientLabel(detail.uiClient) }}</p>
           <p>{{ t('inquiry.detail.clientInfo.uiVersion') }}: {{ detail.uiVersion }}</p>
           <p>{{ t('inquiry.detail.clientInfo.apiVersion') }}: {{ detail.apiVersion }}</p>
         </div>
@@ -212,6 +212,17 @@ const messageClass = (senderType: string): string => {
       return 'bg-hwhub-palette-emerald-soft border border-hwhub-palette-emerald text-hwhub-heading'
     default:
       return 'bg-hwhub-surface-subtle text-hwhub-heading'
+  }
+}
+
+const uiClientLabel = (uiClient: string): string => {
+  switch (uiClient) {
+    case 'web':
+      return t('inquiry.detail.clientInfo.uiWeb')
+    case 'mobile':
+      return t('inquiry.detail.clientInfo.uiMobile')
+    default:
+      return uiClient
   }
 }
 </script>

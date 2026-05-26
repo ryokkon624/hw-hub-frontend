@@ -1409,6 +1409,8 @@
       },
       "clientInfo": {
         "ui": "Cliente",
+        "uiWeb": "Web",
+        "uiMobile": "Móvil",
         "uiVersion": "Versión UI",
         "apiVersion": "Versión API"
       },
