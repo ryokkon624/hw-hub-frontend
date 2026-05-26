@@ -34,6 +34,9 @@ export const inquiryApi = {
       category: input.category,
       title: input.title,
       body: input.body,
+      uiClient: input.uiClient,
+      uiVersion: input.uiVersion,
+      apiVersion: input.apiVersion,
     }
     const res = await apiClient.post<InquiryCreateResponse>('/api/inquiries', payload)
     return { inquiryId: res.data.inquiryId }
@@ -87,6 +90,9 @@ interface InquiryDetailDto {
   title: string
   createdAt: string
   messages: InquiryMessageDto[]
+  uiClient: string
+  uiVersion: string
+  apiVersion: string
 }
 
 interface InquiryMessageDto {
@@ -105,6 +111,9 @@ interface InquiryCreateRequestDto {
   category: string
   title: string
   body: string
+  uiClient: string
+  uiVersion: string
+  apiVersion: string
 }
 
 interface InquiryMessageRequestDto {
@@ -128,6 +137,9 @@ export const toInquiryDetail = (dto: InquiryDetailDto): InquiryDetail => ({
   title: dto.title,
   createdAt: new Date(dto.createdAt),
   messages: dto.messages.map(toInquiryMessage),
+  uiClient: dto.uiClient,
+  uiVersion: dto.uiVersion,
+  apiVersion: dto.apiVersion,
 })
 
 const toInquiryMessage = (dto: InquiryMessageDto): InquiryMessage => ({

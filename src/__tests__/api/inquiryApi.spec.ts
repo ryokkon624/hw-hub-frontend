@@ -83,6 +83,9 @@ describe('inquiryApi', () => {
           status: INQUIRY_STATUS.PENDING_STAFF,
           title: 'オーナーの変更について',
           createdAt: '2026-02-10T09:00:00Z',
+          uiClient: 'web',
+          uiVersion: '1.2.0',
+          apiVersion: '2.0.0',
           messages: [
             {
               messageId: 101,
@@ -117,6 +120,9 @@ describe('inquiryApi', () => {
       expect(result.status).toBe(INQUIRY_STATUS.PENDING_STAFF)
       expect(result.title).toBe('オーナーの変更について')
       expect(result.createdAt).toEqual(new Date('2026-02-10T09:00:00Z'))
+      expect(result.uiClient).toBe('web')
+      expect(result.uiVersion).toBe('1.2.0')
+      expect(result.apiVersion).toBe('2.0.0')
       expect(result.messages).toHaveLength(3)
       expect(result.messages[0]).toEqual({
         messageId: 101,
@@ -137,6 +143,9 @@ describe('inquiryApi', () => {
           status: INQUIRY_STATUS.OPEN,
           title: 'アカウントについて',
           createdAt: '2026-03-01T08:00:00Z',
+          uiClient: 'mobile',
+          uiVersion: '1.0.0',
+          apiVersion: '1.0.0',
           messages: [],
         },
       })
@@ -144,6 +153,7 @@ describe('inquiryApi', () => {
       const result = await inquiryApi.fetchInquiry(3)
 
       expect(result.messages).toHaveLength(0)
+      expect(result.uiClient).toBe('mobile')
     })
   })
 
@@ -155,12 +165,18 @@ describe('inquiryApi', () => {
         category: INQUIRY_CATEGORY.GENERAL,
         title: 'テストタイトル',
         body: '問い合わせ内容',
+        uiClient: 'web',
+        uiVersion: '1.0.0',
+        apiVersion: '2.0.0',
       })
 
       expect(mockedClient.post).toHaveBeenCalledWith('/api/inquiries', {
         category: INQUIRY_CATEGORY.GENERAL,
         title: 'テストタイトル',
         body: '問い合わせ内容',
+        uiClient: 'web',
+        uiVersion: '1.0.0',
+        apiVersion: '2.0.0',
       })
       expect(result).toEqual({ inquiryId: 10 })
     })
@@ -172,12 +188,18 @@ describe('inquiryApi', () => {
         category: INQUIRY_CATEGORY.SHOPPING,
         title: '買い物について',
         body: '内容',
+        uiClient: 'web',
+        uiVersion: '1.0.0',
+        apiVersion: '2.0.0',
       })
 
       expect(mockedClient.post).toHaveBeenCalledWith('/api/inquiries', {
         category: INQUIRY_CATEGORY.SHOPPING,
         title: '買い物について',
         body: '内容',
+        uiClient: 'web',
+        uiVersion: '1.0.0',
+        apiVersion: '2.0.0',
       })
     })
   })

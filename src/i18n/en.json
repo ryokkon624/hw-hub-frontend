@@ -1407,6 +1407,13 @@
         "25": "Staff has replied. Please review and close if resolved.",
         "90": "This inquiry has been closed."
       },
+      "clientInfo": {
+        "ui": "Client",
+        "uiWeb": "Web",
+        "uiMobile": "Mobile",
+        "uiVersion": "UI Version",
+        "apiVersion": "API Version"
+      },
       "toast": {
         "replySent": "Reply sent.",
         "closed": "Inquiry closed.",

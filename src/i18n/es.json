@@ -1407,6 +1407,13 @@
         "25": "El personal ha respondido. Por favor revise y cierre si está resuelto.",
         "90": "Esta consulta ha sido cerrada."
       },
+      "clientInfo": {
+        "ui": "Cliente",
+        "uiWeb": "Web",
+        "uiMobile": "Móvil",
+        "uiVersion": "Versión UI",
+        "apiVersion": "Versión API"
+      },
       "toast": {
         "replySent": "Respuesta enviada.",
         "closed": "Consulta cerrada.",
