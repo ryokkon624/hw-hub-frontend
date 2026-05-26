@@ -21,6 +21,9 @@ export interface InquiryDetail {
   title: string
   createdAt: Date
   messages: InquiryMessage[]
+  uiClient: string
+  uiVersion: string
+  apiVersion: string
 }
 
 /** メッセージ */
@@ -37,6 +40,9 @@ export interface InquiryCreateInput {
   category: InquiryCategoryCode
   title: string
   body: string
+  uiClient: string
+  uiVersion: string
+  apiVersion: string
 }
 
 /** 管理用問い合わせ一覧用 */

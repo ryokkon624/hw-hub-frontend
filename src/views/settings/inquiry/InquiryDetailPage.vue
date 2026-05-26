@@ -17,6 +17,14 @@
         <h1 class="font-semibold text-sm text-hwhub-heading">
           #{{ detail.inquiryId }}: {{ detail.title }}
         </h1>
+        <!-- クライアント情報 -->
+        <div
+          class="rounded-lg bg-hwhub-surface-subtle px-3 py-2 text-xs text-hwhub-muted space-y-0.5"
+        >
+          <p>{{ t('inquiry.detail.clientInfo.ui') }}: {{ detail.uiClient }}</p>
+          <p>{{ t('inquiry.detail.clientInfo.uiVersion') }}: {{ detail.uiVersion }}</p>
+          <p>{{ t('inquiry.detail.clientInfo.apiVersion') }}: {{ detail.apiVersion }}</p>
+        </div>
         <div class="flex items-center justify-between">
           <span
             class="inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium"

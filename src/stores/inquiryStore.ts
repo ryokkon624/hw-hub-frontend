@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { inquiryApi } from '@/api/inquiryApi'
+import { useAppInfoStore } from '@/stores/appInfoStore'
 import type { InquirySummary, InquiryDetail, InquiryCreateInput } from '@/domain'
 import { INQUIRY_STATUS } from '@/constants/code.constants'
 
@@ -46,15 +47,28 @@ export const useInquiryStore = defineStore('inquiry', {
 
     /**
      * 新規問い合わせ送信
+     * appInfoStore からバージョン情報を取得して API に渡す
      * 成功後は loadAll で一覧を再取得する
-     * @param input 入力値
+     * @param input 入力値（uiClient/uiVersion/apiVersion は自動付与）
      * @returns 作成した inquiryId
      */
-    async create(input: InquiryCreateInput): Promise<number> {
+    async create(
+      input: Omit<InquiryCreateInput, 'uiClient' | 'uiVersion' | 'apiVersion'>,
+    ): Promise<number> {
       if (this.isSubmitting) return Promise.reject(new Error('送信中です'))
       this.isSubmitting = true
       try {
-        const { inquiryId } = await inquiryApi.createInquiry(input)
+        const appInfoStore = useAppInfoStore()
+        if (!appInfoStore.apiVersion) {
+          await appInfoStore.fetchApiVersion()
+        }
+        const createInput: InquiryCreateInput = {
+          ...input,
+          uiClient: 'web',
+          uiVersion: appInfoStore.frontVersion,
+          apiVersion: appInfoStore.apiVersion ?? 'unknown',
+        }
+        const { inquiryId } = await inquiryApi.createInquiry(createInput)
         await this.loadAll()
         return inquiryId
       } finally {

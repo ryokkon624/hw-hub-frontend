@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { useInquiryStore } from '@/stores/inquiryStore'
+import { useAppInfoStore } from '@/stores/appInfoStore'
 import { inquiryApi } from '@/api/inquiryApi'
 import { INQUIRY_CATEGORY, INQUIRY_STATUS, SENDER_TYPE } from '@/constants/code.constants'
 import type { InquirySummary, InquiryDetail } from '@/domain'
@@ -13,6 +14,12 @@ vi.mock('@/api/inquiryApi', () => ({
     addMessage: vi.fn(),
     closeInquiry: vi.fn(),
     escalateToStaff: vi.fn(),
+  },
+}))
+
+vi.mock('@/api/appInfoApi', () => ({
+  appInfoApi: {
+    fetchAppInfo: vi.fn().mockResolvedValue({ apiVersion: '2.0.0' }),
   },
 }))
 
@@ -36,6 +43,9 @@ describe('inquiryStore', () => {
     status,
     title: `問い合わせ ${id}`,
     createdAt: new Date('2026-01-01T00:00:00Z'),
+    uiClient: 'web',
+    uiVersion: '1.0.0',
+    apiVersion: '2.0.0',
     messages: [
       {
         messageId: 1,
@@ -105,6 +115,9 @@ describe('inquiryStore', () => {
       vi.mocked(inquiryApi.fetchInquiries).mockResolvedValue([createSummary(10)])
 
       const store = useInquiryStore()
+      const appInfoStore = useAppInfoStore()
+      appInfoStore.apiVersion = '2.0.0'
+
       const inquiryId = await store.create({
         category: INQUIRY_CATEGORY.GENERAL,
         title: 'テスト',
@@ -115,6 +128,53 @@ describe('inquiryStore', () => {
       expect(inquiryApi.createInquiry).toHaveBeenCalledOnce()
       expect(inquiryApi.fetchInquiries).toHaveBeenCalledOnce()
       expect(store.isSubmitting).toBe(false)
+    })
+
+    it('create()はuiClient="web"・appInfoStoreのバージョンをAPIペイロードに含める', async () => {
+      vi.mocked(inquiryApi.createInquiry).mockResolvedValue({ inquiryId: 10 })
+      vi.mocked(inquiryApi.fetchInquiries).mockResolvedValue([])
+
+      const store = useInquiryStore()
+      const appInfoStore = useAppInfoStore()
+      appInfoStore.apiVersion = '3.5.0'
+
+      await store.create({
+        category: INQUIRY_CATEGORY.GENERAL,
+        title: 'テスト',
+        body: '内容',
+      })
+
+      expect(inquiryApi.createInquiry).toHaveBeenCalledWith(
+        expect.objectContaining({
+          uiClient: 'web',
+          apiVersion: '3.5.0',
+          uiVersion: expect.any(String),
+        }),
+      )
+    })
+
+    it('apiVersionがnullの場合はfetchApiVersionを呼び出してから送信する', async () => {
+      vi.mocked(inquiryApi.createInquiry).mockResolvedValue({ inquiryId: 10 })
+      vi.mocked(inquiryApi.fetchInquiries).mockResolvedValue([])
+
+      const store = useInquiryStore()
+      const appInfoStore = useAppInfoStore()
+      // apiVersionがnullの初期状態
+      appInfoStore.$patch({ apiVersion: null })
+
+      await store.create({
+        category: INQUIRY_CATEGORY.GENERAL,
+        title: 'テスト',
+        body: '内容',
+      })
+
+      // fetchApiVersion が呼ばれ、apiVersionが設定された後に createInquiry が呼ばれる
+      expect(inquiryApi.createInquiry).toHaveBeenCalledWith(
+        expect.objectContaining({
+          uiClient: 'web',
+          apiVersion: expect.any(String),
+        }),
+      )
     })
 
     it('isSubmittingがtrueの場合はエラーをthrowする', async () => {
@@ -136,6 +196,9 @@ describe('inquiryStore', () => {
       vi.mocked(inquiryApi.createInquiry).mockRejectedValue(new Error('Server error'))
 
       const store = useInquiryStore()
+      const appInfoStore = useAppInfoStore()
+      appInfoStore.apiVersion = '2.0.0'
+
       await expect(
         store.create({
           category: INQUIRY_CATEGORY.GENERAL,
