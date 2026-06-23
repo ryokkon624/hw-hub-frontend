@@ -1,0 +1,85 @@
+name: security-frontend
+
+# セキュリティ強化 Phase 1（同期スキャン）: PR ごとに走る軽量ゲート。
+#   1. dependency-audit  … 依存パッケージの既知脆弱性チェック（SCA / npm audit）
+#   2. code-security-review … claude-code-security-review による PR 差分の AI レビュー
+# 詳細・前提は THREAT_MODEL.md を参照。
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+# 既定は最小権限（読み取りのみ）。PR コメントが必要なジョブで個別に昇格する。
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: "22"
+
+jobs:
+  # --- 依存パッケージの脆弱性監査（SCA） ---------------------------------
+  dependency-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      # 情報レポート（非ブロッキング）: dev 含む全依存の脆弱性を可視化する。
+      # ここで出た指摘は backlog に流してトリアージする（ゲートはしない）。
+      # `|| true` で npm audit の exit 1（脆弱性検出）を吸収し、注釈もジョブも赤くしない。
+      - name: Audit report (all deps, informational)
+        run: npm audit || true
+
+      # ハードゲート: 出荷物（本番依存）に critical があれば失敗させる。
+      # 現状 critical は 0。将来の混入を確実に止めるための床。
+      # 既存の high を解消できたら段階的に --audit-level=high へ引き上げる想定。
+      - name: Audit gate (production deps, critical)
+        run: npm audit --omit=dev --audit-level=critical
+
+  # --- PR 差分の AI セキュリティレビュー --------------------------------
+  code-security-review:
+    # PR の差分をレビューするジョブ。push（PR 無し）ではスキップ。
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write # 指摘を PR コメントとして残すため
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 2
+
+      # CLAUDE_API_KEY 未設定の間はレビューをスキップ（ジョブを赤にしない）。
+      # シークレットを追加すると次回 PR から自動でレビューが走る。
+      - name: Check CLAUDE_API_KEY secret
+        id: keycheck
+        env:
+          CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
+        run: |
+          if [ -z "$CLAUDE_API_KEY" ]; then
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::CLAUDE_API_KEY secret が未設定のため Claude セキュリティレビューをスキップしました。リポジトリの Settings > Secrets and variables > Actions に追加してください。"
+          else
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Claude Code security review
+        if: steps.keycheck.outputs.present == 'true'
+        # 供給網の堅牢化のため、運用が安定したらコミット SHA でのピン留めを推奨。
+        uses: anthropics/claude-code-security-review@main
+        with:
+          comment-pr: true
+          claude-api-key: ${{ secrets.CLAUDE_API_KEY }}
+          # ビルド成果物・カバレッジはレビュー対象から除外
+          exclude-directories: dist,coverage
+          # 既定モデルで動作する。新しいモデルに固定したい場合は claude-model を指定:
+          # claude-model: claude-opus-4-8
