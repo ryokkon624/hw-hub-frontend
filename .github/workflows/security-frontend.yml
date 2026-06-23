@@ -37,11 +37,11 @@ jobs:
       - name: Audit report (all deps, informational)
         run: npm audit || true
 
-      # ハードゲート: 出荷物（本番依存）に critical があれば失敗させる。
-      # 現状 critical は 0。将来の混入を確実に止めるための床。
-      # 既存の high を解消できたら段階的に --audit-level=high へ引き上げる想定。
-      - name: Audit gate (production deps, critical)
-        run: npm audit --omit=dev --audit-level=critical
+      # ハードゲート: 出荷物（本番依存）に high 以上があれば失敗させる。
+      # 既存の本番 high（axios 等）を npm audit fix で解消したため critical → high に引き上げた。
+      # dev 依存は出荷されないため引き続きゲート対象外（情報レポートのみ）。
+      - name: Audit gate (production deps, high)
+        run: npm audit --omit=dev --audit-level=high
 
   # --- PR 差分の AI セキュリティレビュー --------------------------------
   code-security-review:
