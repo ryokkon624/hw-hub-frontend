@@ -65,6 +65,9 @@ const makeInquiryDetail = (inquiryId: number): InquiryDetail => ({
       createdAt: new Date('2025-01-01T00:00:00Z'),
     },
   ],
+  uiClient: 'web',
+  uiVersion: '1.0.0',
+  apiVersion: '1.0.0',
 })
 
 describe('adminInquiryStore', () => {

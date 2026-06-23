@@ -248,6 +248,9 @@ describe('adminApi', () => {
         title: '詳細タイトル',
         createdAt: new Date('2025-01-01T00:00:00Z'),
         messages: [],
+        uiClient: 'web',
+        uiVersion: '1.0.0',
+        apiVersion: '1.0.0',
       }
       mockedApiClient.get.mockResolvedValue({ data: rawData })
       mockedToInquiryDetail.mockReturnValue(mapped)

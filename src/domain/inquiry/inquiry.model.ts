@@ -1,7 +1,7 @@
 import type {
   InquiryCategoryCode,
   InquiryStatusCode,
-  InquirySenderTypeCode,
+  SenderTypeCode,
 } from '@/constants/code.constants'
 
 /** 問い合わせ一覧用（バックエンドの InquirySummary に対応） */
@@ -30,7 +30,7 @@ export interface InquiryDetail {
 export interface InquiryMessage {
   messageId: number
   seq: number
-  senderType: InquirySenderTypeCode
+  senderType: SenderTypeCode
   body: string
   createdAt: Date
 }
