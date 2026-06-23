@@ -3,7 +3,7 @@ import type { InquirySummary, InquiryDetail, InquiryMessage, InquiryCreateInput 
 import type {
   InquiryCategoryCode,
   InquiryStatusCode,
-  InquirySenderTypeCode,
+  SenderTypeCode,
 } from '@/constants/code.constants'
 
 export const inquiryApi = {
@@ -145,7 +145,7 @@ export const toInquiryDetail = (dto: InquiryDetailDto): InquiryDetail => ({
 const toInquiryMessage = (dto: InquiryMessageDto): InquiryMessage => ({
   messageId: dto.messageId,
   seq: dto.seq,
-  senderType: dto.senderType as InquirySenderTypeCode,
+  senderType: dto.senderType as SenderTypeCode,
   body: dto.body,
   createdAt: new Date(dto.createdAt),
 })
