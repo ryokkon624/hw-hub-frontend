@@ -23,19 +23,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
 
       # 情報レポート（非ブロッキング）: dev 含む全依存の脆弱性を可視化する。
       # ここで出た指摘は backlog に流してトリアージする（ゲートはしない）。
+      # `|| true` で npm audit の exit 1（脆弱性検出）を吸収し、注釈もジョブも赤くしない。
       - name: Audit report (all deps, informational)
-        continue-on-error: true
-        run: npm audit
+        run: npm audit || true
 
       # ハードゲート: 出荷物（本番依存）に critical があれば失敗させる。
       # 現状 critical は 0。将来の混入を確実に止めるための床。
@@ -53,7 +53,7 @@ jobs:
       pull-requests: write # 指摘を PR コメントとして残すため
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 2
