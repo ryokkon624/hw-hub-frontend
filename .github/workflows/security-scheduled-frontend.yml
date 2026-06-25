@@ -1,0 +1,75 @@
+name: security-scheduled-frontend
+
+# セキュリティ強化 Phase 2 / 2a（非同期の定期スキャン）。
+#   - semgrep     … SAST（コード全体の静的解析）→ SARIF を code scanning へ集約
+#   - secret-scan … gitleaks（git 履歴を含むシークレット検知）
+#   - dep-audit   … npm audit 全件（依存の棚卸し・情報レポート）
+#
+# PR ゲートではなく schedule 起動の深掘り検知。検知は code scanning に集約し、
+# トリアージ後に hw-hub-manage へ Issue 化して Sprint backlog に合流させる。
+
+on:
+  schedule:
+    - cron: "0 0 * * 1" # 毎週月曜 00:00 UTC（= 月曜 09:00 JST）
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write # SARIF を code scanning にアップロードするため
+
+jobs:
+  # --- SAST（Semgrep・全コード静的解析） ----------------------------------
+  semgrep:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Semgrep scan (SARIF)
+        # 公開ルールセット（token 不要）。検知してもジョブは落とさず SARIF を出力。
+        run: |
+          python -m pip install --quiet semgrep
+          semgrep scan --config p/security-audit --config p/secrets --config p/typescript \
+            --sarif --output semgrep.sarif || true
+
+      - name: Upload Semgrep SARIF to code scanning
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: semgrep.sarif
+          category: semgrep
+
+  # --- シークレット混入スキャン（gitleaks・履歴含む） ----------------------
+  secret-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: gitleaks (secret scan, history included)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITLEAKS_ENABLE_SUMMARY: "true"
+
+  # --- 依存パッケージの棚卸し（npm audit 全件・情報レポート） ---------------
+  dep-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: npm audit (full inventory, informational)
+        run: npm audit || true
